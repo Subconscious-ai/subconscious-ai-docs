@@ -1,0 +1,1781 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "SuperEgo",
+    "description": "💕SuperEgo API powers Consulting and Product teams to design and run cost-effective, ethical, causal experiments. 🚀 Generative AI for Experimental Design. 👨‍🔬⚗️",
+    "termsOfService": "https://docs.subconscious.ai/support/terms-of-use",
+    "contact": {
+      "name": "Avi Yashchin",
+      "url": "https://www.linkedin.com/in/aviyashchin/",
+      "email": "avi@subconscious.ai"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/Subconscious-ai/PoC/blob/main/LICENSE"
+    },
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/experiments": {
+      "post": {
+        "tags": ["experiments", "experiments"],
+        "summary": "Create Experiment Async",
+        "description": "Create asynchronous experiment.",
+        "operationId": "create_experiment_async_experiments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Experiment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperimentAsyncResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/experiments/dependent-variable": {
+      "post": {
+        "tags": ["experiments", "experiments"],
+        "summary": "Create Dependent Variable",
+        "description": "Args:\n    1. Request body with 1) question type/experiment focus string Enum, and 2) question text string\n    (both from user input on Ideation page).\n\nReturns:\n    Dependent variable string (\"Survey Prompt\" that synthetic respondents will respond to).\n\nPurpose:\n    Generate a dependent variable string,\n    so user can review DV/survey prompt before running experiment.\n    Final DV/survey prompt gets added to experiment object.",
+        "operationId": "create_dependent_variable_experiments_dependent_variable_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DependentVariable"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DependentVariableResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/tasks/{task_id}": {
+      "get": {
+        "tags": ["tasks", "tasks"],
+        "summary": "Get Status",
+        "description": "Get the status of a Celery task.",
+        "operationId": "get_status_tasks__task_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Task Id"
+            },
+            "name": "task_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs": {
+      "post": {
+        "tags": ["runs", "runs"],
+        "summary": "Get Runs",
+        "operationId": "get_runs_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/runs/public-count": {
+      "get": {
+        "tags": ["runs", "runs"],
+        "summary": "Get Public Runs Count",
+        "operationId": "get_public_runs_count_runs_public_count_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/runs/{run_id}": {
+      "get": {
+        "tags": ["runs", "runs"],
+        "summary": "Get Run",
+        "operationId": "get_run_runs__run_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            },
+            "name": "run_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/runs/{run_id}/update_config": {
+      "put": {
+        "tags": ["runs", "runs"],
+        "summary": "Update Config",
+        "description": "Given a run ID (passed as a URL parameter) and a ConfigUpdate (Simple JSON Body, nested withing \"config_update\" key), checks the eligibility of the user to run the\noperation on the config. Only applicable to updating a configuration file for a complete run\n\n:param str run_id: a single run_id as it appears in wandb\n:param UpdateConfig config_update: a JSON with a single key \"config_update\", and value of a JSON where all keys are valid ConfigUpdates.\n\n:return: A JSON response, complete with the full configuration JSON as 'configs' for 200 response",
+        "operationId": "update_config_runs__run_id__update_config_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            },
+            "name": "run_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/runs/artifact/{file_name}": {
+      "get": {
+        "tags": ["runs", "runs"],
+        "summary": "Get Run Artifact",
+        "operationId": "get_run_artifact_runs_artifact__file_name__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "File Name",
+              "type": "string"
+            },
+            "name": "file_name",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/attributes-levels": {
+      "post": {
+        "tags": ["attributes_levels", "attributes_levels"],
+        "summary": "Create Attributes And Levels",
+        "description": "Create attributes and levels for a given idea (why_prompt).\nOptional parameters: num_levels, max_length, model_type, num_attrs, prompt_type",
+        "operationId": "create_attributes_and_levels_attributes_levels_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttributesLevelsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Create Attributes And Levels Attributes Levels Post",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeveledAttributeBase"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/attributes-levels/orthogonal": {
+      "post": {
+        "tags": ["attributes_levels", "attributes_levels"],
+        "summary": "Create Orthogonal Attributes And Levels",
+        "description": "Creates new, independent (orthogonal) attributes and levels that do not intersect with existing ones.\nOptional parameters: number_of_new_attributes, number_of_levels, model_type",
+        "operationId": "create_orthogonal_attributes_and_levels_attributes_levels_orthogonal_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrthogonalAttributesLevelsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Create Orthogonal Attributes And Levels Attributes Levels Orthogonal Post",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeveledAttributeBase"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/attributes": {
+      "post": {
+        "tags": ["attributes_levels", "attributes_levels"],
+        "summary": "Create Attributes",
+        "description": "Create list of attributes for a given idea (why_prompt).\nOptional parameters: num_attributes, prompt_type, model_type",
+        "operationId": "create_attributes_attributes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttributesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Create Attributes Attributes Post",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/levels": {
+      "post": {
+        "tags": ["attributes_levels", "attributes_levels"],
+        "summary": "Create Levels",
+        "description": "Create levels for given attribute(s) of an idea (why_prompt).\nOptional parameters: num_levels, model_type",
+        "operationId": "create_levels_levels_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LevelsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Create Levels Levels Post",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeveledAttributeBase"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/personas": {
+      "get": {
+        "tags": ["personas", "personas"],
+        "summary": "Get Personas",
+        "description": ":param levels_per_trait: Number of levels to create for each trait.\n:param trait_keys: A comma-separated list of valid trait keys to use for generating personas.",
+        "operationId": "get_personas_personas_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Levels Per Trait",
+              "type": "integer"
+            },
+            "name": "levels_per_trait",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Trait Keys",
+              "type": "string"
+            },
+            "name": "trait_keys",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/traits": {
+      "get": {
+        "tags": ["traits", "traits"],
+        "summary": "Get Traits",
+        "description": "gets list of traits from database connection",
+        "operationId": "get_traits_traits_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Traits Traits Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TraitLevel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/stripe/create-checkout-session/": {
+      "post": {
+        "tags": ["stripe", "stripe"],
+        "summary": "Create Checkout Session",
+        "description": "Creates a checkout session for the given price ID.\nCurrently, we have only one product, so we use fixed price ID.",
+        "operationId": "create_checkout_session_stripe_create_checkout_session__post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/stripe/webhook/": {
+      "post": {
+        "tags": ["stripe", "stripe"],
+        "summary": "Stripe Webhook",
+        "description": "Handles Stripe webhook events optimally by acknowledging the event immediately\nand processing it asynchronously.",
+        "operationId": "stripe_webhook_stripe_webhook__post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/copilot/check-causality": {
+      "post": {
+        "tags": ["copilot", "copilot"],
+        "summary": "Check Causality",
+        "description": "Check whether an idea is causal or not.\nOptional parameter model_type is used to specify the model to use for the check.\nReturns a JSON object with the following structure:\n{\n    \"is_causal\": bool,\n    \"suggestions\": list[str, str, str] - rephrased of the original idea into a causal idea\n}",
+        "operationId": "check_causality_copilot_check_causality_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Why Prompt",
+              "type": "string"
+            },
+            "name": "why_prompt",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ModelType"
+                }
+              ],
+              "default": "gpt3"
+            },
+            "name": "model_type",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CausalityResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/copilot/check-moderation": {
+      "post": {
+        "tags": ["copilot", "copilot"],
+        "summary": "Moderate",
+        "description": "Checks whether an idea complies with our content policy and provides reasons if it doesn't.",
+        "operationId": "moderate_copilot_check_moderation_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Why Prompt",
+              "type": "string"
+            },
+            "name": "why_prompt",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/analytics/{run_id}/amce": {
+      "get": {
+        "tags": ["analytics", "analytics"],
+        "summary": "Get Amce",
+        "description": "Get AMCE for a given run_id",
+        "operationId": "get_amce_analytics__run_id__amce_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            },
+            "name": "run_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/analytics/{run_id}/execute": {
+      "post": {
+        "tags": ["analytics", "analytics"],
+        "summary": "Run Async Analytics",
+        "operationId": "run_async_analytics_analytics__run_id__execute_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            },
+            "name": "run_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/analytics/{hb_id}/showcase": {
+      "get": {
+        "tags": ["analytics", "analytics"],
+        "summary": "Get Showcase",
+        "description": "Get Showcase for a given Human Baseline ID",
+        "operationId": "get_showcase_analytics__hb_id__showcase_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Hb Id",
+              "type": "string"
+            },
+            "name": "hb_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "tags": ["main"],
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ping-worker": {
+      "post": {
+        "tags": ["main"],
+        "summary": "Run Task",
+        "operationId": "run_task_ping_worker_post",
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sentry-debug": {
+      "get": {
+        "tags": ["main"],
+        "summary": "Trigger Error",
+        "operationId": "trigger_error_sentry_debug_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttributesLevelsRequest": {
+        "title": "AttributesLevelsRequest",
+        "required": ["idea"],
+        "type": "object",
+        "properties": {
+          "idea": {
+            "title": "Idea",
+            "type": "string"
+          },
+          "prompt_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptType"
+              }
+            ],
+            "default": "product"
+          },
+          "num_attrs": {
+            "title": "Num Attrs",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "type": "integer",
+            "default": 4
+          },
+          "num_levels": {
+            "title": "Num Levels",
+            "maximum": 10.0,
+            "minimum": 2.0,
+            "type": "integer",
+            "default": 4
+          },
+          "max_length": {
+            "title": "Max Length",
+            "maximum": 80.0,
+            "minimum": 40.0,
+            "type": "integer",
+            "default": 40
+          },
+          "model_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelType"
+              }
+            ],
+            "default": "gpt4"
+          }
+        },
+        "description": "Pydantic model for a request to create levels for attributes.",
+        "example": {
+          "idea": "I would like to design a new electric car for the American markets",
+          "prompt_type": "product",
+          "num_attrs": 4,
+          "num_levels": 4,
+          "max_length": 40,
+          "model_type": "gpt4"
+        }
+      },
+      "AttributesRequest": {
+        "title": "AttributesRequest",
+        "required": ["why_prompt"],
+        "type": "object",
+        "properties": {
+          "why_prompt": {
+            "title": "Why Prompt",
+            "type": "string"
+          },
+          "prompt_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptType"
+              }
+            ],
+            "default": "generic"
+          },
+          "num_attributes": {
+            "title": "Num Attributes",
+            "maximum": 10.0,
+            "minimum": 2.0,
+            "type": "integer",
+            "default": 4
+          },
+          "model_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelType"
+              }
+            ],
+            "default": "gpt3"
+          }
+        },
+        "example": {
+          "why_prompt": "I would like to design a new electric car for the American markets",
+          "prompt_type": "generic",
+          "num_attributes": 4,
+          "model_type": "gpt3"
+        }
+      },
+      "CausalityResponse": {
+        "title": "CausalityResponse",
+        "required": ["is_causal"],
+        "type": "object",
+        "properties": {
+          "is_causal": {
+            "title": "Is Causal",
+            "type": "boolean",
+            "description": "Whether the idea is causal or not"
+          },
+          "suggestions": {
+            "title": "Suggestions",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of rephrased versions of the original idea into a causal format, if the original idea is not causal. Base your suggestions on human decisions."
+          }
+        }
+      },
+      "DependentVariable": {
+        "title": "DependentVariable",
+        "required": ["question_text"],
+        "type": "object",
+        "properties": {
+          "question_type": {
+            "title": "Question Type",
+            "type": "string",
+            "default": "generic"
+          },
+          "question_text": {
+            "title": "Question Text",
+            "type": "string"
+          }
+        }
+      },
+      "DependentVariableResponse": {
+        "title": "DependentVariableResponse",
+        "required": ["dependent_variable"],
+        "type": "object",
+        "properties": {
+          "dependent_variable": {
+            "title": "Dependent Variable",
+            "type": "string"
+          }
+        }
+      },
+      "Experiment": {
+        "title": "Experiment",
+        "type": "object",
+        "properties": {
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "default": ""
+          },
+          "random_seed": {
+            "title": "Random Seed",
+            "type": "integer",
+            "default": 0
+          },
+          "experiment_model_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelType"
+              }
+            ],
+            "default": "gpt3"
+          },
+          "dependent_variable_model_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelType"
+              }
+            ],
+            "default": "gpt3"
+          },
+          "levels_model_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelType"
+              }
+            ],
+            "default": "gpt3"
+          },
+          "use_api": {
+            "title": "Use Api",
+            "type": "boolean",
+            "default": true
+          },
+          "use_threading": {
+            "title": "Use Threading",
+            "type": "boolean",
+            "default": true
+          },
+          "use_batching": {
+            "title": "Use Batching",
+            "type": "boolean",
+            "default": true
+          },
+          "is_private": {
+            "title": "Is Private",
+            "type": "boolean",
+            "default": false
+          },
+          "attribute_prompt_version": {
+            "title": "Attribute Prompt Version",
+            "type": "number",
+            "default": 0.1
+          },
+          "levels_prompt_version": {
+            "title": "Levels Prompt Version",
+            "type": "number",
+            "default": 0.1
+          },
+          "task_prompt_version": {
+            "title": "Task Prompt Version",
+            "type": "number",
+            "default": 0.1
+          },
+          "scenarios_prompt": {
+            "title": "Scenarios Prompt",
+            "type": "string",
+            "default": "Option A: {scenario_a_text}.\nOption B: {scenario_b_text}.\nOption C: Neither of these."
+          },
+          "prompt_preamble": {
+            "title": "Prompt Preamble",
+            "type": "string",
+            "default": "Respondent Characteristics: Imagine you are a human with the following characteristics - {persona} {respondent_instructions_preamble}\nInstructions: Respond to a {question_type} Question about {experimentor_why_question_prompt}\nConsider Options A, B and C in the {question_type} Question below. {respondent_dependent_variable} Please  respond with a single letter only: A, B or C."
+          },
+          "prompt": {
+            "title": "Prompt",
+            "type": "string",
+            "default": "Respondent Instructions: Imagine you are a human with the following characteristics - {persona} Imagine you live in {where_preamble} in {when_preamble}. \nInstructions: Respond to a questionnaire about {experimentor_why_question_prompt} \nConsider Options A, B and C in the Questionnaire below. {respondent_dependent_variable}. Please respond with a single letter only: A, B or C. \n\nQuestionnaire:\n{scenarios_text}\nResponse: I choose option"
+          },
+          "experiment_size": {
+            "title": "Experiment Size",
+            "type": "integer",
+            "default": 15
+          },
+          "max_length": {
+            "title": "Max Length",
+            "type": "integer",
+            "default": 40
+          },
+          "number_of_respondents": {
+            "title": "Number Of Respondents",
+            "type": "integer"
+          },
+          "number_of_tasks_per_respondent": {
+            "title": "Number Of Tasks Per Respondent",
+            "type": "integer",
+            "default": 10
+          },
+          "number_of_attributes": {
+            "title": "Number Of Attributes",
+            "maximum": 10.0,
+            "minimum": 2.0,
+            "type": "integer",
+            "default": 4
+          },
+          "number_of_levels": {
+            "title": "Number Of Levels",
+            "maximum": 15.0,
+            "minimum": 2.0,
+            "type": "integer",
+            "default": 4
+          },
+          "pre_cooked_attributes_and_levels_lookup": {
+            "title": "Pre Cooked Attributes And Levels Lookup",
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            "default": []
+          },
+          "levels_per_trait": {
+            "title": "Levels Per Trait",
+            "type": "integer",
+            "default": 100
+          },
+          "null_levels": {
+            "title": "Null Levels",
+            "type": "boolean",
+            "default": true
+          },
+          "total_number_of_tasks": {
+            "title": "Total Number Of Tasks",
+            "type": "integer",
+            "default": 0
+          },
+          "confidence_level": {
+            "title": "Confidence Level",
+            "type": "string",
+            "default": "Low"
+          },
+          "keep_inconsistent_answers": {
+            "title": "Keep Inconsistent Answers",
+            "type": "boolean",
+            "default": false
+          },
+          "add_neither_option": {
+            "title": "Add Neither Option",
+            "type": "boolean",
+            "default": true
+          },
+          "use_fully_randomized_design": {
+            "title": "Use Fully Randomized Design",
+            "type": "boolean",
+            "default": true
+          },
+          "add_price_and_brand_attributes": {
+            "title": "Add Price And Brand Attributes",
+            "type": "boolean",
+            "default": false
+          },
+          "personas": {
+            "title": "Personas",
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array",
+                "items": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "default": {}
+          },
+          "personas_full_string_definition": {
+            "title": "Personas Full String Definition",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "all_combinations_index": {
+            "title": "All Combinations Index",
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "default": [[""]]
+          },
+          "population_traits": {
+            "title": "Population Traits",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": ["age", "income", "educational attainment", "profession"]
+          },
+          "respondent_dependent_variable": {
+            "title": "Respondent Dependent Variable",
+            "type": "string",
+            "default": ""
+          },
+          "respondent_instructions_preamble": {
+            "title": "Respondent Instructions Preamble",
+            "type": "string",
+            "default": ""
+          },
+          "experimentor_why_question_type": {
+            "title": "Experimentor Why Question Type",
+            "type": "string",
+            "default": "generic"
+          },
+          "experimentor_why_question_prompt": {
+            "title": "Experimentor Why Question Prompt",
+            "type": "string",
+            "default": ""
+          },
+          "where_preamble": {
+            "title": "Where Preamble",
+            "type": "string",
+            "default": "United States"
+          },
+          "when_preamble": {
+            "title": "When Preamble",
+            "type": "string",
+            "default": "2021"
+          },
+          "current_preamble": {
+            "title": "Current Preamble",
+            "type": "string",
+            "default": ""
+          },
+          "hb_run_id": {
+            "title": "Hb Run Id",
+            "type": "string",
+            "default": ""
+          },
+          "paper_data": {
+            "title": "Paper Data",
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "number_of_attributes": 2,
+          "number_of_levels": 6,
+          "pre_cooked_attributes_and_levels_lookup": [
+            [
+              "Will this car have advanced safety features?",
+              [
+                "Advanced airbag system to protect passengers",
+                "Lane keep assist to prevent drifting into other lanes"
+              ]
+            ],
+            [
+              "What range and charging time will this car offer",
+              [
+                "Up to 500 miles range, featuring a revolutionary battery system that charges in 45 minutes",
+                "200 miles range with a robust charging infrastructure for recharging in 15 minutes"
+              ]
+            ]
+          ],
+          "population_traits": [
+            "educational attainment",
+            "english language ability"
+          ],
+          "where_preamble": "United States",
+          "when_preamble": "2023",
+          "experimentor_why_question_type": "generic",
+          "experimentor_why_question_prompt": "I would like to design a new electric car for the American markets",
+          "number_of_respondents": 75,
+          "number_of_tasks_per_respondent": 10,
+          "experiment_model_type": "gpt3",
+          "dependent_variable_model_type": "gpt3",
+          "levels_model_type": "gpt3",
+          "levels_per_trait": 2,
+          "null_levels": true,
+          "max_length": 40,
+          "add_price_and_brand_attributes": false,
+          "hb_run_id": "",
+          "paper_data": [],
+          "is_private": false
+        }
+      },
+      "ExperimentAsyncResponse": {
+        "title": "ExperimentAsyncResponse",
+        "required": ["wandb_run_id", "wandb_run_name"],
+        "type": "object",
+        "properties": {
+          "wandb_run_id": {
+            "title": "Wandb Run Id",
+            "type": "string"
+          },
+          "wandb_run_name": {
+            "title": "Wandb Run Name",
+            "type": "string"
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "LeveledAttribute": {
+        "title": "LeveledAttribute",
+        "required": ["attribute", "levels"],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "title": "Attribute",
+            "type": "string"
+          },
+          "levels": {
+            "title": "Levels",
+            "maxItems": 15,
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Notes:\n# 1: Remember the brands and price attributes when setting ranges.\n# 2: GPT3 sometimes generates more or less than required, so the range should be flexible by 2-3."
+      },
+      "LeveledAttributeBase": {
+        "title": "LeveledAttributeBase",
+        "required": ["attribute", "levels"],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "title": "Attribute",
+            "type": "string"
+          },
+          "levels": {
+            "title": "Levels",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "LevelsRequest": {
+        "title": "LevelsRequest",
+        "required": ["why_prompt", "attributes"],
+        "type": "object",
+        "properties": {
+          "why_prompt": {
+            "title": "Why Prompt",
+            "type": "string"
+          },
+          "attributes": {
+            "title": "Attributes",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "num_levels": {
+            "title": "Num Levels",
+            "maximum": 10.0,
+            "minimum": 2.0,
+            "type": "integer",
+            "default": 4
+          },
+          "model_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelType"
+              }
+            ],
+            "default": "gpt3"
+          }
+        },
+        "example": {
+          "why_prompt": "I would like to design a new electric car for the American markets",
+          "attributes": ["Battery Range per Charge", "Vehicle Warranty"],
+          "num_levels": 4,
+          "model_type": "gpt3"
+        }
+      },
+      "ModelType": {
+        "title": "ModelType",
+        "enum": [
+          "gpt3",
+          "gpt4",
+          "cohere",
+          "llama",
+          "mistral",
+          "gpt3-instruct",
+          "claude",
+          "opus",
+          "sonnet",
+          "haiku"
+        ],
+        "type": "string",
+        "description": "Enum representing the llm model types used in the experiments."
+      },
+      "OrthogonalAttributesLevelsRequest": {
+        "title": "OrthogonalAttributesLevelsRequest",
+        "required": ["why_prompt", "existing_attributes_levels"],
+        "type": "object",
+        "properties": {
+          "why_prompt": {
+            "title": "Why Prompt",
+            "type": "string"
+          },
+          "existing_attributes_levels": {
+            "title": "Existing Attributes Levels",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LeveledAttribute"
+            }
+          },
+          "number_of_new_attributes": {
+            "title": "Number Of New Attributes",
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "type": "integer",
+            "default": 4
+          },
+          "number_of_levels": {
+            "title": "Number Of Levels",
+            "maximum": 5.0,
+            "minimum": 2.0,
+            "type": "integer",
+            "default": 3
+          },
+          "model_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelType"
+              }
+            ],
+            "default": "gpt3"
+          }
+        },
+        "description": "Pydantic model for a request to create more, new, orthogonal levels for attributes.",
+        "example": {
+          "why_prompt": "I would like to design a new electric car for the American markets",
+          "existing_attributes_levels": [
+            {
+              "attribute": "Battery Range per Charge",
+              "levels": [
+                "Less than 150 miles",
+                "150 to 250 miles",
+                "250 to 350 miles",
+                "350 to 450 miles",
+                "More than 450 miles"
+              ]
+            },
+            {
+              "attribute": "Vehicle Warranty",
+              "levels": [
+                "3 years or 36,000 miles",
+                "4 years or 50,000 miles",
+                "5 years or 60,000 miles",
+                "6 years or 70,000 miles",
+                "7 years or 100,000 miles"
+              ]
+            }
+          ],
+          "number_of_new_attributes": 4,
+          "number_of_levels": 3,
+          "model_type": "gpt3"
+        }
+      },
+      "PromptType": {
+        "title": "PromptType",
+        "enum": ["generic", "service", "product", "experience", "policy"],
+        "type": "string",
+        "description": "Enum representing the type of prompts used in experiment designs."
+      },
+      "RunRequest": {
+        "title": "RunRequest",
+        "required": ["filters"],
+        "type": "object",
+        "properties": {
+          "filters": {
+            "title": "Filters",
+            "type": "object"
+          }
+        },
+        "example": {
+          "filters": {
+            "created_at": {
+              "$gt": "2024-03-31T16:20:26.890746",
+              "$lte": "2024-04-01T16:20:26.890766"
+            },
+            "config.user": {
+              "$eq": "user_id e.g. auth0|1234567890"
+            }
+          }
+        }
+      },
+      "TraitLevel": {
+        "title": "TraitLevel",
+        "required": [
+          "id",
+          "set_type",
+          "type",
+          "measurement_type",
+          "ordinal_rank",
+          "short_description",
+          "long_description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "set_type": {
+            "title": "Set Type",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "measurement_type": {
+            "title": "Measurement Type",
+            "type": "string"
+          },
+          "ordinal_rank": {
+            "title": "Ordinal Rank",
+            "type": "integer"
+          },
+          "short_description": {
+            "title": "Short Description",
+            "type": "string"
+          },
+          "long_description": {
+            "title": "Long Description",
+            "type": "string"
+          }
+        }
+      },
+      "UpdateConfig": {
+        "title": "UpdateConfig",
+        "required": ["config_update"],
+        "type": "object",
+        "properties": {
+          "config_update": {
+            "title": "Config Update",
+            "type": "object"
+          }
+        },
+        "example": {
+          "config_update": {
+            "toggle_privacy": true
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": ["loc", "msg", "type"],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "experiments",
+      "description": "🧪👨‍🔬⚗️Run a novel experiment using attributes, levels, traits, dependent variables, preambles, and personas and place results in a run.",
+      "externalDocs": {
+        "description": "Description of the Experiment Request Body fields",
+        "url": "https://app.gitbook.com/o/jadOkacqKTkHvAmKDCti/s/RPAuLvXI0lCcTz39j3BR/repositories/backend/how-to-run-an-experiment/experiment-request-body-fields"
+      }
+    },
+    {
+      "name": "attributes_levels",
+      "description": "**What**. 📙Attributes and levels are the features of a product. Input: a question about human behavior and list of attributes (optional). Output: A list of  attributes and levels for each attribute that are relevant to that decision. Field(min_items=2, max_items=15)"
+    },
+    {
+      "name": "traits",
+      "description": "**Why**. 🔬Causal factors that influence a person's decision. Output:Return a list of persona traits that are available to subconscious.ai users."
+    },
+    {
+      "name": "personas",
+      "description": "**Who**. 👪Who is the respondent? A respondent is made up of traits. Input: levels_per_trait - the number of levels of persona traits we would like to return per trait. trait_keys: a comma separated list of traits from the /traits endpoint. Output: Return a list of persona traits that are available to subconscious.ai users."
+    },
+    {
+      "name": "runs",
+      "description": "📈Contains the experimental design + Experiment Results from WANDB."
+    },
+    {
+      "name": "analytics",
+      "description": "📊Contains the analytics of the experiment."
+    },
+    {
+      "name": "copilot",
+      "description": "🤖Copilot is a tool that helps you design better experiments by checking causal assumptions and providing suggestions."
+    },
+    {
+      "name": "stripe",
+      "description": "💳Stripe API endpoints for payment processing."
+    },
+    {
+      "name": "tasks",
+      "description": "📝Status of celery tasks."
+    }
+  ]
+}
