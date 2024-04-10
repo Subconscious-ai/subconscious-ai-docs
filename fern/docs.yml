@@ -1,34 +1,32 @@
 instances:
-  - url: petstore-openapi.docs.buildwithfern.com
+  - url: subconscious-ai.docs.buildwithfern.com
 
 navigation:
   - section: Get Started
     contents: 
-      - page: Welcome
+      - page: Welcome to Subconscious.ai
         path: ./docs/pages/welcome.mdx
-      - page: Concepts
-        path: ./docs/pages/concepts.mdx
-      - page: SDKs
-        path: ./docs/pages/sdks.mdx
-        slug: sdks
   - api: API Reference
 
 navbar-links: 
   - type: secondary
-    text: Get support
-    url: "mailto:support@buildwithfern.com"
+    text: Login
+    url: https://www.subconscious.ai/api/auth/login
   - type: primary
-    text: Get a Demo
-    url: https://buildwithfern.com/contact
+    text: Join the Waitlist
+    url: https://wf371uu1w6g.typeform.com/to/Tob1gFLA?typeform-source=www.subconscious.ai
 
 colors:
   accentPrimary:
-    dark: "#f0c193"
-    light: "#af5f1b"
+    dark: "#7ce0e2"
+  background: 
+    dark: "#060b19"
+
+layout:
+  searchbar-placement: header
 
 logo:
-  dark: ./docs/assets/logo-dark-mode.png
-  light: ./docs/assets/logo-light-mode.png
-  height: 160
+  dark: ./docs/assets/logo-dark.png
+  height: 40
 
-favicon: ./docs/assets/favicon.png
+favicon: ./docs/assets/favicon.ico
