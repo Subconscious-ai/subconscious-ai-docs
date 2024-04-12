@@ -1,5 +1,5 @@
 instances:
-  - url: subconscious-ai.docs.buildwithfern.com
+  - url: subconscious.docs.buildwithfern.com
 
 title: Subconscious AI | Docs
 
@@ -15,14 +15,14 @@ navigation:
   - tab: docs
     layout:
       - section: Get Started
-        contents: 
+        contents:
           - page: Welcome to Subconscious.ai
             path: ./docs/pages/welcome.mdx
   - tab: api
     layout:
       - api: API Reference
 
-navbar-links: 
+navbar-links:
   - type: secondary
     text: Login
     url: https://www.subconscious.ai/api/auth/login
@@ -33,7 +33,7 @@ navbar-links:
 colors:
   accentPrimary:
     dark: "#81b8f5"
-  background: 
+  background:
     dark: "#060b19"
 
 layout:
