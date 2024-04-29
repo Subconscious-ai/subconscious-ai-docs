@@ -32,15 +32,15 @@ navbar-links:
 
 colors:
   accentPrimary:
-    dark: "#81b8f5"
+    dark: "#8E9BE9"
   background:
-    dark: "#060b19"
+    dark: "#212336"
 
 layout:
   searchbar-placement: header
 
 logo:
   dark: ./docs/assets/logo-dark.png
-  height: 40
+  height: 32
 
 favicon: ./docs/assets/favicon.ico
