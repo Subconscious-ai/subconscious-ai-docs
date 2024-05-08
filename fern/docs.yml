@@ -1,5 +1,6 @@
 instances:
   - url: subconscious.docs.buildwithfern.com
+    custom-domain: docs.subconscious.ai
 
 title: Subconscious AI | Docs
 
