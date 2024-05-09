@@ -22,7 +22,8 @@ navigation:
   - tab: api
     layout:
       - api: API Reference
-
+        audiences:
+          - public
 
 navbar-links:
   - type: secondary
