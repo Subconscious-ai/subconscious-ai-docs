@@ -900,7 +900,7 @@
         ]
       }
     },
-    "/": {
+    "": {
       "get": {
         "tags": ["main"],
         "summary": "Root",
