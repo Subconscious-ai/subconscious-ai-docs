@@ -625,47 +625,7 @@
         ]
       }
     },
-    "/stripe/create-checkout-session/": {
-      "post": {
-        "tags": ["stripe", "stripe"],
-        "summary": "Create Checkout Session",
-        "description": "Creates a checkout session for the given price ID.\nCurrently, we have only one product, so we use fixed price ID.",
-        "operationId": "create_checkout_session_stripe_create_checkout_session__post",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ]
-      }
-    },
-    "/stripe/webhook/": {
-      "post": {
-        "tags": ["stripe", "stripe"],
-        "summary": "Stripe Webhook",
-        "description": "Handles Stripe webhook events optimally by acknowledging the event immediately\nand processing it asynchronously.",
-        "operationId": "stripe_webhook_stripe_webhook__post",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
+
     "/copilot/check-causality": {
       "post": {
         "tags": ["copilot", "copilot"],
