@@ -19,6 +19,10 @@ navigation:
         contents:
           - page: Welcome to Subconscious.ai
             path: ./docs/pages/welcome.mdx
+      - section: Reference Implementation
+        contents:
+          - page: Reference Implementation
+            path: ./docs/pages/getting_started.mdx
   - tab: api
     layout:
       - api: API Reference
