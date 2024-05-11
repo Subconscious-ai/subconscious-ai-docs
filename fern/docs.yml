@@ -11,6 +11,10 @@ tabs:
   api:
     display-name: Dashboard API
     icon: "fa-duotone fa-webhook"
+  newapi:
+    display-name: Build a new API
+    icon: "fa-duotone fa-lightbulb"
+    href: ""
 
 navigation:
   - tab: docs
@@ -25,6 +29,8 @@ navigation:
   - tab: api
     layout:
       - api: API Reference
+
+  - tab: newapi
 
 
 navbar-links:
