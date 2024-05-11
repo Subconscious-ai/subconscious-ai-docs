@@ -5,6 +5,9 @@ instances:
 title: Subconscious AI | Docs
 
 tabs:
+  about:
+    display-name: Wiki
+    icon: "fa-duoton fa-star"
   docs:
     display-name: Documentation
     icon: "fa-duotone fa-book-open"
@@ -17,6 +20,16 @@ tabs:
     href: ""
 
 navigation:
+  - tab: about
+    layout:
+      - section: About Us
+        contents:
+          - page: Our Team
+            path: ./docs/pages/our_team.mdx
+
+          - page: Our Roadmap
+            path: ./docs/pages/road_map.mdx
+
   - tab: docs
     layout:
       - section: Get Started
