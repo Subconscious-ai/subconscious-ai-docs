@@ -42,7 +42,7 @@ navigation:
           path: ./docs/pages/product/experiment_result_performance.mdx
 
         - page: Experiment Showcase
-          path: ./docs/pages/product/experiment_result_showcase.mdx
+          path: ./docs/pages/product/experiment_performance_showcase.mdx
 
   - tab: docs
     layout:
