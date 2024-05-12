@@ -15,7 +15,7 @@ tabs:
     display-name: Dashboard API
     icon: "fa-duotone fa-webhook"
   newapi:
-    display-name: Build a new API
+    display-name: Build a new feature
     icon: "fa-duotone fa-lightbulb"
     href: ""
 
@@ -29,6 +29,20 @@ navigation:
 
           - page: Our Roadmap
             path: ./docs/pages/road_map.mdx
+      
+      - section: Product
+        contents:
+        - page: Feature Request/Bug Report
+          path: ./docs/pages/product/feature_bug.mdx
+
+        - page: How We Compare Results
+          path: ./docs/pages/product/compare_result.mdx
+
+        - page: Experiment Performance
+          path: ./docs/pages/product/experiment_result_performance.mdx
+
+        - page: Experiment Showcase
+          path: ./docs/pages/product/experiment_performance_showcase.mdx
 
   - tab: docs
     layout:
