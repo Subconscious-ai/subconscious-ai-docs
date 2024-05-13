@@ -1690,10 +1690,7 @@
       }
     },
     "securitySchemes": {
-      "HTTPBearer": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+
     }
   },
   "tags": [
