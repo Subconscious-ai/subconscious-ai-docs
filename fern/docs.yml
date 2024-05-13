@@ -46,7 +46,20 @@ navigation:
 
         - page: FAQ
           path: ./docs/pages/product/FAQ.mdx
-        
+      
+      - section: Support
+        contents:
+        - page: Careers
+          path: ./docs/pages/support/careers.mdx
+
+        - page: Contact
+          path: ./docs/pages/support/contact.mdx
+
+        - page: Terms of Use
+          path: ./docs/pages/support/terms.mdx      
+
+        - page: Privacy Policy
+          path: ./docs/pages/support/pp.mdx
 
   - tab: docs
     layout:
