@@ -7,7 +7,7 @@ title: Subconscious AI | Docs
 tabs:
   about:
     display-name: Wiki
-    icon: "fa-duoton fa-star"
+    icon: "fa-duotone fa-star"
   docs:
     display-name: Documentation
     icon: "fa-duotone fa-book-open"
