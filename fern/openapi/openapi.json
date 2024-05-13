@@ -56,7 +56,7 @@
         },
         "security": [
           {
-            "HTTPBearer": []
+            "HTTPBearer": ["ABCD"]
           }
         ]
       }
