@@ -56,7 +56,7 @@
         },
         "security": [
           {
-            "HTTPBearer": ["ABCD"]
+            "HTTPBearer": []
           }
         ]
       }
@@ -1688,12 +1688,7 @@
           }
         }
       }
-    },
-    "securitySchemes": {
-      "HTTPBearer": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    }
     }
   },
   "tags": [
