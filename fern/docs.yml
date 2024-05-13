@@ -41,8 +41,47 @@ navigation:
         - page: Experiment Performance
           path: ./docs/pages/product/experiment_result_performance.mdx
 
-        - page: Experiment Showcase
-          path: ./docs/pages/product/experiment_performance_showcase.mdx
+        - section: Experiment Showcase
+          contents: 
+          - page: Introduction
+            path: ./docs/pages/product/experiment_performance_showcase.mdx
+
+          - page: Hainmueller (Immigration Policy)
+            path: ./docs/pages/showcase/Hainmueller.mdx
+          
+          - page: Kreps (COVID Vaccine Acceptance)
+            path: ./docs/pages/showcase/Kreps.mdx
+
+          - page: Skreli (Organic Tomatoes Product Design)
+            path: ./docs/pages/showcase/Skreli.mdx
+
+          - page: Duch (COVID Vaccine Acceptance)
+            path: ./docs/pages/showcase/Dutch.mdx
+
+          - page: Wu (Subcompact Car Product Design)
+            path: ./docs/pages/showcase/Wu.mdx
+
+          - page: Bechtel (International Carbon Tax Policy for Environmental Mitigation)
+            path: ./docs/pages/showcase/Netchel.mdx
+
+          - page: Adam (Patient Preferences in Complementary and Conventional Medicine)
+            path: ./docs/pages/showcase/Adam.mdx
+
+          - page: Rao (Rural Clinician Scarcity and Job Preferences)
+            path: ./docs/pages/showcase/Rao.mdx
+
+          - page: Ares (Yogurt Consumer Choice)
+            path: ./docs/pages/showcase/Ares.mdx
+
+          - page: Adida (Immigration Policy)
+            path: ./docs/pages/showcase/Adida.mdx
+
+          - page: Claret (Consumer Choice for Fish)
+            path: ./docs/pages/showcase/Claret.mdx
+
+          - page: Luthi (Wind Energy Policy)
+            path: ./docs/pages/showcase/Luthi.mdx
+
 
         - page: FAQ
           path: ./docs/pages/product/FAQ.mdx
