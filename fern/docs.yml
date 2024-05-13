@@ -44,6 +44,10 @@ navigation:
         - page: Experiment Showcase
           path: ./docs/pages/product/experiment_performance_showcase.mdx
 
+        - page: FAQ
+          path: ./docs/pages/product/FAQ.mdx
+        
+
   - tab: docs
     layout:
       - section: Get Started
