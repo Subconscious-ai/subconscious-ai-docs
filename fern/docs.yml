@@ -17,7 +17,7 @@ tabs:
   newapi:
     display-name: Build a new feature
     icon: "fa-duotone fa-lightbulb"
-    href: ""
+    href: "https://subconscious.ideas.aha.io/"
 
 navigation:
   - tab: about
