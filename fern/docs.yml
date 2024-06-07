@@ -47,40 +47,40 @@ navigation:
             path: ./docs/pages/product/experiment_performance_showcase.mdx
 
           - page: Hainmueller (Immigration Policy)
-            path: ./docs/pages/showcase/Hainmueller.mdx
+            path: ./docs/pages/product/showcase/Hainmueller.mdx
           
           - page: Kreps (COVID Vaccine Acceptance)
-            path: ./docs/pages/showcase/Kreps.mdx
+            path: ./docs/pages/product/showcase/Kreps.mdx
 
           - page: Skreli (Organic Tomatoes Product Design)
-            path: ./docs/pages/showcase/Skreli.mdx
+            path: ./docs/pages/product/showcase/Skreli.mdx
 
           - page: Duch (COVID Vaccine Acceptance)
-            path: ./docs/pages/showcase/Dutch.mdx
+            path: ./docs/pages/product/showcase/Dutch.mdx
 
           - page: Wu (Subcompact Car Product Design)
-            path: ./docs/pages/showcase/Wu.mdx
+            path: ./docs/pages/product/showcase/Wu.mdx
 
           - page: Bechtel (International Carbon Tax Policy for Environmental Mitigation)
-            path: ./docs/pages/showcase/Netchel.mdx
+            path: ./docs/pages/product/showcase/Netchel.mdx
 
           - page: Adam (Patient Preferences in Complementary and Conventional Medicine)
-            path: ./docs/pages/showcase/Adam.mdx
+            path: ./docs/pages/product/showcase/Adam.mdx
 
           - page: Rao (Rural Clinician Scarcity and Job Preferences)
-            path: ./docs/pages/showcase/Rao.mdx
+            path: ./docs/pages/product/showcase/Rao.mdx
 
           - page: Ares (Yogurt Consumer Choice)
-            path: ./docs/pages/showcase/Ares.mdx
+            path: ./docs/pages/product/showcase/Ares.mdx
 
           - page: Adida (Immigration Policy)
-            path: ./docs/pages/showcase/Adida.mdx
+            path: ./docs/pages/product/showcase/Adida.mdx
 
           - page: Claret (Consumer Choice for Fish)
-            path: ./docs/pages/showcase/Claret.mdx
+            path: ./docs/pages/product/showcase/Claret.mdx
 
           - page: Luthi (Wind Energy Policy)
-            path: ./docs/pages/showcase/Luthi.mdx
+            path: ./docs/pages/product/showcase/Luthi.mdx
 
 
         - page: FAQ
