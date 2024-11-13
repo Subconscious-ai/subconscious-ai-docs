@@ -5,9 +5,6 @@ instances:
 title: Subconscious AI | Docs
 
 tabs:
-  about:
-    display-name: Wiki
-    icon: "fa-duotone fa-star"
   docs:
     display-name: Documentation
     icon: "fa-duotone fa-book-open"
@@ -20,7 +17,7 @@ tabs:
     href: "https://subconscious.ideas.aha.io/"
 
 navigation:
-  - tab: about
+  - tab: docs
     layout:
       - section: About Us
         contents:
@@ -29,7 +26,37 @@ navigation:
 
           - page: Our Roadmap
             path: ./docs/pages/road_map.mdx
+
+      - section: Get Started
+        contents:
+          - page: Welcome to Subconscious.ai
+            path: ./docs/pages/welcome.mdx
+
+          - page: Reference Implementation
+            path: ./docs/pages/getting_started.mdx
       
+      - section: Knowledge Base
+        contents:
+          - page: Dashboard
+            path: ./docs/pages/knowledge_base/dashboard.mdx
+
+          - page: Run an experiment
+            path: ./docs/pages/knowledge_base/run_an_exp.mdx
+
+          - subsection: Advanced Tutorials
+            contents:
+              - page: Goal-Based Programming
+                path: ./docs/pages/tutorial/goal.mdx
+
+              - page: Experiment Replication
+                path: ./docs/pages/tutorial/exp_replication.mdx
+
+              - page: Research Programming
+                path: ./docs/pages/tutorial/research_prgramming.mdx
+
+              - page: Embedding the Platform Programming
+                path: ./docs/pages/tutorial/embedding.mdx
+
       - section: Product
         contents:
         - page: Feature Request/Bug Report
@@ -100,15 +127,6 @@ navigation:
         - page: Privacy Policy
           path: ./docs/pages/support/pp.mdx
 
-  - tab: docs
-    layout:
-      - section: Get Started
-        contents:
-          - page: Welcome to Subconscious.ai
-            path: ./docs/pages/welcome.mdx
-
-          - page: Reference Implementation
-            path: ./docs/pages/getting_started.mdx
   - tab: api
     layout:
       - api: API Reference
