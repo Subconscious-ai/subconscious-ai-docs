@@ -30,6 +30,47 @@ navigation:
           - page: Our Roadmap
             path: ./docs/pages/road_map.mdx
       
+      - section: Get Started
+        contents:
+          - page: Welcome to Subconscious.ai
+            path: ./docs/pages/welcome.mdx
+
+          - page: Reference Implementation
+            path: ./docs/pages/getting_started.mdx
+      
+      - section: Knowledge Base
+        contents:
+          - page: Getting Started
+            path: ./docs/pages/knowledge_base/getting_started.mdx
+          
+          - page: Dashboard
+            path: ./docs/pages/knowledge_base/dashboard.mdx
+
+          - page: Run An Experiment
+            path: ./docs/pages/knowledge_base/run_an_exp.mdx
+
+          - page: Experiment Results
+            path: ./docs/pages/knowledge_base/experiment_results.mdx
+          
+          - page: Further Personalize Results
+            path: ./docs/pages/knowledge_base/personalize.mdx
+      
+      - section: Advanced Tutorials
+        contents:
+          - page: Goal-Based Programming
+            path: ./docs/pages/tutorial/goal.mdx
+
+          - page: Experiment Replication
+            path: ./docs/pages/tutorial/exp_replication.mdx
+
+          - page: Research Programming
+            path: ./docs/pages/tutorial/research_programming.mdx
+          
+      - section: Human Validation
+        contents:
+          - page: Replicated Studies
+            path: ./docs/pages/human_validation/replicated_studies.mdx    
+  
       - section: Product
         contents:
         - page: Feature Request/Bug Report
@@ -100,15 +141,6 @@ navigation:
         - page: Privacy Policy
           path: ./docs/pages/support/pp.mdx
 
-  - tab: docs
-    layout:
-      - section: Get Started
-        contents:
-          - page: Welcome to Subconscious.ai
-            path: ./docs/pages/welcome.mdx
-
-          - page: Reference Implementation
-            path: ./docs/pages/getting_started.mdx
   - tab: api
     layout:
       - api: API Reference
