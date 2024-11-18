@@ -1,0 +1,3125 @@
+---
+openapi: 3.1.0
+info:
+  title: SuperEgo
+  description: "\U0001F495SuperEgo API powers Consulting and Product teams to design
+    and run cost-effective, ethical, causal experiments. \U0001F680 Generative AI
+    for Experimental Design. \U0001F468‍\U0001F52C⚗️"
+  termsOfService: https://docs.subconscious.ai/support/terms-of-use
+  contact:
+    name: Avi Yashchin
+    url: https://www.linkedin.com/in/aviyashchin/
+    email: avi@subconscious.ai
+  license:
+    name: MIT
+    url: https://github.com/Subconscious-ai/PoC/blob/main/LICENSE
+  version: 0.0.1
+paths:
+  "/experiments":
+    post:
+      tags:
+      - experiments
+      - experiments
+      summary: Create Experiment Async
+      description: |-
+        Run a novel experiment asynchronously using provided requirements.
+
+        This endpoint initiates an experiment based on the input parameters. It can handle both regular experiments
+        and human baseline (HB) experiments. The experiment is either run immediately (in debug mode) or enqueued
+        for processing.
+
+        Parameters:
+        - `req`: Experiment object containing experiment details
+
+        Returns:
+        - ExperimentAsyncResponse object with the following structure:
+            - `wandb_run_id`: Unique identifier for the experiment run
+            - `wandb_run_name`: Generated name for the experiment run
+
+        Example Response:
+        ```json
+        {
+            "wandb_run_id": "550e8400-e29b-41d4-a716-446655440000",
+            "wandb_run_name": "causal-23-10-17-14-30-45-123"
+        }
+        ```
+
+        Notes:
+        - For HB experiments, provide either `hb_folder` or `hb_run_id` in the request
+        - The experiment is run immediately if DEBUG mode is True, otherwise it's enqueued
+        - The `wandb_run_name` is generated using a random causal word and the current timestamp
+
+        Raises:
+        - HTTPException 500: If an error occurs during experiment creation or enqueuing
+      operationId: create_experiment_async_experiments_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Experiment"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExperimentAsyncResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/experiments/dependent-variable":
+    post:
+      tags:
+      - experiments
+      - experiments
+      summary: Create Dependent Variable
+      description: |-
+        Generate a dependent variable string (survey prompt) based on the input question.
+
+        This endpoint creates a dependent variable that synthetic respondents will respond to in an experiment.
+        It allows users to review the generated survey prompt before running the experiment.
+
+        Parameters:
+        - `req`: DependentVariable object containing:
+            - `question_type`: Enum representing the type or focus of the experiment
+            - `question_text`: String containing the user's input question
+
+        Returns:
+        - DependentVariableResponse object with the following structure:
+            - `dependent_variable`: String representing the generated survey prompt
+
+        Example Request:
+        ```json
+        {
+            "question_type": "generic",
+            "question_text": "How does social media usage affect sleep patterns?"
+        }
+        ```
+
+        Example Response:
+        ```json
+        {
+          "dependent_variable": "Please read the descriptions of the two social media usage scenarios carefully. Then, please indicate which of the two scenarios you believe has a more significant impact on sleep patterns."
+        }
+        ```
+
+        Notes:
+        - The dependent variable is generated using the GPT-4 language model
+        - The generated dependent variable can be added to the experiment object
+
+        Raises:
+        - HTTPException 500: If an error occurs during the generation of the dependent variable
+      operationId: create_dependent_variable_experiments_dependent_variable_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/DependentVariable"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DependentVariableResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/experiments/study-subject":
+    post:
+      tags:
+      - experiments
+      - experiments
+      summary: Create Study Subject
+      description: Create a study subject based on the input question.
+      operationId: create_study_subject_experiments_study_subject_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: why_prompt
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Why Prompt
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/tasks/{task_id}":
+    get:
+      tags:
+      - tasks
+      - tasks
+      summary: Get Status
+      description: |-
+        Get the status of a Celery task.
+
+        Parameters:
+        - `task_id`: Unique identifier of the Celery task
+
+        Returns:
+        JSONResponse with:
+        - `task_id`: The ID of the task
+        - `task_status`: Current status of the task
+        - `task_result`: Result of the task (if available)
+
+        Example Response:
+        {
+            "task_id": "abc123",
+            "task_status": "SUCCESS",
+            "task_result": {"some_key": "some_value"}
+        }
+
+        Raises:
+        - HTTPException 500: If fetching the task status fails
+      operationId: get_status_tasks__task_id__get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/runs":
+    post:
+      tags:
+      - runs
+      - runs
+      summary: Get Runs
+      description: |-
+        Fetch experiment runs based on provided filters.
+
+        Parameters:
+        - `filters`: RunRequest object containing filter criteria
+
+        Returns:
+        - List of RunResponse objects matching the filters
+
+        Example filter:
+        ```json
+        {
+          "filters": {
+            "config.user": {
+              "$eq": "Add a user_id here. e.g. auth0|1234567890"
+            },
+            "created_at": {
+              "$gt": "2024-10-16T19:18:48.753240",
+              "$lte": "2024-10-17T19:18:48.753258"
+            }
+          }
+        }
+        ```
+
+        Notes:
+        - Returns up to 10 runs due to performance issues - WANDB does not have pagination so for performance we should return less runs (temporary solution).
+        - Excludes runs hidden from the user
+
+        Raises:
+        - HTTPException 500: If fetching runs fails
+      operationId: get_runs_runs_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RunRequest"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - items:
+                    "$ref": "#/components/schemas/RunResponse"
+                  type: array
+                - type: 'null'
+                title: Response Get Runs Runs Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/runs/public-count":
+    get:
+      tags:
+      - runs
+      - runs
+      summary: Get Public Runs Count
+      description: |-
+        Get the count of public experiments runs.
+
+        Returns:
+        JSONResponse with:
+        - `count`: Number of public runs
+
+        Example Response:
+        ```json
+        {
+            "count": 42
+        }
+        ```
+        Notes:
+        - Public runs are those where `config.experiment_design.is_private` is `False` or `None`
+
+        Raises:
+        - HTTPException 500: If fetching the count fails
+      operationId: get_public_runs_count_runs_public_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  "/runs/user-runs-count":
+    get:
+      tags:
+      - runs
+      - runs
+      summary: Get User Runs Count
+      description: |-
+        Get the count of runs for the authenticated user.
+
+        Parameters:
+        - `user_details`: User authentication details (injected by dependency)
+
+        Returns:
+        JSONResponse with:
+        - `runs_count`: Number of runs for the user
+
+        Example Response:
+        ```json
+        {
+            "runs_count": 15
+        }
+        ```
+        Raises:
+        - HTTPException 500: For other errors in fetching the count
+      operationId: get_user_runs_count_runs_user_runs_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  "/runs/{run_id}":
+    get:
+      tags:
+      - runs
+      - runs
+      summary: Get Run
+      description: |-
+        Fetch details of a specific experiment run.
+
+        Parameters:
+        - `run_id`: Unique identifier of the run.
+
+        Returns:
+        JSONResponse with:
+        - `run_details`: Details of the requested run
+
+        Notes:
+        - Returns 403 if the run is private and not accessible to the user
+
+        Raises:
+        - HTTPException 500: If fetching run details fails
+      operationId: get_run_runs__run_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/runs/{hb_id}/details":
+    get:
+      tags:
+      - runs
+      - runs
+      summary: Get Hb Details
+      description: |-
+        Fetch details of a specific Human Baseline experiment.
+
+        Parameters:
+        - `hb_id`: Unique identifier of the Human Baseline experiment. e.g. `7h2ks593`
+
+        Returns:
+
+        JSONResponse containing the experiment details
+
+        Raises:
+        - HTTPException 500: If fetching HB experiment details fails
+      operationId: get_hb_details_runs__hb_id__details_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: hb_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Hb Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/runs/{run_id}/update_config":
+    put:
+      tags:
+      - runs
+      - runs
+      summary: Update Config
+      description: |-
+        Update configuration for a specific experiment run.
+
+        Parameters:
+        - `run_id`: Unique identifier of the run
+        - `config_update`: UpdateConfig object containing configuration changes
+
+        Returns:
+        JSONResponse with:
+        - `message`: Status of the update
+        - `configs`: Updated configuration (if successful)
+
+        Notes:
+        - Only the experiment owner can update the configuration
+        - Currently supports toggling the privacy setting
+
+        Raises:
+        - HTTPException 401: If user is not authorized to edit the run
+        - HTTPException 400: If the config update is invalid
+        - HTTPException 500: If updating the run config fails
+      operationId: update_config_runs__run_id__update_config_put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateConfig"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/runs/artifact/{file_name}":
+    get:
+      tags:
+      - runs
+      - runs
+      summary: Get Run Artifact
+      description: |-
+        Fetch a specific artifact file from a run.
+
+        Parameters:
+        - `file_name`: Name of the artifact file to retrieve
+
+        Returns:
+        - FileResponse: The requested artifact file
+        - JSONResponse: Error message if the file is not found
+
+        Notes:
+        - Automatically deletes the local artifact directory after serving the file
+
+        Raises:
+        - HTTPException 504: If the request times out
+        - HTTPException 500: For other errors in fetching the artifact
+      operationId: get_run_artifact_runs_artifact__file_name__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: file_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/attributes-levels":
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Create Attributes And Levels
+      description: |-
+        Create attributes and levels for a given idea (why_prompt).
+
+        Parameters:
+        - `req`: AttributesLevelsRequest object containing:
+            - `idea`: The main concept or prompt
+            - `country`: Target country
+            - `num_levels`: Number of levels per attribute (optional)
+            - `max_length`: Maximum length for levels (optional)
+            - `llm_model`: Language model to use (optional)
+            - `num_attrs`: Number of attributes to generate (optional)
+
+        Returns:
+        - List of attributes with their levels.
+
+        Example Response:
+        ```json
+        [
+          {
+            "attribute": "Price",
+            "levels": [
+              "The car costs $30,000",
+              "The car costs $40,000",
+              "The car costs $50,000",
+              "The car costs $60,000",
+              "The car costs $70,000"
+            ]
+          },
+          {
+            "attribute": "Safety Rating",
+            "levels": [
+              "The car has a 3-star safety rating",
+              "The car has a 4-star safety rating",
+              "The car has a 5-star safety rating",
+              "The car has a 5.5-star safety rating"
+            ]
+          }
+        ]
+        ```
+
+        Raises:
+        - HTTPException 404: If an error occurs during creation
+      operationId: create_attributes_and_levels_attributes_levels_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AttributesLevelsRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  "$ref": "#/components/schemas/LeveledAttributeBase"
+                type: array
+                title: Response Create Attributes And Levels Attributes Levels Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/attributes-levels/orthogonal":
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Create Orthogonal Attributes And Levels
+      description: |-
+        Create new, independent (orthogonal) attributes and levels hat do not intersect with existing ones..
+
+        Parameters:
+        - `req`: OrthogonalAttributesLevelsRequest object containing:
+            - `why_prompt`: The main concept or idea
+            - `country`: Target country
+            - `existing_attributes_levels`: List of existing attributes and levels
+            - `number_of_new_attributes`: Number of new attributes to generate (optional)
+            - `number_of_levels`: Number of levels per attribute (optional)
+            - `llm_model`: Language model to use (optional)
+
+        Returns:
+        - List of orthogonal attributes with their levels.
+
+        Example Response:
+        ```json
+        [
+            {
+            "attribute": "Range",
+            "levels": [
+              "The car has a range of 200 miles",
+              "The car has a range of 300 miles",
+              "The car has a range of 400 miles",
+              "The car has a range of 500 miles"
+            ]
+          },
+          {
+            "attribute": "Charging Time",
+            "levels": [
+              "The car charges in 30 minutes",
+              "The car charges in 1 hour",
+              "The car charges in 2 hours",
+              "The car charges in 3 hours"
+            ]
+          }
+        ]
+        ```
+
+        Raises:
+        - HTTPException 404: If an error occurs during creation
+      operationId: create_orthogonal_attributes_and_levels_attributes_levels_orthogonal_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/OrthogonalAttributesLevelsRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  "$ref": "#/components/schemas/LeveledAttributeBase"
+                type: array
+                title: Response Create Orthogonal Attributes And Levels Attributes
+                  Levels Orthogonal Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/attributes":
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Create Attributes
+      description: |-
+        Create a list of attributes for a given idea (why_prompt).
+
+        Parameters:
+        - `req`: AttributesRequest object containing:
+            - `why_prompt`: The main concept or idea or input question
+            - `country`: Target country
+            - `num_attrs`: Number of attributes to generate (optional)
+            - `prompt_type`: Type of prompt to use (optional)
+            - `llm_model`: Language model to use (optional)
+
+        Returns:
+        - List of attributes.
+
+        Example Response:
+        ```json
+        [
+            "Price",
+            "Range",
+            "Charging Time",
+            "Safety Rating"
+        ]
+        ```
+
+        Raises:
+        - HTTPException 404: If an error occurs during creation
+      operationId: create_attributes_attributes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AttributesRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Create Attributes Attributes Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/levels":
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Create Levels
+      description: |-
+        Create levels for given attribute(s) of an idea (why_prompt).
+
+        Parameters:
+        - `req`: LevelsRequest object containing:
+            - `why_prompt`: The main concept or idea or input question
+            - `country`: Target country
+            - `attributes`: List of attributes to generate levels for
+            - `num_levels`: Number of levels per attribute (optional)
+            - `llm_model`: Language model to use (optional)
+
+        Returns:
+        - List of attributes with their levels.
+
+        Example Response:
+        ```json
+        [
+          {
+            "attribute": "Price",
+            "levels": [
+              "The car costs $30,000",
+              "The car costs $40,000",
+              "The car costs $50,000",
+              "The car costs $60,000",
+              "The car costs $70,000"
+            ]
+          },
+          {
+            "attribute": "Range",
+            "levels": [
+              "The car has a range of 200 miles",
+              "The car has a range of 300 miles",
+              "The car has a range of 400 miles",
+              "The car has a range of 500 miles"
+            ]
+          }
+        ]
+        ```
+        Raises:
+        - HTTPException 404: If an error occurs during creation
+      operationId: create_levels_levels_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LevelsRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  "$ref": "#/components/schemas/LeveledAttributeBase"
+                type: array
+                title: Response Create Levels Levels Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/product_attribute_levels":
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Product Attribute Levels
+      description: |-
+        Generate product levels based on attributes and pricing information.
+
+        This endpoint uses Perplexity API to process the input to generate a list of attributes that define the product or idea,
+        generates pricing levels (brand & price pair), and creates levels for the provided attributes per brand/product.
+
+        Parameters:
+        - `req`: ProductAttributeRequest object containing:
+            - `why_prompt`: The main question or prompt for the product
+            - `country`: Target country for pricing and attributes
+            - `num_attrs`: Number of attributes to generate (optional)
+            - `num_levels`: Number of levels per attribute to generate (optional)
+
+        Returns:
+        - List of LeveledAttributeBase objects, each containing:
+            - `attribute`: An Attribute object with:
+                - `name`: The name of the attribute
+            - `levels`: List of strings representing the different levels or options for the attribute
+
+        Example Response:
+        ```json
+        [
+          {
+            "attribute": {
+              "name": "Brands"
+            },
+            "levels": [
+              "Tesla Model 3",
+              "Ford Mustang Mach-E",
+              "Volkswagen ID.4"
+            ]
+          },
+          {
+            "attribute": {
+              "name": "Price"
+            },
+            "levels": [
+              "38000 USD",
+              "42000 USD",
+              "46000 USD",
+              "50000 USD",
+              "54000 USD"
+            ]
+          }
+        ]
+        ```
+
+        Raises:
+        - HTTPException 404: If an error occurs during the processing of product levels
+
+        Note:
+        - The number of attributes and levels may vary based on the input parameters and product complexity
+        - This function runs attribute generation and price level generation concurrently for efficiency
+      operationId: product_attribute_levels_product_attribute_levels_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ProductAttributeRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  "$ref": "#/components/schemas/LeveledAttributeBase"
+                type: array
+                title: Response Product Attribute Levels Product Attribute Levels
+                  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/personas":
+    get:
+      tags:
+      - personas
+      - personas
+      summary: Get Personas
+      description: |-
+        Generate personas based on specified traits and levels.
+
+        Parameters:
+        - `levels_per_trait`: Number of levels for each trait
+        - `trait_keys`: Comma-separated list of trait keys
+
+        Returns:
+        JSONResponse with:
+        - `all_combinations_index`: List of trait level combinations
+        - `traits_lookup_map`: Dictionary of traits and their levels
+        - `personas_full_string_definition`: List of persona descriptions
+
+        Raises:
+        - HTTPException 500: If persona generation fails
+      operationId: get_personas_personas_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: levels_per_trait
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Levels Per Trait
+      - name: trait_keys
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Trait Keys
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/personas/history":
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create History
+      description: |-
+        Generate historical factors relevant to a user's decision-making process.
+
+        This endpoint analyzes a given question and user profile to produce a set of
+        historical factors that could influence the user's decision. These factors
+        provide context for understanding past behaviors and preferences.
+
+        Parameters:
+        - `req (HistoryRequest)`: Contains the question, user profile, and relevant attributes
+
+        Returns:
+        - `HistoryResponse`: A dictionary of historical factors and their descriptions
+
+        Raises:
+        - HTTPException 404: If there's an error in generating historical factors
+      operationId: create_history_personas_history_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/HistoryRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HistoryResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/personas/constraints":
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create Constraints
+      description: |-
+        Generate constraints that may affect a user's decision-making process.
+
+         This endpoint analyzes a given question, user profile, and relevant attributes to produce
+         a set of constraints or limiting factors that could influence the user's decision.
+         These constraints help in understanding the boundaries within which a decision is made.
+
+         Parameters:
+         - `req (ConstraintRequest)`: Contains the question, user profile, and relevant attributes
+
+         Returns:
+         - `ConstraintResponse`: A dictionary of constraints and their descriptions
+      operationId: create_constraints_personas_constraints_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ConstraintRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ConstraintResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/personas/generate_questions":
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create Questions
+      description: |-
+        Generate questions for an experiment based on historical factors and constraints.
+
+        This endpoint creates a set of questions tailored to the given context, user profile,
+        and specific dimensions of interest. The questions are designed to gather insights
+        about the user's decision-making process, considering both historical behavior and
+        current constraints.
+
+        Parameters:
+        - `req (QuestionRequest)`: Contains the main question, user profile, and dimensions to explore
+
+        Returns:
+        - `QuestionResponse`: A structured set of questions categorized by model type (history/constraints)
+          and dimensions, each with sample responses
+
+        The response includes:
+        - Two questions for each specified dimension
+        - A set of sample responses for each question
+
+        Raises:
+        - HTTPException 404: If there's an error in generating the questions
+
+        Note:
+        - Questions are generated asynchronously for efficiency
+        - The structure is flexible and can accommodate various models and dimensions
+      operationId: create_questions_personas_generate_questions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/QuestionRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/QuestionResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/personas/motivation":
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create Motivation
+      description: |-
+        Generate motivation factors influencing a user's decision-making process.
+
+        This endpoint analyzes the given context, user profile, historical factors, and constraints
+        to produce a set of motivation factors that could drive the user's decision. These factors
+        help in understanding the underlying reasons behind a user's choices.
+
+        Parameters:
+        - `req (MotivationRequest)`: Contains the main question, user profile, selected historical factors, and constraints
+
+        Returns:
+        - `MotivationResponse`: A dictionary of motivation factors and their descriptions
+
+        Raises:
+        - HTTPException 404: If there's an error in generating motivation factors
+
+        Note:
+        - The generated motivation factors are based on the provided context and previously selected factors
+      operationId: create_motivation_personas_motivation_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/MotivationRequest"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MotivationResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      security:
+      - HTTPBearer: []
+  "/traits":
+    get:
+      tags:
+      - traits
+      - traits
+      summary: Get Traits
+      description: |-
+        Retrieve all traits from the database.
+
+        Returns:
+        - `List[TraitLevel]`: A list of TraitLevel objects representing all valid traits
+
+        TraitLevel structure:
+            - `id`: Unique identifier for the trait
+            - `set_type`: Optional category of the trait (e.g., "Big Five", "8 Values")
+            - `type`: The type of trait (e.g., "religion")
+            - `measurement_type`: How the trait is measured ("nominal", "ordinal", "interval", "ratio")
+            - `ordinal_rank`: Optional ranking for ordinal traits
+            - `short_description`: Brief description of the trait level (e.g., "Satanist")
+            - `long_description`: Detailed description of the trait level
+
+        Example Response:
+        ```json
+        [
+            {
+                "id": "religion_1",
+                "set_type": "Personal Values",
+                "type": "religion",
+                "measurement_type": "nominal",
+                "short_description": "Satanist",
+                "long_description": "My religion is Satanism"
+            },
+            {
+                "id": "openness_2",
+                "set_type": "Big Five",
+                "type": "personality",
+                "measurement_type": "ordinal",
+                "ordinal_rank": 2,
+                "short_description": "Medium Openness",
+                "long_description": "I am somewhat open to new experiences"
+            }
+        ]
+        ```
+        Notes:
+        - Invalid traits are logged and skipped
+        - The total number of retrieved traits is logged
+
+        Raises:
+        - HTTPException 500: If an error occurs while fetching traits
+      operationId: get_traits_traits_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  "$ref": "#/components/schemas/TraitLevel"
+                type: array
+                title: Response Get Traits Traits Get
+      security:
+      - HTTPBearer: []
+  "/stripe/create-customer-portal-session/":
+    post:
+      tags:
+      - stripe
+      - stripe
+      summary: Create Customer Portal Session
+      description: |-
+        Create a Stripe Customer Portal session.
+
+        Parameters:
+        - `customer_id`: Stripe customer ID
+        - `token`: Authentication token (injected by dependency)
+
+        Returns:
+        JSONResponse with:
+        - `url`: URL for the customer portal session
+
+        Raises:
+        - HTTPException 400: If session creation fails
+      operationId: create_customer_portal_session_stripe_create_customer_portal_session__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: customer_id
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/stripe/create-checkout-session/":
+    post:
+      tags:
+      - stripe
+      - stripe
+      summary: Create Checkout Session
+      description: |-
+        Create a Stripe checkout session for premium subscription.
+
+        Parameters:
+        - `token`: Authentication token (injected by dependency)
+        - `customer_id`: Stripe customer ID
+
+        Returns:
+        JSONResponse with:
+        - `session_id`: ID of the created checkout session
+
+        Raises:
+        - HTTPException 500: If premium price ID is not configured
+        - HTTPException 400: If session creation fails
+      operationId: create_checkout_session_stripe_create_checkout_session__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: customer_id
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/stripe/check-subscription/":
+    get:
+      tags:
+      - stripe
+      - stripe
+      summary: Check Subscription
+      description: |-
+        Check the subscription status for a customer.
+
+        Parameters:
+        - `customer_id`: Stripe customer ID
+        - `token`: Authentication token (injected by dependency)
+
+        Returns:
+        Dict with:
+        - `customer_id`: Stripe customer ID
+        - `subscription_status`: Current subscription status or details
+
+        Raises:
+        - HTTPException 404: If customer or subscription retrieval fails
+      operationId: check_subscription_stripe_check_subscription__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: customer_id
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/stripe/cancel-subscription/":
+    post:
+      tags:
+      - stripe
+      - stripe
+      summary: Cancel Subscription
+      description: |-
+        Cancel the current subscription for a customer.
+
+        Parameters:
+        - `customer_id`: Stripe customer ID
+        - `token`: Authentication token (injected by dependency)
+
+        Returns:
+        Dict with:
+        - `message`: Status of the cancellation operation
+
+        Raises:
+        - HTTPException 400: If cancellation fails
+      operationId: cancel_subscription_stripe_cancel_subscription__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: customer_id
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/stripe/webhook/":
+    post:
+      tags:
+      - stripe
+      - stripe
+      summary: Stripe Webhook
+      description: |-
+        Receive and process Stripe webhook events asynchronously.
+
+          Parameters:
+          - `request`: The incoming webhook request
+          - `background_tasks`: FastAPI background tasks handler
+
+          Returns:
+          JSONResponse acknowledging receipt of the webhook
+
+        Notes:
+          - Validates the Stripe signature to ensure authenticity
+          - Immediately acknowledges the event to Stripe
+          - Processes the event asynchronously in the background
+          - Supports various Stripe event types (e.g., subscription updates, payment successes)
+
+
+          Raises:
+          - HTTPException 400: For invalid payload or signature
+          - HTTPException 500: For general webhook handling errors
+      operationId: stripe_webhook_stripe_webhook__post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  "/copilot/check-causality":
+    post:
+      tags:
+      - copilot
+      - copilot
+      summary: Check Causality
+      description: |-
+        Check whether an idea is causal or not.
+
+        Parameters:
+        - `req`: CausalityRequest object containing:
+            - `why_prompt`: The idea to check for causality
+            - `llm_model`: Language model to use for the check (optional)
+
+        Returns:
+        - CausalityResponse object with the following structure:
+            - `is_causal`: Boolean indicating whether the idea is causal
+            - `suggestions`: List of up to 3 strings, each a rephrased version of the original idea as a causal idea
+
+        Example Response:
+        ```json
+        {
+            "is_causal": false,
+            "suggestions": [
+                "How does increasing the minimum wage affect employment rates?",
+                "What is the impact of regular exercise on cardiovascular health?",
+                "To what extent does parental involvement influence a child's academic performance?"
+            ]
+        }
+        ```
+
+        Raises:
+        - HTTPException 500: If an error occurs during the causality check
+      operationId: check_causality_copilot_check_causality_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: config
+        in: query
+        required: false
+        schema:
+          title: Config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CausalityRequest"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CausalityResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/copilot/check-moderation":
+    post:
+      tags:
+      - copilot
+      - copilot
+      summary: Moderate
+      description: |-
+        Check whether an idea complies with our content policy.
+
+        Parameters:
+        - `why_prompt`: The idea to check for content policy compliance
+
+        Returns:
+        - JSONResponse object with the following structure:
+            - `flagged`: Boolean indicating whether the content was flagged
+            - `flagged_categories`: List of categories that were flagged (empty if not flagged)
+
+        Example Response (flagged content):
+        ```json
+        {
+            "flagged": true,
+            "flagged_categories": ["violence", "hate"]
+        }
+        ```
+
+        Example Response (non-flagged content):
+        ```json
+        {
+            "flagged": false,
+            "flagged_categories": []
+        }
+        ```
+
+        Raises:
+        - HTTPException 500: If an error occurs during the moderation check
+      operationId: moderate_copilot_check_moderation_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: why_prompt
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Why Prompt
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/analytics/{run_id}/amce":
+    get:
+      tags:
+      - analytics
+      - analytics
+      summary: Get Amce
+      description: |-
+        Get replication AMCE of a human baseline from production environment.
+
+        Parameters:
+        - `run_id`: Unique identifier for the run
+
+        Returns:
+        - List of dictionaries containing AMCE data
+
+        Raises:
+        - HTTPException 500: If artifacts cannot be retrieved
+      operationId: get_amce_analytics__run_id__amce_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                title: Response Get Amce Analytics  Run Id  Amce Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/analytics/{hb_id}/showcase":
+    get:
+      tags:
+      - analytics
+      - analytics
+      summary: Get Showcase
+      description: |-
+        Get AMCE and related data for a given human baseline.
+
+        Parameters:
+        - `hb_id`: Unique identifier for the human baseline
+
+        Returns:
+        - Dictionary containing:
+            - `hb_amce`: Human baseline AMCE
+            - `hb_paper_data`: Paper data for the human baseline
+            - `replication_amce`: AMCE for the latest replication study
+            - `replication_data`: Details of the latest replication study
+
+        Raises:
+        - HTTPException 500: If artifacts cannot be retrieved
+      operationId: get_showcase_analytics__hb_id__showcase_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: hb_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Hb Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Get Showcase Analytics  Hb Id  Showcase Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/market-simulator/check-realworld-product":
+    post:
+      tags:
+      - market-simulator
+      - market-simulator
+      summary: Check For Product
+      description: |-
+        Check if a product mentioned in the question exists in the real world.
+
+        This endpoint uses a language model to assess whether a product described in the input question
+        is likely to exist in reality. It makes multiple attempts to get a reliable result.
+
+        Parameters:
+        - `question`: String containing the question or description of the product to check
+
+        Returns:
+        - JSONResponse object with the following structure:
+            - `product_exists`: Boolean indicating whether the product is likely to exist in the real world
+
+        Example Request:
+        ```
+        {
+            "question": "Does a smartphone that can project holograms exist?"
+        }
+        ```
+
+        Example Response:
+        ```json
+        {
+            "product_exists": false
+        }
+        ```
+
+        Notes:
+        - The check is performed using the GPT-4 language model
+        - The endpoint makes up to 6 attempts to get a reliable result
+        - The final result is based on the average of successful responses
+        - A product is considered to exist if the average response is greater than 4 on a scale of 1-7
+
+        Raises:
+        - HTTPException 404: If the language model service is unavailable after multiple attempts
+      operationId: check_for_product_market_simulator_check_realworld_product_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: question
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Question
+      - name: config
+        in: query
+        required: false
+        schema:
+          title: Config
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/":
+    get:
+      tags:
+      - main
+      summary: Root
+      description: |-
+        Root endpoint.
+
+        Returns:
+        - str: "ok" if the server is running
+      operationId: root__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Root  Get
+  "/ping-worker":
+    post:
+      tags:
+      - main
+      summary: Run Task
+      description: |-
+        Start a ping worker task.
+
+        Returns:
+        JSONResponse with:
+        - `task_id`: ID of the started task
+
+        Raises:
+        - HTTPException 500: If starting the task fails
+      operationId: run_task_ping_worker_post
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  "/sentry-debug":
+    get:
+      tags:
+      - main
+      summary: Trigger Error
+      description: |-
+        Trigger a test error for Sentry debugging.
+
+        Returns:
+        JSONResponse with:
+        - `error`: Message indicating the error was captured by Sentry
+      operationId: trigger_error_sentry_debug_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  "/webhook":
+    post:
+      summary: Webhook
+      description: |-
+        Handle experiment state webhooks and trigger notifications.
+
+        Processes webhooks for experiment states: started, crashed, finished.
+        Triggers appropriate Novu notifications and updates SSE subscribers.
+
+        Returns:
+        JSONResponse with:
+        - `status`: "received" if processed successfully
+
+        Raises:
+        - HTTPException 500: If processing the webhook data fails
+      operationId: webhook_webhook_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  "/events":
+    get:
+      summary: Events
+      description: |-
+        Establish a Server-Sent Events (SSE) connection for real-time updates.
+
+        Parameters:
+        - `token`: User authentication token (injected by dependency)
+
+        Returns:
+        EventSourceResponse: SSE stream for real-time experiment updates
+
+        Notes:
+        - Authenticates user and maintains an SSE connection
+        - Sends keepalive messages every 60 seconds
+        - Closes connection when client disconnects
+
+        Raises:
+        - HTTPException 401: If the provided token is invalid
+      operationId: events_events_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    AttributesLevelsRequest:
+      properties:
+        idea:
+          type: string
+          title: Idea
+        country:
+          type: string
+          title: Country
+        prompt_type:
+          anyOf:
+          - "$ref": "#/components/schemas/PromptType"
+          - type: 'null'
+          default: product
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+        num_attrs:
+          type: integer
+          maximum: 7
+          minimum: 2
+          title: Num Attrs
+          description: The number of attributes in the experiment. This value must
+            be an integer between 2 and 7, inclusive. If not provided, the default
+            value is 4. Each attribute represents a characteristic or feature of the
+            experiment.
+          default: 4
+        num_levels:
+          type: integer
+          maximum: 5
+          minimum: 2
+          title: Num Levels
+          description: The number of levels in the experiment. This value must be
+            an integer between 2 and 5, inclusive. If not provided, the default value
+            is 4. Each level represents a different possible value or state of an
+            attribute.
+          default: 4
+        max_length:
+          type: integer
+          maximum: 80
+          minimum: 40
+          title: Max Length
+          description: 'The maximum # Characters per attribute. This value must be
+            an integer between 40 and 80, inclusive. If not provided, the default
+            value is 40.'
+          default: 40
+      type: object
+      required:
+      - idea
+      - country
+      title: AttributesLevelsRequest
+      description: Pydantic model for a request to create levels for attributes.
+      example:
+        country: United States of America
+        idea: I would like to design a new electric car for the American markets
+        llm_model: gpt4
+        max_length: 40
+        num_attrs: 4
+        num_levels: 4
+        prompt_type: product
+    AttributesRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        country:
+          type: string
+          title: Country
+        prompt_type:
+          anyOf:
+          - "$ref": "#/components/schemas/PromptType"
+          - type: 'null'
+          default: generic
+        num_attrs:
+          type: integer
+          maximum: 10
+          minimum: 2
+          title: Num Attrs
+          default: 4
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      - country
+      title: AttributesRequest
+      example:
+        country: United States of America
+        llm_model: gpt3
+        num_attrs: 4
+        prompt_type: generic
+        why_prompt: I would like to design a new electric car for the American markets
+    CausalityRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      title: CausalityRequest
+    CausalityResponse:
+      properties:
+        is_causal:
+          type: boolean
+          title: Is Causal
+          default: false
+        suggestions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggestions
+      type: object
+      required:
+      - suggestions
+      title: CausalityResponse
+    ConstraintRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        user_profile_attributes:
+          additionalProperties:
+            anyOf:
+            - items:
+                type: string
+              type: array
+            - items:
+                type: integer
+              type: array
+            - items:
+                type: number
+              type: array
+          type: object
+          title: User Profile Attributes
+        attributes:
+          items:
+            type: string
+          type: array
+          title: Attributes
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      - user_profile_attributes
+      - attributes
+      title: ConstraintRequest
+      example:
+        attributes:
+        - price
+        - operating_system
+        - battery_life
+        - camera_quality
+        - storage_capacity
+        llm_model: gpt4
+        user_profile_attributes:
+          age_levels:
+          - 25
+          - 30
+          education_levels:
+          - Bachelors Degree
+          gender_levels:
+          - Male
+          income_levels:
+          - 50000
+          - 75000
+        why_prompt: What factors influence your choice in selecting a mobile phone?
+    ConstraintResponse:
+      properties:
+        constraints:
+          additionalProperties:
+            type: string
+          type: object
+          title: Constraints
+      type: object
+      required:
+      - constraints
+      title: ConstraintResponse
+      example:
+        constraints:
+          After-Sales Service: Quality and accessibility of customer support and service
+          Availability: Ease of finding and purchasing the desired mobile phone model
+          Brand Loyalty: User's tendency to stick with familiar or preferred brands
+          Budget: Financial limitations affecting mobile phone purchase decisions
+          Technological Compatibility: Compatibility with existing devices and software
+          User Reviews: Influence of other users' experiences and feedback
+          Warranty: Availability and terms of warranty for the mobile phone
+    DependentVariable:
+      properties:
+        question_type:
+          anyOf:
+          - "$ref": "#/components/schemas/PromptType"
+          - type: 'null'
+          default: generic
+        question_text:
+          type: string
+          title: Question Text
+      type: object
+      required:
+      - question_text
+      title: DependentVariable
+      example:
+        question_text: How does social media usage affect sleep patterns?
+        question_type: generic
+    DependentVariableResponse:
+      properties:
+        dependent_variable:
+          type: string
+          title: Dependent Variable
+      type: object
+      required:
+      - dependent_variable
+      title: DependentVariableResponse
+    EducationLevel:
+      type: string
+      enum:
+      - Less than high school
+      - High School but no diploma
+      - High School Diploma
+      - Some College
+      - Associates
+      - Bachelors
+      - Masters
+      - PhD
+      title: EducationLevel
+    Experiment:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          default: ''
+        random_design_seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Random Design Seed
+          default: 200
+        attribute_shuffle_seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Attribute Shuffle Seed
+          default: 1000
+        price_generation_seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Price Generation Seed
+          default: 1000
+        population_seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Seed
+          default: 100
+        alternative_shuffle_seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Alternative Shuffle Seed
+          default: 10000
+        expr_llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: azure-openai-gpt4
+        dv_llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+        study_subject_llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: azure-openai-gpt4
+        levels_llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+        use_api:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Use Api
+          default: true
+        use_threading:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Use Threading
+          default: true
+        use_multiprocessing:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Use Multiprocessing
+          default: false
+        use_batching:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Use Batching
+          default: true
+        is_private:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Private
+          default: false
+        survey_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Survey Prompt
+          default: "Respondent Instructions:\nYou are answering questions as if you
+            are a human. Do not break character. \nYou are an agent with the following
+            personas: {persona_traits}.\nCurrently living in {survey_state}, {survey_country},
+            Time of Survey: year: {survey_year}.\n\nInstructions:\n{study_subject}.
+            \nIn this context, we have designed a discrete choice survey question
+            where you are presented with three options/alternatives including None
+            of these.\nThe options/alternatives are defined as a function of attribute-level
+            combinations.\nBelow we provide the list of attributes/features and the
+            possible values (attribute level) it may take.\n{attributes_levels}.\n\nConsider
+            the options in the Questionnaire below. Please read the specifications
+            carefully. \nThen, select the most preferred option considering that the
+            current year is {survey_year} and your place of residence is {survey_country}.
+            \n\nQuestionnaire:\n{options}\n{none_option}: None of these\n\n{format_instructions}"
+        max_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Length
+          default: 40
+        batch_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Batch Size
+          default: 20
+        number_of_attributes:
+          anyOf:
+          - type: integer
+            maximum: 7
+            minimum: 2
+          - type: 'null'
+          title: Number Of Attributes
+          default: 4
+        number_of_levels:
+          anyOf:
+          - type: integer
+            maximum: 5
+            minimum: 2
+          - type: 'null'
+          title: Number Of Levels
+          default: 4
+        pre_cooked_attributes_and_levels_lookup:
+          anyOf:
+          - items:
+              items:
+                anyOf:
+                - type: string
+                - items:
+                    type: string
+                  type: array
+              type: array
+            type: array
+          - type: 'null'
+          title: Pre Cooked Attributes And Levels Lookup
+          default: []
+        levels_per_trait:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Levels Per Trait
+          default: 100
+        null_levels:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Null Levels
+          default: false
+        total_number_of_tasks:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Number Of Tasks
+          default: 0
+        confidence_level:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Confidence Level
+          default: Low
+        r_squared:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: R Squared
+          default: 0
+        spearman_correlation:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Spearman Correlation
+          default: 0
+        coverage_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coverage Probability
+          default: 0
+        sample_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Sample Size
+          default: 0
+        tasks_per_respondent:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tasks Per Respondent
+          default: 0
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
+          default: 0
+        total_cost:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Cost
+          default: 0
+        add_neither_option:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Add Neither Option
+          default: true
+        add_price_and_brand_attributes:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Add Price And Brand Attributes
+          default: false
+        all_combinations_index:
+          anyOf:
+          - items:
+              items:
+                type: string
+              type: array
+            type: array
+          - type: 'null'
+          title: All Combinations Index
+          default:
+          - - ''
+        population_traits:
+          anyOf:
+          - "$ref": "#/components/schemas/PopulationTraits"
+          - type: 'null'
+          default: {}
+        response_type:
+          anyOf:
+          - "$ref": "#/components/schemas/SurveyResponseType"
+          - type: 'null'
+          default: Discrete
+        respondent_dependent_variable:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Respondent Dependent Variable
+          default: ''
+        respondent_instructions_preamble:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Respondent Instructions Preamble
+          default: ''
+        experimentor_why_question_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Experimentor Why Question Type
+          default: generic
+        experimentor_why_question_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Experimentor Why Question Prompt
+          default: ''
+        survey_country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Survey Country
+          default: United States
+        survey_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Survey State
+          default: New York
+        survey_year:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Survey Year
+          default: '2021'
+        hb_folder:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hb Folder
+          default: ''
+        hb_run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hb Run Id
+          default: ''
+        is_hb_run:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Hb Run
+          default: false
+        paper_data:
+          anyOf:
+          - items:
+              items:
+                type: string
+              type: array
+            type: array
+          - type: 'null'
+          title: Paper Data
+      type: object
+      title: Experiment
+      example:
+        add_price_and_brand_attributes: false
+        dv_llm_model: gpt4
+        experimentor_why_question_prompt: I would like to design a new electric car
+          for the American markets
+        experimentor_why_question_type: generic
+        expr_llm_model: azure-openai-gpt4
+        hb_folder: ''
+        hb_run_id: ''
+        is_private: false
+        levels_llm_model: gpt4
+        max_length: 40
+        null_levels: false
+        number_of_attributes: 2
+        number_of_levels: 4
+        paper_data: []
+        pre_cooked_attributes_and_levels_lookup:
+        - - Will this car have advanced safety features?
+          - - Advanced airbag system to protect passengers
+            - Lane keep assist to prevent drifting into other lanes
+        - - What range and charging time will this car offer
+          - - Up to 500 miles range, featuring a revolutionary battery system that
+              charges in 45 minutes
+            - 200 miles range with a robust charging infrastructure for recharging
+              in 15 minutes
+        response_type: Discrete
+        survey_country: United States
+        survey_state: New York
+        survey_year: '2023'
+    ExperimentAsyncResponse:
+      properties:
+        wandb_run_id:
+          type: string
+          title: Wandb Run Id
+        wandb_run_name:
+          type: string
+          title: Wandb Run Name
+      type: object
+      required:
+      - wandb_run_id
+      - wandb_run_name
+      title: ExperimentAsyncResponse
+    Gender:
+      type: string
+      enum:
+      - male
+      - female
+      - other
+      title: Gender
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            "$ref": "#/components/schemas/ValidationError"
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    HistoryRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        user_profile_attributes:
+          additionalProperties:
+            anyOf:
+            - items:
+                type: string
+              type: array
+            - items:
+                type: integer
+              type: array
+            - items:
+                type: number
+              type: array
+          type: object
+          title: User Profile Attributes
+        attributes:
+          items:
+            type: string
+          type: array
+          title: Attributes
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      - user_profile_attributes
+      - attributes
+      title: HistoryRequest
+      example:
+        attributes:
+        - price
+        - operating_system
+        - battery_life
+        - camera_quality
+        - storage_capacity
+        llm_model: gpt4
+        user_profile_attributes:
+          age_levels:
+          - 25
+          - 30
+          education_levels:
+          - Bachelors Degree
+          gender_levels:
+          - Male
+          income_levels:
+          - 50000
+          - 75000
+        why_prompt: What factors influence your choice in selecting a mobile phone?
+    HistoryResponse:
+      properties:
+        history:
+          additionalProperties:
+            type: string
+          type: object
+          title: History
+      type: object
+      required:
+      - history
+      title: HistoryResponse
+      example:
+        history:
+          Brand Loyalty: The user's tendency to stick with particular mobile phone
+            brands over time
+          Feature Preferences: The specific features the user has prioritized in past
+            mobile phone purchases
+          Previous Phone Brands: The specific mobile phone brands the user has used
+            in the past
+          Previous Purchase Channels: The places or methods through which the user
+            typically buys mobile phones (e.g., online, retail stores)
+          Previous Purchase Frequency: How often the user typically buys new mobile
+            phones
+          Price Sensitivity: The user's historical responsiveness to mobile phone
+            prices and willingness to pay
+    LLMModel:
+      type: string
+      enum:
+      - gpt3
+      - gpt4
+      - gpt3-instruct
+      - azure-openai-gpt4
+      - azure-cohere-command-r
+      - azure-llama-2
+      - gcp-haiku
+      - gcp-sonnet
+      - gcp-gemini
+      - cohere
+      - opus
+      - sonnet
+      - haiku
+      - gemini
+      - llama-3.1-sonar-large-128k-chat
+      - llama-3.1-sonar-large-128k-online
+      title: LLMModel
+      description: Enum representing the llm model types used in the experiments.
+    LeveledAttribute:
+      properties:
+        attribute:
+          type: string
+          title: Attribute
+        levels:
+          items:
+            type: string
+          type: array
+          maxItems: 15
+          minItems: 2
+          title: Levels
+      type: object
+      required:
+      - attribute
+      - levels
+      title: LeveledAttribute
+      description: |-
+        Notes:
+        # 1: Remember the brands and price attributes when setting ranges.
+        # 2: GPT3 sometimes generates more or less than required, so the range should be flexible by 2-3.
+      example:
+        levels:
+        - Black
+        - Brown
+        - Beige
+        - Navy
+        - Gray
+    LeveledAttributeBase:
+      properties:
+        attribute:
+          type: string
+          title: Attribute
+        levels:
+          items:
+            type: string
+          type: array
+          title: Levels
+      type: object
+      required:
+      - attribute
+      - levels
+      title: LeveledAttributeBase
+    LevelsRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        country:
+          type: string
+          title: Country
+        attributes:
+          items:
+            type: string
+          type: array
+          title: Attributes
+        num_levels:
+          type: integer
+          maximum: 10
+          minimum: 2
+          title: Num Levels
+          default: 4
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      - country
+      - attributes
+      title: LevelsRequest
+      example:
+        attributes:
+        - Battery Range per Charge
+        - Vehicle Warranty
+        country: United States of America
+        llm_model: gpt3
+        num_levels: 4
+        why_prompt: I would like to design a new electric car for the American markets
+    MotivationRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        user_profile_attributes:
+          additionalProperties:
+            anyOf:
+            - items:
+                type: string
+              type: array
+            - items:
+                type: integer
+              type: array
+            - items:
+                type: number
+              type: array
+          type: object
+          title: User Profile Attributes
+        history:
+          items:
+            type: string
+          type: array
+          title: History
+        constraints:
+          items:
+            type: string
+          type: array
+          title: Constraints
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      - user_profile_attributes
+      - history
+      - constraints
+      title: MotivationRequest
+      example:
+        constraints:
+        - Financial Constraints
+        - Parking Availability
+        - Timeline to Purchase
+        history:
+        - Previous Vehicle Type
+        - Previous Driving Experience (Years)
+        - Driving License
+        llm_model: gpt4
+        user_profile_attributes:
+          age_levels:
+          - 35
+          - 45
+          education_levels:
+          - Masters Degree
+          gender_levels:
+          - Female
+          income_levels:
+          - 100000
+          - 150000
+        why_prompt: Why are you considering purchasing an electric vehicle?
+    MotivationResponse:
+      properties:
+        motivation:
+          items:
+            type: string
+          type: array
+          title: Motivation
+      type: object
+      required:
+      - motivation
+      title: MotivationResponse
+      example:
+        motivation:
+        - Financial
+        - Social Norms
+        - Status
+        - Initial Cost
+        - Infrastructure
+        - Socially Driven
+        - Status
+    OrthogonalAttributesLevelsRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        country:
+          type: string
+          title: Country
+        existing_attributes_levels:
+          items:
+            "$ref": "#/components/schemas/LeveledAttribute"
+          type: array
+          title: Existing Attributes Levels
+        number_of_new_attributes:
+          type: integer
+          maximum: 5
+          minimum: 1
+          title: Number Of New Attributes
+          default: 4
+        number_of_levels:
+          type: integer
+          maximum: 5
+          minimum: 2
+          title: Number Of Levels
+          default: 3
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      - country
+      - existing_attributes_levels
+      title: OrthogonalAttributesLevelsRequest
+      description: Pydantic model for a request to create more, new, orthogonal levels
+        for attributes.
+      example:
+        country: United States of America
+        existing_attributes_levels:
+        - attribute: Battery Range per Charge
+          levels:
+          - Less than 150 miles
+          - 150 to 250 miles
+          - 250 to 350 miles
+          - 350 to 450 miles
+          - More than 450 miles
+        - attribute: Vehicle Warranty
+          levels:
+          - 3 years or 36,000 miles
+          - 4 years or 50,000 miles
+          - 5 years or 60,000 miles
+          - 6 years or 70,000 miles
+          - 7 years or 100,000 miles
+        llm_model: gpt4
+        number_of_levels: 3
+        number_of_new_attributes: 4
+        why_prompt: I would like to design a new electric car for the American markets
+    PopulationTraits:
+      properties:
+        age:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+            maxItems: 2
+            minItems: 1
+          - type: integer
+          - type: 'null'
+          title: Age
+        education:
+          anyOf:
+          - items:
+              "$ref": "#/components/schemas/EducationLevel"
+            type: array
+          - type: 'null'
+          title: Education
+        gender:
+          anyOf:
+          - items:
+              "$ref": "#/components/schemas/Gender"
+            type: array
+          - type: 'null'
+          title: Gender
+        income:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+            maxItems: 2
+            minItems: 1
+          - type: integer
+          - type: 'null'
+          title: Income
+      type: object
+      title: PopulationTraits
+    ProductAttributeRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        country:
+          type: string
+          title: Country
+        num_attrs:
+          type: integer
+          maximum: 10
+          minimum: 2
+          title: Num Attrs
+          default: 7
+        num_levels:
+          type: integer
+          maximum: 10
+          minimum: 2
+          title: Num Levels
+          default: 5
+      type: object
+      required:
+      - why_prompt
+      - country
+      title: ProductAttributeRequest
+      example:
+        country: USA
+        num_attrs: 7
+        num_levels: 5
+        why_prompt: Why are you considering purchasing an electric vehicle?
+    PromptType:
+      type: string
+      enum:
+      - generic
+      - service
+      - product
+      - experience
+      - policy
+      title: PromptType
+      description: Enum representing the type of prompts used in experiment designs.
+    Question:
+      properties:
+        question:
+          type: string
+          title: Question
+        sample_responses:
+          items:
+            "$ref": "#/components/schemas/SampleResponse"
+          type: array
+          title: Sample Responses
+      type: object
+      required:
+      - question
+      - sample_responses
+      title: Question
+      example:
+        question: How often have you purchased the same brand of mobile phone in the
+          past?
+        sample_responses:
+        - response: Always the same brand
+        - response: Mostly the same brand
+        - response: Occasionally the same brand
+        - response: Rarely the same brand
+        - response: Never the same brand
+    QuestionList:
+      items:
+        "$ref": "#/components/schemas/Question"
+      type: array
+      maxItems: 2
+      minItems: 2
+      title: QuestionList
+    QuestionRequest:
+      properties:
+        why_prompt:
+          type: string
+          title: Why Prompt
+        user_profile_attributes:
+          additionalProperties:
+            anyOf:
+            - items:
+                type: string
+              type: array
+            - items:
+                type: integer
+              type: array
+            - items:
+                type: number
+              type: array
+          type: object
+          title: User Profile Attributes
+        model_dimensions:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+          title: Model Dimensions
+        llm_model:
+          anyOf:
+          - "$ref": "#/components/schemas/LLMModel"
+          - type: 'null'
+          default: gpt4
+      type: object
+      required:
+      - why_prompt
+      - user_profile_attributes
+      - model_dimensions
+      title: QuestionRequest
+      example:
+        llm_model: gpt4
+        model_dimensions:
+          constraints:
+          - User Review
+          - Budget
+          history:
+          - Previous Phone Brands
+          - Price Sensitivity
+        user_profile_attributes:
+          age_levels:
+          - 25
+          - 30
+          education_levels:
+          - Bachelors Degree
+          income_levels:
+          - 50000
+          - 75000
+        why_prompt: What factors influence your choice in selecting a mobile phone?
+    QuestionResponse:
+      additionalProperties:
+        additionalProperties:
+          "$ref": "#/components/schemas/QuestionList"
+        type: object
+      type: object
+      title: QuestionResponse
+      example:
+        constraints:
+          Budget:
+          - question: How much does your budget limit your choice when selecting a
+              mobile phone?
+            sample_responses:
+            - response: It is the primary factor, I only consider phones within my
+                budget
+            - response: It is a major factor, but I might stretch my budget for a
+                good deal
+            - response: It is somewhat important, but I consider other factors equally
+            - response: It is a minor factor, I prioritize features over budget
+            - response: It does not limit my choice at all, I choose based on features
+                and brand
+          - question: How often do you find yourself compromising on features due
+              to budget constraints when selecting a mobile phone?
+            sample_responses:
+            - response: Always
+            - response: Frequently
+            - response: Occasionally
+            - response: Rarely
+            - response: Never
+          User Review:
+          - question: How often do you rely on user reviews when selecting a mobile
+              phone?
+            sample_responses:
+            - response: Always
+            - response: Often
+            - response: Sometimes
+            - response: Rarely
+            - response: Never
+          - question: To what extent do negative user reviews influence your decision
+              to avoid purchasing a particular mobile phone?
+            sample_responses:
+            - response: Significantly
+            - response: Moderately
+            - response: Somewhat
+            - response: Slightly
+            - response: Not at all
+        history:
+          Previous Phone Brands:
+          - question: How often have you purchased the same brand of mobile phone
+              in the past?
+            sample_responses:
+            - response: Always
+            - response: Mostly
+            - response: Occasionally
+            - response: Rarely
+            - response: Never
+          - question: How satisfied have you been with the mobile phone brands you
+              have used previously?
+            sample_responses:
+            - response: Extremely satisfied
+            - response: Very satisfied
+            - response: Moderately satisfied
+            - response: Slightly satisfied
+            - response: Not satisfied at all
+          Price Sensitivity:
+          - question: How often have you chosen a mobile phone based on its price
+              in the past?
+            sample_responses:
+            - response: Always
+            - response: Most of the time
+            - response: Sometimes
+            - response: Rarely
+            - response: Never
+          - question: When you last purchased a mobile phone, how significant was
+              the price in your decision?
+            sample_responses:
+            - response: Extremely significant
+            - response: Very significant
+            - response: Moderately significant
+            - response: Slightly significant
+            - response: Not significant at all
+    RunRequest:
+      properties:
+        filters:
+          type: object
+          title: Filters
+      type: object
+      required:
+      - filters
+      title: RunRequest
+      example:
+        filters:
+          config.user:
+            "$eq": user_id e.g. auth0|1234567890
+          created_at:
+            "$gt": '2024-11-11T16:22:34.700271'
+            "$lte": '2024-11-12T16:22:34.700278'
+    RunResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        state:
+          type: string
+          title: State
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        created_at:
+          type: string
+          title: Created At
+        config:
+          type: object
+          title: Config
+      type: object
+      required:
+      - id
+      - name
+      - state
+      - tags
+      - created_at
+      - config
+      title: RunResponse
+    SampleResponse:
+      properties:
+        response:
+          type: string
+          title: Response
+      type: object
+      required:
+      - response
+      title: SampleResponse
+      example:
+        response: Always the same brand
+    SurveyResponseType:
+      type: string
+      enum:
+      - Probabilistic
+      - Discrete
+      title: SurveyResponseType
+    TraitLevel:
+      properties:
+        id:
+          type: string
+          title: Id
+        set_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Set Type
+        type:
+          type: string
+          title: Type
+        measurement_type:
+          type: string
+          title: Measurement Type
+        ordinal_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ordinal Rank
+        short_description:
+          type: string
+          title: Short Description
+        long_description:
+          type: string
+          title: Long Description
+      type: object
+      required:
+      - id
+      - set_type
+      - type
+      - measurement_type
+      - ordinal_rank
+      - short_description
+      - long_description
+      title: TraitLevel
+    UpdateConfig:
+      properties:
+        config_update:
+          type: object
+          title: Config Update
+      type: object
+      required:
+      - config_update
+      title: UpdateConfig
+      example:
+        config_update:
+          toggle_privacy: true
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+tags:
+- name: experiments
+  description: "\U0001F9EA\U0001F468‍\U0001F52C⚗️Run a novel experiment using attributes,
+    levels, traits, dependent variables, preambles, and personas and place results
+    in a run."
+  externalDocs:
+    description: Description of the Experiment Request Body fields
+    url: https://app.gitbook.com/o/jadOkacqKTkHvAmKDCti/s/RPAuLvXI0lCcTz39j3BR/repositories/backend/how-to-run-an-experiment/experiment-request-body-fields
+- name: attributes_levels
+  description: "\U0001F4D9 Generate product features (attributes) and their variations
+    (levels)"
+- name: traits
+  description: "**Why**. \U0001F52CCausal factors that influence a person's decision.
+    Output:Return a list of persona traits that are available to subconscious.ai users."
+- name: personas
+  description: "**Who**. \U0001F46AWho is the respondent? A respondent is made up
+    of traits. Input: levels_per_trait - the number of levels of persona traits we
+    would like to return per trait. trait_keys: a comma separated list of traits from
+    the /traits endpoint. Output: Return a list of persona traits that are available
+    to subconscious.ai users."
+- name: runs
+  description: "\U0001F4C8Contains the experimental design + Experiment Results from
+    WANDB."
+- name: analytics
+  description: "\U0001F4CAContains the analytics of the experiment."
+- name: copilot
+  description: "\U0001F916 AI-assisted experiment design and causal assumption validation"
+- name: stripe
+  description: "\U0001F4B3 Manage Stripe payment processing operations"
+- name: tasks
+  description: "\U0001F4DD Monitor and manage Celery task statuses"
+- name: market-simulator
+  description: "\U0001F3EA Simulate market conditions and consumer behaviors"
+- name: main
+  description: "\U0001F6E0️ Core system endpoints for health checks and diagnostics"
+- name: default
+  description: "\U0001F504 Experiment state management and real-time event handling"
