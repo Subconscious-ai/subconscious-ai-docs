@@ -29,6 +29,11 @@ navigation:
 
           - page: Our Roadmap
             path: ./docs/pages/road_map.mdx
+
+          - page: Use Cases/Industries
+            path: ./docs/pages/use_cases.mdx
+
+          
       
       - section: Get Started
         contents:
@@ -51,6 +56,9 @@ navigation:
 
           - page: Experiment Results
             path: ./docs/pages/knowledge_base/experiment_results.mdx
+
+          - page: Market Simulator
+            path: ./docs/pages/knowledge_base/market_sim.mdx
           
           - page: Further Personalize Results
             path: ./docs/pages/knowledge_base/personalize.mdx
