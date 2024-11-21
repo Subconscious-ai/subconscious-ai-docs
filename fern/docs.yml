@@ -51,33 +51,53 @@ navigation:
           - page: Dashboard
             path: ./docs/pages/knowledge_base/dashboard.mdx
 
-          - page: Run An Experiment
-            path: ./docs/pages/knowledge_base/run_an_exp.mdx
+          - section: Run An Experiment
+            contents: 
+              - page: Introduction to Running An Experiment
+                path: ./docs/pages/knowledge_base/run_an_exp.mdx
 
-          - page: Experiment Results
-            path: ./docs/pages/knowledge_base/experiment_results.mdx
+              - page: Step 1 - Why
+                path: ./docs/pages/knowledge_base/step1.mdx
+              
+              - page: Step 2 - When/Where
+                path: ./docs/pages/knowledge_base/step4.mdx
 
-          - page: Market Simulator
-            path: ./docs/pages/knowledge_base/market_sim.mdx
-          
-          - page: Further Personalize Results
-            path: ./docs/pages/knowledge_base/personalize.mdx
-      
-      - section: Advanced Tutorials
-        contents:
-          - page: Goal-Based Programming
-            path: ./docs/pages/tutorial/goal.mdx
+              - page: Step 3 - Who
+                path: ./docs/pages/knowledge_base/step2.mdx
 
-          - page: Experiment Replication
-            path: ./docs/pages/tutorial/exp_replication.mdx
+              - page: Step 4 - What
+                path: ./docs/pages/knowledge_base/step3.mdx
+            
+          - section: Experiment Results
+            contents: 
+              - page: Our Experiment Results Page
+                path: ./docs/pages/knowledge_base/experiment_results.mdx
 
-          - page: Research Programming
-            path: ./docs/pages/tutorial/research_programming.mdx
-          
-      - section: Human Validation
-        contents:
-          - page: Replicated Studies
+              - page: Market Simulator
+                path: ./docs/pages/knowledge_base/market_sim.mdx
+              
+              - page: Further Personalize Results
+                path: ./docs/pages/knowledge_base/personalize.mdx
+            
+          - section: Advanced Tutorials
+            contents: 
+              - page: Goal-Based Programming
+                path: ./docs/pages/tutorial/goal.mdx
+
+              - page: Experiment Replication
+                path: ./docs/pages/tutorial/exp_replication.mdx
+              
+              - page: Research Programming
+                path: ./docs/pages/tutorial/research_programming.mdx
+              
+              - page: Embedding the platform
+                path: ./docs/pages/tutorial/embedding.mdx
+           
+          - page:  Human Validation (Replicated Studies)
             path: ./docs/pages/human_validation/replicated_studies.mdx    
+
+          - page: Settings
+            path: ./docs/pages/settings/settings.mdx  
   
       - section: Product
         contents:
