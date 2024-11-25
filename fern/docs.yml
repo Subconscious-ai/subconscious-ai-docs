@@ -22,24 +22,82 @@ tabs:
 navigation:
   - tab: about
     layout:
-      - section: About Us
-        contents:
-          - page: Our Team
-            path: ./docs/pages/our_team.mdx
-
-          - page: Our Roadmap
-            path: ./docs/pages/road_map.mdx
       
+
+          
+      
+      - section: Get Started
+        contents:
+          - page: Welcome to Subconscious.ai
+            path: ./docs/pages/welcome.mdx
+
+          - page: Reference Implementation
+            path: ./docs/pages/getting_started.mdx
+      
+          - page: Use Cases/Industries
+            path: ./docs/pages/use_cases.mdx
+      
+      - section: Knowledge Base
+        contents:
+          - page: Getting Started
+            path: ./docs/pages/knowledge_base/getting_started.mdx
+          
+          - page: Dashboard
+            path: ./docs/pages/knowledge_base/dashboard.mdx
+
+          - section: Run An Experiment
+            contents: 
+              - page: Introduction to Running An Experiment
+                path: ./docs/pages/knowledge_base/run_an_exp.mdx
+
+              - page: Step 1 - Why
+                path: ./docs/pages/knowledge_base/step1.mdx
+              
+              - page: Step 2 - When/Where
+                path: ./docs/pages/knowledge_base/step4.mdx
+
+              - page: Step 3 - Who
+                path: ./docs/pages/knowledge_base/step2.mdx
+
+              - page: Step 4 - What
+                path: ./docs/pages/knowledge_base/step3.mdx
+            
+          - section: Experiment Results
+            contents: 
+              - page: Our Experiment Results Page
+                path: ./docs/pages/knowledge_base/experiment_results.mdx
+
+              - page: Market Simulator
+                path: ./docs/pages/knowledge_base/market_sim.mdx
+              
+              - page: Further Personalize Results
+                path: ./docs/pages/knowledge_base/personalize.mdx
+            
+          - section: Advanced Tutorials
+            contents: 
+              - page: Goal-Based Programming
+                path: ./docs/pages/tutorial/goal.mdx
+
+              - page: Experiment Replication
+                path: ./docs/pages/tutorial/exp_replication.mdx
+              
+              - page: Research Programming
+                path: ./docs/pages/tutorial/research_programming.mdx
+              
+              - page: Embedding the platform
+                path: ./docs/pages/tutorial/embedding.mdx
+           
+          - page:  Human Validation (Replicated Studies)
+            path: ./docs/pages/human_validation/replicated_studies.mdx    
+
+          - page: Settings
+            path: ./docs/pages/settings/settings.mdx  
+  
       - section: Product
         contents:
-        - page: Feature Request/Bug Report
-          path: ./docs/pages/product/feature_bug.mdx
-
         - page: How We Compare Results
           path: ./docs/pages/product/compare_result.mdx
 
-        - page: Experiment Performance
-          path: ./docs/pages/product/experiment_result_performance.mdx
 
         - section: Experiment Showcase
           contents: 
@@ -100,15 +158,6 @@ navigation:
         - page: Privacy Policy
           path: ./docs/pages/support/pp.mdx
 
-  - tab: docs
-    layout:
-      - section: Get Started
-        contents:
-          - page: Welcome to Subconscious.ai
-            path: ./docs/pages/welcome.mdx
-
-          - page: Reference Implementation
-            path: ./docs/pages/getting_started.mdx
   - tab: api
     layout:
       - api: API Reference
@@ -117,13 +166,10 @@ navigation:
 
 
 navbar-links:
-  - type: secondary
+  - type: primary
     text: Login
     url: https://www.subconscious.ai/api/auth/login
-  - type: primary
-    text: Join the Waitlist
-    url: https://wf371uu1w6g.typeform.com/to/Tob1gFLA?typeform-source=www.subconscious.ai
-
+  
 colors:
   accentPrimary:
     dark: "#8E9BE9"
