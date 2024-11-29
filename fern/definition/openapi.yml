@@ -368,8 +368,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/attributes-levels/orthogonal":
     post:
       tags:
@@ -441,8 +440,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/attributes":
     post:
       tags:
@@ -498,8 +496,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/levels":
     post:
       tags:
@@ -569,8 +566,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/product_attribute_levels":
     post:
       tags:
@@ -654,8 +650,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/personas":
     get:
       tags:
@@ -678,8 +673,7 @@ paths:
         Raises:
         - HTTPException 500: If persona generation fails
       operationId: get_personas_personas_get
-      security:
-      - HTTPBearer: []
+
       parameters:
       - name: levels_per_trait
         in: query
@@ -746,8 +740,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/personas/constraints":
     post:
       tags:
@@ -786,8 +779,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/personas/generate_questions":
     post:
       tags:
@@ -839,8 +831,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/personas/motivation":
     post:
       tags:
@@ -885,8 +876,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-      security:
-      - HTTPBearer: []
+
   "/traits":
     get:
       tags:
@@ -947,8 +937,7 @@ paths:
                   "$ref": "#/components/schemas/TraitLevel"
                 type: array
                 title: Response Get Traits Traits Get
-      security:
-      - HTTPBearer: []
+
   
   "/copilot/check-causality":
     post:
@@ -984,8 +973,7 @@ paths:
         Raises:
         - HTTPException 500: If an error occurs during the causality check
       operationId: check_causality_copilot_check_causality_post
-      security:
-      - HTTPBearer: []
+     
       parameters:
       - name: config
         in: query
@@ -1047,8 +1035,7 @@ paths:
         Raises:
         - HTTPException 500: If an error occurs during the moderation check
       operationId: moderate_copilot_check_moderation_post
-      security:
-      - HTTPBearer: []
+      
       parameters:
       - name: why_prompt
         in: query
@@ -1086,8 +1073,7 @@ paths:
         Raises:
         - HTTPException 500: If artifacts cannot be retrieved
       operationId: get_amce_analytics__run_id__amce_get
-      security:
-      - HTTPBearer: []
+      
       parameters:
       - name: run_id
         in: path
@@ -1133,8 +1119,7 @@ paths:
         Raises:
         - HTTPException 500: If artifacts cannot be retrieved
       operationId: get_showcase_analytics__hb_id__showcase_get
-      security:
-      - HTTPBearer: []
+      
       parameters:
       - name: hb_id
         in: path
@@ -1198,8 +1183,7 @@ paths:
         Raises:
         - HTTPException 404: If the language model service is unavailable after multiple attempts
       operationId: check_for_product_market_simulator_check_realworld_product_post
-      security:
-      - HTTPBearer: []
+      
       parameters:
       - name: question
         in: query
