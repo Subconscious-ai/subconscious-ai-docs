@@ -296,61 +296,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-  "/runs/{run_id}/update_config":
-    put:
-      tags:
-      - runs
-      - runs
-      summary: Update Config
-      description: |-
-        Update configuration for a specific experiment run.
 
-        Parameters:
-        - `run_id`: Unique identifier of the run
-        - `config_update`: UpdateConfig object containing configuration changes
-
-        Returns:
-        JSONResponse with:
-        - `message`: Status of the update
-        - `configs`: Updated configuration (if successful)
-
-        Notes:
-        - Only the experiment owner can update the configuration
-        - Currently supports toggling the privacy setting
-
-        Raises:
-        - HTTPException 401: If user is not authorized to edit the run
-        - HTTPException 400: If the config update is invalid
-        - HTTPException 500: If updating the run config fails
-      operationId: update_config_runs__run_id__update_config_put
-      security:
-      - HTTPBearer: []
-      parameters:
-      - name: run_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Run Id
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/UpdateConfig"
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/HTTPValidationError"
-           
   "/attributes-levels":
     post:
       tags:
