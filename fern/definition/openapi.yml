@@ -1,5 +1,7 @@
 ---
 openapi: 3.1.0
+servers:
+  - url: https://api.dev.subconscious.ai
 info:
   title: SuperEgo
   description: "\U0001F495SuperEgo API powers Consulting and Product teams to design
