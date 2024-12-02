@@ -157,6 +157,10 @@ navigation:
 
         - page: Privacy Policy
           path: ./docs/pages/support/pp.mdx
+        
+        #- page: Privacy Policy
+          #path: ./docs/pages/support/diag.md
+
 
   - tab: api
     layout:
