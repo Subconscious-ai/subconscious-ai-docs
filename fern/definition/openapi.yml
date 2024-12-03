@@ -1,7 +1,7 @@
 ---
 openapi: 3.1.0
 servers:
-  - url: https://api.dev.subconscious.ai
+  - url: https://api.subconscious.ai
 info:
   title: SuperEgo
   description: "\U0001F495SuperEgo API powers Consulting and Product teams to design
@@ -370,7 +370,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/attributes-levels/orthogonal":
     post:
       tags:
@@ -442,7 +443,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/attributes":
     post:
       tags:
@@ -498,7 +500,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/levels":
     post:
       tags:
@@ -568,7 +571,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/product_attribute_levels":
     post:
       tags:
@@ -652,7 +656,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/personas":
     get:
       tags:
@@ -675,7 +680,8 @@ paths:
         Raises:
         - HTTPException 500: If persona generation fails
       operationId: get_personas_personas_get
-
+      security:
+      - HTTPBearer: []
       parameters:
       - name: levels_per_trait
         in: query
@@ -742,7 +748,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/personas/constraints":
     post:
       tags:
@@ -781,7 +788,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/personas/generate_questions":
     post:
       tags:
@@ -833,7 +841,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/personas/motivation":
     post:
       tags:
@@ -878,7 +887,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-
+      security:
+      - HTTPBearer: []
   "/traits":
     get:
       tags:
@@ -939,7 +949,8 @@ paths:
                   "$ref": "#/components/schemas/TraitLevel"
                 type: array
                 title: Response Get Traits Traits Get
-
+      security:
+      - HTTPBearer: []
   
   "/copilot/check-causality":
     post:
@@ -975,7 +986,8 @@ paths:
         Raises:
         - HTTPException 500: If an error occurs during the causality check
       operationId: check_causality_copilot_check_causality_post
-     
+      security:
+      - HTTPBearer: []
       parameters:
       - name: config
         in: query
@@ -1037,7 +1049,8 @@ paths:
         Raises:
         - HTTPException 500: If an error occurs during the moderation check
       operationId: moderate_copilot_check_moderation_post
-      
+      security:
+      - HTTPBearer: []
       parameters:
       - name: why_prompt
         in: query
@@ -1075,7 +1088,8 @@ paths:
         Raises:
         - HTTPException 500: If artifacts cannot be retrieved
       operationId: get_amce_analytics__run_id__amce_get
-      
+      security:
+      - HTTPBearer: []
       parameters:
       - name: run_id
         in: path
@@ -1121,7 +1135,8 @@ paths:
         Raises:
         - HTTPException 500: If artifacts cannot be retrieved
       operationId: get_showcase_analytics__hb_id__showcase_get
-      
+      security:
+      - HTTPBearer: []
       parameters:
       - name: hb_id
         in: path
@@ -1185,7 +1200,8 @@ paths:
         Raises:
         - HTTPException 404: If the language model service is unavailable after multiple attempts
       operationId: check_for_product_market_simulator_check_realworld_product_post
-      
+      security:
+      - HTTPBearer: []
       parameters:
       - name: question
         in: query
@@ -1268,54 +1284,7 @@ paths:
           content:
             application/json:
               schema: {}
-  "/webhook":
-    post:
-      summary: Webhook
-      description: |-
-        Handle experiment state webhooks and trigger notifications.
 
-        Processes webhooks for experiment states: started, crashed, finished.
-        Triggers appropriate Novu notifications and updates SSE subscribers.
-
-        Returns:
-        JSONResponse with:
-        - `status`: "received" if processed successfully
-
-        Raises:
-        - HTTPException 500: If processing the webhook data fails
-      operationId: webhook_webhook_post
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-  "/events":
-    get:
-      summary: Events
-      description: |-
-        Establish a Server-Sent Events (SSE) connection for real-time updates.
-
-        Parameters:
-        - `token`: User authentication token (injected by dependency)
-
-        Returns:
-        EventSourceResponse: SSE stream for real-time experiment updates
-
-        Notes:
-        - Authenticates user and maintains an SSE connection
-        - Sends keepalive messages every 60 seconds
-        - Closes connection when client disconnects
-
-        Raises:
-        - HTTPException 401: If the provided token is invalid
-      operationId: events_events_get
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
 components:
   schemas:
     AttributesLevelsRequest:
