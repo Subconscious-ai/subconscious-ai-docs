@@ -1,5 +1,7 @@
 ---
 openapi: 3.1.0
+servers:
+  - url: https://api.subconscious.ai
 info:
   title: SuperEgo
   description: "\U0001F495SuperEgo API powers Consulting and Product teams to design
@@ -1282,54 +1284,7 @@ paths:
           content:
             application/json:
               schema: {}
-  "/webhook":
-    post:
-      summary: Webhook
-      description: |-
-        Handle experiment state webhooks and trigger notifications.
 
-        Processes webhooks for experiment states: started, crashed, finished.
-        Triggers appropriate Novu notifications and updates SSE subscribers.
-
-        Returns:
-        JSONResponse with:
-        - `status`: "received" if processed successfully
-
-        Raises:
-        - HTTPException 500: If processing the webhook data fails
-      operationId: webhook_webhook_post
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-  "/events":
-    get:
-      summary: Events
-      description: |-
-        Establish a Server-Sent Events (SSE) connection for real-time updates.
-
-        Parameters:
-        - `token`: User authentication token (injected by dependency)
-
-        Returns:
-        EventSourceResponse: SSE stream for real-time experiment updates
-
-        Notes:
-        - Authenticates user and maintains an SSE connection
-        - Sends keepalive messages every 60 seconds
-        - Closes connection when client disconnects
-
-        Raises:
-        - HTTPException 401: If the provided token is invalid
-      operationId: events_events_get
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
 components:
   schemas:
     AttributesLevelsRequest:
