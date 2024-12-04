@@ -172,7 +172,7 @@ navigation:
 navbar-links:
   - type: primary
     text: Login
-    url: https://www.subconscious.ai/api/auth/login
+    url: https://app.subconscious.ai/
   
 colors:
   accentPrimary:
