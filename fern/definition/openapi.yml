@@ -995,7 +995,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
   
-  
   "/copilot/check-causality":
     post:
       tags:
@@ -1032,12 +1031,7 @@ paths:
       operationId: check_causality_copilot_check_causality_post
       security:
       - HTTPBearer: []
-      parameters:
-      - name: config
-        in: query
-        required: false
-        schema:
-          title: Config
+      
       requestBody:
         required: true
         content:
