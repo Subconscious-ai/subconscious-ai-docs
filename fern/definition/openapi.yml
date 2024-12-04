@@ -168,137 +168,6 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-  "/tasks/{task_id}":
-    get:
-      tags:
-      - tasks
-      - tasks
-      summary: Get Status
-      description: |-
-        Get the status of a Celery task.
-
-        Parameters:
-        - `task_id`: Unique identifier of the Celery task
-
-        Returns:
-        JSONResponse with:
-        - `task_id`: The ID of the task
-        - `task_status`: Current status of the task
-        - `task_result`: Result of the task (if available)
-
-        Example Response:
-        {
-            "task_id": "abc123",
-            "task_status": "SUCCESS",
-            "task_result": {"some_key": "some_value"}
-        }
-
-        Raises:
-        - HTTPException 500: If fetching the task status fails
-      operationId: get_status_tasks__task_id__get
-      parameters:
-      - name: task_id
-        in: path
-        required: true
-        schema:
-          title: Task Id
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/HTTPValidationError"
-  
-  "/runs/{run_id}":
-    get:
-      tags:
-      - runs
-      - runs
-      summary: Get Run
-      description: |-
-        Fetch details of a specific experiment run.
-
-        Parameters:
-        - `run_id`: Unique identifier of the run.
-
-        Returns:
-        JSONResponse with:
-        - `run_details`: Details of the requested run
-
-        Notes:
-        - Returns 403 if the run is private and not accessible to the user
-
-        Raises:
-        - HTTPException 500: If fetching run details fails
-      operationId: get_run_runs__run_id__get
-      security:
-      - HTTPBearer: []
-      parameters:
-      - name: run_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Run Id
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/HTTPValidationError"
-  "/runs/{hb_id}/details":
-    get:
-      tags:
-      - runs
-      - runs
-      summary: Get Hb Details
-      description: |-
-        Fetch details of a specific Human Baseline experiment.
-
-        Parameters:
-        - `hb_id`: Unique identifier of the Human Baseline experiment. e.g. `7h2ks593`
-
-        Returns:
-
-        JSONResponse containing the experiment details
-
-        Raises:
-        - HTTPException 500: If fetching HB experiment details fails
-      operationId: get_hb_details_runs__hb_id__details_get
-      security:
-      - HTTPBearer: []
-      parameters:
-      - name: hb_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Hb Id
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/HTTPValidationError"
-
   "/attributes-levels":
     post:
       tags:
@@ -658,6 +527,70 @@ paths:
                 "$ref": "#/components/schemas/HTTPValidationError"
       security:
       - HTTPBearer: []
+  
+  "/traits":
+    get:
+      tags:
+      - traits
+      - traits
+      summary: Get Traits
+      description: |-
+        Retrieve all traits from the database.
+
+        Returns:
+        - `List[TraitLevel]`: A list of TraitLevel objects representing all valid traits
+
+        TraitLevel structure:
+            - `id`: Unique identifier for the trait
+            - `set_type`: Optional category of the trait (e.g., "Big Five", "8 Values")
+            - `type`: The type of trait (e.g., "religion")
+            - `measurement_type`: How the trait is measured ("nominal", "ordinal", "interval", "ratio")
+            - `ordinal_rank`: Optional ranking for ordinal traits
+            - `short_description`: Brief description of the trait level (e.g., "Satanist")
+            - `long_description`: Detailed description of the trait level
+
+        Example Response:
+        ```json
+        [
+            {
+                "id": "religion_1",
+                "set_type": "Personal Values",
+                "type": "religion",
+                "measurement_type": "nominal",
+                "short_description": "Satanist",
+                "long_description": "My religion is Satanism"
+            },
+            {
+                "id": "openness_2",
+                "set_type": "Big Five",
+                "type": "personality",
+                "measurement_type": "ordinal",
+                "ordinal_rank": 2,
+                "short_description": "Medium Openness",
+                "long_description": "I am somewhat open to new experiences"
+            }
+        ]
+        ```
+        Notes:
+        - Invalid traits are logged and skipped
+        - The total number of retrieved traits is logged
+
+        Raises:
+        - HTTPException 500: If an error occurs while fetching traits
+      operationId: get_traits_traits_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  "$ref": "#/components/schemas/TraitLevel"
+                type: array
+                title: Response Get Traits Traits Get
+      security:
+      - HTTPBearer: []
+  
   "/personas":
     get:
       tags:
@@ -889,68 +822,178 @@ paths:
                 "$ref": "#/components/schemas/HTTPValidationError"
       security:
       - HTTPBearer: []
-  "/traits":
+
+  "/runs/{run_id}":
     get:
       tags:
-      - traits
-      - traits
-      summary: Get Traits
+      - runs
+      - runs
+      summary: Get Run
       description: |-
-        Retrieve all traits from the database.
+        Fetch details of a specific experiment run.
+
+        Parameters:
+        - `run_id`: Unique identifier of the run.
 
         Returns:
-        - `List[TraitLevel]`: A list of TraitLevel objects representing all valid traits
+        JSONResponse with:
+        - `run_details`: Details of the requested run
 
-        TraitLevel structure:
-            - `id`: Unique identifier for the trait
-            - `set_type`: Optional category of the trait (e.g., "Big Five", "8 Values")
-            - `type`: The type of trait (e.g., "religion")
-            - `measurement_type`: How the trait is measured ("nominal", "ordinal", "interval", "ratio")
-            - `ordinal_rank`: Optional ranking for ordinal traits
-            - `short_description`: Brief description of the trait level (e.g., "Satanist")
-            - `long_description`: Detailed description of the trait level
-
-        Example Response:
-        ```json
-        [
-            {
-                "id": "religion_1",
-                "set_type": "Personal Values",
-                "type": "religion",
-                "measurement_type": "nominal",
-                "short_description": "Satanist",
-                "long_description": "My religion is Satanism"
-            },
-            {
-                "id": "openness_2",
-                "set_type": "Big Five",
-                "type": "personality",
-                "measurement_type": "ordinal",
-                "ordinal_rank": 2,
-                "short_description": "Medium Openness",
-                "long_description": "I am somewhat open to new experiences"
-            }
-        ]
-        ```
         Notes:
-        - Invalid traits are logged and skipped
-        - The total number of retrieved traits is logged
+        - Returns 403 if the run is private and not accessible to the user
 
         Raises:
-        - HTTPException 500: If an error occurs while fetching traits
-      operationId: get_traits_traits_get
+        - HTTPException 500: If fetching run details fails
+      operationId: get_run_runs__run_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/runs/{hb_id}/details":
+    get:
+      tags:
+      - runs
+      - runs
+      summary: Get Hb Details
+      description: |-
+        Fetch details of a specific Human Baseline experiment.
+
+        Parameters:
+        - `hb_id`: Unique identifier of the Human Baseline experiment. e.g. `7h2ks593`
+
+        Returns:
+
+        JSONResponse containing the experiment details
+
+        Raises:
+        - HTTPException 500: If fetching HB experiment details fails
+      operationId: get_hb_details_runs__hb_id__details_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: hb_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Hb Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/analytics/{run_id}/amce":
+    get:
+      tags:
+      - analytics
+      - analytics
+      summary: Get Amce
+      description: |-
+        Get replication AMCE of a human baseline from production environment.
+
+        Parameters:
+        - `run_id`: Unique identifier for the run
+
+        Returns:
+        - List of dictionaries containing AMCE data
+
+        Raises:
+        - HTTPException 500: If artifacts cannot be retrieved
+      operationId: get_amce_analytics__run_id__amce_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                items:
-                  "$ref": "#/components/schemas/TraitLevel"
                 type: array
-                title: Response Get Traits Traits Get
+                items:
+                  type: object
+                title: Response Get Amce Analytics  Run Id  Amce Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/analytics/{hb_id}/showcase":
+    get:
+      tags:
+      - analytics
+      - analytics
+      summary: Get Showcase
+      description: |-
+        Get AMCE and related data for a given human baseline.
+
+        Parameters:
+        - `hb_id`: Unique identifier for the human baseline
+
+        Returns:
+        - Dictionary containing:
+            - `hb_amce`: Human baseline AMCE
+            - `hb_paper_data`: Paper data for the human baseline
+            - `replication_amce`: AMCE for the latest replication study
+            - `replication_data`: Details of the latest replication study
+
+        Raises:
+        - HTTPException 500: If artifacts cannot be retrieved
+      operationId: get_showcase_analytics__hb_id__showcase_get
       security:
       - HTTPBearer: []
+      parameters:
+      - name: hb_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Hb Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Get Showcase Analytics  Hb Id  Showcase Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
   
   "/copilot/check-causality":
     post:
@@ -1070,94 +1113,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
-  "/analytics/{run_id}/amce":
-    get:
-      tags:
-      - analytics
-      - analytics
-      summary: Get Amce
-      description: |-
-        Get replication AMCE of a human baseline from production environment.
-
-        Parameters:
-        - `run_id`: Unique identifier for the run
-
-        Returns:
-        - List of dictionaries containing AMCE data
-
-        Raises:
-        - HTTPException 500: If artifacts cannot be retrieved
-      operationId: get_amce_analytics__run_id__amce_get
-      security:
-      - HTTPBearer: []
-      parameters:
-      - name: run_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Run Id
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                title: Response Get Amce Analytics  Run Id  Amce Get
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/HTTPValidationError"
-  "/analytics/{hb_id}/showcase":
-    get:
-      tags:
-      - analytics
-      - analytics
-      summary: Get Showcase
-      description: |-
-        Get AMCE and related data for a given human baseline.
-
-        Parameters:
-        - `hb_id`: Unique identifier for the human baseline
-
-        Returns:
-        - Dictionary containing:
-            - `hb_amce`: Human baseline AMCE
-            - `hb_paper_data`: Paper data for the human baseline
-            - `replication_amce`: AMCE for the latest replication study
-            - `replication_data`: Details of the latest replication study
-
-        Raises:
-        - HTTPException 500: If artifacts cannot be retrieved
-      operationId: get_showcase_analytics__hb_id__showcase_get
-      security:
-      - HTTPBearer: []
-      parameters:
-      - name: hb_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Hb Id
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                type: object
-                title: Response Get Showcase Analytics  Hb Id  Showcase Get
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/HTTPValidationError"
+  
   "/market-simulator/check-realworld-product":
     post:
       tags:
