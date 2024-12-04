@@ -995,6 +995,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/HTTPValidationError"
   
+  
   "/copilot/check-causality":
     post:
       tags:
