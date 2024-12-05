@@ -409,64 +409,7 @@ paths:
   
   
   /personas:
-    get:
-      tags:
-      - personas
-      - personas
-      summary: Get Personas
-      description: 'Generate personas based on specified traits and levels.
-
-
-        Parameters:
-
-        - `levels_per_trait`: Number of levels for each trait
-
-        - `trait_keys`: Comma-separated list of trait keys
-
-
-        Returns:
-
-        JSONResponse with:
-
-        - `all_combinations_index`: List of trait level combinations
-
-        - `traits_lookup_map`: Dictionary of traits and their levels
-
-        - `personas_full_string_definition`: List of persona descriptions
-
-
-        Raises:
-
-        - HTTPException 500: If persona generation fails'
-      operationId: get_personas_personas_get
-      security:
-      - HTTPBearer: []
-      parameters:
-      - name: levels_per_trait
-        in: query
-        required: true
-        schema:
-          type: integer
-          title: Levels Per Trait
-      - name: trait_keys
-        in: query
-        required: true
-        schema:
-          type: string
-          title: Trait Keys
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema: {}
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-  /personas/history:
+    /personas/history:
     post:
       tags:
       - personas
