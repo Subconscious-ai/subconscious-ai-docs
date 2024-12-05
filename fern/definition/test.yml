@@ -1,7 +1,4 @@
----
 openapi: 3.1.0
-servers:
-  - url: https://api.subconscious.ai
 info:
   title: SuperEgo
   description: 💕SuperEgo API powers Consulting and Product teams to design and run
@@ -134,326 +131,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /attributes-levels:
-    post:
-      tags:
-      - attributes_levels
-      - attributes_levels
-      summary: Create Attributes And Levels
-      description: "Create attributes and levels for a given why_prompt.\n\nParameters:\n\
-        - `req`: AttributesLevelsRequest object containing:\n    - `why_prompt`: The\
-        \ main concept or prompt\n    - `country`: Target country\n    - `level_count`:\
-        \ Number of levels per attribute (optional)\n    - `max_length`: Maximum length\
-        \ for levels (optional)\n    - `llm_model`: Language model to use (optional)\n\
-        \    - `attribute_count`: Number of attributes to generate (optional)\n\n\
-        Returns:\n- List of attributes with their levels.\n\nExample Response:\n```json\n\
-        [\n  {\n    \"attribute\": \"Price\",\n    \"levels\": [\n      \"The car\
-        \ costs $30,000\",\n      \"The car costs $40,000\",\n      \"The car costs\
-        \ $50,000\",\n      \"The car costs $60,000\",\n      \"The car costs $70,000\"\
-        \n    ]\n  },\n  {\n    \"attribute\": \"Safety Rating\",\n    \"levels\"\
-        : [\n      \"The car has a 3-star safety rating\",\n      \"The car has a\
-        \ 4-star safety rating\",\n      \"The car has a 5-star safety rating\",\n\
-        \      \"The car has a 5.5-star safety rating\"\n    ]\n  }\n]\n```\n\nRaises:\n\
-        - HTTPException 404: If an error occurs during creation"
-      operationId: create_attributes_and_levels_attributes_levels_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AttributesLevelsRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/LeveledAttributeBase'
-                type: array
-                title: Response Create Attributes And Levels Attributes Levels Post
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /attributes-levels/orthogonal:
-    post:
-      tags:
-      - attributes_levels
-      - attributes_levels
-      summary: Create Orthogonal Attributes And Levels
-      description: "Create new, independent (orthogonal) attributes and levels hat\
-        \ do not intersect with existing ones..\n\nParameters:\n- `req`: OrthogonalAttributesLevelsRequest\
-        \ object containing:\n    - `why_prompt`: The main concept - prompt text\n\
-        \    - `country`: Target country\n    - `existing_attributes_levels`: List\
-        \ of existing attributes and levels\n    - `new_attribute_count`: Number of\
-        \ new attributes to generate (optional)\n    - `level_count`: Number of levels\
-        \ per attribute (optional)\n    - `llm_model`: Language model to use (optional)\n\
-        \nReturns:\n- List of orthogonal attributes with their levels.\n\nExample\
-        \ Response:\n```json\n[\n    {\n    \"attribute\": \"Range\",\n    \"levels\"\
-        : [\n      \"The car has a range of 200 miles\",\n      \"The car has a range\
-        \ of 300 miles\",\n      \"The car has a range of 400 miles\",\n      \"The\
-        \ car has a range of 500 miles\"\n    ]\n  },\n  {\n    \"attribute\": \"\
-        Charging Time\",\n    \"levels\": [\n      \"The car charges in 30 minutes\"\
-        ,\n      \"The car charges in 1 hour\",\n      \"The car charges in 2 hours\"\
-        ,\n      \"The car charges in 3 hours\"\n    ]\n  }\n]\n```\n\nRaises:\n-\
-        \ HTTPException 404: If an error occurs during creation"
-      operationId: create_orthogonal_attributes_and_levels_attributes_levels_orthogonal_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OrthogonalAttributesLevelsRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/LeveledAttributeBase'
-                type: array
-                title: Response Create Orthogonal Attributes And Levels Attributes
-                  Levels Orthogonal Post
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /attributes:
-    post:
-      tags:
-      - attributes_levels
-      - attributes_levels
-      summary: Create Attributes
-      description: "Create a list of attributes for a given why_prompt.\n\nParameters:\n\
-        - `req`: AttributesRequest object containing:\n    - `why_prompt`: The main\
-        \ concept or input question\n    - `country`: Target country\n    - `attribute_count`:\
-        \ Number of attributes to generate (optional)\n    - `prompt_type`: Type of\
-        \ prompt to use (optional)\n    - `llm_model`: Language model to use (optional)\n\
-        \nReturns:\n- List of attributes.\n\nExample Response:\n```json\n[\n    \"\
-        Price\",\n    \"Range\",\n    \"Charging Time\",\n    \"Safety Rating\"\n\
-        ]\n```\n\nRaises:\n- HTTPException 404: If an error occurs during creation"
-      operationId: create_attributes_attributes_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AttributesRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  type: string
-                type: array
-                title: Response Create Attributes Attributes Post
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /levels:
-    post:
-      tags:
-      - attributes_levels
-      - attributes_levels
-      summary: Create Levels
-      description: "Create levels for given attribute(s) of an why_prompt.\n\nParameters:\n\
-        - `req`: LevelsRequest object containing:\n    - `why_prompt`: The main concept\
-        \ or input question\n    - `country`: Target country\n    - `attributes`:\
-        \ List of attributes to generate levels for\n    - `level_count`: Number of\
-        \ levels per attribute (optional)\n    - `llm_model`: Language model to use\
-        \ (optional)\n\nReturns:\n- List of attributes with their levels.\n\nExample\
-        \ Response:\n```json\n[\n  {\n    \"attribute\": \"Price\",\n    \"levels\"\
-        : [\n      \"The car costs $30,000\",\n      \"The car costs $40,000\",\n\
-        \      \"The car costs $50,000\",\n      \"The car costs $60,000\",\n    \
-        \  \"The car costs $70,000\"\n    ]\n  },\n  {\n    \"attribute\": \"Range\"\
-        ,\n    \"levels\": [\n      \"The car has a range of 200 miles\",\n      \"\
-        The car has a range of 300 miles\",\n      \"The car has a range of 400 miles\"\
-        ,\n      \"The car has a range of 500 miles\"\n    ]\n  }\n]\n```\nRaises:\n\
-        - HTTPException 404: If an error occurs during creation"
-      operationId: create_levels_levels_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LevelsRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/LeveledAttributeBase'
-                type: array
-                title: Response Create Levels Levels Post
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /product_attribute_levels:
-    post:
-      tags:
-      - attributes_levels
-      - attributes_levels
-      summary: Product Attribute Levels
-      description: "Generate product levels based on attributes and pricing information.\n\
-        \nThis endpoint uses Perplexity API to process the input to generate a list\
-        \ of attributes that define the product,\ngenerates pricing levels (brand\
-        \ & price pair), and creates levels for the provided attributes per brand/product.\n\
-        \nParameters:\n- `req`: ProductAttributeRequest object containing:\n    -\
-        \ `why_prompt`: The main question or prompt for the product\n    - `country`:\
-        \ Target country for pricing and attributes\n    - `attribute_count`: Number\
-        \ of attributes to generate (optional)\n    - `level_count`: Number of levels\
-        \ per attribute to generate (optional)\n\nReturns:\n- List of LeveledAttributeBase\
-        \ objects, each containing:\n    - `attribute`: An Attribute object with:\n\
-        \        - `name`: The name of the attribute\n    - `levels`: List of strings\
-        \ representing the different levels or options for the attribute\n\nExample\
-        \ Response:\n```json\n[\n  {\n    \"attribute\": {\n      \"name\": \"Brands\"\
-        \n    },\n    \"levels\": [\n      \"Tesla Model 3\",\n      \"Ford Mustang\
-        \ Mach-E\",\n      \"Volkswagen ID.4\"\n    ]\n  },\n  {\n    \"attribute\"\
-        : {\n      \"name\": \"Price\"\n    },\n    \"levels\": [\n      \"38000 USD\"\
-        ,\n      \"42000 USD\",\n      \"46000 USD\",\n      \"50000 USD\",\n    \
-        \  \"54000 USD\"\n    ]\n  }\n]\n```\n\nRaises:\n- HTTPException 404: If an\
-        \ error occurs during the processing of product levels\n\nNote:\n- The number\
-        \ of attributes and levels may vary based on the input parameters and product\
-        \ complexity\n- This function runs attribute generation and price level generation\
-        \ concurrently for efficiency"
-      operationId: product_attribute_levels_product_attribute_levels_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProductAttributeRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/LeveledAttributeBase'
-                type: array
-                title: Response Product Attribute Levels Product Attribute Levels
-                  Post
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /traits:
+  /tasks/{task_id}:
     get:
       tags:
-      - traits
-      - traits
-      summary: Get Traits
-      description: "Retrieve all traits from the database.\n\nReturns:\n- `List[TraitLevel]`:\
-        \ A list of TraitLevel objects representing all valid traits\n\nTraitLevel\
-        \ structure:\n    - `id`: Unique identifier for the trait\n    - `set_type`:\
-        \ Optional category of the trait (e.g., \"Big Five\", \"8 Values\")\n    -\
-        \ `type`: The type of trait (e.g., \"religion\")\n    - `measurement_type`:\
-        \ How the trait is measured (\"nominal\", \"ordinal\", \"interval\", \"ratio\"\
-        )\n    - `ordinal_rank`: Optional ranking for ordinal traits\n    - `short_description`:\
-        \ Brief description of the trait level (e.g., \"Satanist\")\n    - `long_description`:\
-        \ Detailed description of the trait level\n\nExample Response:\n```json\n\
-        [\n    {\n        \"id\": \"religion_1\",\n        \"set_type\": \"Personal\
-        \ Values\",\n        \"type\": \"religion\",\n        \"measurement_type\"\
-        : \"nominal\",\n        \"short_description\": \"Satanist\",\n        \"long_description\"\
-        : \"My religion is Satanism\"\n    },\n    {\n        \"id\": \"openness_2\"\
-        ,\n        \"set_type\": \"Big Five\",\n        \"type\": \"personality\"\
-        ,\n        \"measurement_type\": \"ordinal\",\n        \"ordinal_rank\": 2,\n\
-        \        \"short_description\": \"Medium Openness\",\n        \"long_description\"\
-        : \"I am somewhat open to new experiences\"\n    }\n]\n```\nNotes:\n- Invalid\
-        \ traits are logged and skipped\n- The total number of retrieved traits is\
-        \ logged\n\nRaises:\n- HTTPException 500: If an error occurs while fetching\
-        \ traits"
-      operationId: get_traits_traits_get
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/TraitLevel'
-                type: array
-                title: Response Get Traits Traits Get
-      security:
-      - HTTPBearer: []
-  
-  
-  
-  /personas:
-    get:
-      tags:
-      - personas
-      - personas
-      summary: Get Personas
-      description: 'Generate personas based on specified traits and levels.
-
-
-        Parameters:
-
-        - `levels_per_trait`: Number of levels for each trait
-
-        - `trait_keys`: Comma-separated list of trait keys
-
-
-        Returns:
-
-        JSONResponse with:
-
-        - `all_combinations_index`: List of trait level combinations
-
-        - `traits_lookup_map`: Dictionary of traits and their levels
-
-        - `personas_full_string_definition`: List of persona descriptions
-
-
-        Raises:
-
-        - HTTPException 500: If persona generation fails'
-      operationId: get_personas_personas_get
-      security:
-      - HTTPBearer: []
+      - tasks
+      - tasks
+      summary: Get Status
+      description: "Get the status of a Celery task.\n\nParameters:\n- `task_id`:\
+        \ Unique identifier of the Celery task\n\nReturns:\nJSONResponse with:\n-\
+        \ `task_id`: The ID of the task\n- `task_status`: Current status of the task\n\
+        - `task_result`: Result of the task (if available)\n\nExample Response:\n\
+        {\n    \"task_id\": \"abc123\",\n    \"task_status\": \"SUCCESS\",\n    \"\
+        task_result\": {\"some_key\": \"some_value\"}\n}\n\nRaises:\n- HTTPException\
+        \ 500: If fetching the task status fails"
+      operationId: get_status_tasks__task_id__get
       parameters:
-      - name: levels_per_trait
-        in: query
+      - name: task_id
+        in: path
         required: true
         schema:
-          type: integer
-          title: Levels Per Trait
-      - name: trait_keys
-        in: query
-        required: true
-        schema:
-          type: string
-          title: Trait Keys
+          title: Task Id
       responses:
         '200':
           description: Successful Response
@@ -466,199 +163,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /personas/history:
-    post:
-      tags:
-      - personas
-      - personas
-      summary: Create History
-      description: 'Generate historical factors relevant to a user''s decision-making
-        process.
-
-
-        This endpoint analyzes a given question and user profile to produce a set
-        of
-
-        historical factors that could influence the user''s decision. These factors
-
-        provide context for understanding past behaviors and preferences.
-
-
-        Parameters:
-
-        - `req (HistoryRequest)`: Contains the question, user profile, and relevant
-        attributes
-
-
-        Returns:
-
-        - `HistoryResponse`: A dictionary of historical factors and their descriptions
-
-
-        Raises:
-
-        - HTTPException 404: If there''s an error in generating historical factors'
-      operationId: create_history_personas_history_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HistoryRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HistoryResponse'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /personas/constraints:
-    post:
-      tags:
-      - personas
-      - personas
-      summary: Create Constraints
-      description: "Generate constraints that may affect a user's decision-making\
-        \ process.\n\n This endpoint analyzes a given question, user profile, and\
-        \ relevant attributes to produce\n a set of constraints or limiting factors\
-        \ that could influence the user's decision.\n These constraints help in understanding\
-        \ the boundaries within which a decision is made.\n\n Parameters:\n - `req\
-        \ (ConstraintRequest)`: Contains the question, user profile, and relevant\
-        \ attributes\n\n Returns:\n - `ConstraintResponse`: A dictionary of constraints\
-        \ and their descriptions"
-      operationId: create_constraints_personas_constraints_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ConstraintRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConstraintResponse'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /personas/generate_questions:
-    post:
-      tags:
-      - personas
-      - personas
-      summary: Create Questions
-      description: "Generate questions for an experiment based on historical factors\
-        \ and constraints.\n\nThis endpoint creates a set of questions tailored to\
-        \ the given context, user profile,\nand specific dimensions of interest. The\
-        \ questions are designed to gather insights\nabout the user's decision-making\
-        \ process, considering both historical behavior and\ncurrent constraints.\n\
-        \nParameters:\n- `req (QuestionRequest)`: Contains the main question, user\
-        \ profile, and dimensions to explore\n\nReturns:\n- `QuestionResponse`: A\
-        \ structured set of questions categorized by model type (history/constraints)\n\
-        \  and dimensions, each with sample responses\n\nThe response includes:\n\
-        - Two questions for each specified dimension\n- A set of sample responses\
-        \ for each question\n\nRaises:\n- HTTPException 404: If there's an error in\
-        \ generating the questions\n\nNote:\n- Questions are generated asynchronously\
-        \ for efficiency\n- The structure is flexible and can accommodate various\
-        \ models and dimensions"
-      operationId: create_questions_personas_generate_questions_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QuestionRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/QuestionResponse'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
-  /personas/motivation:
-    post:
-      tags:
-      - personas
-      - personas
-      summary: Create Motivation
-      description: 'Generate motivation factors influencing a user''s decision-making
-        process.
-
-
-        This endpoint analyzes the given context, user profile, historical factors,
-        and constraints
-
-        to produce a set of motivation factors that could drive the user''s decision.
-        These factors
-
-        help in understanding the underlying reasons behind a user''s choices.
-
-
-        Parameters:
-
-        - `req (MotivationRequest)`: Contains the main question, user profile, selected
-        historical factors, and constraints
-
-
-        Returns:
-
-        - `MotivationResponse`: A dictionary of motivation factors and their descriptions
-
-
-        Raises:
-
-        - HTTPException 404: If there''s an error in generating motivation factors
-
-
-        Note:
-
-        - The generated motivation factors are based on the provided context and previously
-        selected factors'
-      operationId: create_motivation_personas_motivation_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MotivationRequest'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MotivationResponse'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
   /runs:
     post:
       tags:
@@ -978,75 +482,284 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  
-  /copilot/check-causality:
+  /attributes-levels:
     post:
       tags:
-      - copilot
-      - copilot
-      summary: Check Causality
-      description: "Check whether an why_prompt is causal or not.\n\nParameters:\n\
-        - `req`: CausalityRequest object containing:\n    - `why_prompt`: The why_prompt\
-        \ to check for causality\n    - `llm_model`: Language model to use for the\
-        \ check (optional)\n\nReturns:\n- CausalityResponse object with the following\
-        \ structure:\n    - `is_causal`: Boolean indicating whether the why_prompt\
-        \ is causal\n    - `suggestions`: List of up to 3 strings, each a rephrased\
-        \ version of the original why_prompt as a causal why_prompt\n\nExample Response:\n\
-        ```json\n{\n    \"is_causal\": false,\n    \"suggestions\": [\n        \"\
-        How does increasing the minimum wage affect employment rates?\",\n       \
-        \ \"What is the impact of regular exercise on cardiovascular health?\",\n\
-        \        \"To what extent does parental involvement influence a child's academic\
-        \ performance?\"\n    ]\n}\n```\n\nRaises:\n- HTTPException 500: If an error\
-        \ occurs during the causality check"
-      operationId: check_causality_copilot_check_causality_post
-      security:
-      - HTTPBearer: []
-      
+      - attributes_levels
+      - attributes_levels
+      summary: Create Attributes And Levels
+      description: "Create attributes and levels for a given why_prompt.\n\nParameters:\n\
+        - `req`: AttributesLevelsRequest object containing:\n    - `why_prompt`: The\
+        \ main concept or prompt\n    - `country`: Target country\n    - `level_count`:\
+        \ Number of levels per attribute (optional)\n    - `max_length`: Maximum length\
+        \ for levels (optional)\n    - `llm_model`: Language model to use (optional)\n\
+        \    - `attribute_count`: Number of attributes to generate (optional)\n\n\
+        Returns:\n- List of attributes with their levels.\n\nExample Response:\n```json\n\
+        [\n  {\n    \"attribute\": \"Price\",\n    \"levels\": [\n      \"The car\
+        \ costs $30,000\",\n      \"The car costs $40,000\",\n      \"The car costs\
+        \ $50,000\",\n      \"The car costs $60,000\",\n      \"The car costs $70,000\"\
+        \n    ]\n  },\n  {\n    \"attribute\": \"Safety Rating\",\n    \"levels\"\
+        : [\n      \"The car has a 3-star safety rating\",\n      \"The car has a\
+        \ 4-star safety rating\",\n      \"The car has a 5-star safety rating\",\n\
+        \      \"The car has a 5.5-star safety rating\"\n    ]\n  }\n]\n```\n\nRaises:\n\
+        - HTTPException 404: If an error occurs during creation"
+      operationId: create_attributes_and_levels_attributes_levels_post
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CausalityRequest'
+              $ref: '#/components/schemas/AttributesLevelsRequest'
+        required: true
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CausalityResponse'
+                items:
+                  $ref: '#/components/schemas/LeveledAttributeBase'
+                type: array
+                title: Response Create Attributes And Levels Attributes Levels Post
         '422':
           description: Validation Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /copilot/check-moderation:
+      security:
+      - HTTPBearer: []
+  /attributes-levels/orthogonal:
     post:
       tags:
-      - copilot
-      - copilot
-      summary: Moderate
-      description: "Check whether a why_prompt complies with our content policy.\n\
-        \nParameters:\n- `why_prompt`: The prompt text to check for content policy\
-        \ compliance\n\nReturns:\n- JSONResponse object with the following structure:\n\
-        \    - `flagged`: Boolean indicating whether the content was flagged\n   \
-        \ - `flagged_categories`: List of categories that were flagged (empty if not\
-        \ flagged)\n\nExample Response (flagged content):\n```json\n{\n    \"flagged\"\
-        : true,\n    \"flagged_categories\": [\"violence\", \"hate\"]\n}\n```\n\n\
-        Example Response (non-flagged content):\n```json\n{\n    \"flagged\": false,\n\
-        \    \"flagged_categories\": []\n}\n```\n\nRaises:\n- HTTPException 500: If\
-        \ an error occurs during the moderation check"
-      operationId: moderate_copilot_check_moderation_post
+      - attributes_levels
+      - attributes_levels
+      summary: Create Orthogonal Attributes And Levels
+      description: "Create new, independent (orthogonal) attributes and levels hat\
+        \ do not intersect with existing ones..\n\nParameters:\n- `req`: OrthogonalAttributesLevelsRequest\
+        \ object containing:\n    - `why_prompt`: The main concept - prompt text\n\
+        \    - `country`: Target country\n    - `existing_attributes_levels`: List\
+        \ of existing attributes and levels\n    - `new_attribute_count`: Number of\
+        \ new attributes to generate (optional)\n    - `level_count`: Number of levels\
+        \ per attribute (optional)\n    - `llm_model`: Language model to use (optional)\n\
+        \nReturns:\n- List of orthogonal attributes with their levels.\n\nExample\
+        \ Response:\n```json\n[\n    {\n    \"attribute\": \"Range\",\n    \"levels\"\
+        : [\n      \"The car has a range of 200 miles\",\n      \"The car has a range\
+        \ of 300 miles\",\n      \"The car has a range of 400 miles\",\n      \"The\
+        \ car has a range of 500 miles\"\n    ]\n  },\n  {\n    \"attribute\": \"\
+        Charging Time\",\n    \"levels\": [\n      \"The car charges in 30 minutes\"\
+        ,\n      \"The car charges in 1 hour\",\n      \"The car charges in 2 hours\"\
+        ,\n      \"The car charges in 3 hours\"\n    ]\n  }\n]\n```\n\nRaises:\n-\
+        \ HTTPException 404: If an error occurs during creation"
+      operationId: create_orthogonal_attributes_and_levels_attributes_levels_orthogonal_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrthogonalAttributesLevelsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LeveledAttributeBase'
+                type: array
+                title: Response Create Orthogonal Attributes And Levels Attributes
+                  Levels Orthogonal Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /attributes:
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Create Attributes
+      description: "Create a list of attributes for a given why_prompt.\n\nParameters:\n\
+        - `req`: AttributesRequest object containing:\n    - `why_prompt`: The main\
+        \ concept or input question\n    - `country`: Target country\n    - `attribute_count`:\
+        \ Number of attributes to generate (optional)\n    - `prompt_type`: Type of\
+        \ prompt to use (optional)\n    - `llm_model`: Language model to use (optional)\n\
+        \nReturns:\n- List of attributes.\n\nExample Response:\n```json\n[\n    \"\
+        Price\",\n    \"Range\",\n    \"Charging Time\",\n    \"Safety Rating\"\n\
+        ]\n```\n\nRaises:\n- HTTPException 404: If an error occurs during creation"
+      operationId: create_attributes_attributes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttributesRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Create Attributes Attributes Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /levels:
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Create Levels
+      description: "Create levels for given attribute(s) of an why_prompt.\n\nParameters:\n\
+        - `req`: LevelsRequest object containing:\n    - `why_prompt`: The main concept\
+        \ or input question\n    - `country`: Target country\n    - `attributes`:\
+        \ List of attributes to generate levels for\n    - `level_count`: Number of\
+        \ levels per attribute (optional)\n    - `llm_model`: Language model to use\
+        \ (optional)\n\nReturns:\n- List of attributes with their levels.\n\nExample\
+        \ Response:\n```json\n[\n  {\n    \"attribute\": \"Price\",\n    \"levels\"\
+        : [\n      \"The car costs $30,000\",\n      \"The car costs $40,000\",\n\
+        \      \"The car costs $50,000\",\n      \"The car costs $60,000\",\n    \
+        \  \"The car costs $70,000\"\n    ]\n  },\n  {\n    \"attribute\": \"Range\"\
+        ,\n    \"levels\": [\n      \"The car has a range of 200 miles\",\n      \"\
+        The car has a range of 300 miles\",\n      \"The car has a range of 400 miles\"\
+        ,\n      \"The car has a range of 500 miles\"\n    ]\n  }\n]\n```\nRaises:\n\
+        - HTTPException 404: If an error occurs during creation"
+      operationId: create_levels_levels_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LevelsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LeveledAttributeBase'
+                type: array
+                title: Response Create Levels Levels Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /product_attribute_levels:
+    post:
+      tags:
+      - attributes_levels
+      - attributes_levels
+      summary: Product Attribute Levels
+      description: "Generate product levels based on attributes and pricing information.\n\
+        \nThis endpoint uses Perplexity API to process the input to generate a list\
+        \ of attributes that define the product,\ngenerates pricing levels (brand\
+        \ & price pair), and creates levels for the provided attributes per brand/product.\n\
+        \nParameters:\n- `req`: ProductAttributeRequest object containing:\n    -\
+        \ `why_prompt`: The main question or prompt for the product\n    - `country`:\
+        \ Target country for pricing and attributes\n    - `attribute_count`: Number\
+        \ of attributes to generate (optional)\n    - `level_count`: Number of levels\
+        \ per attribute to generate (optional)\n\nReturns:\n- List of LeveledAttributeBase\
+        \ objects, each containing:\n    - `attribute`: An Attribute object with:\n\
+        \        - `name`: The name of the attribute\n    - `levels`: List of strings\
+        \ representing the different levels or options for the attribute\n\nExample\
+        \ Response:\n```json\n[\n  {\n    \"attribute\": {\n      \"name\": \"Brands\"\
+        \n    },\n    \"levels\": [\n      \"Tesla Model 3\",\n      \"Ford Mustang\
+        \ Mach-E\",\n      \"Volkswagen ID.4\"\n    ]\n  },\n  {\n    \"attribute\"\
+        : {\n      \"name\": \"Price\"\n    },\n    \"levels\": [\n      \"38000 USD\"\
+        ,\n      \"42000 USD\",\n      \"46000 USD\",\n      \"50000 USD\",\n    \
+        \  \"54000 USD\"\n    ]\n  }\n]\n```\n\nRaises:\n- HTTPException 404: If an\
+        \ error occurs during the processing of product levels\n\nNote:\n- The number\
+        \ of attributes and levels may vary based on the input parameters and product\
+        \ complexity\n- This function runs attribute generation and price level generation\
+        \ concurrently for efficiency"
+      operationId: product_attribute_levels_product_attribute_levels_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductAttributeRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LeveledAttributeBase'
+                type: array
+                title: Response Product Attribute Levels Product Attribute Levels
+                  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /personas:
+    get:
+      tags:
+      - personas
+      - personas
+      summary: Get Personas
+      description: 'Generate personas based on specified traits and levels.
+
+
+        Parameters:
+
+        - `levels_per_trait`: Number of levels for each trait
+
+        - `trait_keys`: Comma-separated list of trait keys
+
+
+        Returns:
+
+        JSONResponse with:
+
+        - `all_combinations_index`: List of trait level combinations
+
+        - `traits_lookup_map`: Dictionary of traits and their levels
+
+        - `personas_full_string_definition`: List of persona descriptions
+
+
+        Raises:
+
+        - HTTPException 500: If persona generation fails'
+      operationId: get_personas_personas_get
       security:
       - HTTPBearer: []
       parameters:
-      - name: why_prompt
+      - name: levels_per_trait
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Levels Per Trait
+      - name: trait_keys
         in: query
         required: true
         schema:
           type: string
-          title: Why Prompt
+          title: Trait Keys
       responses:
         '200':
           description: Successful Response
@@ -1059,6 +772,238 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /personas/history:
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create History
+      description: 'Generate historical factors relevant to a user''s decision-making
+        process.
+
+
+        This endpoint analyzes a given question and user profile to produce a set
+        of
+
+        historical factors that could influence the user''s decision. These factors
+
+        provide context for understanding past behaviors and preferences.
+
+
+        Parameters:
+
+        - `req (HistoryRequest)`: Contains the question, user profile, and relevant
+        attributes
+
+
+        Returns:
+
+        - `HistoryResponse`: A dictionary of historical factors and their descriptions
+
+
+        Raises:
+
+        - HTTPException 404: If there''s an error in generating historical factors'
+      operationId: create_history_personas_history_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HistoryRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /personas/constraints:
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create Constraints
+      description: "Generate constraints that may affect a user's decision-making\
+        \ process.\n\n This endpoint analyzes a given question, user profile, and\
+        \ relevant attributes to produce\n a set of constraints or limiting factors\
+        \ that could influence the user's decision.\n These constraints help in understanding\
+        \ the boundaries within which a decision is made.\n\n Parameters:\n - `req\
+        \ (ConstraintRequest)`: Contains the question, user profile, and relevant\
+        \ attributes\n\n Returns:\n - `ConstraintResponse`: A dictionary of constraints\
+        \ and their descriptions"
+      operationId: create_constraints_personas_constraints_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConstraintRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstraintResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /personas/generate_questions:
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create Questions
+      description: "Generate questions for an experiment based on historical factors\
+        \ and constraints.\n\nThis endpoint creates a set of questions tailored to\
+        \ the given context, user profile,\nand specific dimensions of interest. The\
+        \ questions are designed to gather insights\nabout the user's decision-making\
+        \ process, considering both historical behavior and\ncurrent constraints.\n\
+        \nParameters:\n- `req (QuestionRequest)`: Contains the main question, user\
+        \ profile, and dimensions to explore\n\nReturns:\n- `QuestionResponse`: A\
+        \ structured set of questions categorized by model type (history/constraints)\n\
+        \  and dimensions, each with sample responses\n\nThe response includes:\n\
+        - Two questions for each specified dimension\n- A set of sample responses\
+        \ for each question\n\nRaises:\n- HTTPException 404: If there's an error in\
+        \ generating the questions\n\nNote:\n- Questions are generated asynchronously\
+        \ for efficiency\n- The structure is flexible and can accommodate various\
+        \ models and dimensions"
+      operationId: create_questions_personas_generate_questions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /personas/motivation:
+    post:
+      tags:
+      - personas
+      - personas
+      summary: Create Motivation
+      description: 'Generate motivation factors influencing a user''s decision-making
+        process.
+
+
+        This endpoint analyzes the given context, user profile, historical factors,
+        and constraints
+
+        to produce a set of motivation factors that could drive the user''s decision.
+        These factors
+
+        help in understanding the underlying reasons behind a user''s choices.
+
+
+        Parameters:
+
+        - `req (MotivationRequest)`: Contains the main question, user profile, selected
+        historical factors, and constraints
+
+
+        Returns:
+
+        - `MotivationResponse`: A dictionary of motivation factors and their descriptions
+
+
+        Raises:
+
+        - HTTPException 404: If there''s an error in generating motivation factors
+
+
+        Note:
+
+        - The generated motivation factors are based on the provided context and previously
+        selected factors'
+      operationId: create_motivation_personas_motivation_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MotivationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MotivationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /traits:
+    get:
+      tags:
+      - traits
+      - traits
+      summary: Get Traits
+      description: "Retrieve all traits from the database.\n\nReturns:\n- `List[TraitLevel]`:\
+        \ A list of TraitLevel objects representing all valid traits\n\nTraitLevel\
+        \ structure:\n    - `id`: Unique identifier for the trait\n    - `set_type`:\
+        \ Optional category of the trait (e.g., \"Big Five\", \"8 Values\")\n    -\
+        \ `type`: The type of trait (e.g., \"religion\")\n    - `measurement_type`:\
+        \ How the trait is measured (\"nominal\", \"ordinal\", \"interval\", \"ratio\"\
+        )\n    - `ordinal_rank`: Optional ranking for ordinal traits\n    - `short_description`:\
+        \ Brief description of the trait level (e.g., \"Satanist\")\n    - `long_description`:\
+        \ Detailed description of the trait level\n\nExample Response:\n```json\n\
+        [\n    {\n        \"id\": \"religion_1\",\n        \"set_type\": \"Personal\
+        \ Values\",\n        \"type\": \"religion\",\n        \"measurement_type\"\
+        : \"nominal\",\n        \"short_description\": \"Satanist\",\n        \"long_description\"\
+        : \"My religion is Satanism\"\n    },\n    {\n        \"id\": \"openness_2\"\
+        ,\n        \"set_type\": \"Big Five\",\n        \"type\": \"personality\"\
+        ,\n        \"measurement_type\": \"ordinal\",\n        \"ordinal_rank\": 2,\n\
+        \        \"short_description\": \"Medium Openness\",\n        \"long_description\"\
+        : \"I am somewhat open to new experiences\"\n    }\n]\n```\nNotes:\n- Invalid\
+        \ traits are logged and skipped\n- The total number of retrieved traits is\
+        \ logged\n\nRaises:\n- HTTPException 500: If an error occurs while fetching\
+        \ traits"
+      operationId: get_traits_traits_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TraitLevel'
+                type: array
+                title: Response Get Traits Traits Get
+      security:
+      - HTTPBearer: []
   /stripe/create-customer-portal-session/:
     post:
       tags:
@@ -1285,6 +1230,91 @@ paths:
           content:
             application/json:
               schema: {}
+  /copilot/check-causality:
+    post:
+      tags:
+      - copilot
+      - copilot
+      summary: Check Causality
+      description: "Check whether an why_prompt is causal or not.\n\nParameters:\n\
+        - `req`: CausalityRequest object containing:\n    - `why_prompt`: The why_prompt\
+        \ to check for causality\n    - `llm_model`: Language model to use for the\
+        \ check (optional)\n\nReturns:\n- CausalityResponse object with the following\
+        \ structure:\n    - `is_causal`: Boolean indicating whether the why_prompt\
+        \ is causal\n    - `suggestions`: List of up to 3 strings, each a rephrased\
+        \ version of the original why_prompt as a causal why_prompt\n\nExample Response:\n\
+        ```json\n{\n    \"is_causal\": false,\n    \"suggestions\": [\n        \"\
+        How does increasing the minimum wage affect employment rates?\",\n       \
+        \ \"What is the impact of regular exercise on cardiovascular health?\",\n\
+        \        \"To what extent does parental involvement influence a child's academic\
+        \ performance?\"\n    ]\n}\n```\n\nRaises:\n- HTTPException 500: If an error\
+        \ occurs during the causality check"
+      operationId: check_causality_copilot_check_causality_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: config
+        in: query
+        required: false
+        schema:
+          title: Config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CausalityRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CausalityResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /copilot/check-moderation:
+    post:
+      tags:
+      - copilot
+      - copilot
+      summary: Moderate
+      description: "Check whether a why_prompt complies with our content policy.\n\
+        \nParameters:\n- `why_prompt`: The prompt text to check for content policy\
+        \ compliance\n\nReturns:\n- JSONResponse object with the following structure:\n\
+        \    - `flagged`: Boolean indicating whether the content was flagged\n   \
+        \ - `flagged_categories`: List of categories that were flagged (empty if not\
+        \ flagged)\n\nExample Response (flagged content):\n```json\n{\n    \"flagged\"\
+        : true,\n    \"flagged_categories\": [\"violence\", \"hate\"]\n}\n```\n\n\
+        Example Response (non-flagged content):\n```json\n{\n    \"flagged\": false,\n\
+        \    \"flagged_categories\": []\n}\n```\n\nRaises:\n- HTTPException 500: If\
+        \ an error occurs during the moderation check"
+      operationId: moderate_copilot_check_moderation_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: why_prompt
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Why Prompt
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /human-baselines/{hb_folder}/replications-amces:
     get:
       tags:
@@ -1350,7 +1380,11 @@ paths:
         schema:
           type: string
           title: Question
-      
+      - name: config
+        in: query
+        required: false
+        schema:
+          title: Config
       responses:
         '200':
           description: Successful Response
@@ -1428,7 +1462,70 @@ paths:
           content:
             application/json:
               schema: {}
-  
+  /webhook:
+    post:
+      summary: Webhook
+      description: 'Handle experiment state webhooks and trigger notifications.
+
+
+        Processes webhooks for experiment states: started, crashed, finished.
+
+        Triggers appropriate Novu notifications and updates SSE subscribers.
+
+
+        Returns:
+
+        JSONResponse with:
+
+        - `status`: "received" if processed successfully
+
+
+        Raises:
+
+        - HTTPException 500: If processing the webhook data fails'
+      operationId: webhook_webhook_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /events:
+    get:
+      summary: Events
+      description: 'Establish a Server-Sent Events (SSE) connection for real-time
+        updates.
+
+
+        Parameters:
+
+        - `token`: User authentication token (injected by dependency)
+
+
+        Returns:
+
+        EventSourceResponse: SSE stream for real-time experiment updates
+
+
+        Notes:
+
+        - Authenticates user and maintains an SSE connection
+
+        - Sends keepalive messages every 60 seconds
+
+        - Closes connection when client disconnects
+
+
+        Raises:
+
+        - HTTPException 401: If the provided token is invalid'
+      operationId: events_events_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
 components:
   schemas:
     AttributesLevelsRequest:
