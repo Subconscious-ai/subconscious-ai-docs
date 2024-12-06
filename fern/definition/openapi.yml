@@ -733,9 +733,17 @@ paths:
         required: true
         schema:
           type: string
-          title: why_prompt
+          title: Why Prompt
           example: How does social media usage affect sleep patterns?
-          
+      
+      - name : llm_model
+        in: path
+        required: false
+        schema:
+          type: string
+          title: LLM Model
+          example: gpt4
+
       responses:
         '200':
           description: Successful Response
