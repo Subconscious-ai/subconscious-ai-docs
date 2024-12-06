@@ -122,8 +122,8 @@ paths:
         schema:
           type: string
           title: Why Prompt
-      example:
-        why_prompt: How does social media usage affect sleep patterns?
+          example: How does social media usage affect sleep patterns?
+  
       responses:
         '200':
           description: Successful Response
