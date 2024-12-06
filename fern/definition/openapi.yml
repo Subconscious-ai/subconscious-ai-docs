@@ -725,16 +725,17 @@ paths:
       operationId: check_causality_copilot_check_causality_post
       security:
       - HTTPBearer: []
-      
-      requestBody:
+    
+
+      parameters:
+      - name: why_prompt
+        in: path
         required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CausalityRequest'
-              example:
-                    why_prompt: How does social media usage affect sleep patterns?
-                    llm_model: gpt-4  
+        schema:
+          type: string
+          title: why_prompt
+          example: How does social media usage affect sleep patterns?
+          
       responses:
         '200':
           description: Successful Response
@@ -1264,6 +1265,7 @@ components:
         why_prompt:
           type: string
           title: Why Prompt
+          default: How does social media usage affect sleep patterns?
         llm_model:
           anyOf:
           - $ref: '#/components/schemas/LLMModel'
