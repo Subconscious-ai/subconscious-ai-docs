@@ -643,6 +643,7 @@ paths:
         schema:
           type: string
           title: Run Id
+          example: 5fbc361f-d4d9-474d-a447-9a3da29ca294
       responses:
         '200':
           description: Successful Response
@@ -688,6 +689,7 @@ paths:
         schema:
           type: string
           title: Hb Id
+          example: 3j7wse2j
       responses:
         '200':
           description: Successful Response
@@ -743,6 +745,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+                example:
+                  why_prompt: How does social media usage affect sleep patterns?
+                  llm_model: gpt-4
   /copilot/check-moderation:
     post:
       tags:
@@ -769,6 +774,7 @@ paths:
         schema:
           type: string
           title: Why Prompt
+          why_prompt: How does social media usage affect sleep patterns?
       responses:
         '200':
           description: Successful Response
@@ -1026,6 +1032,8 @@ paths:
         schema:
           type: string
           title: Hb Folder
+          example: Abramova2022
+
       responses:
         '200':
           description: Successful Response
@@ -1072,6 +1080,7 @@ paths:
         schema:
           type: string
           title: Question
+          example: Does a smartphone that can project holograms exist?
       
       responses:
         '200':
