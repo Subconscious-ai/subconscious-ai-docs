@@ -740,7 +740,7 @@ paths:
         in: path
         required: false
         schema:
-          type: string
+          type: 'null'
           title: llm_model
           example: gpt4
 
