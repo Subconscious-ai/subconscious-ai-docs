@@ -1265,11 +1265,13 @@ components:
           type: string
           title: Why Prompt
           default: How does social media usage affect sleep patterns?
+          example: How does social media usage affect sleep patterns?
         llm_model:
           anyOf:
           - $ref: '#/components/schemas/LLMModel'
           - type: 'null'
           default: gpt4
+          example: gpt4
       type: object
       required:
       - why_prompt
