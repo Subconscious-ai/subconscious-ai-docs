@@ -732,6 +732,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CausalityRequest'
+              example:
+                    why_prompt: How does social media usage affect sleep patterns?
+                    llm_model: gpt-4  
       responses:
         '200':
           description: Successful Response
@@ -745,9 +748,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-              example:
-                  why_prompt: How does social media usage affect sleep patterns?
-                  llm_model: gpt-4  
+                
   /copilot/check-moderation:
     post:
       tags:
