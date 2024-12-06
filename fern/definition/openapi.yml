@@ -726,20 +726,14 @@ paths:
       security:
       - HTTPBearer: []
     
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              why_prompt:
-                type: string
-                example: How does social media usage affect sleep patterns?
-              llm_model:
-                type: string
-                example: gpt4
-  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CausalityRequest'
+
+      
 
       responses:
         '200':
