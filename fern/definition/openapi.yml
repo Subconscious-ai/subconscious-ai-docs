@@ -831,7 +831,7 @@ paths:
       - market-simulator
       - market-simulator
       summary: Check For Product
-      
+
       description: "Check if a product mentioned in the question exists in the real\
         \ world.\n\nThis endpoint uses a language model to assess whether a product\
         \ described in the input question\nis likely to exist in reality. It makes\
@@ -1428,7 +1428,7 @@ components:
           anyOf:
           - $ref: '#/components/schemas/SurveyResponseType'
           - type: 'null'
-          default: discrete
+          default: Discrete
         respondent_dependent_variable:
           anyOf:
           - type: string
@@ -1524,7 +1524,7 @@ components:
             - 200 miles range with a robust charging infrastructure for recharging
               in 15 minutes
         prompt_type: generic
-        response_type: discrete
+        response_type: Discrete
         state: New York
         why_prompt: I would like to design a new electric car for the American markets
         year: '2023'
@@ -2192,8 +2192,8 @@ components:
     SurveyResponseType:
       type: string
       enum:
-      - probabilistic
-      - discrete
+      - Probabilistic
+      - Discrete
       title: SurveyResponseType
     TraitLevel:
       properties:
