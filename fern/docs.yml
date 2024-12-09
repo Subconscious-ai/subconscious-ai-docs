@@ -164,8 +164,8 @@ navigation:
 
   - tab: api
     layout:
-      - page: Access your Bearer Token
-        path: ./docs/pages/tutorial/token_gen.mdx
+      #- page: Access your Bearer Token
+      #  path: ./docs/pages/tutorial/token_gen.mdx
       - api: API Reference
       
 
