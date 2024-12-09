@@ -831,6 +831,7 @@ paths:
       - market-simulator
       - market-simulator
       summary: Check For Product
+      
       description: "Check if a product mentioned in the question exists in the real\
         \ world.\n\nThis endpoint uses a language model to assess whether a product\
         \ described in the input question\nis likely to exist in reality. It makes\
