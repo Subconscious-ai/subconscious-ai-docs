@@ -60,51 +60,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-  /experiments/dependent-variable:
-    post:
-      tags:
-      - experiments
-      - experiments
-      summary: Create Dependent Variable
-      description: "Generate a dependent variable string (survey prompt) based on\
-        \ the input question.\n\nThis endpoint creates a dependent variable that synthetic\
-        \ respondents will respond to in an experiment.\nIt allows users to review\
-        \ the generated survey prompt before running the experiment.\n\nParameters:\n\
-        - `req`: DependentVariable object containing:\n    - `prompt_type`: Enum representing\
-        \ the type or focus of the experiment\n    - `why_prompt`: String containing\
-        \ the user's input question\n\nReturns:\n- DependentVariableResponse object\
-        \ with the following structure:\n    - `dependent_variable`: String representing\
-        \ the generated survey prompt\n\nExample Request:\n```json\n{\n    \"prompt_type\"\
-        : \"generic\",\n    \"why_prompt\": \"How does social media usage affect sleep\
-        \ patterns?\"\n}\n```\n\nExample Response:\n```json\n{\n  \"dependent_variable\"\
-        : \"Please read the descriptions of the two social media usage scenarios carefully.\
-        \ Then, please indicate which of the two scenarios you believe has a more\
-        \ significant impact on sleep patterns.\"\n}\n```\n\nNotes:\n- The dependent\
-        \ variable is generated using the GPT-4 language model\n- The generated dependent\
-        \ variable can be added to the experiment object\n\nRaises:\n- HTTPException\
-        \ 500: If an error occurs during the generation of the dependent variable"
-      operationId: create_dependent_variable_experiments_dependent_variable_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DependentVariable'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DependentVariableResponse'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-      - HTTPBearer: []
+  
   /experiments/study-subject:
     post:
       tags:
@@ -2192,7 +2148,6 @@ components:
     SurveyResponseType:
       type: string
       enum:
-      - Probabilistic
       - Discrete
       title: SurveyResponseType
     TraitLevel:
