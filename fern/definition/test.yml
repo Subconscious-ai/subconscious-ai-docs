@@ -1,7 +1,4 @@
----
 openapi: 3.1.0
-servers:
-  - url: https://api.subconscious.ai
 info:
   title: SuperEgo
   description: 💕SuperEgo API powers Consulting and Product teams to design and run
@@ -122,8 +119,357 @@ paths:
         schema:
           type: string
           title: Why Prompt
-          example: How does social media usage affect sleep patterns?
-  
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /tasks/{task_id}:
+    get:
+      tags:
+      - tasks
+      - tasks
+      summary: Get Status
+      description: "Get the status of a Celery task.\n\nParameters:\n- `task_id`:\
+        \ Unique identifier of the Celery task\n\nReturns:\nJSONResponse with:\n-\
+        \ `task_id`: The ID of the task\n- `task_status`: Current status of the task\n\
+        - `task_result`: Result of the task (if available)\n\nExample Response:\n\
+        {\n    \"task_id\": \"abc123\",\n    \"task_status\": \"SUCCESS\",\n    \"\
+        task_result\": {\"some_key\": \"some_value\"}\n}\n\nRaises:\n- HTTPException\
+        \ 500: If fetching the task status fails"
+      operationId: get_status_tasks__task_id__get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /runs:
+    post:
+      tags:
+      - runs
+      summary: Get Runs
+      description: "Fetch experiment runs based on provided filters.\n\nParameters:\n\
+        - `filters`: RunRequest object containing filter criteria\n\nReturns:\n- List\
+        \ of RunResponse objects matching the filters\n\nExample filter:\n```json\n\
+        {\n  \"filters\": {\n    \"config.user\": {\n      \"$eq\": \"Add a user_id\
+        \ here. e.g. auth0|1234567890\"\n    },\n    \"created_at\": {\n      \"$gt\"\
+        : \"2024-10-16T19:18:48.753240\",\n      \"$lte\": \"2024-10-17T19:18:48.753258\"\
+        \n    }\n  }\n}\n```\n\nNotes:\n- Returns up to 10 runs due to performance\
+        \ issues - WANDB does not have pagination so for performance we should return\
+        \ less runs (temporary solution).\n- Excludes runs hidden from the user\n\n\
+        Raises:\n- HTTPException 500: If fetching runs fails"
+      operationId: get_runs_runs_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - items:
+                    $ref: '#/components/schemas/RunResponse'
+                  type: array
+                - type: 'null'
+                title: Response Get Runs Runs Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /runs/{run_id}:
+    delete:
+      tags:
+      - runs
+      summary: Delete an experiment run
+      description: "Delete an experiment run by ID.\n\nArgs:\n    run_id (str): The\
+        \ unique identifier of the run to delete.\n\nReturns:\n    Response: Empty\
+        \ response with 204 status code on successful deletion.\n\nRaises:\n    HTTPException:\
+        \ For various error scenarios including unauthorized access, not found, or\
+        \ server errors."
+      operationId: delete_run_runs__run_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - runs
+      summary: Get Run
+      description: 'Fetch details of a specific experiment run.
+
+
+        Parameters:
+
+        - `run_id`: Unique identifier of the run.
+
+
+        Returns:
+
+        JSONResponse with:
+
+        - `run_details`: Details of the requested run
+
+
+        Notes:
+
+        - Returns 403 if the run is private and not accessible to the user
+
+
+        Raises:
+
+        - HTTPException 500: If fetching run details fails'
+      operationId: get_run_runs__run_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /runs/public-count:
+    get:
+      tags:
+      - runs
+      summary: Get Public Runs Count
+      description: "Get the count of public experiments runs.\n\nReturns:\nJSONResponse\
+        \ with:\n- `count`: Number of public runs\n\nExample Response:\n```json\n\
+        {\n    \"count\": 42\n}\n```\nNotes:\n- Public runs are those where `config.experiment_design.is_private`\
+        \ is `False` or `None`\n\nRaises:\n- HTTPException 500: If fetching the count\
+        \ fails"
+      operationId: get_public_runs_count_runs_public_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /runs/user-runs-count:
+    get:
+      tags:
+      - runs
+      summary: Get User Runs Count
+      description: "Get the count of runs for the authenticated user.\n\nParameters:\n\
+        - `user_details`: User authentication details (injected by dependency)\n\n\
+        Returns:\nJSONResponse with:\n- `runs_count`: Number of runs for the user\n\
+        \nExample Response:\n```json\n{\n    \"runs_count\": 15\n}\n```\nRaises:\n\
+        - HTTPException 500: For other errors in fetching the count"
+      operationId: get_user_runs_count_runs_user_runs_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /runs/{hb_id}/details:
+    get:
+      tags:
+      - runs
+      summary: Get Hb Details
+      description: 'Fetch details of a specific Human Baseline experiment.
+
+
+        Parameters:
+
+        - `hb_id`: Unique identifier of the Human Baseline experiment. e.g. `7h2ks593`
+
+
+        Returns:
+
+
+        JSONResponse containing the experiment details
+
+
+        Raises:
+
+        - HTTPException 500: If fetching HB experiment details fails'
+      operationId: get_hb_details_runs__hb_id__details_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: hb_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Hb Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /runs/{run_id}/update_config:
+    put:
+      tags:
+      - runs
+      summary: Update Config
+      description: 'Update configuration for a specific experiment run.
+
+
+        Parameters:
+
+        - `run_id`: Unique identifier of the run
+
+        - `config_update`: UpdateConfig object containing configuration changes
+
+
+        Returns:
+
+        JSONResponse with:
+
+        - `message`: Status of the update
+
+        - `configs`: Updated configuration (if successful)
+
+
+        Notes:
+
+        - Only the experiment owner can update the configuration
+
+        - Currently supports toggling the privacy setting
+
+
+        Raises:
+
+        - HTTPException 401: If user is not authorized to edit the run
+
+        - HTTPException 400: If the config update is invalid
+
+        - HTTPException 500: If updating the run config fails'
+      operationId: update_config_runs__run_id__update_config_put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfig'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /runs/artifact/{file_name}:
+    get:
+      tags:
+      - runs
+      summary: Get Run Artifact
+      description: 'Fetch a specific artifact file from a run.
+
+
+        Parameters:
+
+        - `file_name`: Name of the artifact file to retrieve
+
+
+        Returns:
+
+        - FileResponse: The requested artifact file
+
+        - JSONResponse: Error message if the file is not found
+
+
+        Notes:
+
+        - Automatically deletes the local artifact directory after serving the file
+
+
+        Raises:
+
+        - HTTPException 504: If the request times out
+
+        - HTTPException 500: For other errors in fetching the artifact'
+      operationId: get_run_artifact_runs_artifact__file_name__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: file_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: File Name
       responses:
         '200':
           description: Successful Response
@@ -368,49 +714,64 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-  /traits:
+  /personas:
     get:
       tags:
-      - traits
-      - traits
-      summary: Get Traits
-      description: "Retrieve all traits from the database.\n\nReturns:\n- `List[TraitLevel]`:\
-        \ A list of TraitLevel objects representing all valid traits\n\nTraitLevel\
-        \ structure:\n    - `id`: Unique identifier for the trait\n    - `set_type`:\
-        \ Optional category of the trait (e.g., \"Big Five\", \"8 Values\")\n    -\
-        \ `type`: The type of trait (e.g., \"religion\")\n    - `measurement_type`:\
-        \ How the trait is measured (\"nominal\", \"ordinal\", \"interval\", \"ratio\"\
-        )\n    - `ordinal_rank`: Optional ranking for ordinal traits\n    - `short_description`:\
-        \ Brief description of the trait level (e.g., \"Satanist\")\n    - `long_description`:\
-        \ Detailed description of the trait level\n\nExample Response:\n```json\n\
-        [\n    {\n        \"id\": \"religion_1\",\n        \"set_type\": \"Personal\
-        \ Values\",\n        \"type\": \"religion\",\n        \"measurement_type\"\
-        : \"nominal\",\n        \"short_description\": \"Satanist\",\n        \"long_description\"\
-        : \"My religion is Satanism\"\n    },\n    {\n        \"id\": \"openness_2\"\
-        ,\n        \"set_type\": \"Big Five\",\n        \"type\": \"personality\"\
-        ,\n        \"measurement_type\": \"ordinal\",\n        \"ordinal_rank\": 2,\n\
-        \        \"short_description\": \"Medium Openness\",\n        \"long_description\"\
-        : \"I am somewhat open to new experiences\"\n    }\n]\n```\nNotes:\n- Invalid\
-        \ traits are logged and skipped\n- The total number of retrieved traits is\
-        \ logged\n\nRaises:\n- HTTPException 500: If an error occurs while fetching\
-        \ traits"
-      operationId: get_traits_traits_get
+      - personas
+      - personas
+      summary: Get Personas
+      description: 'Generate personas based on specified traits and levels.
+
+
+        Parameters:
+
+        - `levels_per_trait`: Number of levels for each trait
+
+        - `trait_keys`: Comma-separated list of trait keys
+
+
+        Returns:
+
+        JSONResponse with:
+
+        - `all_combinations_index`: List of trait level combinations
+
+        - `traits_lookup_map`: Dictionary of traits and their levels
+
+        - `personas_full_string_definition`: List of persona descriptions
+
+
+        Raises:
+
+        - HTTPException 500: If persona generation fails'
+      operationId: get_personas_personas_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: levels_per_trait
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Levels Per Trait
+      - name: trait_keys
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Trait Keys
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/TraitLevel'
-                type: array
-                title: Response Get Traits Traits Get
-      security:
-      - HTTPBearer: []
-  
-  
-  
- 
+                $ref: '#/components/schemas/HTTPValidationError'
   /personas/history:
     post:
       tags:
@@ -604,46 +965,83 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-
-  /runs/{run_id}:
+  /traits:
     get:
       tags:
-      - runs
-      summary: Get Run
-      description: 'Fetch details of a specific experiment run.
+      - traits
+      - traits
+      summary: Get Traits
+      description: "Retrieve all traits from the database.\n\nReturns:\n- `List[TraitLevel]`:\
+        \ A list of TraitLevel objects representing all valid traits\n\nTraitLevel\
+        \ structure:\n    - `id`: Unique identifier for the trait\n    - `set_type`:\
+        \ Optional category of the trait (e.g., \"Big Five\", \"8 Values\")\n    -\
+        \ `type`: The type of trait (e.g., \"religion\")\n    - `measurement_type`:\
+        \ How the trait is measured (\"nominal\", \"ordinal\", \"interval\", \"ratio\"\
+        )\n    - `ordinal_rank`: Optional ranking for ordinal traits\n    - `short_description`:\
+        \ Brief description of the trait level (e.g., \"Satanist\")\n    - `long_description`:\
+        \ Detailed description of the trait level\n\nExample Response:\n```json\n\
+        [\n    {\n        \"id\": \"religion_1\",\n        \"set_type\": \"Personal\
+        \ Values\",\n        \"type\": \"religion\",\n        \"measurement_type\"\
+        : \"nominal\",\n        \"short_description\": \"Satanist\",\n        \"long_description\"\
+        : \"My religion is Satanism\"\n    },\n    {\n        \"id\": \"openness_2\"\
+        ,\n        \"set_type\": \"Big Five\",\n        \"type\": \"personality\"\
+        ,\n        \"measurement_type\": \"ordinal\",\n        \"ordinal_rank\": 2,\n\
+        \        \"short_description\": \"Medium Openness\",\n        \"long_description\"\
+        : \"I am somewhat open to new experiences\"\n    }\n]\n```\nNotes:\n- Invalid\
+        \ traits are logged and skipped\n- The total number of retrieved traits is\
+        \ logged\n\nRaises:\n- HTTPException 500: If an error occurs while fetching\
+        \ traits"
+      operationId: get_traits_traits_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TraitLevel'
+                type: array
+                title: Response Get Traits Traits Get
+      security:
+      - HTTPBearer: []
+  /stripe/create-customer-portal-session/:
+    post:
+      tags:
+      - stripe
+      - stripe
+      summary: Create Customer Portal Session
+      description: 'Create a Stripe Customer Portal session.
 
 
         Parameters:
 
-        - `run_id`: Unique identifier of the run.
+        - `customer_id`: Stripe customer ID
+
+        - `token`: Authentication token (injected by dependency)
 
 
         Returns:
 
         JSONResponse with:
 
-        - `run_details`: Details of the requested run
-
-
-        Notes:
-
-        - Returns 403 if the run is private and not accessible to the user
+        - `url`: URL for the customer portal session
 
 
         Raises:
 
-        - HTTPException 500: If fetching run details fails'
-      operationId: get_run_runs__run_id__get
+        - HTTPException 400: If session creation fails'
+      operationId: create_customer_portal_session_stripe_create_customer_portal_session__post
       security:
       - HTTPBearer: []
       parameters:
-      - name: run_id
-        in: path
+      - name: customer_id
+        in: query
         required: true
         schema:
           type: string
-          title: Run Id
-          example: 5fbc361f-d4d9-474d-a447-9a3da29ca294
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
       responses:
         '200':
           description: Successful Response
@@ -656,40 +1054,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-
-  /runs/{hb_id}/details:
-    get:
+  /stripe/create-checkout-session/:
+    post:
       tags:
-      - runs
-      summary: Get Hb Details
-      description: 'Fetch details of a specific Human Baseline experiment.
+      - stripe
+      - stripe
+      summary: Create Checkout Session
+      description: 'Create a Stripe checkout session for premium subscription.
 
 
         Parameters:
 
-        - `hb_id`: Unique identifier of the Human Baseline experiment. e.g. `7h2ks593`
+        - `token`: Authentication token (injected by dependency)
+
+        - `customer_id`: Stripe customer ID
 
 
         Returns:
 
+        JSONResponse with:
 
-        JSONResponse containing the experiment details
+        - `session_id`: ID of the created checkout session
 
 
         Raises:
 
-        - HTTPException 500: If fetching HB experiment details fails'
-      operationId: get_hb_details_runs__hb_id__details_get
+        - HTTPException 500: If premium price ID is not configured
+
+        - HTTPException 400: If session creation fails'
+      operationId: create_checkout_session_stripe_create_checkout_session__post
       security:
       - HTTPBearer: []
       parameters:
-      - name: hb_id
-        in: path
+      - name: customer_id
+        in: query
         required: true
         schema:
           type: string
-          title: Hb Id
-          example: 3j7wse2j
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
       responses:
         '200':
           description: Successful Response
@@ -702,7 +1106,130 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
- 
+  /stripe/check-subscription/:
+    get:
+      tags:
+      - stripe
+      - stripe
+      summary: Check Subscription
+      description: 'Check the subscription status for a customer.
+
+
+        Parameters:
+
+        - `customer_id`: Stripe customer ID
+
+        - `token`: Authentication token (injected by dependency)
+
+
+        Returns:
+
+        Dict with:
+
+        - `customer_id`: Stripe customer ID
+
+        - `subscription_status`: Current subscription status or details
+
+
+        Raises:
+
+        - HTTPException 404: If customer or subscription retrieval fails'
+      operationId: check_subscription_stripe_check_subscription__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: customer_id
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /stripe/cancel-subscription/:
+    post:
+      tags:
+      - stripe
+      - stripe
+      summary: Cancel Subscription
+      description: 'Cancel the current subscription for a customer.
+
+
+        Parameters:
+
+        - `customer_id`: Stripe customer ID
+
+        - `token`: Authentication token (injected by dependency)
+
+
+        Returns:
+
+        Dict with:
+
+        - `message`: Status of the cancellation operation
+
+
+        Raises:
+
+        - HTTPException 400: If cancellation fails'
+      operationId: cancel_subscription_stripe_cancel_subscription__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: customer_id
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Stripe customer ID
+          title: Customer Id
+        description: Stripe customer ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /stripe/webhook/:
+    post:
+      tags:
+      - stripe
+      - stripe
+      summary: Stripe Webhook
+      description: "Receive and process Stripe webhook events asynchronously.\n\n\
+        \  Parameters:\n  - `request`: The incoming webhook request\n  - `background_tasks`:\
+        \ FastAPI background tasks handler\n\n  Returns:\n  JSONResponse acknowledging\
+        \ receipt of the webhook\n\nNotes:\n  - Validates the Stripe signature to\
+        \ ensure authenticity\n  - Immediately acknowledges the event to Stripe\n\
+        \  - Processes the event asynchronously in the background\n  - Supports various\
+        \ Stripe event types (e.g., subscription updates, payment successes)\n\n\n\
+        \  Raises:\n  - HTTPException 400: For invalid payload or signature\n  - HTTPException\
+        \ 500: For general webhook handling errors"
+      operationId: stripe_webhook_stripe_webhook__post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
   /copilot/check-causality:
     post:
       tags:
@@ -725,16 +1252,18 @@ paths:
       operationId: check_causality_copilot_check_causality_post
       security:
       - HTTPBearer: []
-    
+      parameters:
+      - name: config
+        in: query
+        required: false
+        schema:
+          title: Config
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CausalityRequest'
-
-      
-
       responses:
         '200':
           description: Successful Response
@@ -748,7 +1277,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-                
   /copilot/check-moderation:
     post:
       tags:
@@ -775,7 +1303,6 @@ paths:
         schema:
           type: string
           title: Why Prompt
-          example: How does social media usage affect sleep patterns?
       responses:
         '200':
           description: Successful Response
@@ -788,43 +1315,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  
-  # /human-baselines/{hb_folder}/replications-amces:
-  #   get:
-  #     tags:
-  #     - human-baselines
-  #     summary: Fetch human baseline AMCEs for a specific folder
-  #     description: "Fetches human baseline experiment data and AMCE results for unique\
-  #       \ LLM models.\n\nArgs:\n    hb_folder (str): The name of the human baseline\
-  #       \ folder.\n\nReturns:\n    dict: A dictionary containing hb data and unique\
-  #       \ replication details."
-  #     operationId: fetch_human_baseline_replications_amces_human_baselines__hb_folder__replications_amces_get
-  #     security:
-  #     - HTTPBearer: []
-  #     parameters:
-  #     - name: hb_folder
-  #       in: path
-  #       required: true
-  #       schema:
-  #         type: string
-  #         title: Hb Folder
-  #         example: Abramova2022
-
-  #     responses:
-  #       '200':
-  #         description: Successful Response
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               title: Response Fetch Human Baseline Replications Amces Human Baselines  Hb
-  #                 Folder  Replications Amces Get
-  #       '422':
-  #         description: Validation Error
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/HTTPValidationError'
+  /human-baselines/{hb_folder}/replications-amces:
+    get:
+      tags:
+      - human-baselines
+      summary: Fetch human baseline AMCEs for a specific folder
+      description: "Fetches human baseline experiment data and AMCE results for unique\
+        \ LLM models.\n\nArgs:\n    hb_folder (str): The name of the human baseline\
+        \ folder.\n\nReturns:\n    dict: A dictionary containing hb data and unique\
+        \ replication details."
+      operationId: fetch_human_baseline_replications_amces_human_baselines__hb_folder__replications_amces_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: hb_folder
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Hb Folder
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Fetch Human Baseline Replications Amces Human Baselines  Hb
+                  Folder  Replications Amces Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /market-simulator/check-realworld-product:
     post:
       tags:
@@ -856,8 +1380,11 @@ paths:
         schema:
           type: string
           title: Question
-          example: Does a smartphone that can project holograms exist?
-      
+      - name: config
+        in: query
+        required: false
+        schema:
+          title: Config
       responses:
         '200':
           description: Successful Response
@@ -935,7 +1462,70 @@ paths:
           content:
             application/json:
               schema: {}
-  
+  /webhook:
+    post:
+      summary: Webhook
+      description: 'Handle experiment state webhooks and trigger notifications.
+
+
+        Processes webhooks for experiment states: started, crashed, finished.
+
+        Triggers appropriate Novu notifications and updates SSE subscribers.
+
+
+        Returns:
+
+        JSONResponse with:
+
+        - `status`: "received" if processed successfully
+
+
+        Raises:
+
+        - HTTPException 500: If processing the webhook data fails'
+      operationId: webhook_webhook_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /events:
+    get:
+      summary: Events
+      description: 'Establish a Server-Sent Events (SSE) connection for real-time
+        updates.
+
+
+        Parameters:
+
+        - `token`: User authentication token (injected by dependency)
+
+
+        Returns:
+
+        EventSourceResponse: SSE stream for real-time experiment updates
+
+
+        Notes:
+
+        - Authenticates user and maintains an SSE connection
+
+        - Sends keepalive messages every 60 seconds
+
+        - Closes connection when client disconnects
+
+
+        Raises:
+
+        - HTTPException 401: If the provided token is invalid'
+      operationId: events_events_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
 components:
   schemas:
     AttributesLevelsRequest:
@@ -1039,14 +1629,11 @@ components:
         why_prompt:
           type: string
           title: Why Prompt
-          default: How does social media usage affect sleep patterns?
-          example: How does social media usage affect sleep patterns?
         llm_model:
           anyOf:
           - $ref: '#/components/schemas/LLMModel'
           - type: 'null'
           default: gpt4
-          example: gpt4
       type: object
       required:
       - why_prompt
@@ -1657,8 +2244,6 @@ components:
       - llama-3.1-sonar-large-128k-online
       title: LLMModel
       description: Enum representing the llm model types used in the experiments.
-      default: gpt4
-      example: gpt4
     LeveledAttribute:
       properties:
         attribute:
