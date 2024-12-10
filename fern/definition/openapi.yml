@@ -1512,7 +1512,7 @@ components:
         levels_llm_model: gpt4
         max_length: 40
         null_levels: false
-        paper_data: []
+        #paper_data: []
         pre_cooked_attributes_and_levels_lookup:
         - - Will this car have advanced safety features?
           - - Advanced airbag system to protect passengers
