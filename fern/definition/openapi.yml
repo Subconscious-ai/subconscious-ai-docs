@@ -1513,15 +1513,25 @@ components:
         max_length: 40
         null_levels: false
         paper_data: []
+        # pre_cooked_attributes_and_levels_lookup:
+        # - - Will this car have advanced safety features?
+        #   - - Advanced airbag system to protect passengers
+        #     - Lane keep assist to prevent drifting into other lanes
+        # - - What range and charging time will this car offer
+        #   - - Up to 500 miles range, featuring a revolutionary battery system that
+        #       charges in 45 minutes
+        #     - 200 miles range with a robust charging infrastructure for recharging
+        #       in 15 minutes
         pre_cooked_attributes_and_levels_lookup:
-        - - Will this car have advanced safety features?
-          - - Advanced airbag system to protect passengers
-            - Lane keep assist to prevent drifting into other lanes
-        - - What range and charging time will this car offer
-          - - Up to 500 miles range, featuring a revolutionary battery system that
-              charges in 45 minutes
-            - 200 miles range with a robust charging infrastructure for recharging
-              in 15 minutes
+        - question: "Will this car have advanced safety features?"
+          levels:
+            - "Advanced airbag system to protect passengers"
+            - "Lane keep assist to prevent drifting into other lanes"
+        - question: "What range and charging time will this car offer?"
+          levels:
+            - "Up to 500 miles range, featuring a revolutionary battery system that charges in 45 minutes"
+            - "200 miles range with a robust charging infrastructure for recharging in 15 minutes"
+
         prompt_type: generic
         response_type: discrete
         state: New York
