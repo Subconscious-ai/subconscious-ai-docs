@@ -987,7 +987,7 @@ components:
       example:
         attribute_count: 4
         country: United States of America
-        llm_model: gpt3
+        llm_model: gpt4
         prompt_type: generic
         why_prompt: I would like to design a new electric car for the American markets
     CausalityRequest:
@@ -1695,7 +1695,7 @@ components:
         - Vehicle Warranty
         country: United States of America
         level_count: 4
-        llm_model: gpt3
+        llm_model: gpt4
         why_prompt: I would like to design a new electric car for the American markets
     MotivationRequest:
       properties:
