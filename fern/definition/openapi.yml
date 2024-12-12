@@ -745,42 +745,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
   
-  # /human-baselines/{hb_folder}/replications-amces:
-  #   get:
-  #     tags:
-  #     - human-baselines
-  #     summary: Fetch human baseline AMCEs for a specific folder
-  #     description: "Fetches human baseline experiment data and AMCE results for unique\
-  #       \ LLM models.\n\nArgs:\n    hb_folder (str): The name of the human baseline\
-  #       \ folder.\n\nReturns:\n    dict: A dictionary containing hb data and unique\
-  #       \ replication details."
-  #     operationId: fetch_human_baseline_replications_amces_human_baselines__hb_folder__replications_amces_get
-  #     security:
-  #     - HTTPBearer: []
-  #     parameters:
-  #     - name: hb_folder
-  #       in: path
-  #       required: true
-  #       schema:
-  #         type: string
-  #         title: Hb Folder
-  #         example: Abramova2022
+  /human-baselines/{hb_folder}/replications-amces:
+    get:
+      tags:
+      - human-baselines
+      summary: Fetch human baseline AMCEs for a specific folder
+      description: "Fetches human baseline experiment data and AMCE results for unique\
+        \ LLM models.\n\nArgs:\n    hb_folder (str): The name of the human baseline\
+        \ folder.\n\nReturns:\n    dict: A dictionary containing hb data and unique\
+        \ replication details."
+      operationId: fetch_human_baseline_replications_amces_human_baselines__hb_folder__replications_amces_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: hb_folder
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Hb Folder
+          example: Abramova2022
 
-  #     responses:
-  #       '200':
-  #         description: Successful Response
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               title: Response Fetch Human Baseline Replications Amces Human Baselines  Hb
-  #                 Folder  Replications Amces Get
-  #       '422':
-  #         description: Validation Error
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/HTTPValidationError'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Fetch Human Baseline Replications Amces Human Baselines  Hb
+                  Folder  Replications Amces Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /market-simulator/check-realworld-product:
     post:
       tags:
