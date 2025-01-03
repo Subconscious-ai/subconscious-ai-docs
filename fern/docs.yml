@@ -3,6 +3,7 @@ instances:
     custom-domain: docs.subconscious.ai
 
 title: Subconscious AI | Docs
+css: ./style.css
 
 tabs:
   about:
@@ -140,6 +141,8 @@ navigation:
           - page: Luthi (Wind Energy Policy)
             path: ./docs/pages/product/showcase/Luthi.mdx
 
+        - page: Our System Diagram
+          path: ./docs/pages/product/system_diagram.mdx
 
         - page: FAQ
           path: ./docs/pages/product/FAQ.mdx

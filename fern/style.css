@@ -1,0 +1,52 @@
+.white-background {
+    background-color: white; 
+    color: white; 
+    
+    border-radius: 10px;
+    opacity: 1; 
+  }
+  
+  .diagram-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 1; 
+  }
+  
+  .diagram-box pre {
+    background-color: white; 
+    color: white; 
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px; 
+  }
+
+  #mermaid-svg .cluster rect {
+    fill: hsl(0, 11%, 95%) !important;
+    stroke: rgba(255, 255, 255, 0.25);
+    stroke-width: 1px;
+}
+ 
+  .mermaid {
+    font-size: 20px; 
+    background-color: white; 
+  }
+  
+  /* Set node and background colors for diagram elements */
+  .diagram-box .mermaid text {
+    font-size: 20px; /* Apply increased font size to the text in the diagram */
+  }
+  
+  .diagram-box .mermaid .node rect {
+    fill: white; /* Dark background for nodes */
+    stroke: white; /* Slightly lighter stroke for nodes */
+  }
+  
+  .diagram-box .mermaid .node text {
+    fill: white; /* White text for readability */
+  }
+  
+  .diagram-box .mermaid .edgePath path {
+    stroke: white; /* Light stroke for edges */
+  }
+  

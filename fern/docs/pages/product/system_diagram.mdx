@@ -1,0 +1,92 @@
+<div className="white-background" style="background-color: #f4f9f9; padding: 20px; border-radius: 10px;">
+  <h1 style="color: #4f9eaf; font-size: 32px;">System Diagram</h1>
+
+  <div className="diagram-box" style="background-color: #ffffff; padding: 20px; border-radius: 10px;">
+    
+    ```mermaid
+    flowchart TD
+    %% Main Title
+    A["Start of Process Flow"] --> B["Target Group Description"]
+
+    %% Inputs
+    B --> C(("Object of Study")):::input
+    B --> D(("Region of Study")):::input
+    B --> E(("Time of Study")):::input
+
+    C --> F["Dependent Variable (Behavior or Action)"]:::output
+    D --> F
+    E --> F
+
+    %% Attribute and Levels Creation
+    C --> G["Create Attributes and Levels"]:::process
+    G --> H["Number of Attributes (n)"]:::process
+    H --> I["For Each Attribute, Determine Levels"]:::process
+    I --> J["Attributes 1 to 2*n"]:::process
+    J --> K["Store Levels"]:::process
+
+    %% Generate Levels
+    H --> L["General LLM Attributes"]:::process
+    L --> M["Request Levels from LLM"]:::process
+    M --> N["Generate m Levels"]:::output
+    N --> O["Return DISTINCT n Levels"]:::output
+    O --> P["Maximally Separate Levels Calculation"]:::output
+
+    %% Orthogonal Survey Design
+    K --> Q["Orthogonal Survey Design (Tasks + Blocks)"]:::survey_design
+    Q --> R["Generate Time and Location Sweep (Seasonality, Urban vs. Outside, etc.)"]:::survey_design
+
+    %% Population Size Calculation
+    Q --> S["Calculate Sample Size for Population"]:::survey_design
+
+    %% Prompt Examples
+    T["Prompt Examples"] --> F
+
+    C --> U(("Causality and Moderation Check")):::causality
+    U --> C
+
+    R --> V["For Synthetic Personality, Run Experiment Variations with LLM"]:::experiment
+    V --> W["Run Conjoint or Discrete Choice Experiment (DCE)"]:::experiment
+    V --> X["Run DCE with Attribute and Alternative Shuffling"]:::experiment
+    R --> Y["Run Same Experiment with Human Subjects"]:::experiment
+    Y --> Z["Model Based on Human Results"]:::modeling
+    Z --> A1["Validate with Human DCE for Consistency"]:::validation
+    A1 --> B1["Check Attribute Importance"]:::validation
+    C1["General LLM Prompt for User Questions Simulation"] --> C
+    D1["Generate Part Worth Utilities"] --> E1["Model Average Marginal Component Effect (AMCE)"]:::modeling
+    E1 --> F1["For Strongest Causal Relationships, Generate Detailed LLM Prompt"]:::causality
+    F1 --> C1
+    C1 --> G1["Models Based on LLM Output"]:::modeling
+    G1 --> H1["Inference Using Simulated Population"]:::inference
+    H1 --> I1["Probability Model Accurately Reflects Population"]:::inference
+    I1 --> J1["Probability of Accurate Market Behavior Predictions"]:::inference
+    K1["Population Characteristic Distribution Matching Human Baseline"] --> H1
+    M1["Calculate Conditional Probability Distribution for Trait of Interest"] --> K1
+    N1["First Party Data Models Based on Human DCE Results"] --> K1
+    O1["Second Party Data (Personality Trait Distributions from Papers)"] --> K1
+    P1["Third Party Data for Causal Models from Shared Research"] --> K1
+    Q1["Run Experiment with Human Subjects"] --> N1
+
+    B --> R1["Lookup Target Group Description"]:::input
+    R1 --> S1["Census Data"]:::survey_design
+    S1 --> T1["Third Party Data"]:::survey_design
+    T1 --> U1["Research Papers (Big-5, etc.)"]:::survey_design
+    U1 --> V1["Number of Traits (n)"]:::survey_design
+    R1 --> V1
+    V1 --> W1["Use GAN to Generate Trait Levels"]:::process
+    W1 --> X1["Generated Levels (m)"]:::output
+
+    %% Define the color scheme
+    classDef input fill:#d9d9d9,stroke:#333,stroke-width:2px,font-size:50px;
+    classDef process fill:#faf71c,stroke:#333,stroke-width:2px;
+    classDef output fill:#c2f0c2,stroke:#333,stroke-width:2px;
+    classDef survey_design fill:#ffffcc,stroke:#333,stroke-width:2px;
+    classDef causality fill:#bbc0f5,stroke:#333,stroke-width:2px;
+    classDef experiment fill:#ffebcc,stroke:#333,stroke-width:2px;
+    classDef modeling fill:#b3d9ff,stroke:#333,stroke-width:2px;
+    classDef validation fill:#ffcc99,stroke:#333,stroke-width:2px;
+    classDef inference fill:#c2f2c2,stroke:#333,stroke-width:2px;
+
+    ```
+
+  </div>
+</div>
