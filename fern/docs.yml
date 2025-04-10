@@ -17,7 +17,7 @@ tabs:
   newapi:
     display-name: Build a new feature
     icon: "fa-duotone fa-lightbulb"
-    href: "https://subconscious.ideas.aha.io/"
+    href: "https://github.com/Subconscious-ai/sublime/discussions?discussions_q=is%3Aopen+sort%3Atop"
 
 navigation:
   - tab: about
