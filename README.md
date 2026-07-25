@@ -1,44 +1,59 @@
-# Subconscious.ai API Documentation
+# subconscious-ai-docs
 
-This repo contains the configuration files for the Subconscious.ai API documentation.
+Source for [docs.subconscious.ai](https://docs.subconscious.ai), built with
+[Docusaurus](https://docusaurus.io) 3.
 
-The documentation is built using Fern.
+This replaced two earlier systems: a Fern site (last substantive change
+December 2024, preserved at tag `fern-final`) and an unmodified Mintlify
+starter template that was serving on the domain.
 
-Click [here](https://subconscious-ai.docs.buildwithfern.com/) to see the generated website.
+## Layout
 
-## What does this repo contain?
-
-- [OpenAPI Specs](./fern/openapi/)
-- [Markdown Files of Subconscious.ai Documentation](./fern/docs)
-- [Docs Configuration](./fern/docs.yml)
-- [GitHub Workflows](./.github/workflows)
-
-## How to update documentation?
-
-To update your documentation, run
-
-```sh
-# npm install -g fern-api
-fern generate --docs
+```
+site/
+  docs/                handwritten pages
+  docs/api-reference/  GENERATED from the spec — gitignored, do not edit
+  openapi/             the published API spec, synced from rehoboam
+  scripts/             spec sync and llms.txt generation
+  static/              images, robots.txt, the downloadable spec
 ```
 
-To preview your documentation, run
-
-```sh
-# npm install -g fern-api
-fern generate --docs --preview
-```
-
-The repository contains GitHub workflows that will automatically run these commands for you. For example, when you make a PR a preview link will be auto-generated and when you merge to main the docs site will update.
-
-## Debugging
-
-Encountering errors while generating docs? Run the following command to identify where these errors are occurring:
+## Working on it
 
 ```bash
-fern generate --docs --log-level debug
+cd site
+pnpm install
+pnpm run gen-api-docs     # generate the API reference (needed after a clone)
+pnpm start                # dev server
+pnpm build                # production build; also writes build/llms.txt
 ```
 
-## Static Assets
+`pnpm build` fails on a broken link or a broken anchor. That is deliberate: a
+broken link in docs becomes a support ticket.
 
-Static assets should be stored in your [assets](./fern/assets) subdirectory.
+## Updating the API reference
+
+The reference is generated from `openapi.public.json`, which is built in
+[rehoboam](https://github.com/Subconscious-ai/rehoboam) from the visibility
+rules in its `docs/api/public_surface.yml`. Nothing about the published API
+surface is decided in this repo.
+
+```bash
+cd site
+pnpm run sync-spec        # pull the spec from rehoboam (REHOBOAM_REF=develop)
+pnpm run rebuild-api-docs # regenerate the MDX
+pnpm build
+```
+
+To change **which** endpoints are published, or to add an example to one, edit
+`docs/api/public_surface.yml` or `docs/api/overlay.yaml` in rehoboam and open a
+PR there.
+
+## Conventions
+
+- Structure follows [Diátaxis](https://diataxis.fr): get started (learning),
+  guides (tasks), API reference (information), concepts (understanding).
+- Do not restate marketing claims without a source. `CONTENT_TRIAGE.md` lists
+  the claims deliberately withheld from the old site.
+- Legal pages are migrated verbatim. Do not edit them for style.
+- Generated API pages are build artifacts. Fix the spec, not the MDX.
