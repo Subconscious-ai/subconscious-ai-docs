@@ -1,0 +1,13 @@
+---
+unlisted: true
+source: fern
+status: review-required
+---
+
+For product support or questions please join our Discord and ask questions in our #support chatrooms.
+
+For Journalist inquiries:
+press@subconscious.ai
+
+For Commercial inquiries:
+ethicsboard@subconscious.ai
