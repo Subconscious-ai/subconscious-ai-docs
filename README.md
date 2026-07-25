@@ -57,3 +57,47 @@ PR there.
   the claims deliberately withheld from the old site.
 - Legal pages are migrated verbatim. Do not edit them for style.
 - Generated API pages are build artifacts. Fix the spec, not the MDX.
+
+## Operational notes
+
+Traps that produced a green build while the site was broken. Each one cost real
+time on 2026-07-25; none is obvious from the Docusaurus docs.
+
+**`cleanUrls` must stay true in `vercel.json`.** With `trailingSlash: false`
+Docusaurus emits `page.html`. Without `cleanUrls`, Vercel 404s every
+extensionless route — which is every internal link and every sitemap URL. The
+homepage still works, so it presents as a content problem.
+
+**Verify deployed routes without following redirects.** Vercel preview
+deployments are SSO-protected, so `curl -L` lands on a login page and reports
+200. Check page text, not status codes:
+
+```bash
+curl -sS "https://docs.subconscious.ai/get-started/quickstart?cb=$RANDOM" | grep -o "<title>[^<]*"
+```
+
+**Capitalized JSX disappears in `.md` files.** Imported pages are CommonMark, so
+`<Cards>`, `<Card>` and friends are handed to the browser as unknown tags and
+dropped — content vanishes rather than rendering as text. After any import, run:
+
+```bash
+grep -rho "<[A-Z][A-Za-z]*" docs/ | sort -u   # must be empty
+```
+
+**Generated API pages are build output.** `docs/api-reference/` is gitignored
+and rewritten by `pnpm run gen-api-docs`. Change the spec in rehoboam
+(`docs/api/public_surface.yml`, `docs/api/overlay.yaml`), never the MDX.
+
+**The archive is `unlisted`, not deleted.** `/wiki` and `/fern` stay reachable
+by direct URL but are excluded from the sidebar, search and sitemap. Remove the
+`unlisted: true` frontmatter to surface a page after editing it.
+
+**Deploys are CLI, not Git-triggered.** `vercel deploy --prod --scope subconcious`
+from `site/`. `main` is therefore not automatically what is live. Connecting the
+Vercel Git integration would fix that, and would also let
+`showLastUpdateTime` and sitemap `lastmod` be re-enabled — both are off only
+because CLI deploys upload without git history.
+
+**`onBrokenLinks` is currently `warn`**, relaxed for the import. Restore `throw`
+once the imported sections have been edited; it is what caught a broken link in
+the privacy policy.
