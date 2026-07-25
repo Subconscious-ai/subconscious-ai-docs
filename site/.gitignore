@@ -22,3 +22,4 @@ yarn-error.log*
 # API reference pages are generated from the spec by `pnpm run gen-api-docs`.
 # The spec is the source of truth; these are build output.
 docs/api-reference/
+.vercel
