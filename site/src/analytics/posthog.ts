@@ -12,8 +12,10 @@
  */
 import posthog from "posthog-js";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import siteConfig from "@generated/docusaurus.config";
 
-const KEY = process.env.DOCS_POSTHOG_KEY;
+// process.env is not available in client bundles; siteConfig.customFields is.
+const KEY = siteConfig.customFields?.posthogKey as string | undefined;
 
 if (ExecutionEnvironment.canUseDOM && KEY) {
   posthog.init(KEY, {
