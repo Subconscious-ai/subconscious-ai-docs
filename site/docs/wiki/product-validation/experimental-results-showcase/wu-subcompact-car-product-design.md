@@ -19,7 +19,7 @@ status: review-required
 
 Interact with our Data
 
-<https://wandb.ai/why-earth/subconscious-ai/reports/Wu-2014--VmlldzozOTM1MDc0?accessToken=REDACTED>
+<https://wandb.ai/why-earth/subconscious-ai/reports/Wu-2014--VmlldzozOTM1MDc0>
 
 $$
 r_{s} = .7622, p = .006

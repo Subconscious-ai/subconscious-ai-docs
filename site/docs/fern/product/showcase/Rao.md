@@ -9,5 +9,5 @@ Comparison of our results to the Rao et al. 2013 paper
 [Rao et al](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0082984) use a discrete choice experiment to assess physician scarcity and job preferences in India.
 Interact with our Data:
 
-- [Data](https://wandb.ai/why-earth/subconscious-ai/reports/Rao-2013--VmlldzozOTM0NTg0?accessToken=REDACTED)
+- [Data](https://wandb.ai/why-earth/subconscious-ai/reports/Rao-2013--VmlldzozOTM0NTg0)
 

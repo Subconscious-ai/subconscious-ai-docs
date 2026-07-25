@@ -19,7 +19,7 @@ status: review-required
 
 Interact with our Data
 
-<https://wandb.ai/why-earth/subconscious-ai/reports/Bechtel-International-Carbon-Tax-Policy-for-Environmental-Mitigation---VmlldzozODYwNzM3?accessToken=REDACTED>
+<https://wandb.ai/why-earth/subconscious-ai/reports/Bechtel-International-Carbon-Tax-Policy-for-Environmental-Mitigation---VmlldzozODYwNzM3>
 
 $$
 r_{s} = .6711, p < .001

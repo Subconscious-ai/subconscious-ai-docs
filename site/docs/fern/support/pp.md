@@ -84,7 +84,7 @@ This Statement applies solely to residents of California or individuals whose in
 6.1 INFORMATION WE COLLECT
 In the past twelve (12) months, SUBCONSCIOUS.AI has collected the categories of personal information set forth below. We may disclose each of these categories of personal information to our service providers for our business purposes (to enable the service providers to provide)
 
-[Link]()
+Link
 
 6.2 SELLING INFORMATION
 SUBCONSCIOUS.AI does not sell Your Personal Information, as defined under CCPA. If in the future we do sell your personal information, we will notify you and you may have the right to opt-out of such sale.

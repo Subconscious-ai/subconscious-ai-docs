@@ -13,7 +13,7 @@ status: review-required
 
 Interact with Our Data
 
-<https://wandb.ai/why-earth/subconscious-ai/reports/Adam-2019--VmlldzozOTM0NTc1?accessToken=REDACTED>
+<https://wandb.ai/why-earth/subconscious-ai/reports/Adam-2019--VmlldzozOTM0NTc1>
 
 $$
 r_{s} = .8277, p < .001

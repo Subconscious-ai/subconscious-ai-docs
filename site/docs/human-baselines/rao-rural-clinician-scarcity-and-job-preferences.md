@@ -13,7 +13,7 @@ status: review-required
 
 Interact with our Data
 
-<https://wandb.ai/why-earth/subconscious-ai/reports/Rao-2013--VmlldzozOTM0NTg0?accessToken=REDACTED>
+<https://wandb.ai/why-earth/subconscious-ai/reports/Rao-2013--VmlldzozOTM0NTg0>
 
 $$
 r_{s} = .7286, p < .001
