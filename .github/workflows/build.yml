@@ -1,0 +1,51 @@
+name: Build docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: site/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Generate the API reference
+        run: pnpm run gen-api-docs
+
+      - name: Build
+        # Broken links and broken anchors fail the build by config.
+        run: pnpm build
+
+      - name: Check the spec is in sync with rehoboam
+        # Warns rather than fails: the docs spec is pinned deliberately, and a
+        # backend merge should not turn this repo red. It should be visible.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::notice::REHOBOAM_READ_TOKEN not set; skipping spec drift check"
+            exit 0
+          fi
+          gh api "repos/Subconscious-ai/rehoboam/contents/openapi.public.json?ref=develop" \
+            --jq '.content' | base64 -d > /tmp/upstream.json
+          if ! diff -q /tmp/upstream.json openapi/subconscious.public.json > /dev/null; then
+            echo "::warning::The published spec has moved on in rehoboam. Run 'pnpm run sync-spec'."
+          fi

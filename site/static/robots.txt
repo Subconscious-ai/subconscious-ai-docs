@@ -1,0 +1,6 @@
+# Documentation is meant to be indexed — by search engines and by answer
+# engines. No crawl restrictions beyond the build artifacts.
+User-agent: *
+Allow: /
+
+Sitemap: https://docs.subconscious.ai/sitemap.xml
