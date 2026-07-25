@@ -19,7 +19,7 @@ status: review-required
 
 Interact with our Data
 
-<https://wandb.ai/why-earth/subconscious-ai/reports/Skreli-2014--VmlldzozOTM0NjU5?accessToken=3h4bjcnw68psinxzurde97p0jefctpo36u9bgp1u5vxdjv2lryjo0g9opg8xhk6q>
+<https://wandb.ai/why-earth/subconscious-ai/reports/Skreli-2014--VmlldzozOTM0NjU5>
 
 $$
 r_{s} = .5213, p=.1008

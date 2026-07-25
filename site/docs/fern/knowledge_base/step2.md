@@ -14,4 +14,4 @@ In this step, you will define the characteristics of the population for your con
 Select **2-10 traits** that define your target population by clicking on the relevant cards. These traits can include attributes such as *profession*, *income*, *age*, and more. 
 If you're unsure which traits to select, you can choose a specialist (e.g., *Economist*, *Political Scientist*) to automatically configure the population based on their expertise.
 
-<img src="/img/fern/who.gif" alt="1"/>
+<video src="/img/fern/who.mp4" alt="1" autoplay loop muted playsinline controls></video>

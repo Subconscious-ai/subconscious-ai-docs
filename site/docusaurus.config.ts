@@ -17,15 +17,41 @@ const config: Config = {
   projectName: "subconscious-ai-docs",
 
   // A broken link is a support ticket. Fail the build, do not warn.
-  onBrokenLinks: "warn",
-  onBrokenAnchors: "warn",
+  onBrokenLinks: "throw",
+  onBrokenAnchors: "throw",
 
   markdown: {
     format: "detect",
-    hooks: { onBrokenMarkdownLinks: "warn" },
+    hooks: { onBrokenMarkdownLinks: "throw" },
   },
 
   i18n: { defaultLocale: "en", locales: ["en"] },
+
+  // Supplied by the Vercel environment. Both are publishable client-side
+  // identifiers (GA4 measurement id, PostHog project key); keeping them in the
+  // environment means rotation does not need a commit, and a local build with
+  // neither set simply runs without analytics.
+  customFields: {
+    posthogKey: process.env.DOCS_POSTHOG_KEY ?? "",
+  },
+
+  // Rspack/SWC/Lightning CSS instead of webpack+Babel. @docusaurus/faster was
+  // already a dependency but never switched on; the default toolchain drifted
+  // to the full 2GB --max-old-space-size ceiling building a 2.1MB corpus.
+  // ssgWorkerThreads is left off deliberately: it requires future.v4, and
+  // flipping v4 behaviour is a separate decision from cutting build memory.
+  future: {
+    faster: {
+      rspackBundler: true,
+      rspackPersistentCache: true,
+      swcJsLoader: true,
+      swcJsMinimizer: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      mdxCrossCompilerCache: true,
+      ssgWorkerThreads: false,
+    },
+  },
 
   presets: [
     [
@@ -58,6 +84,14 @@ const config: Config = {
 
   plugins: [
     "docusaurus-plugin-sass",
+    ...(process.env.DOCS_GA4_ID
+      ? [
+          [
+            "@docusaurus/plugin-google-gtag",
+            { trackingID: process.env.DOCS_GA4_ID, anonymizeIP: true },
+          ] as const,
+        ]
+      : []),
     [
       "docusaurus-plugin-openapi-docs",
       {
@@ -125,6 +159,8 @@ const config: Config = {
   ],
 
   themes: ["docusaurus-theme-openapi-docs"],
+
+  clientModules: ["./src/analytics/posthog.ts"],
 
   stylesheets: [
     {

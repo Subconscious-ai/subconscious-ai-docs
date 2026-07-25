@@ -15,4 +15,4 @@ In this step, you’ll set the **time** and **location** for your audience. Thes
 - Where:
  Select the **geographic location** by choosing a specific country for your audience.
 
-<img src="/img/fern/when_gif.gif" alt="1"/>
+<video src="/img/fern/when_gif.mp4" alt="1" autoplay loop muted playsinline controls></video>

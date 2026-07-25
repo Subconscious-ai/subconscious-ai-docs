@@ -10,5 +10,5 @@ Comparison of our results to the Skreli et al. 2014 paper
 Interact with our Data:
 
 
-- [Data](https://wandb.ai/why-earth/subconscious-ai/reports/Skreli-2014--VmlldzozOTM0NjU5?accessToken=3h4bjcnw68psinxzurde97p0jefctpo36u9bgp1u5vxdjv2lryjo0g9opg8xhk6q)
+- [Data](https://wandb.ai/why-earth/subconscious-ai/reports/Skreli-2014--VmlldzozOTM0NjU5)
 

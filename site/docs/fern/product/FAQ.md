@@ -8,7 +8,7 @@ status: review-required
 <details>
 <summary>What is Subconscious.ai?</summary>
 
-Subconscious.ai is an independent research lab exploring new mediums of thought and expanding the imaginative powers of the human species. We have created a tool that allows people to conduct causal experiments, at scale. Causal experiments are frequently used in product design, transportation, political science, public health, and economics when decision-makers want to understand how a population will respond to different options. For instance, researchers around the world performed experiments regarding attitudes toward different aspects of COVID-19 vaccines to understand what could be done to encourage vaccine acceptance before vaccines actually became available. Subconscious.ai is able to dramatically reduce the cost (10,000x less costly and 1,000x less time) needed to conduct such surveys. Furthermore, our techniques eliminate concerns about self-selection bias and oversampling. If you’d like to learn more, please reach out to our [commercial team](). 
+Subconscious.ai is an independent research lab exploring new mediums of thought and expanding the imaginative powers of the human species. We have created a tool that allows people to conduct causal experiments, at scale. Causal experiments are frequently used in product design, transportation, political science, public health, and economics when decision-makers want to understand how a population will respond to different options. For instance, researchers around the world performed experiments regarding attitudes toward different aspects of COVID-19 vaccines to understand what could be done to encourage vaccine acceptance before vaccines actually became available. Subconscious.ai is able to dramatically reduce the cost (10,000x less costly and 1,000x less time) needed to conduct such surveys. Furthermore, our techniques eliminate concerns about self-selection bias and oversampling. If you’d like to learn more, please reach out to our commercial team. 
 </details>
 
 <details>
@@ -92,7 +92,7 @@ Yes, the platform offers a business tier that supports unlimited experiments and
 <details>
 <summary>What do I do if I have a problem?</summary>
 
-You can post a message in the #conjoint-help channel on the Subconscious.ai [Discord server](). Please give as detailed a description as possible of any error, including the error message you encountered. Screenshots and screen recordings of the problem also help.
+You can post a message in the #conjoint-help channel on the Subconscious.ai Discord server. Please give as detailed a description as possible of any error, including the error message you encountered. Screenshots and screen recordings of the problem also help.
 </details>
 
 <details>
@@ -111,7 +111,7 @@ We find your feedback valuable. Please share.
 <details>
 <summary>How can I learn more?</summary>
 
-Join the [Discord server]()!
+Join the Discord server!
 </details>
 
 <details>
@@ -119,5 +119,5 @@ Join the [Discord server]()!
 
 Thank you for your willingness to help! Here are some ways to contribute:
 You can join our team, or refer someone who ends up joining our team. If you’d like to work part-time as a research assistant, please send an email to careers@subconcious.ai.
-If you are a researcher you can evaluate our workflow. Post a message on the [Discord server]() to learn more.
+If you are a researcher you can evaluate our workflow. Post a message on the Discord server to learn more.
 </details>

@@ -19,4 +19,4 @@ If you're unsure how to phrase your causal question or need ideas, the **Brainst
 - **Click on Brainstorm Questions without any input**: This will provide example questions based on general human behavior, offering inspiration if you’re just starting out.
 - **Enter a topic or idea before clicking Brainstorm Questions**: If you already have a concept in mind, type it into the box (e.g., "cars" or "electric cars"). The tool will then generate relevant suggestions that you can refine and use as a starting point for your experiment.
 
-<img src="/img/fern/why.gif" alt="1"/>
+<video src="/img/fern/why.mp4" alt="1" autoplay loop muted playsinline controls></video>
