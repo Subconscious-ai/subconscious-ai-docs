@@ -143,7 +143,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: "img/docusaurus-social-card.jpg",
+    image: "img/logo-dark.png",
     metadata: [
       {
         name: "description",
@@ -155,7 +155,7 @@ const config: Config = {
     colorMode: { respectPrefersColorScheme: true },
     navbar: {
       title: "Subconscious.ai",
-      logo: { alt: "Subconscious.ai", src: "img/logo.svg" },
+      logo: { alt: "Subconscious.ai", src: "img/logo-dark.png" },
       items: [
         {
           to: "/get-started/quickstart",
