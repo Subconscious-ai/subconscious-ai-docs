@@ -32,7 +32,7 @@ const config: Config = {
   // environment means rotation does not need a commit, and a local build with
   // neither set simply runs without analytics.
   customFields: {
-    posthogKey: process.env.DOCS_POSTHOG_KEY ?? "",
+    posthogKey: "phc_BtQX3ltCKgwlMS3TDF4zhV8eMeepa8qY0Y3c9Gp6m70",
   },
 
   // Rspack/SWC/Lightning CSS instead of webpack+Babel. @docusaurus/faster was
@@ -84,14 +84,10 @@ const config: Config = {
 
   plugins: [
     "docusaurus-plugin-sass",
-    ...(process.env.DOCS_GA4_ID
-      ? [
-          [
-            "@docusaurus/plugin-google-gtag",
-            { trackingID: process.env.DOCS_GA4_ID, anonymizeIP: true },
-          ] as const,
-        ]
-      : []),
+    [
+      "@docusaurus/plugin-google-gtag",
+      { trackingID: "G-52WK8DDZLF", anonymizeIP: true },
+    ],
     [
       "docusaurus-plugin-openapi-docs",
       {
