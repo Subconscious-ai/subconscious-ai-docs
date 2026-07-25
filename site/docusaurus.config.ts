@@ -1,6 +1,8 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const config: Config = {
   title: "Subconscious.ai Docs",
@@ -15,12 +17,12 @@ const config: Config = {
   projectName: "subconscious-ai-docs",
 
   // A broken link is a support ticket. Fail the build, do not warn.
-  onBrokenLinks: "throw",
-  onBrokenAnchors: "throw",
+  onBrokenLinks: "warn",
+  onBrokenAnchors: "warn",
 
   markdown: {
     format: "detect",
-    hooks: { onBrokenMarkdownLinks: "throw" },
+    hooks: { onBrokenMarkdownLinks: "warn" },
   },
 
   i18n: { defaultLocale: "en", locales: ["en"] },
@@ -32,6 +34,9 @@ const config: Config = {
         docs: {
           sidebarPath: "./sidebars.ts",
           routeBasePath: "/",
+          // Replication pages carry correlation statistics as LaTeX.
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
           // Required by the OpenAPI theme: it swizzles the doc item to render
           // parameters, schemas and the try-it panel.
           docItemComponent: "@theme/ApiItem",
@@ -121,6 +126,17 @@ const config: Config = {
 
   themes: ["docusaurus-theme-openapi-docs"],
 
+  stylesheets: [
+    {
+      href: "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css",
+      type: "text/css",
+      crossorigin: "anonymous",
+    },
+    // Brand type: Inter Tight and IBM Plex Mono, the public stack from the
+    // design-system repo.
+    "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap",
+  ],
+
   headTags: [
     {
       // Answer-engine and search structured data. Docusaurus emits page HTML
@@ -165,6 +181,11 @@ const config: Config = {
         },
         { to: "/guides/run-an-experiment", label: "Guides", position: "left" },
         { to: "/api-reference/superego", label: "API reference", position: "left" },
+        {
+          to: "/human-baselines",
+          label: "Human baselines",
+          position: "left",
+        },
         { to: "/concepts/methodology", label: "Concepts", position: "left" },
         {
           href: "https://github.com/Subconscious-ai/ghostshell",

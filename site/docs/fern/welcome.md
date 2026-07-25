@@ -1,0 +1,54 @@
+---
+unlisted: true
+source: fern
+status: review-required
+excerpt: Conduct Causal Market Research cheaper, faster and more ethically than existing methods, with guaranteed human-level reliability.
+description: Here you'll find information to get started with Subconscious AI, as well as our API definition. 
+---
+
+## What We Do
+
+Our technology allows users to conduct causal experiments for any human behavior at a fraction of the cost and time of traditional methods.
+
+We use Generative AI methods to design Causal Experiments, simulate respondents, and analyze results equivalent to the most well-replicated human causal studies. 
+
+## Philosophy
+At Subconscious.ai, we believe that understanding human behavior should be accessible, insightful, and empowering for everyone. Our goal is to help you uncover the "why" behind decisions, whether you're developing a new product, refining your marketing strategy, or trying to understand what makes your customers tick.
+Traditional market research is slow, expensive, and often doesn't dig deep enough. We’ve created a solution that changes that by using AI-powered synthetic respondents to give you insights that are just as reliable as traditional research—only faster, more affordable, and always ethical. You’ll have the tools to ask any cause-and-effect question and get actionable answers within minutes
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe 
+    src="https://www.youtube.com/embed/G1SrJie0utU" 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+## How We Do It
+
+Our causal experimentation process involves four key parts: 
+
+1. **Synthetic Respondents**  
+   These are AI-generated profiles based on data from millions of real users.The platform uses these synthetic respondents to simulate realistic human decision-making at scale.
+
+2. **Causal AI Models**  
+   The platform applies Causal AI to design experiments that explore cause-and-effect relationships behind human behavior. This allows businesses to run randomized controlled trials (RCTs) and analyze outcomes.
+
+3. **Interactive Experimentation**  
+   Users interact with the platform by inputting questions or hypotheses.The platform then guides them through experimental design, audience selection (synthetic respondents), data collection, and analysis.
+
+4. **Efficiency and Cost Savings**  
+   The platform automates the entire research process—from experimental design to result analysis. Reduces the time and cost associated with traditional market research by up to 100x.
+
+
+This enables businesses to gain near-real-time insights into customer behaviors, market dynamics, and product performance with high accuracy and at a fraction of the cost.
+<br/>
+
+- [API Reference](https://docs.subconscious.ai/dashboard-api/api-reference/)
+  - [Join our Discord](https://discord.gg/3bgj4ZhABz)
+    - [Github](https://github.com/Subconscious-ai/sublime/)
+## Get support
+
+Want to get in touch with the Subconscious AI team? Reach out to us via [email](mailto:ethicsboard@subconscious.ai). We're here to help!

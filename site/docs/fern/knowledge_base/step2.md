@@ -1,0 +1,17 @@
+---
+unlisted: true
+source: fern
+status: review-required
+---
+
+**Define Your Population for Conjoint Analysis**
+
+Conjoint analysis is a powerful survey-based technique used to understand how people make decisions and which attributes matter most when choosing between options.
+In this step, you will define the characteristics of the population for your conjoint analysis. The survey will be run using synthetic respondents, and the attributes you select will determine the participants in the experiment.
+
+**Choose the Characteristics**
+
+Select **2-10 traits** that define your target population by clicking on the relevant cards. These traits can include attributes such as *profession*, *income*, *age*, and more. 
+If you're unsure which traits to select, you can choose a specialist (e.g., *Economist*, *Political Scientist*) to automatically configure the population based on their expertise.
+
+<img src="/img/fern/who.gif" alt="1"/>

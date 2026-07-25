@@ -1,0 +1,97 @@
+---
+unlisted: true
+source: fern
+status: review-required
+---
+
+## Video Summary
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe 
+    src="https://www.youtube.com/embed/WyxC4zEKV4Q" 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+## Where to Go to See Results
+
+### Expand the Experiment Result Card:
+- Locate your completed experiment on the dashboard.
+- Click to expand the result card for a summary and quick insights.
+
+### Access Market Simulation:
+- Click the **Market Simulation** button on the result card.
+- This will open a detailed page with all the data visualizations and interpretations.
+
+<img src="/img/fern/market_simmulator.png" alt="1"/>
+
+
+## How to Interpret the Market Simulator (Per Tab)
+
+### Attribute Importance
+
+**What It Shows:**
+- Which features/attributes are most important to users.
+- Preferences for specific levels under each feature.
+- Insights into the top 10 levels users consider worth paying extra for.
+
+<img src="/img/fern/mark_sim1.png" alt="1"/>
+<img src="/img/fern/mark_sim2.png" alt="1"/>
+<img src="/img/fern/mark_sim3.png" alt="1"/>
+---
+
+### Market Simulator Tab
+
+**What It Does:**
+- Compare expected market share and revenue for different product setups.
+- Predict how demand might change with price adjustments.
+- Generate recommendations for improving a product (e.g., changing a feature to increase revenue by a specific percentage).
+<img src="/img/fern/mark_sim_tab1.png" alt="1"/>
+<img src="/img/fern/mark_sim_tab2.png" alt="1"/>
+<img src="/img/fern/mark_sim_tab3.png" alt="1"/>
+<img src="/img/fern/mark_sim_tab4.png" alt="1"/>
+---
+
+### Trait Analysis
+
+**Purpose:** 
+- Isolates how individual product traits influence user preferences.
+
+**Examines:**
+- Preferences across different levels of each feature.
+- Variations based on user characteristics (e.g., age, income).
+
+<img src="/img/fern/traits.png" alt="1"/>
+
+---
+
+### Mindsets
+
+**What Are Mindsets?**
+- User groups categorized by shared preferences and decision-making patterns.
+
+**What You’ll Learn:**
+- Characteristics of each mindset (e.g., traits or behaviors).
+- Features or attributes that matter most for each group.
+- How preferences differ between mindsets.
+
+**Applications:**
+- Tailor marketing strategies to each mindset.
+- Design products that align with their preferences.
+
+<img src="/img/fern/mindsets.png" alt="1"/>
+
+---
+
+### Causal Marketing
+
+**Focus:** 
+- Understanding casual or spontaneous decision-making patterns.
+
+**Insights Provided:**
+- Why this mindset is an attractive target.
+- Which messages and product features resonate with casual buyers.
+- Best strategies for driving low-barrier conversions, emphasizing ease and immediate benefits.

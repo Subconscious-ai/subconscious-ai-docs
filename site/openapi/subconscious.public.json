@@ -5238,8 +5238,8 @@
               "$eq": "user_id e.g. auth0|1234567890"
             },
             "created_at": {
-              "$gt": "2026-07-24T02:31:55.814779",
-              "$lte": "2026-07-25T02:31:55.814791"
+              "$gt": "2026-01-15T09:00:00",
+              "$lte": "2026-01-16T09:00:00"
             }
           }
         },
@@ -8013,10 +8013,6 @@
   "tags": [
     {
       "description": "\ud83e\uddea\ud83d\udc68\u200d\ud83d\udd2c\u2697\ufe0fRun a novel experiment using attributes, levels, traits, dependent variables, preambles, and personas and place results in a run.",
-      "externalDocs": {
-        "description": "Description of the Experiment Request Body fields",
-        "url": "https://app.gitbook.com/o/jadOkacqKTkHvAmKDCti/s/RPAuLvXI0lCcTz39j3BR/repositories/backend/how-to-run-an-experiment/experiment-request-body-fields"
-      },
       "name": "v1.experiments"
     },
     {
