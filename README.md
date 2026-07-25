@@ -101,3 +101,17 @@ because CLI deploys upload without git history.
 **`onBrokenLinks` is currently `warn`**, relaxed for the import. Restore `throw`
 once the imported sections have been edited; it is what caught a broken link in
 the privacy policy.
+
+**Verify a merge before deleting the branch.** A squash merge of the migration
+PR landed on `main` without 80 of its pages — the imports, `/human-baselines`,
+the assets and the `cleanUrls` setting were all in branch commits that the
+squash did not carry over, and `--delete-branch` removed the remote copy. Check
+before cleaning up:
+
+```bash
+git diff --stat <merge-commit> <branch-tip>   # expect empty
+```
+
+Then re-verify the live site, by page content rather than status codes. After a
+deploy-method change the old deployment can still be serving, so the site looks
+fine while the new build is broken.
