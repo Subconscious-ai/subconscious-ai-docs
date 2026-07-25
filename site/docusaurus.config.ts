@@ -37,16 +37,13 @@ const config: Config = {
           docItemComponent: "@theme/ApiItem",
           editUrl:
             "https://github.com/Subconscious-ai/subconscious-ai-docs/edit/main/site/",
-          // Needs git history at build time. CLI deploys upload a bare
-          // directory, so this fails there. Re-enable once the Vercel Git
-          // integration is connected and builds run from a clone.
-          showLastUpdateTime: false,
+          // Builds now run from a git clone via the Vercel Git integration.
+          showLastUpdateTime: true,
         },
         blog: false,
         theme: { customCss: "./src/css/custom.css" },
         sitemap: {
-          // No `lastmod`: it is derived from git history, which is absent in
-          // CLI deploys. Add it back when builds run from a git clone.
+          lastmod: "date",
           changefreq: "weekly",
           filename: "sitemap.xml",
         },
