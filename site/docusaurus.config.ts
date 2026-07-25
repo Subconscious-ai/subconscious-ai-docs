@@ -158,6 +158,18 @@ const config: Config = {
 
   clientModules: ["./src/analytics/posthog.ts"],
 
+  scripts: [
+    {
+      // Sentry Loader Script. The key is the project's public key and is meant
+      // to sit in client HTML; SDK version and which features are enabled
+      // (performance, replay) are controlled from the Sentry project settings,
+      // not here, so this needs no redeploy to tune.
+      src: "https://js.sentry-cdn.com/2fbafc5214e26466d3b1c6a764c4dcfb.min.js",
+      crossorigin: "anonymous",
+      async: true,
+    },
+  ],
+
   stylesheets: [
     {
       href: "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css",
