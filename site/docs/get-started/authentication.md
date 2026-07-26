@@ -17,8 +17,6 @@ Every published endpoint requires a bearer token.
 3. The token appears below, under **Your Access Token**. Use the copy button
    and store it somewhere safe.
 
-![The Generate API Token control on the settings page](/img/token.jpeg)
-
 :::tip
 Regenerating replaces the previous token. Anything still using the old one
 starts returning `403`.

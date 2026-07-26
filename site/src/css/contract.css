@@ -1,9 +1,5 @@
 /* VENDORED from Subconscious-ai/design-system @ 29c3f96 — do not edit here.
-   Refresh with: cp ../../design-system/contract.css src/css/contract.css
-
-   Vendored rather than imported from the design-system CDN because
-   subconscious-ai.github.io/design-system/ currently 404s, and a docs build
-   must not depend on a dead URL. */
+   Refresh with: bash scripts/refresh-contract.sh */
 
 /* Subconscious Design System app contract.
    Import this in apps that need only the root compatibility boundary.
