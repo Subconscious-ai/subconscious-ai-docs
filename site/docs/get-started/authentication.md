@@ -8,13 +8,21 @@ description: How to generate a Subconscious.ai API access token and use it as a 
 
 Every published endpoint requires a bearer token.
 
-## Generate a token
+## Get your token
 
-1. Sign in and open [Settings](https://app.subconscious.ai/settings).
-2. Select **Generate Access Token**.
-3. Copy the token and store it somewhere safe. It is shown once.
+**→ [app.subconscious.ai/settings](https://app.subconscious.ai/settings)**
 
-![The Generate Access Token control on the settings page](/img/token.jpeg)
+1. Sign in and open **Settings**.
+2. Under *Get a Subconscious.ai API key*, select **Generate API Token**.
+3. The token appears below, under **Your Access Token**. Use the copy button
+   and store it somewhere safe.
+
+![The Generate API Token control on the settings page](/img/token.jpeg)
+
+:::tip
+Regenerating replaces the previous token. Anything still using the old one
+starts returning `403`.
+:::
 
 ## Use the token
 
