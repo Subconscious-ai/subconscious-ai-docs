@@ -1,0 +1,7 @@
+# Every docs change gets an owner's eye. Generated API pages are excluded
+# because they are build output — change the spec in rehoboam instead.
+*       @aviyashchin
+
+# Legal text is migrated verbatim and should not be edited for style.
+/site/docs/support/terms-of-use.md    @aviyashchin
+/site/docs/support/privacy-policy.md  @aviyashchin
