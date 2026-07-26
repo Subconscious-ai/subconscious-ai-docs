@@ -1,0 +1,37 @@
+{
+  "index_name": "subconscious_docs",
+  "start_urls": ["https://docs.subconscious.ai/"],
+  "sitemap_urls": ["https://docs.subconscious.ai/sitemap.xml"],
+  "stop_urls": ["/wiki/", "/fern/", "/search"],
+  "selectors": {
+    "lvl0": {
+      "selector": "//nav[contains(@class,'theme-doc-breadcrumbs')]//span[last()]",
+      "type": "xpath",
+      "global": true,
+      "default_value": "Documentation"
+    },
+    "lvl1": "header h1, article h1",
+    "lvl2": "article h2",
+    "lvl3": "article h3",
+    "lvl4": "article h4",
+    "text": "article p, article li, article td"
+  },
+  "custom_settings": {
+    "attributesForFaceting": ["type", "lang"],
+    "attributesToRetrieve": ["hierarchy", "content", "anchor", "url"],
+    "attributesToHighlight": ["hierarchy", "content"],
+    "attributesToSnippet": ["content:10"],
+    "camelCaseAttributes": ["hierarchy", "content"],
+    "searchableAttributes": [
+      "unordered(hierarchy.lvl0)",
+      "unordered(hierarchy.lvl1)",
+      "unordered(hierarchy.lvl2)",
+      "unordered(hierarchy.lvl3)",
+      "unordered(hierarchy.lvl4)",
+      "content"
+    ],
+    "distinct": true,
+    "attributeForDistinct": "url",
+    "customRanking": ["desc(weight.page_rank)", "desc(weight.level)", "asc(weight.position)"]
+  }
+}
