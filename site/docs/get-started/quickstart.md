@@ -11,7 +11,10 @@ it, read the result.
 
 ## Before you start
 
-You need an access token. See [Authentication](/get-started/authentication).
+You need an access token. Get one at
+**[app.subconscious.ai/settings](https://app.subconscious.ai/settings)** →
+**Generate API Token**, then copy it from **Your Access Token**. Full detail in
+[Authentication](/get-started/authentication).
 
 ```bash
 export SUBCONSCIOUS_TOKEN="your-token"
