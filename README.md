@@ -92,15 +92,18 @@ and rewritten by `pnpm run gen-api-docs`. Change the spec in rehoboam
 by direct URL but are excluded from the sidebar, search and sitemap. Remove the
 `unlisted: true` frontmatter to surface a page after editing it.
 
-**Deploys are CLI, not Git-triggered.** `vercel deploy --prod --scope subconcious`
-from `site/`. `main` is therefore not automatically what is live. Connecting the
-Vercel Git integration would fix that, and would also let
-`showLastUpdateTime` and sitemap `lastmod` be re-enabled — both are off only
-because CLI deploys upload without git history.
+**Deploys are Git-triggered.** The Vercel project is connected to this repo
+(root directory `site`, production branch `main`), so pushing to `main` builds
+and deploys. `vercel.json` must stay in BOTH the repo root and `site/` — the
+Git build reads the one in the root directory, and losing it silently breaks
+`cleanUrls`.
 
-**`onBrokenLinks` is currently `warn`**, relaxed for the import. Restore `throw`
-once the imported sections have been edited; it is what caught a broken link in
-the privacy policy.
+**`onBrokenLinks` is `throw`.** It caught a broken link in the privacy policy
+and twelve in the human-baselines index. Keep it that way.
+
+**The API spec syncs itself.** `.github/workflows/sync-spec.yml` pulls
+`openapi.public.json` from rehoboam on weekdays and opens a PR when it differs.
+It needs the `REHOBOAM_READ_TOKEN` secret; without it the job warns and skips.
 
 **Verify a merge before deleting the branch.** A squash merge of the migration
 PR landed on `main` without 80 of its pages — the imports, `/human-baselines`,

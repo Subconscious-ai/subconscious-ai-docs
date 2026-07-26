@@ -6012,7 +6012,7 @@
       "name": "Email the team",
       "url": "https://docs.subconscious.ai/support/contact"
     },
-    "description": "\ud83d\udc95SuperEgo API powers Consulting and Product teams to design and run cost-effective, ethical, causal experiments. \ud83d\ude80 Generative AI for Experimental Design. \ud83d\udc68\u200d\ud83d\udd2c\u2697\ufe0f",
+    "description": "\ud83d\udc95SuperEgo API powers Consulting and Product teams to design and run cost-effective, ethical, causal experiments. \ud83d\ude80 Generative AI for Experimental Design. \ud83d\udc68\u200d\ud83d\udd2c\u2697\ufe0f\n\n**Authentication.** Every endpoint takes a bearer token. Generate one at [app.subconscious.ai/settings](https://app.subconscious.ai/settings) \u2192 **Generate API Token**, then copy it from **Your Access Token**. Send it as `Authorization: Bearer <token>`. See the [authentication guide](https://docs.subconscious.ai/get-started/authentication).",
     "license": {
       "name": "MIT",
       "url": "https://github.com/Subconscious-ai/PoC/blob/main/LICENSE"
