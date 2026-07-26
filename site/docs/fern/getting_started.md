@@ -27,8 +27,8 @@ conn = http.client.HTTPSConnection("auth.subconscious.ai")
 username = "<username>"
 password = "<password>"
 audience = "https://dev-5qhuxyzkmd8cku6i.us.auth0.com/api/v2/"
-client_id = "MR5gS0QSe3boMNAtnR0t1t2ctNpzSHsd"
-client_secret = "c1GGYa9U7gbX5dvDR8pRHvmmY067InwLi0HYZMNXzKg9zn99RvNf13ibsDzT2jKV"
+client_id = "${AUTH0_CLIENT_ID}"
+client_secret = "${AUTH0_CLIENT_SECRET}"
 
 payload = f"grant_type=password&username={username}&password={password}&audience={audience}&scope=read:current_user&client_id={client_id}&client_secret={client_secret}"
 headers = { 'content-type': "application/x-www-form-urlencoded" }
