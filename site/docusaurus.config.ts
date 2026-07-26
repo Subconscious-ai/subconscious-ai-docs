@@ -111,6 +111,22 @@ const config: Config = {
       },
     ],
     [
+      // Scalar: a single interactive playground at /api-playground, with a
+      // request client built in. It complements -- does not replace -- the
+      // generated per-operation pages, which are what search engines and
+      // answer engines actually index (one URL per endpoint).
+      "@scalar/docusaurus",
+      {
+        label: "",
+        route: "/api-playground",
+        showNavLink: false,
+        configuration: {
+          url: "/openapi/subconscious.public.json",
+          hideDownloadButton: false,
+        },
+      },
+    ],
+    [
       "@docusaurus/plugin-client-redirects",
       {
         redirects: [
@@ -222,6 +238,7 @@ const config: Config = {
         },
         { to: "/guides/run-an-experiment", label: "Guides", position: "left" },
         { to: "/api-reference/superego", label: "API reference", position: "left" },
+        { to: "/api-playground", label: "Playground", position: "left" },
         {
           to: "/human-baselines",
           label: "Human baselines",
