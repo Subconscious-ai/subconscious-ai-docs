@@ -7,7 +7,7 @@ import rehypeKatex from "rehype-katex";
 const config: Config = {
   title: "Subconscious.ai Docs",
   tagline: "Generative AI for experimental design",
-  favicon: "img/favicon.ico",
+  favicon: "img/dag-mark.svg",
 
   url: "https://docs.subconscious.ai",
   baseUrl: "/",
@@ -74,6 +74,9 @@ const config: Config = {
         blog: false,
         theme: { customCss: "./src/css/custom.css" },
         sitemap: {
+          // The playground is client-rendered: a crawler fetching it gets an
+          // empty shell. The generated reference pages are the indexable ones.
+          ignorePatterns: ["/api-playground"],
           lastmod: "date",
           changefreq: "weekly",
           filename: "sitemap.xml",
@@ -229,7 +232,7 @@ const config: Config = {
     colorMode: { respectPrefersColorScheme: true },
     navbar: {
       title: "Subconscious.ai",
-      logo: { alt: "Subconscious.ai", src: "img/logo-dark.png" },
+      logo: { alt: "Subconscious.ai", src: "img/dag-mark.svg" },
       items: [
         {
           to: "/get-started/quickstart",
@@ -237,14 +240,30 @@ const config: Config = {
           position: "left",
         },
         { to: "/guides/run-an-experiment", label: "Guides", position: "left" },
-        { to: "/api-reference/superego", label: "API reference", position: "left" },
-        { to: "/api-playground", label: "Playground", position: "left" },
+        {
+          type: "dropdown",
+          label: "API",
+          position: "left",
+          items: [
+            { to: "/api-reference/superego", label: "Reference" },
+            { to: "/api-playground", label: "Playground (try it)" },
+            {
+              href: "https://docs.subconscious.ai/openapi/subconscious.public.json",
+              label: "OpenAPI spec",
+            },
+          ],
+        },
         {
           to: "/human-baselines",
           label: "Human baselines",
           position: "left",
         },
         { to: "/concepts/methodology", label: "Concepts", position: "left" },
+        {
+          href: "https://discord.gg/3bgj4ZhABz",
+          label: "Discord",
+          position: "right",
+        },
         {
           href: "https://github.com/Subconscious-ai/ghostshell",
           label: "MCP server",
@@ -266,6 +285,7 @@ const config: Config = {
           title: "Support",
           items: [
             { label: "FAQ", to: "/support/faq" },
+            { label: "Discord", href: "https://discord.gg/3bgj4ZhABz" },
             { label: "Contact", to: "/support/contact" },
           ],
         },
