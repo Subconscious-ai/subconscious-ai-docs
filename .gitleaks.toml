@@ -1,0 +1,31 @@
+# Secret scanning for the documentation repos.
+#
+# Added after a live Auth0 client secret was found published on the public
+# docs site, having arrived with the Fern import. Content imports are exactly
+# where this happens: nobody reads 40 pages line by line.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Publishable identifiers and generated output"
+
+paths = [
+  # Generated from the OpenAPI spec; matches are schema field names such as
+  # `"api": "..."`, not credentials. Rebuilt on every deploy.
+  '''site/docs/api-reference/.*''',
+  '''build/.*''',
+  '''node_modules/.*''',
+  '''\.docusaurus/.*''',
+]
+
+regexes = [
+  # Client-side identifiers that are meant to ship in the browser:
+  # PostHog project key, GA4 measurement id, Algolia search-only key,
+  # Sentry loader public key.
+  '''phc_[A-Za-z0-9]{40,}''',
+  '''G-[A-Z0-9]{10}''',
+  '''BNEN1CKK95''',
+  '''4a1a16de76e172055e7a15abff1d87df''',
+  '''2fbafc5214e26466d3b1c6a764c4dcfb''',
+]
