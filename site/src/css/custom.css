@@ -1,99 +1,181 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
-
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-}
-
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-}
-
 /* ==========================================================================
-   Subconscious.ai brand
-   Type stack and accents follow design-system/tokens.css. Values are inlined
-   rather than imported: the design-system CDN returns 404 today, so importing
-   it would make the docs build depend on a broken URL.
+   Subconscious.ai documentation skin
+
+   Maps Infima (Docusaurus's CSS framework) onto the design-system contract in
+   ./contract.css, so the docs inherit brand decisions instead of restating
+   them. Refresh the contract by re-copying that file; this sheet keeps working.
+
+   Doctrine followed from design-system/DECISIONS.md:
+   · Monochrome base. Signal red is "gap only, never themed" — so it is
+     deliberately NOT the link or button colour here.
+   · "One violently large / one uncomfortably small" type scale: five sizes,
+     no comfortable middle.
+   · Tracking scales inversely with type size (Bringhurst counterpoint).
+   · Mono, wide-tracked caps for meta and labels.
    ========================================================================== */
 
+@import "./contract.css";
+
+/* Docusaurus toggles [data-theme]; the contract listens for [data-mode] and
+   .dark. Bridge them so the contract's dark inversion fires. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --backgroundColor: var(--darkColor, #000000);
+  --color: var(--lightColor, #ffffff);
+}
+
 :root {
-  --ifm-font-family-base: "Inter Tight", "Inter", -apple-system, "Helvetica Neue",
-    Arial, sans-serif;
-  --ifm-heading-font-family: "Inter Tight", "Inter", -apple-system, sans-serif;
-  --ifm-font-family-monospace: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo,
-    monospace;
+  /* ---- Type ------------------------------------------------------------ */
+  --ifm-font-family-base: var(--font-body);
+  --ifm-heading-font-family: var(--font-display);
+  --ifm-font-family-monospace: var(--font-mono);
 
-  --ifm-color-primary: #1447e6;
-  --ifm-color-primary-dark: #1240cf;
-  --ifm-color-primary-darker: #113cc4;
-  --ifm-color-primary-darkest: #0e31a1;
-  --ifm-color-primary-light: #2c5aea;
-  --ifm-color-primary-lighter: #3a64eb;
-  --ifm-color-primary-lightest: #6285ef;
+  --ifm-font-size-base: var(--fs-body);
+  --ifm-line-height-base: var(--lh-body);
+  --ifm-heading-line-height: var(--lh-display);
+  --ifm-h1-font-size: var(--fs-h1);
+  --ifm-h2-font-size: var(--fs-h2);
+  --ifm-h3-font-size: 20px;
+  --ifm-heading-font-weight: var(--fw-display);
 
-  --ifm-heading-font-weight: 600;
-  --ifm-h1-font-size: 2.25rem;
-  --ifm-line-height-base: 1.65;
-  --ifm-code-font-size: 90%;
-  --docusaurus-highlighted-code-line-bg: rgba(20, 71, 230, 0.1);
+  /* ---- Colour: monochrome, per doctrine -------------------------------- */
+  --ifm-color-primary: #000000;
+  --ifm-color-primary-dark: #1a1a1a;
+  --ifm-color-primary-darker: #262626;
+  --ifm-color-primary-darkest: #333333;
+  --ifm-color-primary-light: #404040;
+  --ifm-color-primary-lighter: #4d4d4d;
+  --ifm-color-primary-lightest: #666666;
+
+  --ifm-background-color: var(--backgroundColor);
+  --ifm-font-color-base: var(--color);
+  --ifm-heading-color: var(--color);
+
+  /* ---- Rhythm: the contract's 4pt scale -------------------------------- */
+  --ifm-spacing-horizontal: var(--sp-5);
+  --ifm-leading: var(--sp-5);
+  --ifm-paragraph-margin-bottom: var(--sp-5);
+  --ifm-global-radius: 2px; /* near-square: editorial, not app chrome */
+
+  --ifm-code-font-size: 87.5%;
+  --ifm-navbar-height: 60px;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
 }
 
-[data-theme="dark"] {
-  --ifm-color-primary: #6285ef;
-  --ifm-color-primary-dark: #4a72ed;
-  --ifm-color-primary-darker: #3e69ec;
-  --ifm-color-primary-darkest: #1a4ee7;
-  --ifm-color-primary-light: #7a98f1;
-  --ifm-color-primary-lighter: #86a1f2;
-  --ifm-color-primary-lightest: #aabef6;
-  --docusaurus-highlighted-code-line-bg: rgba(98, 133, 239, 0.2);
+:root[data-theme="dark"] {
+  --ifm-color-primary: #ffffff;
+  --ifm-color-primary-dark: #e6e6e6;
+  --ifm-color-primary-darker: #d9d9d9;
+  --ifm-color-primary-darkest: #bfbfbf;
+  --ifm-color-primary-light: #ffffff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.12);
 }
 
-/* Comparison charts on replication pages: give them room and a frame so they
-   read as figures rather than floating screenshots. */
+/* ---- Headings: tracking scales inversely with size --------------------- */
+.markdown h1,
+h1 {
+  letter-spacing: var(--tracking-h1);
+  font-weight: var(--fw-display);
+}
+.markdown h2 {
+  letter-spacing: var(--tracking-h2);
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+.markdown h3 {
+  letter-spacing: var(--tracking-h2);
+  margin-top: var(--sp-6);
+}
+.markdown > p,
+.markdown li {
+  letter-spacing: var(--tracking-body);
+}
+
+/* ---- Meta surfaces: mono, wide caps ------------------------------------ */
+.navbar__link,
+.theme-doc-sidebar-item-category > .menu__list-item-collapsible > .menu__link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+.navbar__title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  letter-spacing: var(--tracking-h2);
+}
+.breadcrumbs__item,
+.pagination-nav__sublabel,
+.theme-last-updated {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-meta);
+}
+.table-of-contents__link {
+  font-size: 13px;
+  letter-spacing: var(--tracking-meta);
+}
+
+/* ---- Links: underlined, not coloured ----------------------------------- */
+.markdown a:not(.card):not(.button) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.markdown a:not(.card):not(.button):hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---- Signal red: reserved for danger, per doctrine --------------------- */
+.theme-admonition-danger {
+  --ifm-alert-border-color: #c8102e;
+}
+
+/* ---- Figures: replication charts read as figures, not screenshots ------ */
 .markdown figure {
-  margin: 2rem 0;
+  margin: var(--sp-7) 0;
   text-align: center;
 }
-.markdown figure img {
+.markdown figure img,
+.markdown video {
   max-width: 100%;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
   background: #fff;
-  padding: 0.5rem;
+  padding: var(--sp-2);
 }
 .markdown figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-meta);
   color: var(--ifm-color-emphasis-700);
 }
 
-/* GitBook-style density for imported tables. */
+/* ---- Tables: the imported GitBook content leans on these ---------------- */
 .markdown table {
   display: table;
   width: 100%;
-  font-size: 0.925rem;
+  font-size: 15px;
 }
 .markdown table th {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
   background: var(--ifm-color-emphasis-100);
+}
+
+/* ---- Code: mono stack from the contract -------------------------------- */
+code,
+pre {
+  font-family: var(--font-mono);
+}
+.markdown code:not(pre code) {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  padding: 1px 5px;
 }
