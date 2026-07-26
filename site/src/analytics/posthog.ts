@@ -26,7 +26,13 @@ if (ExecutionEnvironment.canUseDOM && KEY) {
   posthog.capture("$pageview");
 }
 
-export function onRouteDidUpdate({ location, previousLocation }) {
+export function onRouteDidUpdate({
+  location,
+  previousLocation,
+}: {
+  location: Location;
+  previousLocation: Location | null;
+}) {
   if (!KEY || !ExecutionEnvironment.canUseDOM) return;
   if (previousLocation && location.pathname !== previousLocation.pathname) {
     posthog.capture("$pageview");

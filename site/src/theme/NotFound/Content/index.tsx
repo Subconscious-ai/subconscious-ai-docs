@@ -10,7 +10,7 @@ import type { Props } from "@theme/NotFound/Content";
  * Fern, GitBook and the old Mintlify pages will rot for years. The default
  * Docusaurus 404 is a dead end; this one routes people onward.
  */
-export default function NotFoundContent({ className }: Props): JSX.Element {
+export default function NotFoundContent({ className }: Props): React.JSX.Element {
   return (
     <main className={className}>
       <div className="container margin-vert--xl">
