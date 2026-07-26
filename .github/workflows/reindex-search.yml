@@ -1,0 +1,31 @@
+name: Reindex search
+
+# Algolia's hosted DocSearch crawler is not provisioned for this site, so we
+# run Algolia's own open-source scraper ourselves. Without this, search
+# silently drifts from the site: pages that no longer exist keep appearing and
+# new ones are unfindable.
+on:
+  # After a deploy has had time to go live.
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+jobs:
+  reindex:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Crawl and index
+        env:
+          APPLICATION_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          API_KEY: ${{ secrets.ALGOLIA_WRITE_KEY }}
+        run: |
+          if [ -z "$APPLICATION_ID" ] || [ -z "$API_KEY" ]; then
+            echo "::warning::Algolia secrets not set; skipping reindex"
+            exit 0
+          fi
+          docker run --rm \
+            -e APPLICATION_ID -e API_KEY \
+            -e "CONFIG=$(cat site/scripts/docsearch.json | tr -d '\n')" \
+            algolia/docsearch-scraper

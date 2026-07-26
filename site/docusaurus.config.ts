@@ -111,17 +111,6 @@ const config: Config = {
       },
     ],
     [
-      "@easyops-cn/docusaurus-search-local",
-      {
-        // Algolia DocSearch needs a public site. Local search keeps the site
-        // usable either way; swap it out if the repo goes public.
-        hashed: true,
-        indexBlog: false,
-        docsRouteBasePath: "/",
-        highlightSearchTermsOnTargetPage: true,
-      },
-    ],
-    [
       "@docusaurus/plugin-client-redirects",
       {
         redirects: [
@@ -204,6 +193,14 @@ const config: Config = {
   ],
 
   themeConfig: {
+    algolia: {
+      appId: "BNEN1CKK95",
+      // Search-only key: safe to publish, and it is in the client bundle by
+      // design. The write key never leaves CI.
+      apiKey: "4a1a16de76e172055e7a15abff1d87df",
+      indexName: "subconscious_docs",
+      contextualSearch: false,
+    },
     image: "img/logo-dark.png",
     metadata: [
       {

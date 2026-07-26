@@ -1,0 +1,352 @@
+- generic [ref=f2e2]:
+  - region "Skip to main content":
+    - link "Skip to main content" [ref=f2e3] [cursor=pointer]:
+      - /url: "#__docusaurus_skipToContent_fallback"
+  - navigation "Main" [ref=f2e4]:
+    - generic [ref=f2e5]:
+      - link "Internal Wiki" [ref=f2e7] [cursor=pointer]:
+        - /url: /internal-docs/
+      - generic [ref=f2e9]:
+        - link [ref=f2e10] [cursor=pointer]:
+          - /url: https://docs.subconscious.ai
+          - text: Public docs
+          - img "(opens in new tab)" [ref=f2e11]
+        - button "Switch between dark and light mode (currently system mode)" [ref=f2e14] [cursor=pointer]
+        - generic [ref=f2e18]:
+          - textbox "Search" [ref=f2e19]
+          - generic:
+            - generic: ⌘
+            - generic: K
+  - generic [ref=f2e22]:
+    - complementary [ref=f2e23]:
+      - navigation "Docs sidebar" [ref=f2e26]:
+        - list [ref=f2e27]:
+          - listitem [ref=f2e28]:
+            - button "api" [ref=f2e30] [cursor=pointer]
+          - listitem [ref=f2e32]:
+            - generic [ref=f2e33]:
+              - link "How To" [ref=f2e34] [cursor=pointer]:
+                - /url: /internal-docs/how-to
+              - button "Expand sidebar category 'How To'" [ref=f2e36] [cursor=pointer]
+          - listitem [ref=f2e37]:
+            - button "repositories" [ref=f2e39] [cursor=pointer]
+          - listitem [ref=f2e41]:
+            - button "storage-and-metrics" [expanded] [ref=f2e43] [cursor=pointer]
+            - list [ref=f2e45]:
+              - listitem [ref=f2e46]:
+                - link "Auth0 - Approving New Users" [ref=f2e47] [cursor=pointer]:
+                  - /url: /internal-docs/storage-and-metrics/auth0-approving-new-users
+              - listitem [ref=f2e49]:
+                - link "Auth0 - Update Management Token Monthly" [ref=f2e50] [cursor=pointer]:
+                  - /url: /internal-docs/storage-and-metrics/auth0-update-management-token-monthly
+              - listitem [ref=f2e52]:
+                - link "Elasticsearch" [ref=f2e53] [cursor=pointer]:
+                  - /url: /internal-docs/storage-and-metrics/elasticsearch
+              - listitem [ref=f2e55]:
+                - link "Firestore" [ref=f2e56] [cursor=pointer]:
+                  - /url: /internal-docs/storage-and-metrics/firestore
+              - listitem [ref=f2e58]:
+                - button "wandb" [ref=f2e60] [cursor=pointer]
+              - listitem [ref=f2e62]:
+                - link "WANDB" [ref=f2e63] [cursor=pointer]:
+                  - /url: /internal-docs/storage-and-metrics/wandb
+          - listitem [ref=f2e65]:
+            - link "Welcome to the Subconscious.ai Wiki!" [ref=f2e66] [cursor=pointer]:
+              - /url: /internal-docs/
+    - main [ref=f2e68]:
+      - generic [ref=f2e70]:
+        - generic [ref=f2e72]:
+          - article [ref=f2e73]:
+            - navigation "Breadcrumbs" [ref=f2e74]:
+              - list [ref=f2e75]:
+                - listitem [ref=f2e76]:
+                  - link "Home page" [ref=f2e77] [cursor=pointer]:
+                    - /url: /internal-docs/
+                - listitem [ref=f2e80]:
+                  - generic [ref=f2e81]: storage-and-metrics
+                - listitem [ref=f2e82]:
+                  - generic [ref=f2e83]: Elasticsearch
+            - generic [ref=f2e84]:
+              - heading "Elasticsearch" [level=1] [ref=f2e86]
+              - heading [level=4] [ref=f2e87]:
+                - text: Table of Contents
+                - link "Direct link to Table of Contents" [ref=f2e88] [cursor=pointer]:
+                  - /url: "#table-of-contents"
+                  - text: "#"
+              - list [ref=f2e89]:
+                - listitem [ref=f2e90]:
+                  - link "Introduction" [ref=f2e91] [cursor=pointer]:
+                    - /url: "#introduction"
+                - listitem [ref=f2e92]:
+                  - link "Requirements" [ref=f2e93] [cursor=pointer]:
+                    - /url: "#requirements"
+                - listitem [ref=f2e94]:
+                  - link "Accessing the Kibana Dashboard" [ref=f2e95] [cursor=pointer]:
+                    - /url: "#accessing-the-kibana-dashboard"
+                - listitem [ref=f2e96]:
+                  - link "Preset Kibana Search Queries" [ref=f2e97] [cursor=pointer]:
+                    - /url: "#preset-kibana-search-queries"
+                - listitem [ref=f2e98]:
+                  - link "Accessing the Elastic VM Instance" [ref=f2e99] [cursor=pointer]:
+                    - /url: "#accessing-the-elastic-vm-instance"
+                - listitem [ref=f2e100]:
+                  - link "Logging Runs from Backend Server" [ref=f2e101] [cursor=pointer]:
+                    - /url: "#logging-runs-from-backend-server"
+                - listitem [ref=f2e102]:
+                  - link "Troubleshooting" [ref=f2e103] [cursor=pointer]:
+                    - /url: "#troubleshooting"
+                - listitem [ref=f2e104]:
+                  - link "Elasticsearch Best Practices" [ref=f2e105] [cursor=pointer]:
+                    - /url: "#elasticsearch-best-practices"
+                - listitem [ref=f2e106]:
+                  - link "FAQ" [ref=f2e107] [cursor=pointer]:
+                    - /url: "#frequently-asked-questions-faq"
+                - listitem [ref=f2e108]:
+                  - link "Resources" [ref=f2e109] [cursor=pointer]:
+                    - /url: "#resources"
+              - heading [level=2] [ref=f2e110]:
+                - text: Introduction
+                - link "Direct link to Introduction" [ref=f2e111] [cursor=pointer]:
+                  - /url: "#introduction"
+                  - text: "#"
+              - heading [level=3] [ref=f2e112]:
+                - text: Purpose of the Logging Tool
+                - link "Direct link to Purpose of the Logging Tool" [ref=f2e113] [cursor=pointer]:
+                  - /url: "#purpose-of-the-logging-tool"
+                  - text: "#"
+              - paragraph [ref=f2e114]: When running experiments on the backend server, each Weights and Biases run contains run logs which track what happens in the experiment and what the results are. Searching through these logs becomes a tedious process of downloading each log file and manually searching through it. With Elasticsearch, all log information is centralized and easily searchable with minimum search times. Runs can be searched by user, run name/id, date of experiment, and more. Logging is set up to be constantly tracking the backend server and sending logs to Elasticsearch.
+              - paragraph [ref=f2e115]: All logs are visualized and searchable in the Kibana dashboard.
+              - paragraph [ref=f2e116]: Later in this guide there will be some preset search queries to simplify search for most users.
+              - heading [level=2] [ref=f2e117]:
+                - text: Requirements
+                - link "Direct link to Requirements" [ref=f2e118] [cursor=pointer]:
+                  - /url: "#requirements"
+                  - text: "#"
+              - paragraph [ref=f2e119]: All you need currently for accessing the Kibana dashboard are the links in the next section. In the future, once security is added, you may need to sign in to your azure account or subconscious email to access the dashboard.
+              - paragraph [ref=f2e120]:
+                - strong [ref=f2e121]: "In order to modify the elasticsearch container, you need an Azure account and permission to modify the ELKVM2 resource:"
+                - link "https://portal.azure.com/#@aviyashchingmail.onmicrosoft.com/resource/subscriptions/49f25966-49b5-4c0b-818a-938a91ee88da/resourceGroups/ELKResourceGroup/providers/Microsoft.Compute/virtualMachines/ELKVM2/overview" [ref=f2e122] [cursor=pointer]:
+                  - /url: https://portal.azure.com/#@aviyashchingmail.onmicrosoft.com/resource/subscriptions/49f25966-49b5-4c0b-818a-938a91ee88da/resourceGroups/ELKResourceGroup/providers/Microsoft.Compute/virtualMachines/ELKVM2/overview
+              - heading [level=2] [ref=f2e123]:
+                - text: Accessing the Kibana Dashboard
+                - link "Direct link to Accessing the Kibana Dashboard" [ref=f2e124] [cursor=pointer]:
+                  - /url: "#accessing-the-kibana-dashboard"
+                  - text: "#"
+              - paragraph [ref=f2e125]:
+                - text: "Opening the Kibana Dashboard is simply following this URL:"
+                - link "http://20.85.211.209:5601" [ref=f2e126] [cursor=pointer]:
+                  - /url: http://20.85.211.209:5601
+                - text: To access the log stream, go to
+                - link "http://20.85.211.209:5601/app/logs/stream" [ref=f2e127] [cursor=pointer]:
+                  - /url: http://20.85.211.209:5601/app/logs/stream
+                - text: The log stream is useful in watching logs enter elasticsearch live and search them instantly.
+              - figure [ref=f2e128]
+              - paragraph [ref=f2e129]:
+                - text: "To have better searchability and visualization, go to the Kibana discover page:"
+                - link "http://20.85.211.209:5601/app/discover#" [ref=f2e130] [cursor=pointer]:
+                  - /url: http://20.85.211.209:5601/app/discover
+                - text: In the top left, select the blue box for the log stream view and select the
+                - strong [ref=f2e131]: filebeat-*
+                - text: option. Further searches can be done using the search bar.
+              - figure [ref=f2e132]:
+                - paragraph [ref=f2e134]: Selecting the filebeat log view in the top left of the Kibana Discover dashboard
+              - heading [level=3] [ref=f2e135]:
+                - text: Authentication and User Permissions
+                - link "Direct link to Authentication and User Permissions" [ref=f2e136] [cursor=pointer]:
+                  - /url: "#authentication-and-user-permissions"
+                  - text: "#"
+              - paragraph [ref=f2e137]: TODO
+              - heading [level=2] [ref=f2e138]:
+                - text: Preset Kibana Search Queries
+                - link "Direct link to Preset Kibana Search Queries" [ref=f2e139] [cursor=pointer]:
+                  - /url: "#preset-kibana-search-queries"
+                  - text: "#"
+              - paragraph [ref=f2e140]: TODO
+              - heading [level=2] [ref=f2e141]:
+                - text: Accessing the Elastic VM Instance
+                - link "Direct link to Accessing the Elastic VM Instance" [ref=f2e142] [cursor=pointer]:
+                  - /url: "#accessing-the-elastic-vm-instance"
+                  - text: "#"
+              - heading [level=3] [ref=f2e143]:
+                - text: Connecting to the VM via SSH
+                - link "Direct link to Connecting to the VM via SSH" [ref=f2e144] [cursor=pointer]:
+                  - /url: "#connecting-to-the-vm-via-ssh"
+                  - text: "#"
+              - paragraph [ref=f2e145]: We can connect to the Elastic VM through the Azure Cloud Shell. In your Azure portal, select the red circled option in the top nav bar to open the cloud shell.
+              - figure [ref=f2e146]
+              - paragraph [ref=f2e147]:
+                - text: "In the Cloud shell opened in the same tab, ssh into the VM using the following command:"
+                - code [ref=f2e148]: ssh azureuser@20.85.211.209
+              - figure [ref=f2e149]
+              - paragraph [ref=f2e150]:
+                - text: "You should now be in the elasticsearch VM. To test whether the elasticsearch service is running, type the following command into the cloud terminal:"
+                - code [ref=f2e151]: sudo curl -XGET 'localhost:9200/'
+              - paragraph [ref=f2e152]:
+                - text: "If your output is as below, elasticsearch is running:"
+                - code [ref=f2e153]: "{ \"name\" : \"ELKVM2\", \"cluster_name\" : \"elasticsearch\", \"cluster_uuid\" : \"Y1qc2gjbReaKH0v3JIu47A\", \"version\" : { \"number\" : \"8.6.2\", \"build_flavor\" : \"default\", \"build_type\" : \"deb\", \"build_hash\" : \"2d58d0f136141f03239816a4e360a8d17b6d8f29\", \"build_date\" : \"2023-02-13T09:35:20.314882762Z\", \"build_snapshot\" : false, \"lucene_version\" : \"9.4.2\", \"minimum_wire_compatibility_version\" : \"7.17.0\", \"minimum_index_compatibility_version\" : \"7.0.0\" }, \"tagline\" : \"You Know, for Search\" }"
+                - text: "Some useful commands in the elasticsearch VM: &#xNAN;"
+                - strong [ref=f2e154]:
+                  - code [ref=f2e155]: sudo systemctl start elasticsearch.service
+                - text: "- Used to start the elasticsearch service if not running"
+              - paragraph [ref=f2e156]:
+                - strong [ref=f2e157]:
+                  - code [ref=f2e158]: sudo systemctl start kibana.service
+                - text: "- Used to start the kibana service if not running. Use in conjunction the prior command"
+              - paragraph [ref=f2e159]:
+                - strong [ref=f2e160]:
+                  - code [ref=f2e161]: sudo systemctl stop elasticsearch.service
+                - text: "- Used to stop the elasticsearch service. To restart elasticsearch without shutting the VM down, run this command and then the first two commands. Can be changed to stop kibana service as well."
+              - heading [level=2] [ref=f2e162]:
+                - text: Logging Runs from Backend Server
+                - link "Direct link to Logging Runs from Backend Server" [ref=f2e163] [cursor=pointer]:
+                  - /url: "#logging-runs-from-backend-server"
+                  - text: "#"
+              - paragraph [ref=f2e164]: Logging in the backend server is setup mainly through the logging and ecs_logging python modules along with Filebeat as the log shipper to elasticsearch.
+              - heading [level=3] [ref=f2e165]:
+                - text: Integration Steps
+                - link "Direct link to Integration Steps" [ref=f2e166] [cursor=pointer]:
+                  - /url: "#integration-steps"
+                  - text: "#"
+              - paragraph [ref=f2e167]:
+                - text: "Log messages are included in some critical files which hold much of the experiment run functionality like poc_api.py, main.py, and core.py, to capture as much of the experiment run execution as possible. Filebeat is a log shipper which scans log files and sends them to elasticsearch. The configuration options are in the filebeat.yml file in github:"
+                - link "https://github.com/Subconscious-ai/backend/tree/develop/backend" [ref=f2e168] [cursor=pointer]:
+                  - /url: https://github.com/Subconscious-ai/backend/tree/develop/backend
+                - text: To include new files to log from, follow the steps below.
+              - list [ref=f2e169]:
+                - listitem [ref=f2e170]:
+                  - paragraph [ref=f2e171]:
+                    - text: "In the python file you want to log from, import ecs_logging. Then copy the code below:"
+                    - code [ref=f2e172]: logger = logging.getLogger(__name__)
+                    - code [ref=f2e173]: logger.setLevel(logging.INFO)
+                    - code [ref=f2e174]: "handler = logging.FileHandler(f'{PROJECT_ROOT_DIRECTORY}/backend/elk_logs/"
+                    - mark [ref=f2e175]:
+                      - code [ref=f2e176]: "**OUTPUT_LOG_FILE**"
+                    - code [ref=f2e177]: "', mode='a')"
+                    - code [ref=f2e178]: handler.setFormatter(ecs_logging.StdlibFormatter()) logger.addHandler(handler)
+                    - text: Change the **OUTPUT_LOG_FILE** to any name you want for the log output file. Once this code is added, you can simply call the logger as you would the normal python logging utility (
+                    - code [ref=f2e179]: logger.info()
+                    - text: ","
+                    - code [ref=f2e180]: logger.error()
+                    - text: ", etc)."
+                - listitem [ref=f2e181]:
+                  - paragraph [ref=f2e182]: "Next, in the filebeat.yml file, add a new block under filebeat.inputs with the following code:"
+                  - paragraph [ref=f2e183]:
+                    - code [ref=f2e184]: "- type: filestream"
+                    - code [ref=f2e185]: "# Unique ID among all inputs, an ID is required."
+                    - code [ref=f2e186]: "id: poc-api-logs"
+                    - code [ref=f2e187]: "# Change to true to enable this input configuration."
+                    - code [ref=f2e188]: "enabled: true"
+                    - code [ref=f2e189]: "# Paths that should be crawled and fetched. Glob based paths."
+                    - code [ref=f2e190]: "paths:"
+                    - code [ref=f2e191]: "- {PWD}/backend/elk_logs/"
+                    - mark [ref=f2e192]:
+                      - code [ref=f2e193]: "**OUTPUT_LOG_FILE**"
+                    - code [ref=f2e194]: .json
+                    - code [ref=f2e195]: "json.keys_under_root: true"
+                    - code [ref=f2e196]: "json.add_error_key: true"
+                    - code [ref=f2e197]: "json.expand_keys: true"
+                    - text: "Again replacing **OUTPUT_LOG_FILE** with the chosen file name. With this, any logs generated by the python file will be parsed into ecs formatted logs, pre built for Elasticsearch, and shipped by Filebeat with no further action required. To learn more about the elastic schema configuration, visit this documentation:"
+                    - link "https://www.elastic.co/guide/en/ecs/current/index.html" [ref=f2e198] [cursor=pointer]:
+                      - /url: https://www.elastic.co/guide/en/ecs/current/index.html
+              - heading [level=3] [ref=f2e199]:
+                - text: Log Message Formatting
+                - link "Direct link to Log Message Formatting" [ref=f2e200] [cursor=pointer]:
+                  - /url: "#log-message-formatting"
+                  - text: "#"
+              - paragraph [ref=f2e201]: TODO
+              - heading [level=2] [ref=f2e202]:
+                - text: Troubleshooting
+                - link "Direct link to Troubleshooting" [ref=f2e203] [cursor=pointer]:
+                  - /url: "#troubleshooting"
+                  - text: "#"
+              - list [ref=f2e204]:
+                - listitem [ref=f2e205]: Common Issues and Solutions
+                - listitem [ref=f2e206]: Error Handling and Debugging Tips
+              - heading [level=2] [ref=f2e207]:
+                - text: Elasticsearch Best Practices
+                - link "Direct link to Elasticsearch Best Practices" [ref=f2e208] [cursor=pointer]:
+                  - /url: "#elasticsearch-best-practices"
+                  - text: "#"
+              - list [ref=f2e209]:
+                - listitem [ref=f2e210]: Log Retention Policies
+                - listitem [ref=f2e211]: Performance Optimization
+                - listitem [ref=f2e212]: Security Considerations
+              - heading [level=2] [ref=f2e213]:
+                - text: Frequently Asked Questions (FAQ)
+                - link "Direct link to Frequently Asked Questions (FAQ)" [ref=f2e214] [cursor=pointer]:
+                  - /url: "#frequently-asked-questions-faq"
+                  - text: "#"
+              - list [ref=f2e215]:
+                - listitem [ref=f2e216]: Preset Search
+                - listitem [ref=f2e217]: Queries
+                - listitem [ref=f2e218]: Technical Questions
+              - heading [level=2] [ref=f2e219]:
+                - text: Resources
+                - link "Direct link to Resources" [ref=f2e220] [cursor=pointer]:
+                  - /url: "#resources"
+                  - text: "#"
+              - list [ref=f2e221]:
+                - listitem [ref=f2e222]: Additional Documentation
+                - listitem [ref=f2e223]: External Links
+                - listitem [ref=f2e224]: Contact Information
+          - navigation "Docs pages" [ref=f2e225]:
+            - link "Previous « Auth0 - Update Management Token Monthly" [ref=f2e226] [cursor=pointer]:
+              - /url: /internal-docs/storage-and-metrics/auth0-update-management-token-monthly
+              - generic [ref=f2e227]: Previous
+              - generic [ref=f2e228]: « Auth0 - Update Management Token Monthly
+            - link "Next Firestore »" [ref=f2e229] [cursor=pointer]:
+              - /url: /internal-docs/storage-and-metrics/firestore
+              - generic [ref=f2e230]: Next
+              - generic [ref=f2e231]: Firestore »
+        - list [ref=f2e234]:
+          - listitem [ref=f2e235]:
+            - link "Introduction" [ref=f2e236] [cursor=pointer]:
+              - /url: "#introduction"
+            - list [ref=f2e237]:
+              - listitem [ref=f2e238]:
+                - link "Purpose of the Logging Tool" [ref=f2e239] [cursor=pointer]:
+                  - /url: "#purpose-of-the-logging-tool"
+          - listitem [ref=f2e240]:
+            - link "Requirements" [ref=f2e241] [cursor=pointer]:
+              - /url: "#requirements"
+          - listitem [ref=f2e242]:
+            - link "Accessing the Kibana Dashboard" [ref=f2e243] [cursor=pointer]:
+              - /url: "#accessing-the-kibana-dashboard"
+            - list [ref=f2e244]:
+              - listitem [ref=f2e245]:
+                - link "Authentication and User Permissions" [ref=f2e246] [cursor=pointer]:
+                  - /url: "#authentication-and-user-permissions"
+          - listitem [ref=f2e247]:
+            - link "Preset Kibana Search Queries" [ref=f2e248] [cursor=pointer]:
+              - /url: "#preset-kibana-search-queries"
+          - listitem [ref=f2e249]:
+            - link "Accessing the Elastic VM Instance" [ref=f2e250] [cursor=pointer]:
+              - /url: "#accessing-the-elastic-vm-instance"
+            - list [ref=f2e251]:
+              - listitem [ref=f2e252]:
+                - link "Connecting to the VM via SSH" [ref=f2e253] [cursor=pointer]:
+                  - /url: "#connecting-to-the-vm-via-ssh"
+          - listitem [ref=f2e254]:
+            - link "Logging Runs from Backend Server" [ref=f2e255] [cursor=pointer]:
+              - /url: "#logging-runs-from-backend-server"
+            - list [ref=f2e256]:
+              - listitem [ref=f2e257]:
+                - link "Integration Steps" [ref=f2e258] [cursor=pointer]:
+                  - /url: "#integration-steps"
+              - listitem [ref=f2e259]:
+                - link "Log Message Formatting" [ref=f2e260] [cursor=pointer]:
+                  - /url: "#log-message-formatting"
+          - listitem [ref=f2e261]:
+            - link "Troubleshooting" [ref=f2e262] [cursor=pointer]:
+              - /url: "#troubleshooting"
+          - listitem [ref=f2e263]:
+            - link "Elasticsearch Best Practices" [ref=f2e264] [cursor=pointer]:
+              - /url: "#elasticsearch-best-practices"
+          - listitem [ref=f2e265]:
+            - link "Frequently Asked Questions (FAQ)" [ref=f2e266] [cursor=pointer]:
+              - /url: "#frequently-asked-questions-faq"
+          - listitem [ref=f2e267]:
+            - link "Resources" [ref=f2e268] [cursor=pointer]:
+              - /url: "#resources"
+  - contentinfo [ref=f2e269]:
+    - generic [ref=f2e270]: Internal use only — imported from GitBook, not for external sharing.
