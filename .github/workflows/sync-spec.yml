@@ -1,0 +1,74 @@
+name: Sync API spec
+
+# Answers "does anything re-sync the spec automatically?" — now yes.
+#
+# rehoboam is the source of truth for openapi.public.json. Until this existed
+# the copy in this repo only moved when someone ran scripts/sync-spec.sh by
+# hand, so the published API reference could silently lag the API. This checks
+# daily and opens a PR when they differ, rather than committing straight to
+# main: a spec change can alter what is publicly documented, which deserves a
+# human look.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * 1-5"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the published spec from rehoboam
+        id: fetch
+        env:
+          GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::REHOBOAM_READ_TOKEN not set; cannot read the private repo"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          gh api "repos/Subconscious-ai/rehoboam/contents/openapi.public.json?ref=develop" \
+            --jq '.content' | base64 -d > /tmp/upstream.json
+
+          # Guard: never publish a spec that lost its servers block or gained
+          # internal paths. Cheap, and it fails closed.
+          python3 - <<'PY'
+          import json, sys
+          spec = json.load(open("/tmp/upstream.json"))
+          assert spec.get("servers"), "spec has no servers block"
+          leaked = [p for p in spec["paths"] if p.startswith(("/api/v1/payments", "/api/v3/"))]
+          assert not leaked, f"internal paths present: {leaked}"
+          print(f"upstream: {len(spec['paths'])} paths")
+          PY
+
+          if diff -q /tmp/upstream.json site/openapi/subconscious.public.json > /dev/null; then
+            echo "spec is already in sync"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            cp /tmp/upstream.json site/openapi/subconscious.public.json
+            cp /tmp/upstream.json site/static/openapi/subconscious.public.json
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open a PR with the new spec
+        if: steps.fetch.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/sync-api-spec
+          title: "chore: sync the API spec from rehoboam"
+          commit-message: "chore: sync the API spec from rehoboam"
+          body: |
+            The published spec in rehoboam has moved on. Merging this
+            regenerates the API reference and the playground.
+
+            Review what changed before merging — a new operation appearing here
+            means it was deliberately published in
+            `rehoboam/docs/api/public_surface.yml`.
+          delete-branch: true
