@@ -68,6 +68,12 @@ when you want a familiar segment reproduced consistently across runs.
 
 - Target on what plausibly changes the decision. Filters that do not affect the
   choice cost you precision and buy nothing.
+
+![Prince Charles and Ozzy Osbourne share every demographic attribute](/img/memes/personas-are-not-demographics.png)
+
+Two people can match on every demographic filter and decide nothing alike. Target
+on what moves the choice.
+
 - Validate first, then run.
 - Keep the population fixed when comparing two designs. Changing the audience
   and the design at once makes the comparison meaningless.

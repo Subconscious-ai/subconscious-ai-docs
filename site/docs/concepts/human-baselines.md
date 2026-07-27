@@ -11,6 +11,9 @@ Human baselines are how that gets checked, rather than asserted.
 
 ## The method
 
+![Peer review in a cramped submersible, "I did my own research" in a roomy one](/img/memes/peer-review-vs-own-research.png)
+
+
 ```mermaid
 flowchart LR
   H["Published human study"] --> D["Same attributes, levels, design"]

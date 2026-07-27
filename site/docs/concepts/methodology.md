@@ -55,6 +55,10 @@ Three estimators run on every successful conjoint survey:
    preferences to vary across respondents rather than assuming one shared
    taste vector. This is what supports segment-level and mindset analysis.
 
+
+
+![Statistician asking a t-distribution why it cannot just be normal](/img/memes/t-distribution.png)
+
 Reporting several estimators is deliberate. Agreement between them is evidence
 the result is not an artefact of one model's assumptions; disagreement is a
 signal to look harder before acting on the finding.
@@ -70,6 +74,11 @@ See [Human baselines](/concepts/human-baselines).
 
 - An AMCE is an average. A large average effect can hide a segment that moves
   the other way; look at the mixed logit output before assuming uniformity.
+
+![Point estimate as Barbie, confidence interval as Oppenheimer](/img/memes/point-estimate-vs-confidence-interval.png)
+
+A point estimate on its own is a decoration. The interval is the finding.
+
 - Effects are defined relative to a baseline level. Changing the baseline
   changes the numbers without changing the underlying preference.
 - The experiment measures choice among the profiles you specified. It says
