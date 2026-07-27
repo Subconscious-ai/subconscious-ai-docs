@@ -7,6 +7,11 @@ This replaced two earlier systems: a Fern site (last substantive change
 December 2024, preserved at tag `fern-final`) and an unmodified Mintlify
 starter template that was serving on the domain.
 
+The authoritative two-repository architecture, source inventory, route map, and
+retirement gates are in
+[`MIGRATION_RETIREMENT.md`](MIGRATION_RETIREMENT.md). That plan records unknowns
+as blockers and does not authorize deleting or disabling a source.
+
 ## Layout
 
 ```
