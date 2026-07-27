@@ -1,0 +1,39 @@
+name: Deploy
+
+# Vercel's own GitHub integration builds pushes to main, but on 2026-07-27 it
+# stopped doing so for squash merges while pull request previews kept building.
+# Eleven merges landed and none of them shipped, and nothing reported it. This
+# job removes the guesswork: every push to main asks Vercel to build, and the
+# job fails loudly if the request is refused.
+#
+# A duplicate build is harmless. A silent no-deploy is not.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time, and never cancel one halfway.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  trigger:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Ask Vercel to build main
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::VERCEL_DEPLOY_HOOK is not set, so nothing will deploy."
+            exit 1
+          fi
+          code=$(curl -sS -X POST -o response.json -w '%{http_code}' "$HOOK")
+          cat response.json
+          echo
+          if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
+            echo "::error::Vercel refused the deploy hook (HTTP $code)."
+            exit 1
+          fi
+          echo "Vercel accepted the build request (HTTP $code)."
