@@ -123,19 +123,22 @@ install stopped for an interactive approval that no agent can give.
 by direct URL but are excluded from the sidebar, search and sitemap. Remove the
 `unlisted: true` frontmatter to surface a page after editing it.
 
-**Deploys are Git-triggered.** The Vercel project is connected to this repo
-(root directory `site`, production branch `main`), so pushing to `main` builds
-and deploys. `vercel.json` must stay in BOTH the repo root and `site/` — the
-Git build reads the one in the root directory, and losing it silently breaks
-`cleanUrls`.
+**A merge is not currently a production deployment.** Vercel previews still
+build, but production stopped building squash merges from `main`. The attempted
+deploy hook also accepted requests without creating deployments, so the
+push-triggered hook is deliberately disarmed. Until the provider path is
+repaired and observed end to end, treat production deployment as blocked and
+manually authorized. `vercel.json` must stay in BOTH the repo root and `site/`;
+losing either copy silently breaks `cleanUrls`.
 
 The authoritative GitHub deployment environment is **`Production – docs`**.
 The older **`Production – subconscious-ai-docs`** project is a duplicate and
 is not production evidence. It is intentionally left untouched here.
 
 **Production proves its exact revision.** Every build writes
-`/revision.json` from `VERCEL_GIT_COMMIT_SHA` (or the CI source SHA). After a
-successful `Production – docs` deployment, the `Verify production docs`
+`/revision.json` from `VERCEL_GIT_COMMIT_SHA` (or the CI source SHA). After an
+independently authorized successful `Production – docs` deployment, the
+`Verify production docs`
 workflow requests the canonical domain without following redirects, checks
 that `/revision.json` matches the deployed SHA, and asserts content on `/`,
 `/human-baselines`, `/api-reference/superego`, `/search`, `/llms.txt`, and the

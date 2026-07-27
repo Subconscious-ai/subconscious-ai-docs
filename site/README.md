@@ -15,5 +15,6 @@ pnpm build
 ```
 
 `pnpm build` generates the API reference and release metadata before producing
-the site. Deployment is Git-triggered through the Vercel `docs` project; do not
-use Docusaurus's GitHub Pages deployment command.
+the site. Production deployment is currently blocked on a repaired and observed
+provider path; a green merge or preview is not production proof. Do not use
+Docusaurus's GitHub Pages deployment command.
