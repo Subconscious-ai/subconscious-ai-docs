@@ -34,6 +34,16 @@ experiment. Randomisation is what licenses causal claims: attributes vary
 independently of one another, so an effect can be attributed to the attribute
 rather than to what it correlates with.
 
+![Causation cannot be pinned down by correlation alone; a controlled experiment can](/img/memes/causation-r2-controlled-experiment.png)
+
+Correlational work can rule things in. Only a randomised design rules things
+out.
+
+![xkcd 925: correlation between cancer incidence and cell phone users](/img/memes/xkcd-cell-phones-cancer.png)
+
+<small>xkcd 925, Randall Munroe, CC BY-NC 2.5.</small>
+
+
 **Interactive design.** You supply a question; the platform proposes
 attributes, levels, and respondent instructions, and you correct them before
 running.
@@ -42,6 +52,10 @@ running.
 loop, which is where the cost and time reduction comes from.
 
 ## What is genuinely different
+
+
+
+![Statistics, framed as machine learning, framed as artificial intelligence, to an audience](/img/memes/statistics-ml-ai.png)
 
 The claim is not that a language model can guess what people want. It is that a
 well-specified experiment run against a representative simulated population
