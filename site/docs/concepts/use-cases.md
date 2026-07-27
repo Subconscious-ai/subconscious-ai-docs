@@ -1,54 +1,59 @@
 ---
 id: use-cases
 title: Use cases
-description: "Where causal experiments on synthetic respondents are used: pricing, product design, positioning, and policy."
+description: "What teams run causal experiments for: pricing, product design, positioning, policy, retention, and the industries where the shape recurs."
 ---
 
 # Use cases
 
 Causal experiments answer one shape of question: given a set of options, which
 features change the decision, and by how much. That shape recurs across
-domains.
+domains, which is why the same platform serves a pricing question and a vaccine
+acceptance study.
 
-## Product and feature design
+## What teams run
 
-Which features drive choice, and which are table stakes. A conjoint design
-prices each feature in units of choice probability, so a roadmap argument
-becomes a measurement rather than an opinion.
+| Area | Questions it answers |
+| --- | --- |
+| **Pricing** | Price sensitivity and elasticity. Willingness to pay per feature. Competitive pricing against a named set of rivals. |
+| **Product development** | Which features drive choice and which are table stakes. Where the gaps are. Which improvements are worth building. |
+| **Market segmentation** | Which segments exist by preference rather than by demographics. What each one actually wants. |
+| **Brand and positioning** | Which claims move choice, and for whom. Whether a message that works for one segment repels another. |
+| **Marketing effectiveness** | Which channels and campaigns change behaviour rather than correlate with it. |
+| **Market structure** | Simulated share across competing profiles, including cannibalisation of your own options. |
+| **Retention and churn** | What drives customers to stay or leave, and what a retention offer is worth. |
+| **Product launch** | Market reaction before launch. Go-to-market choices tested rather than argued. |
+| **User experience** | Which design and flow choices change conversion. |
+| **Public policy** | Response to regulation, campaigns, and interventions: vaccine acceptance, immigration preferences, transport choice. |
+| **Healthcare** | Patient preferences, treatment trade-offs, health policy interventions. |
+| **Sustainability** | Attitudes to sustainable options, and what people will trade to get them. |
+| **Risk and market entry** | Entry evaluations, demand estimates, and where the downside sits. |
+| **Innovation and R&D** | Testing ideas before they are built. |
 
-## Pricing
+## Where it is used
 
-Include a price attribute and effects can be expressed as willingness to pay.
-This gives a defensible answer to "how much is this feature worth to the
-customer" rather than a guess anchored on cost.
+Market research · retail and e-commerce · healthcare and pharmaceuticals ·
+technology and SaaS · media and entertainment · financial services and fintech ·
+public policy and government · education and EdTech · FMCG and CPG ·
+automotive, including electric vehicles · travel and hospitality ·
+telecommunications · energy and utilities.
 
-## Positioning and messaging
-
-Treat claims and framings as attributes. The experiment measures which
-positioning moves choice, for whom, and whether a message that works for one
-segment repels another.
-
-## Market structure
-
-With competing profiles specified, simulated market share shows how a change
-redistributes choice across the set: including cannibalisation of your own
-options.
-
-## Policy and public health
-
-The academic conjoint literature is largely policy work: vaccine acceptance,
-immigration preferences, transport choice. These are the studies the platform
-replicates, and the same designs run unchanged.
+The academic conjoint literature is largely policy work, which is why the
+[replication record](/human-baselines) is heaviest there. The same designs run
+unchanged for a pricing study.
 
 ## When not to use it
 
-- When you do not yet know the options. Use qualitative research first; a
-  conjoint design needs attributes to test.
-- When the decision is not a choice among alternatives.
-- When the answer needs an absolute number rather than a relative effect.
+- **When you do not yet know the options.** A conjoint design needs attributes
+  to test. Use qualitative research first.
+- **When the decision is not a choice among alternatives.** The method measures
+  trade-offs between profiles.
+- **When you need an absolute number.** The output is a relative effect, not a
+  sales forecast.
 
-:::info
-The [replication showcase](/concepts/human-baselines) covers specific published
-studies reproduced on the platform, which is the most direct evidence for a
-given domain.
-:::
+## Evidence for your domain
+
+The [human baselines](/human-baselines) record covers twelve published studies
+reproduced on the platform, each with its rank correlation against the original
+human result. That is the most direct evidence for whether the method holds in
+an area you care about.
