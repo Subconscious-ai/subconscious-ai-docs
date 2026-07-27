@@ -52,6 +52,16 @@ curl "https://api.subconscious.ai/api/v1/runs/$RUN_ID" \
   -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN"
 ```
 
+```mermaid
+flowchart TD
+  S["POST /experiments returns a run id"] --> W{"Status terminal?"}
+  W -- "no" --> Z["Wait 30-60s"] --> W
+  W -- "yes" --> A{"Run has artifacts?"}
+  A -- "yes" --> OK["Succeeded"]
+  A -- "no" --> F["Treat as failed, whatever status says"]
+  W -- "nothing after ~25 min" --> RS["Never queued. Resubmit"]
+```
+
 Recommended logic:
 
 1. Poll status until terminal, or until your timeout.

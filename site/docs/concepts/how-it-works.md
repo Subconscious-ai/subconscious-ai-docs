@@ -11,6 +11,17 @@ humans is slow and expensive. Subconscious.ai replaces the recruited panel with
 simulated respondents, and keeps the experimental design and statistics
 unchanged.
 
+```mermaid
+flowchart LR
+  Q["Research question"] --> A["Attributes and levels"]
+  A --> D["Orthogonal design matrix"]
+  P["Synthetic population"] --> R
+  D --> R["Choice tasks"]
+  R --> E["Simulated respondents answer"]
+  E --> M["OLS · conditional logit · hierarchical Bayes"]
+  M --> O["AMCEs, importance, willingness to pay"]
+```
+
 ## The four parts
 
 **Synthetic respondents.** AI-generated respondent profiles, built to be

@@ -11,6 +11,17 @@ Human baselines are how that gets checked, rather than asserted.
 
 ## The method
 
+```mermaid
+flowchart LR
+  H["Published human study"] --> D["Same attributes, levels, design"]
+  D --> S["Re-run on simulated respondents"]
+  H --> C{"Compare effect by effect"}
+  S --> C
+  C --> Y["Direction, magnitude, ranking agree"]
+  C --> N["Divergence: a bound on what to trust"]
+```
+
+
 Take a published human conjoint study. Re-run it on the platform with the same
 attributes, levels, and design. Compare the estimated effects against the
 original human results.
