@@ -1,7 +1,7 @@
 ---
 id: faq
 title: FAQ
-description: Common questions about Subconscious.ai — what it is, how experiments work, cost, timing, and data handling.
+description: "Common questions about Subconscious.ai: what it is, how experiments work, cost, timing, and data handling."
 ---
 
 # FAQ
@@ -18,7 +18,7 @@ will respond to different options.
 ## Who uses it?
 
 Researchers and product teams who need to know why a population chooses what it
-chooses — in academia, in industry, and in policy.
+chooses: in academia, in industry, and in policy.
 
 ## How is this different from asking a language model?
 
@@ -51,7 +51,7 @@ See [Run an experiment](/guides/run-an-experiment).
 
 ## Can I bring my own audience?
 
-Yes — supply external personas, or target a population by traits and
+Yes: supply external personas, or target a population by traits and
 demographics. Note that external personas and named population groups are
 mutually exclusive. See
 [Design a population](/guides/design-a-population).

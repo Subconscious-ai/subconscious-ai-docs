@@ -6,10 +6,10 @@ description: >-
   your strategies as you go​.
 gitbook_page_id: QpEmDupGQHKNQhrOFoFx
 gitbook_path: knowledge-base/advanced-tutorials/experiment-replication
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/advanced-tutorials/experiment-replication
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/advanced-tutorials/experiment-replication"
 title: "Experiment Replication"
-gitbook_updated_at: 2024-10-25T01:10:21.588Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T01:10:21.588Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

@@ -5,10 +5,10 @@ description: >-
   existing methods, with guaranteed human-level reliability.
 gitbook_page_id: usO6jTCfmyRb3gOc7043
 gitbook_path: welcome-to-subconscious.ai
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/welcome-to-subconscious.ai
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/welcome-to-subconscious.ai"
 title: "Welcome to Subconscious.ai"
-gitbook_updated_at: 2024-10-25T16:05:01.814Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T16:05:01.814Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

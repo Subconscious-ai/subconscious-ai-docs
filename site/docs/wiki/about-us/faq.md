@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: rCbPc6gu00e89rPzKg6i
 gitbook_path: about-us/faq
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/about-us/faq
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/about-us/faq"
 title: "FAQ"
-gitbook_updated_at: 2024-10-24T23:58:25.377Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-24T23:58:25.377Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

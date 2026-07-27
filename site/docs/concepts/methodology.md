@@ -1,7 +1,7 @@
 ---
 id: methodology
 title: Methodology
-description: How Subconscious.ai designs conjoint experiments and estimates effects — orthogonal designs, AMCEs, and the three estimators applied to every run.
+description: "How Subconscious.ai designs conjoint experiments and estimates effects: orthogonal designs, AMCEs, and the three estimators applied to every run."
 ---
 
 # Methodology
@@ -19,10 +19,10 @@ a respondent with several complete profiles.
 
 The design is orthogonal and blocked:
 
-- **Orthogonal** — attribute levels vary independently of one another, so the
+- **Orthogonal**: attribute levels vary independently of one another, so the
   effect of each attribute can be estimated separately rather than being
   confounded with its neighbours.
-- **Blocked** — the full set of tasks is partitioned so no single respondent
+- **Blocked**: the full set of tasks is partitioned so no single respondent
   answers all of them, while the design as a whole remains balanced.
 
 Levels are shuffled and profiles are randomised per respondent, with seeded
@@ -38,20 +38,20 @@ estimate within the experiment, not a correlation.
 
 Derived quantities include:
 
-- **Importance** — how much an attribute moves choice relative to the others.
-- **Willingness to pay** — an effect expressed in the units of a price
+- **Importance**: how much an attribute moves choice relative to the others.
+- **Willingness to pay**: an effect expressed in the units of a price
   attribute, when the design includes one.
-- **Market share simulation** — predicted shares for a set of competing
+- **Market share simulation**: predicted shares for a set of competing
   profiles.
 
 ## Estimators
 
 Three estimators run on every successful conjoint survey:
 
-1. **OLS** — a linear probability model. Fast, and a useful sanity check.
-2. **Conditional (multinomial) logit** — the standard discrete choice model,
+1. **OLS**: a linear probability model. Fast, and a useful sanity check.
+2. **Conditional (multinomial) logit**: the standard discrete choice model,
    estimating utilities over the choice set.
-3. **Hierarchical Bayes mixed logit** — estimated by MCMC, allowing
+3. **Hierarchical Bayes mixed logit**: estimated by MCMC, allowing
    preferences to vary across respondents rather than assuming one shared
    taste vector. This is what supports segment-level and mindset analysis.
 

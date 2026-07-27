@@ -3,10 +3,10 @@ unlisted: true
 description: 'Terms of Use Agreement - Last revised on: December 12, 2022'
 gitbook_page_id: XaV85mrMAg5dHlYH8prU
 gitbook_path: support/terms-of-use
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/support/terms-of-use
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/support/terms-of-use"
 title: "Terms of Use"
-gitbook_updated_at: 2024-10-25T01:32:20.358Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T01:32:20.358Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

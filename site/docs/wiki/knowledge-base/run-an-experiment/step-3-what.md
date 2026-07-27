@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: f99qjQgBuF282ioeNV9A
 gitbook_path: knowledge-base/run-an-experiment/step-3-what
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/run-an-experiment/step-3-what
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/run-an-experiment/step-3-what"
 title: "Step 3 - What"
-gitbook_updated_at: 2024-10-25T00:57:16.203Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T00:57:16.203Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

@@ -12,7 +12,7 @@ who answers.
 ## Traits
 
 Traits are the characteristics a respondent can have. Fetch the catalogue
-before you target — the ids are what the API expects:
+before you target: the ids are what the API expects:
 
 ```bash
 curl "$SUBCONSCIOUS_API/api/v1/traits" \
@@ -60,7 +60,7 @@ Use `/api/v1/populations/validate-non-us` for non-US populations.
 ## Population groups and external personas
 
 You can run against a named population group, or supply your own personas.
-These two are mutually exclusive — pick one. Supplying personas is the right
+These two are mutually exclusive: pick one. Supplying personas is the right
 move when you have first-party audience data; a named group is the right move
 when you want a familiar segment reproduced consistently across runs.
 

@@ -3,10 +3,10 @@ unlisted: true
 description: Comparison of our results to the Adam et al. 2019 paper
 gitbook_page_id: AZYfIBeCEsbapBBynzLm
 gitbook_path: product-validation/experimental-results-showcase/adam-patient-preferences-in-complementary-and-conventional-medicine
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/adam-patient-preferences-in-complementary-and-conventional-medicine
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/adam-patient-preferences-in-complementary-and-conventional-medicine"
 title: "Adam (Patient Preferences in Complementary and Conventional Medicine)"
-gitbook_updated_at: 2023-04-03T15:53:27.000Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2023-04-03T15:53:27.000Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

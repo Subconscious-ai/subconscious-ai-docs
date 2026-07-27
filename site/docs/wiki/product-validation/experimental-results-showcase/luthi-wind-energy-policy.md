@@ -3,10 +3,10 @@ unlisted: true
 description: Comparison of our results to the Luthi and Prassler 2011 paper
 gitbook_page_id: m74vIfctL999OSylk6t3
 gitbook_path: product-validation/experimental-results-showcase/luthi-wind-energy-policy
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/luthi-wind-energy-policy
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/luthi-wind-energy-policy"
 title: "Luthi (Wind Energy Policy)"
-gitbook_updated_at: 2023-04-26T14:56:54.000Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2023-04-26T14:56:54.000Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

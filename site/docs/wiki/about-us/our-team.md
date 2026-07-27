@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: LF78DkxVhKPJiWZOvve4
 gitbook_path: about-us/our-team
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/about-us/our-team
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/about-us/our-team"
 title: "Our Team"
-gitbook_updated_at: 2024-04-29T19:44:21.856Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-04-29T19:44:21.856Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

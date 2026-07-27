@@ -87,7 +87,7 @@ AMCEs and importance scores mean, see [Methodology](/concepts/methodology).
 
 ## Next
 
-- [Your first experiment](/get-started/your-first-experiment) — the same loop,
+- [Your first experiment](/get-started/your-first-experiment): the same loop,
   explained rather than pasted.
-- [Design a population](/guides/design-a-population) — target who answers.
-- [API reference](/api-reference/superego) — every published endpoint.
+- [Design a population](/guides/design-a-population): target who answers.
+- [API reference](/api-reference/superego): every published endpoint.

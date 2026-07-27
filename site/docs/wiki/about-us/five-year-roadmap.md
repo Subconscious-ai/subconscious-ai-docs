@@ -3,10 +3,10 @@ unlisted: true
 description: Subconscious.ai - CoPilot for experiments. Anyone can be a scientist.
 gitbook_page_id: PIX61GRsd3aymfzsOzb1
 gitbook_path: about-us/five-year-roadmap
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/about-us/five-year-roadmap
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/about-us/five-year-roadmap"
 title: "Five-Year Roadmap"
-gitbook_updated_at: 2024-10-25T00:07:14.124Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T00:07:14.124Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

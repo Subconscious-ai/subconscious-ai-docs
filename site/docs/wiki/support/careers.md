@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: eZxL96XcsMvkLA2ySEPH
 gitbook_path: support/careers
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/support/careers
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/support/careers"
 title: "Careers"
-gitbook_updated_at: 2024-10-24T23:58:25.315Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-24T23:58:25.315Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

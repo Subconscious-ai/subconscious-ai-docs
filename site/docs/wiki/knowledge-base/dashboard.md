@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: Jz1hAF2wtD9i1liMFBg9
 gitbook_path: knowledge-base/dashboard
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/dashboard
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/dashboard"
 title: "Dashboard"
-gitbook_updated_at: 2024-10-25T00:51:43.959Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T00:51:43.959Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: 26TlMJ5PAFYWFzyUHc1K
 gitbook_path: knowledge-base/run-an-experiment/step-1-why
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/run-an-experiment/step-1-why
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/run-an-experiment/step-1-why"
 title: "Step 1 - Why"
-gitbook_updated_at: 2024-10-25T00:56:12.437Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T00:56:12.437Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

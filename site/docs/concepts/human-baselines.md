@@ -15,8 +15,8 @@ Take a published human conjoint study. Re-run it on the platform with the same
 attributes, levels, and design. Compare the estimated effects against the
 original human results.
 
-If the simulated AMCEs track the human AMCEs — same direction, comparable
-magnitude, same ranking of what matters — the platform reproduces that study.
+If the simulated AMCEs track the human AMCEs: same direction, comparable
+magnitude, same ranking of what matters: the platform reproduces that study.
 Where they diverge, that is a finding too, and a bound on what the platform
 should be trusted for.
 

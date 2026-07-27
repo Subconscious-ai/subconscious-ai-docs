@@ -1,7 +1,7 @@
 ---
 id: python-workflow
 title: Run an experiment in Python
-description: End-to-end Python workflow — supply your own attributes and levels, launch a conjoint experiment, and retrieve the analytics output.
+description: End-to-end Python workflow. Supply your own attributes and levels, launch a conjoint experiment, and retrieve the analytics output.
 ---
 
 # Run an experiment in Python
@@ -50,7 +50,7 @@ here is cheaper than re-running later.
 
 ## 2. Launch the experiment
 
-Pass your edited design as `pre_cooked_attributes_and_levels_lookup` — a list of
+Pass your edited design as `pre_cooked_attributes_and_levels_lookup`: a list of
 `[attribute, [levels...]]` pairs. Omit it and the platform generates its own.
 
 ```python
@@ -109,7 +109,7 @@ def wait_for(run_id: str, timeout_s: int = 3600) -> dict:
     raise TimeoutError(f"{run_id} did not finish in {timeout_s}s")
 ```
 
-The status endpoint is unreliable in both directions — it can report `lost` for a
+The status endpoint is unreliable in both directions: it can report `lost` for a
 queued run and `finished` for a failed one. Treat artifacts as the real signal;
 [Poll a run](/guides/poll-a-run) explains the cross-check.
 
@@ -129,7 +129,7 @@ results = artifact.json()
 Note it uses `wandb_run_name`, not `wandb_run_id`. Mixing them up returns
 nothing and looks like a missing result.
 
-For what the numbers mean — AMCEs, importance, willingness to pay — see
+For what the numbers mean. AMCEs, importance, willingness to pay, see
 [Methodology](/concepts/methodology).
 
 ## Complete workflow
