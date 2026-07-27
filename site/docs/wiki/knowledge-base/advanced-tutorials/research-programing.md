@@ -6,10 +6,10 @@ description: >-
   outcome
 gitbook_page_id: igUIEoDnSTqCwMZGCVZH
 gitbook_path: knowledge-base/advanced-tutorials/research-programing
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/advanced-tutorials/research-programing
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/advanced-tutorials/research-programing"
 title: "Research programing"
-gitbook_updated_at: 2024-10-25T01:14:57.343Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T01:14:57.343Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

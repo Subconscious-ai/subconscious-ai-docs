@@ -1,7 +1,7 @@
 ---
 id: index
 title: Subconscious.ai documentation
-description: Run causal experiments through an API — conjoint analysis, synthetic respondent populations, and human-validated baselines.
+description: "Run causal experiments through an API: conjoint analysis, synthetic respondent populations, and human-validated baselines."
 slug: /
 ---
 
@@ -26,15 +26,15 @@ Everything the product does is available through the SuperEgo REST API.
 
 ## What the API covers
 
-- **Experiment design** — generate attributes and levels for a research
+- **Experiment design**: generate attributes and levels for a research
   question, build an orthogonal design matrix, and write respondent
   instructions.
-- **Populations** — select and validate a synthetic respondent population from
+- **Populations**: select and validate a synthetic respondent population from
   demographic and trait targeting.
-- **Execution** — run the survey against simulated respondents.
-- **Results** — retrieve AMCEs, importance scores, willingness-to-pay, and the
+- **Execution**: run the survey against simulated respondents.
+- **Results**: retrieve AMCEs, importance scores, willingness-to-pay, and the
   raw artifacts behind them.
-- **Human baselines** — compare simulated results against replicated human
+- **Human baselines**: compare simulated results against replicated human
   studies.
 
 ## Conventions

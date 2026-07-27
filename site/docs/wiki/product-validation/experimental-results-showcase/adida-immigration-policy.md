@@ -3,10 +3,10 @@ unlisted: true
 description: Comparison of our results to the Adida, Lo, and Platas 2019 paper
 gitbook_page_id: tv9Hgyx8O2HGpLfVS9C4
 gitbook_path: product-validation/experimental-results-showcase/adida-immigration-policy
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/adida-immigration-policy
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/adida-immigration-policy"
 title: "Adida (Immigration Policy)"
-gitbook_updated_at: 2023-04-26T14:52:15.000Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2023-04-26T14:52:15.000Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

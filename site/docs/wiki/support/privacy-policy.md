@@ -3,10 +3,10 @@ unlisted: true
 description: 'Last updated: December 13, 2022'
 gitbook_page_id: 73Z0RtML89poWAK85JCC
 gitbook_path: support/privacy-policy
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/support/privacy-policy
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/support/privacy-policy"
 title: "Privacy Policy"
-gitbook_updated_at: 2024-10-25T01:32:20.358Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T01:32:20.358Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

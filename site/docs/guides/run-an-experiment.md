@@ -1,7 +1,7 @@
 ---
 id: run-an-experiment
 title: Run an experiment
-description: The full experiment loop through the Subconscious.ai API — question, design, population, execution, results.
+description: "The full experiment loop through the Subconscious.ai API: question, design, population, execution, results."
 ---
 
 # Run an experiment
@@ -11,15 +11,14 @@ behaviour, and by how much. This guide covers the loop end to end.
 
 ## 1. State the question
 
-The research question (`why_prompt`) drives everything downstream — the
+The research question (`why_prompt`) drives everything downstream: the
 attributes generated, the respondent instructions, and the dependent variable.
 
 A good question names a decision and a population:
 
 > What factors drive consumer choice of electric vehicles?
 
-A vague question produces a vague design. Time spent here is the highest
-leverage in the whole run.
+A vague question produces a vague design. Time spent here pays back more than anything else in the run.
 
 ## 2. Choose the design
 
@@ -63,7 +62,7 @@ above; add more only when you have a reason.
 
 :::note Size and cost
 The smallest conjoint experiment is roughly 2,400 model calls. Experiments cost
-real money to run — check the design before you launch, not after.
+real money to run: check the design before you launch, not after.
 :::
 
 ## 5. Track it

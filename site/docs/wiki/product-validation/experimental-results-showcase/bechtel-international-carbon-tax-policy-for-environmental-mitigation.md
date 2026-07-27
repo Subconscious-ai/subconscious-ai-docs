@@ -3,10 +3,10 @@ unlisted: true
 description: Comparison of our results to the Bechtel, Scheve, and van Lieshout 2022 paper
 gitbook_page_id: gzTNLqZbXpSQrJpNG9QY
 gitbook_path: product-validation/experimental-results-showcase/bechtel-international-carbon-tax-policy-for-environmental-mitigation
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/bechtel-international-carbon-tax-policy-for-environmental-mitigation
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/bechtel-international-carbon-tax-policy-for-environmental-mitigation"
 title: "Bechtel (International Carbon Tax Policy for Environmental Mitigation)"
-gitbook_updated_at: 2023-04-03T15:52:20.000Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2023-04-03T15:52:20.000Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

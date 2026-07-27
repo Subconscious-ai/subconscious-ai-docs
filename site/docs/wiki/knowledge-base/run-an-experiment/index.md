@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: mWJXINd1mbkNLSdJyFik
 gitbook_path: knowledge-base/run-an-experiment
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/run-an-experiment
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/knowledge-base/run-an-experiment"
 title: "Run an experiment"
-gitbook_updated_at: 2024-10-25T01:01:43.575Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T01:01:43.575Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

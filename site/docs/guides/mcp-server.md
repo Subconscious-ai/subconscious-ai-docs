@@ -14,7 +14,7 @@ integration code.
 
 Use your access token from [Settings](https://app.subconscious.ai/settings).
 
-**Claude Desktop** — `~/Library/Application Support/Claude/claude_desktop_config.json`:
+**Claude Desktop**. `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -26,7 +26,7 @@ Use your access token from [Settings](https://app.subconscious.ai/settings).
 }
 ```
 
-**Cursor** — `~/.cursor/mcp.json`:
+**Cursor**. `~/.cursor/mcp.json`:
 
 ```json
 {
@@ -59,7 +59,7 @@ experiment type, whether the run is private, and an optional population
 selection. Anything else goes in an `advanced` object that passes through to
 the REST API.
 
-That small surface is a good model for your own integration too — see
+That small surface is a good model for your own integration too: see
 [Run an experiment](/guides/run-an-experiment).
 
 ## Source

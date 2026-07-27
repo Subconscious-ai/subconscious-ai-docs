@@ -2,10 +2,10 @@
 unlisted: true
 gitbook_page_id: fjOQUohndtR1kUJSuRff
 gitbook_path: product-validation/how-we-compare-results
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/how-we-compare-results
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/how-we-compare-results"
 title: "How We Compare Results"
-gitbook_updated_at: 2024-10-25T01:28:55.877Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2024-10-25T01:28:55.877Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

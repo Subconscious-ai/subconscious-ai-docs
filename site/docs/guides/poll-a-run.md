@@ -65,5 +65,5 @@ Recommended logic:
 a run has not appeared after roughly 25 minutes, resubmit rather than continuing
 to poll.
 
-If you hit this repeatedly, tell us — include the run ids in your message to
+If you hit this repeatedly, tell us: include the run ids in your message to
 [support](/support/contact).

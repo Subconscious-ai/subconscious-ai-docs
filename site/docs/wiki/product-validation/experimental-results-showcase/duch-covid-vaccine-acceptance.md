@@ -3,10 +3,10 @@ unlisted: true
 description: Comparison of our results to the Duch et al. 2021 paper
 gitbook_page_id: zhIFhjIWnTsiYvxqyXzV
 gitbook_path: product-validation/experimental-results-showcase/duch-covid-vaccine-acceptance
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/duch-covid-vaccine-acceptance
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/duch-covid-vaccine-acceptance"
 title: "Duch (COVID Vaccine Acceptance)"
-gitbook_updated_at: 2023-04-03T15:52:20.000Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2023-04-03T15:52:20.000Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

@@ -1,7 +1,7 @@
 ---
 id: use-cases
 title: Use cases
-description: Where causal experiments on synthetic respondents are used — pricing, product design, positioning, and policy.
+description: "Where causal experiments on synthetic respondents are used: pricing, product design, positioning, and policy."
 ---
 
 # Use cases
@@ -31,7 +31,7 @@ segment repels another.
 ## Market structure
 
 With competing profiles specified, simulated market share shows how a change
-redistributes choice across the set — including cannibalisation of your own
+redistributes choice across the set: including cannibalisation of your own
 options.
 
 ## Policy and public health

@@ -3,10 +3,10 @@ unlisted: true
 description: Comparison of our results to the Hainmueller and Hopkins 2015 paper
 gitbook_page_id: qOq5wsn7awZ8iNMdyNnT
 gitbook_path: product-validation/experimental-results-showcase/hainmueller-immigration-policy
-gitbook_url: https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/hainmueller-immigration-policy
+gitbook_url: "https://app.gitbook.com/s/Hz13MXZLCbJ7iCAVovhQ/product-validation/experimental-results-showcase/hainmueller-immigration-policy"
 title: "Hainmueller (Immigration Policy)"
-gitbook_updated_at: 2023-04-03T15:52:20.000Z
-retrieved_at: 2026-07-25T17:34:10.532206+00:00
+gitbook_updated_at: "2023-04-03T15:52:20.000Z"
+retrieved_at: "2026-07-25T17:34:10.532206+00:00"
 source_revision: MSWFgR11LfbMSYER7Xsh
 source: gitbook
 audience: internal

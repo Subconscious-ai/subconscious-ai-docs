@@ -17,8 +17,8 @@ explains what that run did, so you can judge whether the answer is any good.
 2. **Population.** A synthetic respondent population is assembled from your
    targeting, or from the default general population.
 3. **Execution.** Simulated respondents answer the choice tasks.
-4. **Estimation.** Three models are fitted — OLS, conditional logit, and a
-   hierarchical Bayes mixed logit — and effects are written to the run.
+4. **Estimation.** Three models are fitted. OLS, conditional logit, and a
+   hierarchical Bayes mixed logit: and effects are written to the run.
 
 This takes tens of minutes. The smallest conjoint experiment is roughly 2,400
 model calls.
@@ -47,7 +47,7 @@ evidence the effect is real. Disagreement means look closer before acting.
 
 ## Next
 
-- [Run an experiment](/guides/run-an-experiment) — the loop in full.
-- [Methodology](/concepts/methodology) — what AMCE and importance mean.
-- [Human baselines](/concepts/human-baselines) — why simulated respondents are
+- [Run an experiment](/guides/run-an-experiment): the loop in full.
+- [Methodology](/concepts/methodology): what AMCE and importance mean.
+- [Human baselines](/concepts/human-baselines): why simulated respondents are
   trusted at all.

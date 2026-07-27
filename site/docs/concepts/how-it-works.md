@@ -34,7 +34,7 @@ loop, which is where the cost and time reduction comes from.
 
 The claim is not that a language model can guess what people want. It is that a
 well-specified experiment run against a representative simulated population
-reproduces the effects measured in human studies — a claim that is testable,
+reproduces the effects measured in human studies: a claim that is testable,
 and tested. See [Human baselines](/concepts/human-baselines).
 
 ## What it is not
