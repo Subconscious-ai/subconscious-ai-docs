@@ -77,3 +77,14 @@ These are enforced by review, not by CI. They come from the design-system
 
 Merging deploys to a live customer-facing site with no human in the path.
 Re-read what you wrote before you merge it.
+
+## Confirm the deploy
+
+A green merge is not a deploy. Vercel builds `main` through its GitHub
+integration, and on 2026-07-27 that stopped firing for several hours while pull
+request previews kept building, so eleven merges landed and none of them
+shipped. Nothing reported the failure.
+
+After merging anything that changes the site, fetch the page you changed and
+look for your text. If it is not there within a few minutes, check the project's
+deployments in Vercel rather than assuming a delay.
