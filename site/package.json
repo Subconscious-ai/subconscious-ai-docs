@@ -15,6 +15,7 @@
     "typecheck": "pnpm run gen-api-docs && tsc",
     "test:release-proof": "node --test scripts/write-revision.test.mjs scripts/verify-production.test.mjs",
     "check:migration-evidence": "node scripts/check-migration-evidence.mjs",
+    "test:agent-source-contracts": "node --test scripts/agent-source-contracts.test.mjs",
     "sync-spec": "bash scripts/sync-spec.sh",
     "gen-api-docs": "docusaurus gen-api-docs all",
     "clean-api-docs": "docusaurus clean-api-docs all",

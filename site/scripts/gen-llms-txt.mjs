@@ -15,8 +15,16 @@ const BUILD_DIR = new URL("../build/", import.meta.url).pathname;
 const SITE = "https://docs.subconscious.ai";
 
 // Reference pages are numerous and repetitive; one pointer to the spec serves
-// an assistant better than 141 near-identical entries.
-const SKIP_PREFIXES = ["/api-reference/", "/search", "/404"];
+// an assistant better than 141 near-identical entries. Archives and the
+// client-rendered playground also have no useful static content to publish.
+const SKIP_PREFIXES = [
+  "/api-playground",
+  "/api-reference/",
+  "/fern",
+  "/search",
+  "/wiki",
+  "/404",
+];
 
 // With `trailingSlash: false` Docusaurus emits `route.html`, not
 // `route/index.html`, so match every HTML file.
@@ -45,7 +53,7 @@ for await (const file of walk(BUILD_DIR)) {
     .replace(/\/index\.html$/, "")
     .replace(/\.html$/, "");
   const url = route === "/index" ? "/" : route || "/";
-  if (SKIP_PREFIXES.some((p) => url.startsWith(p))) continue;
+  if (SKIP_PREFIXES.some((prefix) => url.startsWith(prefix))) continue;
 
   const html = await readFile(file, "utf8");
   // Redirect stubs carry no content worth listing.
@@ -69,8 +77,10 @@ const lines = [
   "## Docs",
   "",
   ...pages.map(
-    (p) =>
-      `- [${p.title}](${SITE}${p.url})${p.description ? `: ${p.description}` : ""}`,
+    (page) =>
+      `- [${page.title}](${SITE}${page.url})${
+        page.description ? `: ${page.description}` : ""
+      }`,
   ),
   "",
   "## API",
