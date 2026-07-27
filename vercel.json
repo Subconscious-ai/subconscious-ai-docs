@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm run gen-api-docs && pnpm build",
+  "buildCommand": "pnpm build",
   "outputDirectory": "build",
   "framework": "docusaurus-2",
   "headers": [
