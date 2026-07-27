@@ -118,3 +118,9 @@ git diff --stat <merge-commit> <branch-tip>   # expect empty
 Then re-verify the live site, by page content rather than status codes. After a
 deploy-method change the old deployment can still be serving, so the site looks
 fine while the new build is broken.
+
+**Regenerating the social card.** `static/img/social-card.png` is generated, not
+hand-drawn. The only Docusaurus OG plugin is at `1.0.4-alpha`, which is not
+worth putting in the deploy path, so the card is rendered once from SVG through
+`sharp` (already present via `plugin-ideal-image`) and committed. Per-page
+override still works: set `image:` in a page's frontmatter.

@@ -22,6 +22,7 @@ const config: Config = {
 
   markdown: {
     format: "detect",
+    mermaid: true,
     hooks: { onBrokenMarkdownLinks: "throw" },
   },
 
@@ -88,6 +89,12 @@ const config: Config = {
   plugins: [
     "docusaurus-plugin-sass",
     [
+      // Responsive sizes + lazy loading + blur-up placeholder. The replication
+      // charts and imported screenshots are the heaviest assets on the site.
+      "@docusaurus/plugin-ideal-image",
+      { quality: 80, max: 1600, min: 640, steps: 3, disableInDev: false },
+    ],
+    [
       "@docusaurus/plugin-google-gtag",
       { trackingID: "G-52WK8DDZLF", anonymizeIP: true },
     ],
@@ -129,6 +136,7 @@ const config: Config = {
         },
       },
     ],
+    "docusaurus-plugin-image-zoom",
     [
       "@docusaurus/plugin-client-redirects",
       {
@@ -162,7 +170,7 @@ const config: Config = {
     ],
   ],
 
-  themes: ["docusaurus-theme-openapi-docs"],
+  themes: ["docusaurus-theme-openapi-docs", "@docusaurus/theme-mermaid"],
 
   clientModules: ["./src/analytics/posthog.ts"],
 
@@ -212,6 +220,11 @@ const config: Config = {
   ],
 
   themeConfig: {
+    // Comparison charts are unreadable at inline width; click to enlarge.
+    zoom: {
+      selector: ".markdown img, .markdown figure img",
+      background: { light: "#ffffff", dark: "#000000" },
+    },
     algolia: {
       appId: "BNEN1CKK95",
       // Search-only key: safe to publish, and it is in the client bundle by
@@ -220,7 +233,7 @@ const config: Config = {
       indexName: "subconscious_docs",
       contextualSearch: false,
     },
-    image: "img/logo-dark.png",
+    image: "img/social-card.png",
     metadata: [
       {
         name: "description",
@@ -230,6 +243,12 @@ const config: Config = {
       },
     ],
     colorMode: { respectPrefersColorScheme: true },
+    mermaid: {
+      theme: { light: "neutral", dark: "dark" },
+      options: {
+        fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
+      },
+    },
     navbar: {
       title: "Subconscious.ai",
       logo: { alt: "Subconscious.ai", src: "img/dag-mark.svg" },

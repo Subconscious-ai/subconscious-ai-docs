@@ -23,13 +23,16 @@
     "@docusaurus/faster": "3.10.2",
     "@docusaurus/plugin-client-redirects": "^3.10.2",
     "@docusaurus/plugin-google-gtag": "^3.10.2",
+    "@docusaurus/plugin-ideal-image": "^3.10.2",
     "@docusaurus/preset-classic": "3.10.2",
     "@docusaurus/theme-common": "^3.10.2",
+    "@docusaurus/theme-mermaid": "^3.10.2",
     "@docusaurus/theme-search-algolia": "^3.10.2",
     "@easyops-cn/docusaurus-search-local": "^0.55.2",
     "@mdx-js/react": "^3.0.0",
     "@scalar/docusaurus": "^0.8.32",
     "clsx": "^2.0.0",
+    "docusaurus-plugin-image-zoom": "^3.0.1",
     "docusaurus-plugin-openapi-docs": "^5.1.2",
     "docusaurus-plugin-sass": "^0.2.6",
     "docusaurus-theme-openapi-docs": "^5.1.2",
@@ -62,5 +65,10 @@
   },
   "engines": {
     "node": ">=20.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
   }
 }
