@@ -68,6 +68,12 @@ These are enforced by review, not by CI. They come from the design-system
 ## Pull requests
 
 - Base branch: `main`.
-- The `build` check must pass.
-- `CODEOWNERS` assigns every file to `@aviyashchin`, and code-owner review is
-  required. An agent cannot merge here. Open the PR, report the URL, and stop.
+- The `build` and `gitleaks` checks must both pass. They are required, and
+  nothing merges without them.
+- No approving review is required. `CODEOWNERS` still requests review from
+  `@aviyashchin` on every file, but it does not block, so an agent can merge
+  its own pull request once the checks are green.
+- Direct pushes to `main` are refused. Everything goes through a pull request.
+
+Merging deploys to a live customer-facing site with no human in the path.
+Re-read what you wrote before you merge it.
