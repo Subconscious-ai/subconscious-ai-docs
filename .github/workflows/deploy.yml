@@ -1,15 +1,21 @@
 name: Deploy
 
-# Vercel's own GitHub integration builds pushes to main, but on 2026-07-27 it
-# stopped doing so for squash merges while pull request previews kept building.
-# Eleven merges landed and none of them shipped, and nothing reported it. This
-# job removes the guesswork: every push to main asks Vercel to build, and the
-# job fails loudly if the request is refused.
+# DISARMED on 2026-07-27, and kept only so the next person does not repeat the
+# experiment.
 #
-# A duplicate build is harmless. A silent no-deploy is not.
+# Vercel stopped producing production deployments for squash merges to main
+# while pull request previews kept building. Eleven merges landed and none of
+# them shipped, and nothing reported it. A deploy hook was the obvious fix, so
+# this job fired one on every push.
+#
+# The hook does not work either. Vercel answers HTTP 201 with a PENDING job and
+# then builds nothing: three fired, zero deployments, and no cancelled or
+# errored deployment to account for them. So the job went green while nothing
+# shipped, which is worse than having no job at all.
+#
+# Manual trigger only until someone watches a fired hook produce a build. Then
+# put the push trigger back.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 # One deploy at a time, and never cancel one halfway.
