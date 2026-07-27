@@ -179,3 +179,83 @@ pre {
   border-radius: var(--ifm-global-radius);
   padding: 1px 5px;
 }
+
+/* ==========================================================================
+   OpenAPI theme corrections
+
+   The theme hardcodes `color: #fff` on its action buttons and takes their
+   background from --ifm-color-primary-*. A monochrome palette makes that white
+   on white in dark mode, so the "Send API Request" control disappears. These
+   rules set both halves of every button pair explicitly instead of inheriting
+   half of it.
+   ========================================================================== */
+
+html[data-theme] .openapi-explorer__request-btn,
+html[data-theme] .openapi-explorer__response-btn,
+html[data-theme] .openapi-explorer__playground-btn {
+  background-color: var(--ifm-color-emphasis-900);
+  color: var(--ifm-background-color);
+  border-radius: var(--ifm-global-radius);
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-caps);
+  padding: 0.6rem 1.1rem;
+}
+
+html[data-theme] .openapi-explorer__request-btn:hover,
+html[data-theme] .openapi-explorer__response-btn:hover,
+html[data-theme] .openapi-explorer__playground-btn:hover {
+  background-color: var(--ifm-color-emphasis-700);
+  color: var(--ifm-background-color);
+}
+
+html[data-theme="dark"] .openapi-explorer__request-btn,
+html[data-theme="dark"] .openapi-explorer__response-btn,
+html[data-theme="dark"] .openapi-explorer__playground-btn {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html[data-theme="dark"] .openapi-explorer__request-btn:hover,
+html[data-theme="dark"] .openapi-explorer__response-btn:hover,
+html[data-theme="dark"] .openapi-explorer__playground-btn:hover {
+  background-color: var(--ifm-color-emphasis-300);
+  color: #000000;
+}
+
+/* The endpoint block: the theme leaves a tall empty band above the method
+   badge and lets the URL drift from it. Tighten to the 4pt scale. */
+.openapi-demo__code-block-container,
+.openapi-explorer__code-block-container {
+  padding: var(--sp-4) var(--sp-5);
+}
+
+.openapi-demo__code-block-title,
+.openapi-explorer__code-block-title {
+  margin: 0 0 var(--sp-3);
+}
+
+/* Method badge: mono caps, matching every other label on the site. */
+.openapi-demo__code-block-method,
+.openapi-explorer__code-block-method,
+.api-method > .menu__link::before {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-caps);
+}
+
+/* The endpoint URL is data, not prose: keep it mono and left-aligned with the
+   badge rather than indented away from it. */
+.openapi-demo__code-block-path,
+.openapi-explorer__code-block-path {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+/* Schema tables inside the reference inherit the GitBook-era table styling,
+   which is too loose for dense type rows. */
+.openapi-tabs__schema-tabs,
+.openapi-schema__container {
+  font-size: 14px;
+}
