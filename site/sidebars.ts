@@ -29,6 +29,7 @@ const sidebars: SidebarsConfig = {
       label: "Guides",
       items: [
         "guides/run-an-experiment",
+        "guides/python-workflow",
         "guides/design-a-population",
         "guides/poll-a-run",
         "guides/mcp-server",
