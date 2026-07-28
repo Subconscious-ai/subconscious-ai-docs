@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-27",
+  "retirement_authorized": false,
+  "exact_routes": [
+    {
+      "source": "/api-reference",
+      "action": "redirect",
+      "destination": "/api-reference/superego",
+      "reason": "stable landing alias"
+    },
+    {
+      "source": "/introduction",
+      "action": "redirect",
+      "destination": "/",
+      "reason": "known Mintlify starter route"
+    },
+    {
+      "source": "/features",
+      "action": "redirect",
+      "destination": "/concepts/how-it-works",
+      "reason": "known Mintlify starter route"
+    },
+    {
+      "source": "/api-reference/authentication",
+      "action": "redirect",
+      "destination": "/get-started/authentication",
+      "reason": "known Mintlify starter route"
+    },
+    {
+      "source": "/wiki/get-started/welcome-to-subconscious-ai",
+      "action": "redirect",
+      "destination": "/",
+      "reason": "verified legacy Fern route"
+    },
+    {
+      "source": "/wiki/get-started/reference-implementation",
+      "action": "redirect",
+      "destination": "/get-started/quickstart",
+      "reason": "verified legacy Fern route"
+    },
+    {
+      "source": "/wiki/get-started/use-cases-industries",
+      "action": "redirect",
+      "destination": "/concepts/use-cases",
+      "reason": "verified legacy Fern route"
+    },
+    {
+      "source": "/wiki/knowledge-base/getting-started",
+      "action": "redirect",
+      "destination": "/get-started/quickstart",
+      "reason": "verified legacy Fern route"
+    }
+  ],
+  "prefixes": [
+    {
+      "source": "/fern/*",
+      "action": "retain-unlisted",
+      "destination": "/fern/*",
+      "retirement_status": "blocked",
+      "reason": "product-review and replication decisions remain"
+    },
+    {
+      "source": "/wiki/*",
+      "action": "retain-unlisted",
+      "destination": "/wiki/*",
+      "retirement_status": "blocked",
+      "reason": "public GitBook mirror completeness is unproven"
+    },
+    {
+      "source": "/internal-docs/*",
+      "action": "retain-authenticated",
+      "destination": "Holodeck /internal-docs/*",
+      "retirement_status": "blocked",
+      "reason": "exact deployment and authorized Auth0 read-back remain"
+    },
+    {
+      "source": "/openapi/*",
+      "action": "retain-public-generated",
+      "destination": "/openapi/*",
+      "retirement_status": "not-applicable",
+      "reason": "current Rehoboam-owned public contract"
+    },
+    {
+      "source": "/mcp/*",
+      "action": "publish-after-source-merge",
+      "destination": "/mcp/*",
+      "retirement_status": "blocked",
+      "reason": "Ghostshell export and public agent endpoint PRs are drafts"
+    }
+  ],
+  "default_legacy_action": "retain-source-and-record-unknown",
+  "forbid_catch_all_redirects": true
+}

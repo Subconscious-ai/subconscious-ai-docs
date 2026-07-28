@@ -38,6 +38,9 @@ jobs:
       - name: Verify release-proof scripts
         run: pnpm run test:release-proof
 
+      - name: Check migration and retirement evidence
+        run: pnpm run check:migration-evidence
+
       - name: Typecheck
         run: pnpm typecheck
 

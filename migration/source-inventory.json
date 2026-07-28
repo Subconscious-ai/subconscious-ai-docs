@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-27",
+  "authoritative_plan": "../MIGRATION_RETIREMENT.md",
+  "retirement_authorized": false,
+  "sources": [
+    {
+      "id": "public-docusaurus",
+      "kind": "current-destination",
+      "visibility": "public",
+      "source": "https://github.com/Subconscious-ai/subconscious-ai-docs/tree/main/site",
+      "revision": "main after merge",
+      "completeness": "repository-owned",
+      "destination": "https://docs.subconscious.ai",
+      "owner": "@aviyashchin",
+      "owner_evidence": ".github/CODEOWNERS",
+      "disposition": "retain",
+      "retirement_status": "not-applicable",
+      "unknowns": []
+    },
+    {
+      "id": "fern",
+      "kind": "legacy-source",
+      "visibility": "public",
+      "source": "git tag fern-final",
+      "revision": "cc8816f2eb5d7cb71ed54e241cdfc30e285696b5",
+      "completeness": "44 Markdown pages at the tag; 42 source pages classified and 2 unclassified",
+      "destination": "site/docs plus the unlisted site/docs/fern archive",
+      "owner": "@aviyashchin",
+      "owner_evidence": ".github/CODEOWNERS",
+      "disposition": "retain-archive",
+      "retirement_status": "blocked",
+      "unknowns": [
+        "CONTENT_TRIAGE.md summary says five killed pages but names seven",
+        "human_validation/replicated_studies.mdx is unclassified",
+        "support/careers.mdx is unclassified",
+        "14 UI pages need product review",
+        "12 replication studies need evidence and a publication decision"
+      ]
+    },
+    {
+      "id": "mintlify-starter",
+      "kind": "legacy-source",
+      "visibility": "public",
+      "source": "former docs.subconscious.ai starter",
+      "revision": null,
+      "completeness": "unknown; no source artifact is present in reachable Git history",
+      "destination": "current Docusaurus routes",
+      "owner": "@aviyashchin",
+      "owner_evidence": ".github/CODEOWNERS covers retained redirects",
+      "disposition": "delete-later",
+      "retirement_status": "blocked",
+      "unknowns": [
+        "exact source revision",
+        "complete historical route inventory",
+        "source-system retirement approval"
+      ]
+    },
+    {
+      "id": "public-gitbook",
+      "kind": "legacy-source",
+      "visibility": "public",
+      "source": "GitBook space Hz13MXZLCbJ7iCAVovhQ",
+      "revision": "MSWFgR11LfbMSYER7Xsh",
+      "completeness": "36 unique mirrored page IDs; source completeness is unproven",
+      "destination": "unlisted site/docs/wiki mirror",
+      "owner": "@aviyashchin",
+      "owner_evidence": ".github/CODEOWNERS covers the mirror; source-space owner approval is not recorded",
+      "disposition": "retain-archive",
+      "retirement_status": "blocked",
+      "unknowns": [
+        "source manifest proving the mirror is complete",
+        "GitBook source-space owner approval",
+        "route-by-route destination decisions"
+      ]
+    },
+    {
+      "id": "internal-gitbook",
+      "kind": "legacy-source",
+      "visibility": "private",
+      "source": "GitBook space RPAuLvXI0lCcTz39j3BR",
+      "revision": "A4XseydnDgCEynfCFOLP",
+      "completeness": "private manifest records 53 pages and 79 assets",
+      "destination": "Subconscious-ai/subconscious-ai-docs-internal private release",
+      "owner": null,
+      "owner_evidence": "no CODEOWNERS file establishes a source owner",
+      "disposition": "retain-archive",
+      "retirement_status": "blocked",
+      "unknowns": [
+        "named source owner",
+        "32 retained review-required pages",
+        "authenticated exact-revision production read-back"
+      ]
+    },
+    {
+      "id": "rehoboam-openapi",
+      "kind": "generated-contract",
+      "visibility": "public-allowlist",
+      "source": "https://github.com/Subconscious-ai/rehoboam/blob/develop/openapi.public.json",
+      "revision": "e12136d7ace4cb8ae8f39e97710b3295d71a67e4",
+      "completeness": "curated public allowlist with a source-owned provenance manifest in https://github.com/Subconscious-ai/rehoboam/pull/2159",
+      "destination": "site/openapi and generated public API reference",
+      "owner": null,
+      "owner_evidence": "no CODEOWNERS approval is recorded for the replacement provenance contract",
+      "disposition": "retain",
+      "retirement_status": "not-applicable",
+      "unknowns": [
+        "source PR merge",
+        "named source owner approval",
+        "exact deployed artifact read-back"
+      ]
+    },
+    {
+      "id": "ghostshell-mcp",
+      "kind": "generated-contract",
+      "visibility": "public-allowlist",
+      "source": "https://github.com/Subconscious-ai/ghostshell",
+      "revision": "a597b2c13bab859f27f12a5b73049b8f70d82d3e",
+      "completeness": "safe public tool export with source-owned provenance manifest in https://github.com/Subconscious-ai/ghostshell/pull/15",
+      "destination": "public Docusaurus agent endpoints",
+      "owner": null,
+      "owner_evidence": "no CODEOWNERS approval is recorded for the draft export contract",
+      "disposition": "migrate",
+      "retirement_status": "blocked",
+      "unknowns": [
+        "source PR merge",
+        "named source owner approval",
+        "exact deployed artifact read-back"
+      ]
+    },
+    {
+      "id": "internal-docusaurus",
+      "kind": "current-destination",
+      "visibility": "private",
+      "source": "https://github.com/Subconscious-ai/subconscious-ai-docs-internal/pull/2",
+      "revision": "15e31e18f486f561e92773299b4065740f108333",
+      "completeness": "release manifest retains 41 pages and 78 assets; one of 79 source assets was unavailable",
+      "counts": {
+        "retained_pages": 41,
+        "retained_assets": 78,
+        "unavailable_source_assets": 1
+      },
+      "destination": "Holodeck /internal-docs/* via https://github.com/Subconscious-ai/holodeck/pull/1273",
+      "owner": "@Subconscious-ai/dev-team",
+      "owner_evidence": "Holodeck .github/CODEOWNERS; private content source owner remains unknown",
+      "disposition": "retain",
+      "retirement_status": "blocked",
+      "unknowns": [
+        "private source owner",
+        "both PR merges",
+        "exact Holodeck deployment",
+        "authorized Auth0 read-back"
+      ]
+    }
+  ]
+}

@@ -2,8 +2,10 @@
 
 **Date:** 2026-07-25
 
-**Status:** Approved direction; implementation work is split into bounded
-workstreams below.
+**Status:** Superseded. This file preserves the original design context but is
+not the current architecture or retirement authority. The live design uses
+separate public and private repositories and native Git and Actions provenance.
+See [`MIGRATION_RETIREMENT.md`](../../../MIGRATION_RETIREMENT.md).
 
 ## Purpose
 
