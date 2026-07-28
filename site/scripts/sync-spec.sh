@@ -36,5 +36,6 @@ leaked = [p for p in paths if p.startswith(("/api/v1/payments", "/api/v3/"))]
 assert not leaked, f"internal operations present: {leaked}"
 PY
 
+cp "$DEST" "$(dirname "$DEST")/../static/openapi/subconscious.public.json"
 echo "Wrote $DEST"
 echo "Next: pnpm run gen-api-docs && pnpm build"

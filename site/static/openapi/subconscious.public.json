@@ -563,6 +563,29 @@
         "title": "CleanedRunResponse",
         "type": "object"
       },
+      "Coefficient": {
+        "properties": {
+          "attribute_text": {
+            "title": "Attribute Text",
+            "type": "string"
+          },
+          "level_text": {
+            "title": "Level Text",
+            "type": "string"
+          },
+          "part_worth": {
+            "title": "Part Worth",
+            "type": "number"
+          }
+        },
+        "required": [
+          "attribute_text",
+          "level_text",
+          "part_worth"
+        ],
+        "title": "Coefficient",
+        "type": "object"
+      },
       "ConceptRunResponse": {
         "example": {
           "concept_type": "Text Only",
@@ -1425,6 +1448,17 @@
             ],
             "default": 1000,
             "title": "Decision Time Seed"
+          },
+          "design_seed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Design Seed"
           },
           "do_research": {
             "anyOf": [
@@ -3248,6 +3282,69 @@
         "title": "LocationRecommendationResult",
         "type": "object"
       },
+      "MarketShareRequest": {
+        "properties": {
+          "coefficients": {
+            "items": {
+              "$ref": "#/components/schemas/Coefficient"
+            },
+            "title": "Coefficients",
+            "type": "array"
+          },
+          "products": {
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            },
+            "title": "Products",
+            "type": "array"
+          }
+        },
+        "required": [
+          "products",
+          "coefficients"
+        ],
+        "title": "MarketShareRequest",
+        "type": "object"
+      },
+      "MarketShareResponse": {
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/MarketShareResult"
+            },
+            "title": "Results",
+            "type": "array"
+          }
+        },
+        "required": [
+          "results"
+        ],
+        "title": "MarketShareResponse",
+        "type": "object"
+      },
+      "MarketShareResult": {
+        "properties": {
+          "Scenario": {
+            "title": "Scenario",
+            "type": "string"
+          },
+          "share": {
+            "title": "Share",
+            "type": "number"
+          },
+          "utility": {
+            "title": "Utility",
+            "type": "number"
+          }
+        },
+        "required": [
+          "Scenario",
+          "utility",
+          "share"
+        ],
+        "title": "MarketShareResult",
+        "type": "object"
+      },
       "MotivationRequest": {
         "example": {
           "attributes": [
@@ -3569,6 +3666,89 @@
           "existing_attributes_levels"
         ],
         "title": "OrthogonalAttributesLevelsRequest",
+        "type": "object"
+      },
+      "ParetoFrontierRequest": {
+        "properties": {
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/ScenarioData"
+            },
+            "title": "Scenarios",
+            "type": "array"
+          }
+        },
+        "required": [
+          "scenarios"
+        ],
+        "title": "ParetoFrontierRequest",
+        "type": "object"
+      },
+      "ParetoFrontierResponse": {
+        "properties": {
+          "frontier": {
+            "items": {
+              "$ref": "#/components/schemas/ParetoScenario"
+            },
+            "title": "Frontier",
+            "type": "array"
+          }
+        },
+        "required": [
+          "frontier"
+        ],
+        "title": "ParetoFrontierResponse",
+        "type": "object"
+      },
+      "ParetoScenario": {
+        "properties": {
+          "Frontier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Frontier"
+          },
+          "Scenario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenario"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          },
+          "revenue": {
+            "title": "Revenue",
+            "type": "number"
+          },
+          "share": {
+            "title": "Share",
+            "type": "number"
+          }
+        },
+        "required": [
+          "share",
+          "revenue"
+        ],
+        "title": "ParetoScenario",
         "type": "object"
       },
       "PersonasResponse": {
@@ -4615,6 +4795,136 @@
         "title": "PopulationTraits",
         "type": "object"
       },
+      "PriceElasticityPoint": {
+        "properties": {
+          "Frontier": {
+            "title": "Frontier",
+            "type": "string"
+          },
+          "Scenario": {
+            "title": "Scenario",
+            "type": "string"
+          },
+          "price": {
+            "title": "Price",
+            "type": "number"
+          },
+          "revenue": {
+            "title": "Revenue",
+            "type": "number"
+          },
+          "share": {
+            "title": "Share",
+            "type": "number"
+          },
+          "utility": {
+            "title": "Utility",
+            "type": "number"
+          }
+        },
+        "required": [
+          "price",
+          "share",
+          "utility",
+          "revenue",
+          "Scenario",
+          "Frontier"
+        ],
+        "title": "PriceElasticityPoint",
+        "type": "object"
+      },
+      "PriceElasticityRequest": {
+        "properties": {
+          "base_products": {
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            },
+            "title": "Base Products",
+            "type": "array"
+          },
+          "coefficients": {
+            "items": {
+              "$ref": "#/components/schemas/Coefficient"
+            },
+            "title": "Coefficients",
+            "type": "array"
+          },
+          "market_size": {
+            "exclusiveMinimum": 0.0,
+            "title": "Market Size",
+            "type": "number"
+          },
+          "price_max": {
+            "exclusiveMinimum": 0.0,
+            "title": "Price Max",
+            "type": "number"
+          },
+          "price_min": {
+            "exclusiveMinimum": 0.0,
+            "title": "Price Min",
+            "type": "number"
+          },
+          "price_step": {
+            "exclusiveMinimum": 0.0,
+            "title": "Price Step",
+            "type": "number"
+          },
+          "product_name": {
+            "title": "Product Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "product_name",
+          "base_products",
+          "coefficients",
+          "price_min",
+          "price_max",
+          "price_step",
+          "market_size"
+        ],
+        "title": "PriceElasticityRequest",
+        "type": "object"
+      },
+      "PriceElasticityResponse": {
+        "properties": {
+          "elasticity_curve": {
+            "items": {
+              "$ref": "#/components/schemas/PriceElasticityPoint"
+            },
+            "title": "Elasticity Curve",
+            "type": "array"
+          }
+        },
+        "required": [
+          "elasticity_curve"
+        ],
+        "title": "PriceElasticityResponse",
+        "type": "object"
+      },
+      "Product": {
+        "properties": {
+          "Scenario": {
+            "title": "Scenario",
+            "type": "string"
+          },
+          "attribute_text": {
+            "title": "Attribute Text",
+            "type": "string"
+          },
+          "level_text": {
+            "title": "Level Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "Scenario",
+          "attribute_text",
+          "level_text"
+        ],
+        "title": "Product",
+        "type": "object"
+      },
       "ProductAttributeRequest": {
         "example": {
           "attribute_count": 8,
@@ -5314,6 +5624,46 @@
         "title": "SampleResponse",
         "type": "object"
       },
+      "ScenarioData": {
+        "properties": {
+          "Scenario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenario"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          },
+          "revenue": {
+            "title": "Revenue",
+            "type": "number"
+          },
+          "share": {
+            "title": "Share",
+            "type": "number"
+          }
+        },
+        "required": [
+          "share",
+          "revenue"
+        ],
+        "title": "ScenarioData",
+        "type": "object"
+      },
       "StatementDirectionInput": {
         "example": {
           "statements": [
@@ -5912,6 +6262,70 @@
         "title": "USStatesEnum",
         "type": "string"
       },
+      "WTPRequest": {
+        "properties": {
+          "attribute": {
+            "title": "Attribute",
+            "type": "string"
+          },
+          "coefficients": {
+            "items": {
+              "$ref": "#/components/schemas/Coefficient"
+            },
+            "title": "Coefficients",
+            "type": "array"
+          },
+          "level1": {
+            "title": "Level1",
+            "type": "string"
+          },
+          "level2": {
+            "title": "Level2",
+            "type": "string"
+          },
+          "price_attribute": {
+            "default": "Price",
+            "title": "Price Attribute",
+            "type": "string"
+          }
+        },
+        "required": [
+          "attribute",
+          "level1",
+          "level2",
+          "coefficients"
+        ],
+        "title": "WTPRequest",
+        "type": "object"
+      },
+      "WTPResponse": {
+        "properties": {
+          "attribute": {
+            "title": "Attribute",
+            "type": "string"
+          },
+          "level1": {
+            "title": "Level1",
+            "type": "string"
+          },
+          "level2": {
+            "title": "Level2",
+            "type": "string"
+          },
+          "wtp": {
+            "title": "Wtp",
+            "type": "number"
+          }
+        },
+        "required": [
+          "attribute",
+          "level1",
+          "level2",
+          "wtp"
+        ],
+        "title": "WTPResponse",
+        "type": "object"
+      },
       "app__api__v1__schemas__personas__HistoryRequest": {
         "example": {
           "attributes": [
@@ -6023,6 +6437,258 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/aggregated/betas": {
+      "post": {
+        "operationId": "createAggregatedBetas",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "title": "Data",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Aggregated Betas",
+        "tags": [
+          "conjoint-analytics"
+        ]
+      }
+    },
+    "/api/v1/aggregated/importance": {
+      "post": {
+        "operationId": "createAggregatedImportance",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "title": "Data",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Aggregated Importance",
+        "tags": [
+          "conjoint-analytics"
+        ]
+      }
+    },
+    "/api/v1/aggregated/wtp": {
+      "post": {
+        "operationId": "createAggregatedWtp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "title": "Data",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Aggregated Wtp",
+        "tags": [
+          "conjoint-analytics"
+        ]
+      }
+    },
+    "/api/v1/analytics/market-share": {
+      "post": {
+        "operationId": "createAnalyticsMarketShare",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketShareRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketShareResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Market Share",
+        "tags": [
+          "conjoint-analytics"
+        ]
+      }
+    },
+    "/api/v1/analytics/pareto-frontier": {
+      "post": {
+        "operationId": "createAnalyticsParetoFrontier",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParetoFrontierRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParetoFrontierResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Pareto Frontier",
+        "tags": [
+          "conjoint-analytics"
+        ]
+      }
+    },
+    "/api/v1/analytics/price-elasticity": {
+      "post": {
+        "operationId": "createAnalyticsPriceElasticity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PriceElasticityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceElasticityResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Price Elasticity",
+        "tags": [
+          "conjoint-analytics"
+        ]
+      }
+    },
+    "/api/v1/analytics/wtp": {
+      "post": {
+        "operationId": "createAnalyticsWtp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WTPRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WTPResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Wtp Endpoint",
+        "tags": [
+          "conjoint-analytics"
+        ]
+      }
+    },
     "/api/v1/attributes": {
       "post": {
         "description": "Create a list of attributes for a given why_prompt.\n\nParameters:\n- `req`: AttributesRequest object containing:\n                - `why_prompt`: The main concept or input question\n                - `country`: Target country\n                - `attribute_count`: Number of attributes to generate (optional)\n                - `prompt_type`: Type of prompt to use (optional)\n                - `llm_model`: Language model to use (optional)\n\nReturns:\n- List of attributes.\n\nExample Response:\n```json\n[\n                \"Price\",\n                \"Range\",\n                \"Charging Time\",\n                \"Safety Rating\"\n]\n```\n\nRaises:\n- HTTPException 404: If an error occurs during creation",
