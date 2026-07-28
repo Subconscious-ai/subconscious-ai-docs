@@ -88,6 +88,31 @@ grep -rho "<[A-Z][A-Za-z]*" docs/ | sort -u   # must be empty
 and rewritten by `pnpm run gen-api-docs`. Change the spec in rehoboam
 (`docs/api/public_surface.yml`, `docs/api/overlay.yaml`), never the MDX.
 
+**A merged pull request is not a deployment.** On 2026-07-27 Vercel stopped
+producing production deployments for merges to `main` while pull request
+previews kept building. It left no record: not a skipped deployment, not an
+errored one. Thirteen merges across the two docs repositories shipped nothing
+and no check went red. `.github/workflows/deploy.yml` now creates the
+deployment explicitly with the commit pinned and polls it to `READY`, because
+that is the only path that has worked reliably. If that job is red, the site
+did not update.
+
+Ruled out at the time, so nobody repeats the work: a duplicate Vercel project
+on the same repository (real, deleted, not the cause), `Require Verified
+Commits` (the merges that failed were GitHub-signed and the direct push that
+succeeded was unsigned), a custom ignored build step, and a paused project.
+
+**A check can be green and testing nothing.** `gitleaks-action` refuses to run
+on an organisation repository without a paid licence, so the secret scan failed
+on the licence check for weeks and scanned no code. It now installs the binary,
+which is free, pinned by version and sha256. Before trusting any check, read one
+of its logs.
+
+**Pin the package manager.** `packageManager` in `site/package.json` is load
+bearing. An unattended agent resolved pnpm 11 through corepack while CI used
+pnpm 10; pnpm 11 ignores `pnpm.onlyBuiltDependencies` in `package.json`, so the
+install stopped for an interactive approval that no agent can give.
+
 **The archive is `unlisted`, not deleted.** `/wiki` and `/fern` stay reachable
 by direct URL but are excluded from the sidebar, search and sitemap. Remove the
 `unlisted: true` frontmatter to surface a page after editing it.
