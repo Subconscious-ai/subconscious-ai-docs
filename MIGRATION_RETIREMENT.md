@@ -32,8 +32,8 @@ artifacts and does not redefine either surface.
 | Mintlify starter | README history and three existing redirects. No exact source artifact or revision remains in this repository. | Keep redirects. The absent starter may be declared retired only after an owner confirms the historical inventory. | Blocked |
 | Public GitBook space `Hz13MXZLCbJ7iCAVovhQ` | 36 mirrored pages at revision `MSWFgR11LfbMSYER7Xsh` under `/wiki/*` | Retain the unlisted mirror. Do not disable the source or add broad redirects until completeness is proven. | Blocked |
 | Internal GitBook space `RPAuLvXI0lCcTz39j3BR` | Private manifest at revision `A4XseydnDgCEynfCFOLP`: 53 pages and 79 assets | Retain the source and private mirror. The release keeps 41 pages, removes 12 reviewed pages, and keeps 32 pages marked review-required. | Blocked |
-| Rehoboam OpenAPI | Curated public spec and native Git/Actions provenance; [#2140](https://github.com/Subconscious-ai/rehoboam/issues/2140) and [#2146](https://github.com/Subconscious-ai/rehoboam/pull/2146) closed unmerged as not planned | Retain the current allowlisted artifact. Consumers pin the exact Git commit and revision-named Actions artifact; no custom source manifest will merge. | Active; not a retirement target |
-| Ghostshell MCP tools | Safe export draft [ghostshell#15](https://github.com/Subconscious-ai/ghostshell/pull/15) | Migrate only the pinned public tool manifest into the current Docusaurus site. | Blocked on merge and deployed read-back |
+| Rehoboam OpenAPI | Curated public spec and source-owned provenance manifest at `e12136d7ace4cb8ae8f39e97710b3295d71a67e4` in replacement [rehoboam#2159](https://github.com/Subconscious-ai/rehoboam/pull/2159) | Retain the allowlisted artifact. Consumers pin the exact source commit and manifest digest. | Blocked on source merge and deployed read-back |
+| Ghostshell MCP tools | Safe export and source-owned manifest at `a597b2c13bab859f27f12a5b73049b8f70d82d3e` in [ghostshell#15](https://github.com/Subconscious-ai/ghostshell/pull/15) | Migrate only the pinned public tool manifest into the current Docusaurus site. | Blocked on source merge and deployed read-back |
 | Internal Docusaurus release | Private artifact from [internal docs#2](https://github.com/Subconscious-ai/subconscious-ai-docs-internal/pull/2), consumed by [holodeck#1273](https://github.com/Subconscious-ai/holodeck/pull/1273) | Retain as the private destination after exact-revision Auth0 proof. | Blocked on merge, deployment, and authenticated read-back |
 
 ## Known unknowns
@@ -53,11 +53,12 @@ artifacts and does not redefine either surface.
   cannot be reconstructed from the repository alone.
 - The internal release still contains 32 review-required pages. Its source
   owner is not established in repository governance.
-- Rehoboam #2140 and PR #2146 closed unmerged as not planned. The accepted
-  provenance is native Git history plus the revision-named Actions artifact.
-  Ghostshell PR #15 remains a draft, so [#37](https://github.com/Subconscious-ai/subconscious-ai-docs/issues/37)
-  stops at non-publishing consumption scaffolding until that source contract
-  merges.
+- Rehoboam #2140 was reopened and replacement PR #2159 restores the deleted
+  provenance branch at an immutable head. Ghostshell PR #15 supplies the MCP
+  source contract. Public docs PR
+  [#56](https://github.com/Subconscious-ai/subconscious-ai-docs/pull/56)
+  validates and consumes both exact artifacts without publishing them before
+  review.
 - The internal artifact and Holodeck Auth0 integration are draft pull requests.
   An authorized authenticated production read-back has not occurred.
 

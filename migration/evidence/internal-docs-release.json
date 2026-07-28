@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "repository": "Subconscious-ai/subconscious-ai-docs-internal",
+  "pull_request": 2,
+  "head_revision": "08be5bbd03e6b54f6bdd898210803891c35ec007",
+  "manifest_sha256": "b63ae2924f0b2a792ad008141fef06520512a5a9b76582ea2384bab965345763",
+  "workflow_run": "https://github.com/Subconscious-ai/subconscious-ai-docs-internal/actions/runs/30327983700",
+  "artifact": {
+    "id": 8676371325,
+    "name": "internal-docs-08be5bbd03e6b54f6bdd898210803891c35ec007",
+    "archive_sha256": "aad9dce0bcbbdf1a2f6ea75512b605956262f1ec5f6a44c083fa98a3ed69d57e"
+  },
+  "source": {
+    "provider": "gitbook",
+    "space_id": "RPAuLvXI0lCcTz39j3BR",
+    "revision": "A4XseydnDgCEynfCFOLP",
+    "page_count": 53,
+    "asset_count": 79
+  },
+  "totals": {
+    "original_pages": 53,
+    "retained_pages": 41,
+    "current_pages": 9,
+    "review_required_pages": 32,
+    "removed_pages": 12,
+    "original_assets": 79,
+    "retained_assets": 78,
+    "unavailable_source_assets": 1
+  }
+}

@@ -97,15 +97,17 @@
       "kind": "generated-contract",
       "visibility": "public-allowlist",
       "source": "https://github.com/Subconscious-ai/rehoboam/blob/develop/openapi.public.json",
-      "revision": "native Git commit and revision-named Actions artifact; custom manifest PR #2146 closed unmerged",
-      "completeness": "curated public allowlist with existing source CI, Git history, and revision-named Actions artifact",
+      "revision": "e12136d7ace4cb8ae8f39e97710b3295d71a67e4",
+      "completeness": "curated public allowlist with a source-owned provenance manifest in https://github.com/Subconscious-ai/rehoboam/pull/2159",
       "destination": "site/openapi and generated public API reference",
       "owner": null,
-      "owner_evidence": "no CODEOWNERS approval is recorded for the draft provenance contract",
+      "owner_evidence": "no CODEOWNERS approval is recorded for the replacement provenance contract",
       "disposition": "retain",
       "retirement_status": "not-applicable",
       "unknowns": [
-        "named source owner approval"
+        "source PR merge",
+        "named source owner approval",
+        "exact deployed artifact read-back"
       ]
     },
     {
@@ -113,8 +115,8 @@
       "kind": "generated-contract",
       "visibility": "public-allowlist",
       "source": "https://github.com/Subconscious-ai/ghostshell",
-      "revision": "pinned by https://github.com/Subconscious-ai/ghostshell/pull/15",
-      "completeness": "safe public tool export with provenance manifest in draft",
+      "revision": "a597b2c13bab859f27f12a5b73049b8f70d82d3e",
+      "completeness": "safe public tool export with source-owned provenance manifest in https://github.com/Subconscious-ai/ghostshell/pull/15",
       "destination": "public Docusaurus agent endpoints",
       "owner": null,
       "owner_evidence": "no CODEOWNERS approval is recorded for the draft export contract",
@@ -131,8 +133,13 @@
       "kind": "current-destination",
       "visibility": "private",
       "source": "https://github.com/Subconscious-ai/subconscious-ai-docs-internal/pull/2",
-      "revision": "5011f939ca0e911ea8b058ea89143eca186fd38a",
-      "completeness": "release manifest retains 41 pages and 75 assets from the exact private import",
+      "revision": "08be5bbd03e6b54f6bdd898210803891c35ec007",
+      "completeness": "release manifest retains 41 pages and 78 assets; one of 79 source assets was unavailable",
+      "counts": {
+        "retained_pages": 41,
+        "retained_assets": 78,
+        "unavailable_source_assets": 1
+      },
       "destination": "Holodeck /internal-docs/* via https://github.com/Subconscious-ai/holodeck/pull/1273",
       "owner": "@Subconscious-ai/dev-team",
       "owner_evidence": "Holodeck .github/CODEOWNERS; private content source owner remains unknown",

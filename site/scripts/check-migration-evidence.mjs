@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../../", import.meta.url);
@@ -7,6 +8,12 @@ const inventory = JSON.parse(
 );
 const routeMap = JSON.parse(
   await readFile(new URL("migration/route-map.json", root), "utf8"),
+);
+const internalRelease = JSON.parse(
+  await readFile(
+    new URL("migration/evidence/internal-docs-release.json", root),
+    "utf8",
+  ),
 );
 
 assert.equal(inventory.schema_version, 1);
@@ -48,6 +55,23 @@ for (const source of inventory.sources) {
 }
 assert.deepEqual([...requiredSources], []);
 
+const internalDestination = inventory.sources.find(
+  (source) => source.id === "internal-docusaurus",
+);
+assert.equal(internalDestination.revision, internalRelease.head_revision);
+assert.equal(
+  internalRelease.artifact.name,
+  `internal-docs-${internalRelease.head_revision}`,
+);
+assert.match(internalRelease.workflow_run, /\/actions\/runs\/\d+$/);
+assert.ok(Number.isInteger(internalRelease.artifact.id));
+assert.match(internalRelease.artifact.archive_sha256, /^[a-f0-9]{64}$/);
+assert.deepEqual(internalDestination.counts, {
+  retained_pages: internalRelease.totals.retained_pages,
+  retained_assets: internalRelease.totals.retained_assets,
+  unavailable_source_assets: internalRelease.totals.unavailable_source_assets,
+});
+
 const exactSources = new Set();
 for (const route of routeMap.exact_routes) {
   assert.equal(route.action, "redirect");
@@ -70,6 +94,37 @@ for (const route of routeMap.prefixes) {
   assert.ok(route.retirement_status);
 }
 assert.deepEqual([...requiredPrefixes], []);
+
+const docusaurusConfig = await readFile(
+  new URL("site/docusaurus.config.ts", root),
+  "utf8",
+);
+const configuredRedirects = [
+  ...docusaurusConfig.matchAll(
+    /from:\s*"([^"]+)"\s*,\s*to:\s*"([^"]+)"/g,
+  ),
+]
+  .map((match) => [match[1], match[2]])
+  .sort(([left], [right]) => left.localeCompare(right));
+const recordedRedirects = routeMap.exact_routes
+  .map((route) => [route.source, route.destination])
+  .sort(([left], [right]) => left.localeCompare(right));
+assert.deepEqual(recordedRedirects, configuredRedirects);
+
+const internalManifestPath = process.env.INTERNAL_DOCS_MANIFEST_PATH;
+if (internalManifestPath) {
+  const manifestBytes = await readFile(internalManifestPath);
+  const manifest = JSON.parse(manifestBytes);
+  assert.equal(
+    createHash("sha256").update(manifestBytes).digest("hex"),
+    internalRelease.manifest_sha256,
+  );
+  assert.deepEqual(manifest.source, {
+    ...internalRelease.source,
+    retrieved_at: manifest.source.retrieved_at,
+  });
+  assert.deepEqual(manifest.totals, internalRelease.totals);
+}
 
 console.log(
   `Migration evidence valid: ${inventory.sources.length} sources, ` +
