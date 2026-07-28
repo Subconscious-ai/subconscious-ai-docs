@@ -2,13 +2,13 @@
   "schema_version": 1,
   "repository": "Subconscious-ai/subconscious-ai-docs-internal",
   "pull_request": 2,
-  "head_revision": "08be5bbd03e6b54f6bdd898210803891c35ec007",
-  "manifest_sha256": "b63ae2924f0b2a792ad008141fef06520512a5a9b76582ea2384bab965345763",
-  "workflow_run": "https://github.com/Subconscious-ai/subconscious-ai-docs-internal/actions/runs/30327983700",
+  "head_revision": "3f0d21b850cece1eb49d7781bd849391b64bc479",
+  "manifest_sha256": "e4e60cefdb4c3ef2223449713198f8abcfe5f4a7e484ee3aed45d9d6cc652a5b",
+  "workflow_run": "https://github.com/Subconscious-ai/subconscious-ai-docs-internal/actions/runs/30328958700",
   "artifact": {
-    "id": 8676371325,
-    "name": "internal-docs-08be5bbd03e6b54f6bdd898210803891c35ec007",
-    "archive_sha256": "aad9dce0bcbbdf1a2f6ea75512b605956262f1ec5f6a44c083fa98a3ed69d57e"
+    "id": 8676682488,
+    "name": "internal-docs-3f0d21b850cece1eb49d7781bd849391b64bc479",
+    "archive_sha256": "86fbb5a6a7d078ec78fed3ee1d4e1576815105a483699a2aba60f1b65ea4574a"
   },
   "source": {
     "provider": "gitbook",
