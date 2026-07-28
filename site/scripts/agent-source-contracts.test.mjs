@@ -136,6 +136,6 @@ test("accepts the exact checked source artifacts", async () => {
     pins.mcp,
   );
 
-  assert.equal(openapi.manifest.schema.path_count, 51);
+  assert.equal(openapi.manifest.schema.path_count, 58);
   assert.equal(mcp.tool_count, 15);
 });

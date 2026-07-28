@@ -7,6 +7,24 @@ not the current architecture or retirement authority. The live design uses
 separate public and private repositories and native Git and Actions provenance.
 See [`MIGRATION_RETIREMENT.md`](../../../MIGRATION_RETIREMENT.md).
 
+## Implemented reality, 2026-07-28
+
+The implementation deliberately differs from this original proposal:
+
+- Public and internal source live in separate repositories. Private source
+  never enters the public build.
+- Rehoboam owns the curated public OpenAPI artifact. Ghostshell owns the public
+  MCP tool export. The public docs pin and validate both.
+- The private repository emits an exact GitHub Actions artifact. Holodeck
+  mounts that artifact at `/internal-docs/*` behind its existing Auth0 boundary.
+- Public docs deployments use an explicit commit-pinned workflow and prove the
+  live revision. A merge or preview is not deployment proof.
+- Fern and GitBook sources remain retained. This program produced the evidence
+  gate but did not authorize source retirement.
+
+The historical sections below explain the starting assumptions. They must not
+be used as current operating instructions.
+
 ## Purpose
 
 Build one docs-as-code system that gives human developers and software agents

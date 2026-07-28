@@ -2,17 +2,17 @@
   "schema_version": 1,
   "openapi": {
     "repository": "Subconscious-ai/rehoboam",
-    "revision": "e12136d7ace4cb8ae8f39e97710b3295d71a67e4",
+    "revision": "79b6a4957cef3dd2138a31f44a6aae4277f06132",
     "schema_path": "openapi.public.json",
-    "schema_sha256": "b128b14729fb8cb43f1441384a2934f329064d938922b739f4e9d69f1c03d120",
+    "schema_sha256": "aa660ef6cb936048edaefa8b811d78fbb8cd7fba5f03dad485e1d7174dc37ae1",
     "manifest_path": "openapi.public.provenance.json",
-    "manifest_sha256": "6225371367f99f0fb12106f6b8400eae6be1f32b889c00e4bba320f4e846c491"
+    "manifest_sha256": "acdb7e36b1b48a9403ce2369e2e9e35a160fed3fedd5fa770158f033e59f2ee9"
   },
   "mcp": {
     "repository": "Subconscious-ai/ghostshell",
-    "revision": "a597b2c13bab859f27f12a5b73049b8f70d82d3e",
-    "registry_revision": "1654c170fcbbeee4c6f489c35f74fe8b6df5d624",
+    "revision": "7ede62f3542adeb41abdb77b579fbf5376eedfaa",
+    "registry_revision": "c445240ebc06b172244c106f44ff3373d880c9eb",
     "path": "mcp-tools.public.json",
-    "sha256": "b653818071c082574749a8617b7229b8b6a40a086b4fd2fd5fccdb3d548247c6"
+    "sha256": "d04f11d3554ecf0bfe377be449b7234b2f372b619d23c1c92d5f0c445983bd85"
   }
 }

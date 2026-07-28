@@ -46,6 +46,10 @@ updating deliberately rather than silently.
 - **Which API operations are published**: not here. Edit
   `docs/api/public_surface.yml` in `Subconscious-ai/rehoboam`, then run
   `pnpm run sync-spec` in this repo.
+- **OpenAPI or MCP provenance**: regenerate it in the owning repository after
+  the final squash merge, then refresh every revision and digest in
+  `site/provenance/sources.json` together. A green source PR does not prove its
+  revision-bearing artifact is adopted on the default branch.
 - **Navigation**: `site/sidebars.ts`. The API section is generated; the rest is
   hand-listed on purpose.
 - **Styling**: `site/src/css/custom.css`, which maps Infima onto the vendored

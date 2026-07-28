@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-07-27",
+  "as_of": "2026-07-28",
   "authoritative_plan": "../MIGRATION_RETIREMENT.md",
   "retirement_authorized": false,
   "sources": [
@@ -97,43 +97,35 @@
       "kind": "generated-contract",
       "visibility": "public-allowlist",
       "source": "https://github.com/Subconscious-ai/rehoboam/blob/develop/openapi.public.json",
-      "revision": "e12136d7ace4cb8ae8f39e97710b3295d71a67e4",
-      "completeness": "curated public allowlist with a source-owned provenance manifest in https://github.com/Subconscious-ai/rehoboam/pull/2159",
+      "revision": "79b6a4957cef3dd2138a31f44a6aae4277f06132",
+      "completeness": "58-path, 59-operation curated public allowlist with a source-owned provenance manifest at cc757d142be7695649f60ecc7ea69f39420b2d21",
       "destination": "site/openapi and generated public API reference",
       "owner": null,
-      "owner_evidence": "no CODEOWNERS approval is recorded for the replacement provenance contract",
+      "owner_evidence": "no CODEOWNERS file; merged Rehoboam PRs #2159 and #2172 establish default-branch adoption but not a named owner",
       "disposition": "retain",
       "retirement_status": "not-applicable",
-      "unknowns": [
-        "source PR merge",
-        "named source owner approval",
-        "exact deployed artifact read-back"
-      ]
+      "unknowns": []
     },
     {
       "id": "ghostshell-mcp",
       "kind": "generated-contract",
       "visibility": "public-allowlist",
       "source": "https://github.com/Subconscious-ai/ghostshell",
-      "revision": "a597b2c13bab859f27f12a5b73049b8f70d82d3e",
-      "completeness": "safe public tool export with source-owned provenance manifest in https://github.com/Subconscious-ai/ghostshell/pull/15",
+      "revision": "7ede62f3542adeb41abdb77b579fbf5376eedfaa",
+      "completeness": "15-tool safe public export whose registry owner is c445240ebc06b172244c106f44ff3373d880c9eb",
       "destination": "public Docusaurus agent endpoints",
       "owner": null,
-      "owner_evidence": "no CODEOWNERS approval is recorded for the draft export contract",
-      "disposition": "migrate",
-      "retirement_status": "blocked",
-      "unknowns": [
-        "source PR merge",
-        "named source owner approval",
-        "exact deployed artifact read-back"
-      ]
+      "owner_evidence": "no CODEOWNERS file; merged Ghostshell PRs #15 and #16 establish default-branch adoption but not a named owner",
+      "disposition": "retain",
+      "retirement_status": "not-applicable",
+      "unknowns": []
     },
     {
       "id": "internal-docusaurus",
       "kind": "current-destination",
       "visibility": "private",
-      "source": "https://github.com/Subconscious-ai/subconscious-ai-docs-internal/pull/2",
-      "revision": "15e31e18f486f561e92773299b4065740f108333",
+      "source": "https://github.com/Subconscious-ai/subconscious-ai-docs-internal/tree/master",
+      "revision": "524bfdf72da7380e6c94f9152cb3604eaaea4869",
       "completeness": "release manifest retains 41 pages and 78 assets; one of 79 source assets was unavailable",
       "counts": {
         "retained_pages": 41,
@@ -147,8 +139,6 @@
       "retirement_status": "blocked",
       "unknowns": [
         "private source owner",
-        "both PR merges",
-        "exact Holodeck deployment",
         "authorized Auth0 read-back"
       ]
     }
