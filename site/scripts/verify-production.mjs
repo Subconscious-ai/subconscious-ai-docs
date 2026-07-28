@@ -8,6 +8,7 @@ import {fileURLToPath} from "node:url";
 // working either way, and so it fails loudly rather than never running.
 const AUTHORITATIVE_ENVIRONMENTS = new Set(["Production", "Production – docs"]);
 const REPOSITORY = "Subconscious-ai/subconscious-ai-docs";
+const REQUEST_TIMEOUT_MS = 15_000;
 const FORBIDDEN_BODY =
   /vercel\.com\/sso-api|sign in to vercel|page not found|<title[^>]*>404/i;
 
@@ -28,26 +29,43 @@ async function readRoute({
   baseUrl,
   path,
   expectedRevision,
+  timeoutMs = REQUEST_TIMEOUT_MS,
 }) {
   const url = new URL(path, baseUrl);
   url.searchParams.set("proof", expectedRevision);
-  const response = await fetchImpl(url, {
-    redirect: "manual",
-    headers: {"cache-control": "no-cache"},
-  });
-  if (response.status !== 200) {
-    throw new Error(
-      `${path}: expected 200 without redirects, got ${response.status}`,
-    );
+  // A stalled response would hang the job until the runner times out, with no
+  // useful error. Bound every request instead.
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), timeoutMs);
+  let response;
+  try {
+    response = await fetchImpl(url, {
+      signal: abort.signal,
+      redirect: "manual",
+      headers: {"cache-control": "no-cache"},
+    });
+    if (response.status !== 200) {
+      throw new Error(
+        `${path}: expected 200 without redirects, got ${response.status}`,
+      );
+    }
+    const body = await response.text();
+    if (FORBIDDEN_BODY.test(body)) {
+      throw new Error(`${path}: received a login or error body`);
+    }
+    return body;
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      throw new Error(`${path}: no response within ${timeoutMs}ms`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
   }
-  const body = await response.text();
-  if (FORBIDDEN_BODY.test(body)) {
-    throw new Error(`${path}: received a login or error body`);
-  }
-  return body;
 }
 
 export async function verifyProduction({
+  timeoutMs = REQUEST_TIMEOUT_MS,
   fetchImpl = fetch,
   baseUrl,
   expectedRevision,
@@ -67,6 +85,7 @@ export async function verifyProduction({
   }
 
   const revisionBody = await readRoute({
+    timeoutMs,
     fetchImpl,
     baseUrl,
     path: "/revision.json",
@@ -84,6 +103,7 @@ export async function verifyProduction({
 
   for (const route of PRODUCTION_ROUTES) {
     const body = await readRoute({
+      timeoutMs,
       fetchImpl,
       baseUrl,
       path: route.path,

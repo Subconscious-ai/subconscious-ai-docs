@@ -14,7 +14,14 @@ jobs:
       run:
         working-directory: site
     steps:
+      # Pin the checkout to the same commit the revision stamp claims. On a
+      # pull_request, checkout defaults to GitHub's merge ref, so the build
+      # would come from a commit that exists nowhere while revision.json
+      # asserted the head sha. That is a false proof, in the one workflow whose
+      # job is proving what was built.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.DOCS_SOURCE_REVISION }}
 
       - uses: pnpm/action-setup@v4
         with:

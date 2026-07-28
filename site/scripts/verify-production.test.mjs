@@ -114,3 +114,24 @@ test("rejects a canonical site serving another revision", async () => {
     /revision mismatch/,
   );
 });
+
+test("fails fast when a route never responds", async () => {
+  const hang = (url, init) =>
+    new Promise((_resolve, reject) => {
+      init.signal.addEventListener("abort", () =>
+        reject(Object.assign(new Error("aborted"), {name: "AbortError"})),
+      );
+    });
+
+  await assert.rejects(
+    verifyProduction({
+      fetchImpl: hang,
+      baseUrl: "https://docs.subconscious.ai",
+      expectedRevision: SHA,
+      deploymentEnvironment: "Production",
+      deploymentState: "success",
+      timeoutMs: 25,
+    }),
+    /no response within/,
+  );
+});
