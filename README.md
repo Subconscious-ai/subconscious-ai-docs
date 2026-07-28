@@ -22,14 +22,20 @@ site/
 
 ```bash
 cd site
-pnpm install
-pnpm run gen-api-docs     # generate the API reference (needed after a clone)
-pnpm start                # dev server
-pnpm build                # production build; also writes build/llms.txt
+pnpm install --frozen-lockfile
+pnpm run gen-api-docs     # needed before pnpm start after a clean clone
+pnpm start
+pnpm typecheck
+pnpm run test:release-proof
+pnpm build                # generates the API reference, revision, and llms.txt
 ```
 
-`pnpm build` fails on a broken link or a broken anchor. That is deliberate: a
-broken link in docs becomes a support ticket.
+`pnpm build` is the clean-checkout production command. It generates the API
+reference itself and fails on a broken link or broken anchor. That is
+deliberate: a broken link in docs becomes a support ticket.
+
+Docusaurus is configured with `url: "https://docs.subconscious.ai"` and
+`baseUrl: "/"`. Local or preview URLs do not change the canonical public base.
 
 ## Updating the API reference
 
@@ -117,11 +123,27 @@ install stopped for an interactive approval that no agent can give.
 by direct URL but are excluded from the sidebar, search and sitemap. Remove the
 `unlisted: true` frontmatter to surface a page after editing it.
 
-**Deploys are Git-triggered.** The Vercel project is connected to this repo
-(root directory `site`, production branch `main`), so pushing to `main` builds
-and deploys. `vercel.json` must stay in BOTH the repo root and `site/` — the
-Git build reads the one in the root directory, and losing it silently breaks
-`cleanUrls`.
+**A merge is not currently a production deployment.** Vercel previews still
+build, but production stopped building squash merges from `main`. The attempted
+deploy hook also accepted requests without creating deployments, so the
+push-triggered hook is deliberately disarmed. Until the provider path is
+repaired and observed end to end, treat production deployment as blocked and
+manually authorized. `vercel.json` must stay in BOTH the repo root and `site/`;
+losing either copy silently breaks `cleanUrls`.
+
+The authoritative GitHub deployment environment is **`Production – docs`**.
+The older **`Production – subconscious-ai-docs`** project is a duplicate and
+is not production evidence. It is intentionally left untouched here.
+
+**Production proves its exact revision.** Every build writes
+`/revision.json` from `VERCEL_GIT_COMMIT_SHA` (or the CI source SHA). After an
+independently authorized successful `Production – docs` deployment, the
+`Verify production docs`
+workflow requests the canonical domain without following redirects, checks
+that `/revision.json` matches the deployed SHA, and asserts content on `/`,
+`/human-baselines`, `/api-reference/superego`, `/search`, `/llms.txt`, and the
+downloadable OpenAPI document. A login or 404 body is a failure even if its
+HTTP status is `200`.
 
 **`onBrokenLinks` is `throw`.** It caught a broken link in the privacy policy
 and twelve in the human-baselines index. Keep it that way.

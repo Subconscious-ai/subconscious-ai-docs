@@ -1,43 +1,20 @@
-# Website
+# Public documentation site
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This directory contains the Docusaurus site published at
+[docs.subconscious.ai](https://docs.subconscious.ai). The repository root
+[`README.md`](../README.md) is the authoritative development and deployment
+guide.
 
-## Installation
-
-```bash
-npm install
-```
-
-**Note**: feel free to use the package manager of your choice.
-
-## Local Development
+From this directory:
 
 ```bash
-npm run start
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm run test:release-proof
+pnpm build
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
-
-```bash
-npm run build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
-
-```bash
-USE_SSH=true npm run deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> npm run deploy
-```
-
-If you are using GitHub Pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+`pnpm build` generates the API reference and release metadata before producing
+the site. Production deployment is currently blocked on a repaired and observed
+provider path; a green merge or preview is not production proof. Do not use
+Docusaurus's GitHub Pages deployment command.
