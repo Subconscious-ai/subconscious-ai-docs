@@ -83,7 +83,12 @@ Re-read what you wrote before you merge it.
 A green merge is not a deploy. Vercel builds `main` through its GitHub
 integration, and on 2026-07-27 that stopped firing for several hours while pull
 request previews kept building, so eleven merges landed and none of them
-shipped. Nothing reported the failure.
+shipped. Nothing reported the failure. The cause was two Vercel projects
+connected to this one repository, `docs` and a duplicate that errored on every
+build; the duplicate was deleted the same day.
+
+Keep it at one project per repository. A second one competing for the same
+pushes is how the first failure hid for a day.
 
 After merging anything that changes the site, fetch the page you changed and
 look for your text. If it is not there within a few minutes, check the project's
