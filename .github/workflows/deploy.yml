@@ -1,45 +1,89 @@
 name: Deploy
 
-# DISARMED on 2026-07-27, and kept only so the next person does not repeat the
-# experiment.
+# Vercel's own GitHub integration stopped producing production deployments for
+# pushes to main on 2026-07-27, while pull request previews kept building. It
+# accepts the work and silently drops it: no deployment, not even a skipped or
+# errored one. A deploy hook behaves the same way, answering HTTP 201 with a
+# PENDING job that never becomes a build. Thirteen merges landed and none of
+# them shipped, and nothing reported it.
 #
-# Vercel stopped producing production deployments for squash merges to main
-# while pull request previews kept building. Eleven merges landed and none of
-# them shipped, and nothing reported it. A deploy hook was the obvious fix, so
-# this job fired one on every push.
-#
-# The hook does not work either. Vercel answers HTTP 201 with a PENDING job and
-# then builds nothing: three fired, zero deployments, and no cancelled or
-# errored deployment to account for them. So the job went green while nothing
-# shipped, which is worse than having no job at all.
-#
-# Manual trigger only until someone watches a fired hook produce a build. Then
-# put the push trigger back.
+# Creating the deployment explicitly, with the commit pinned, does work. So this
+# job does that and then watches the build to completion, because the whole
+# lesson of that day is that an accepted request is not a deployment.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
-# One deploy at a time, and never cancel one halfway.
 concurrency:
   group: deploy-production
   cancel-in-progress: false
 
+env:
+  PROJECT_ID: prj_1CFOWQ7ViJzZP8Z0GXHj1KpYBbyE
+  TEAM_ID: team_r7qfZjPRL59Kpngiullfrtsf
+  REPO_NAME: subconscious-ai-docs
+  BRANCH: main
+
 jobs:
-  trigger:
+  deploy:
     runs-on: ubuntu-24.04
     steps:
-      - name: Ask Vercel to build main
+      - name: Create the production deployment
+        id: create
         env:
-          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          SHA: ${{ github.sha }}
         run: |
-          if [ -z "$HOOK" ]; then
-            echo "::error::VERCEL_DEPLOY_HOOK is not set, so nothing will deploy."
+          set -euo pipefail
+          if [ -z "${VERCEL_TOKEN:-}" ]; then
+            echo "::error::VERCEL_TOKEN is not set, so nothing will deploy."
             exit 1
           fi
-          code=$(curl -sS -X POST -o response.json -w '%{http_code}' "$HOOK")
-          cat response.json
-          echo
-          if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
-            echo "::error::Vercel refused the deploy hook (HTTP $code)."
+          payload=$(jq -nc \
+            --arg name "$REPO_NAME" --arg project "$PROJECT_ID" \
+            --arg ref "$BRANCH" --arg sha "$SHA" --arg repo "$REPO_NAME" \
+            '{name:$name, project:$project, target:"production",
+              gitSource:{type:"github", ref:$ref, sha:$sha,
+                         org:"Subconscious-ai", repo:$repo}}')
+          resp=$(curl -sS -X POST \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            -H "Content-Type: application/json" \
+            "https://api.vercel.com/v13/deployments?teamId=$TEAM_ID&skipAutoDetectionConfirmation=1" \
+            -d "$payload")
+          id=$(printf '%s' "$resp" | jq -r '.id // empty')
+          if [ -z "$id" ]; then
+            echo "::error::Vercel refused the deployment."
+            printf '%s\n' "$resp" | jq -r '.error.message // .' | head -5
             exit 1
           fi
-          echo "Vercel accepted the build request (HTTP $code)."
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+          echo "Created $id for $SHA"
+
+      - name: Wait for it to be READY
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          ID: ${{ steps.create.outputs.id }}
+        run: |
+          set -euo pipefail
+          # Docusaurus builds this site in about three minutes. Twenty is slack,
+          # not an expectation.
+          deadline=$((SECONDS + 1200))
+          while [ $SECONDS -lt $deadline ]; do
+            state=$(curl -sS -H "Authorization: Bearer $VERCEL_TOKEN" \
+              "https://api.vercel.com/v13/deployments/$ID?teamId=$TEAM_ID" \
+              | jq -r '.readyState')
+            case "$state" in
+              READY)
+                echo "Deployed. https://docs.subconscious.ai"
+                exit 0 ;;
+              ERROR|CANCELED)
+                echo "::error::Deployment finished $state."
+                echo "https://vercel.com/subconcious/docs/$ID"
+                exit 1 ;;
+            esac
+            echo "  $state"
+            sleep 20
+          done
+          echo "::error::Still not READY after 20 minutes. Check Vercel."
+          exit 1
