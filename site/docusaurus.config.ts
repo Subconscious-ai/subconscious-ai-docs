@@ -1,8 +1,28 @@
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
+
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs";
+import { getRemarkPlugin as getGlossaryRemarkPlugin } from "docusaurus-plugin-glossary";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+
+// The glossary remark plugin resolves its term file against siteDir, and
+// silently links nothing when siteDir is wrong -- the build stays green and the
+// tooltips just never appear. Docusaurus takes siteDir from the working
+// directory and every package.json script runs from site/, so cwd is correct in
+// practice; this assertion makes the one case where it is not fail loudly.
+const siteDir = process.cwd();
+const glossaryPath = "glossary/glossary.json";
+const glossaryRoute = "/glossary";
+
+if (!existsSync(resolve(siteDir, glossaryPath))) {
+  throw new Error(
+    `Glossary file not found at ${resolve(siteDir, glossaryPath)}. ` +
+      "Run Docusaurus from the site/ directory.",
+  );
+}
 
 const config: Config = {
   title: "Subconscious.ai Docs",
@@ -62,7 +82,15 @@ const config: Config = {
           sidebarPath: "./sidebars.ts",
           routeBasePath: "/",
           // Replication pages carry correlation statistics as LaTeX.
-          remarkPlugins: [remarkMath],
+          // The glossary plugin rewrites method terms into tooltip components at
+          // MDX compile time, so it has to sit here rather than in `plugins`.
+          remarkPlugins: [
+            remarkMath,
+            getGlossaryRemarkPlugin(
+              { glossaryPath, routePath: glossaryRoute },
+              { siteDir },
+            ),
+          ],
           rehypePlugins: [rehypeKatex],
           // Required by the OpenAPI theme: it swizzles the doc item to render
           // parameters, schemas and the try-it panel.
@@ -137,6 +165,21 @@ const config: Config = {
       },
     ],
     "docusaurus-plugin-image-zoom",
+    [
+      // Terms page at /glossary, plus the @theme/GlossaryTerm component the
+      // remark plugin above compiles method terms into.
+      "docusaurus-plugin-glossary",
+      { glossaryPath, routePath: glossaryRoute },
+    ],
+    [
+      // "Copy page" control in the table of contents: copy as Markdown, view
+      // the raw .md, or hand the page to an assistant. `generateMarkdownRoutes`
+      // is the part that matters -- it emits a real .md URL per page. Until now
+      // /llms.txt was the only machine-readable view of this site, and it is
+      // only an index; agents that followed it landed on HTML.
+      "docusaurus-plugin-copy-page-button",
+      { placement: "toc", generateMarkdownRoutes: true },
+    ],
     [
       "@docusaurus/plugin-client-redirects",
       {
@@ -278,6 +321,7 @@ const config: Config = {
           position: "left",
         },
         { to: "/concepts/methodology", label: "Concepts", position: "left" },
+        { to: glossaryRoute, label: "Glossary", position: "left" },
         {
           href: "https://discord.gg/3bgj4ZhABz",
           label: "Discord",

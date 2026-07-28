@@ -1,0 +1,125 @@
+{
+  "title": "Glossary",
+  "description": "Terms used across these docs — discrete choice methods, the quantities they estimate, and the vocabulary of an experiment.",
+  "terms": [
+    {
+      "term": "AMCE",
+      "abbreviation": "Average Marginal Component Effect",
+      "definition": "The average causal effect of changing one attribute from a baseline level to another level, holding the distribution of every other attribute fixed by the randomization. Reported with a confidence interval. This is the headline quantity a conjoint experiment estimates.",
+      "relatedTerms": ["Conjoint analysis", "Attribute", "Level", "Confidence interval"]
+    },
+    {
+      "term": "Conjoint analysis",
+      "definition": "An experimental method that shows respondents profiles built from randomly assigned attribute levels and records which they choose. Because the levels are randomized, differences in choice rates identify causal effects rather than correlations.",
+      "aliases": ["conjoint", "conjoint experiment"],
+      "relatedTerms": ["Discrete choice experiment", "AMCE", "Profile"]
+    },
+    {
+      "term": "Discrete choice experiment",
+      "abbreviation": "DCE",
+      "definition": "An experiment in which each respondent picks one option from a set of competing alternatives. Modelling those picks recovers the trade-offs respondents make between attributes.",
+      "aliases": ["discrete choice", "DCE"],
+      "relatedTerms": ["Conjoint analysis", "Choice task", "Random utility model"]
+    },
+    {
+      "term": "Random utility model",
+      "definition": "The framework underneath discrete choice: each alternative carries a utility made of a systematic part explained by its attributes and a random part, and the respondent picks the alternative with the highest total. Different assumptions about the random part produce different models.",
+      "relatedTerms": ["Discrete choice experiment", "McFadden choice model", "Mixed logit"]
+    },
+    {
+      "term": "McFadden choice model",
+      "definition": "The conditional logit model introduced by Daniel McFadden, in which the random part of utility is i.i.d. extreme value. Choice probabilities take a closed form, which makes it fast to estimate — at the cost of assuming every respondent shares the same preferences and of imposing IIA.",
+      "aliases": ["conditional logit", "McFadden model"],
+      "relatedTerms": ["Random utility model", "IIA", "Mixed logit"]
+    },
+    {
+      "term": "Mixed logit",
+      "definition": "A choice model that lets preference coefficients vary across respondents by drawing them from a distribution, instead of forcing one shared coefficient. It captures preference heterogeneity and relaxes IIA.",
+      "aliases": ["random parameters logit"],
+      "relatedTerms": ["McFadden choice model", "IIA", "ICLV"]
+    },
+    {
+      "term": "ICLV",
+      "abbreviation": "Integrated Choice and Latent Variable model",
+      "definition": "A choice model that treats unobserved constructs — attitudes, perceptions, motivations — as latent variables estimated jointly with the choice equation, rather than as raw survey answers plugged in as covariates.",
+      "relatedTerms": ["Mixed logit", "Random utility model"]
+    },
+    {
+      "term": "IIA",
+      "abbreviation": "Independence of Irrelevant Alternatives",
+      "definition": "The property that the odds of choosing between two alternatives do not depend on which other alternatives are available. Conditional logit imposes it; mixed logit does not. When it fails, adding a similar alternative draws share disproportionately from its near-twin.",
+      "relatedTerms": ["McFadden choice model", "Mixed logit"]
+    },
+    {
+      "term": "Attribute",
+      "definition": "One dimension of an alternative that the experiment varies — price, delivery time, brand, warranty. Attributes are the things whose causal effects the experiment measures.",
+      "autoLink": false,
+      "relatedTerms": ["Level", "Profile", "AMCE"]
+    },
+    {
+      "term": "Level",
+      "definition": "One of the specific values an attribute can take. An attribute of price might have the levels $9, $19 and $29. Effects are always reported relative to a baseline level.",
+      "autoLink": false,
+      "relatedTerms": ["Attribute", "AMCE"]
+    },
+    {
+      "term": "Profile",
+      "definition": "One complete alternative shown to a respondent — a full set of attributes, each fixed at one randomly assigned level.",
+      "autoLink": false,
+      "relatedTerms": ["Attribute", "Level", "Choice task"]
+    },
+    {
+      "term": "Choice task",
+      "definition": "A single screen presenting competing profiles from which the respondent picks one. A respondent normally completes several choice tasks, each with freshly randomized levels.",
+      "aliases": ["choice set"],
+      "relatedTerms": ["Profile", "Discrete choice experiment", "Respondent"]
+    },
+    {
+      "term": "Respondent",
+      "definition": "One simulated participant who completes the choice tasks. Respondents carry demographic and attitudinal characteristics, so effects can be estimated for the whole population or for a segment of it.",
+      "autoLink": false,
+      "relatedTerms": ["Synthetic population", "Choice task"]
+    },
+    {
+      "term": "Synthetic population",
+      "definition": "The set of simulated respondents an experiment runs on, constructed to match a target population's characteristics. It is what makes an experiment runnable before a product, price or message exists.",
+      "relatedTerms": ["Respondent", "Human baseline"]
+    },
+    {
+      "term": "Human baseline",
+      "definition": "A published study with human respondents that an experiment is replicated against, so the synthetic result can be compared to a known human result rather than assessed on its own.",
+      "aliases": ["human baselines"],
+      "relatedTerms": ["Synthetic population", "Replication"]
+    },
+    {
+      "term": "Replication",
+      "definition": "Re-running a published study's design on a synthetic population and comparing the estimated effects to the original human estimates. It is the evidence that a method transfers, not an assertion that it does.",
+      "autoLink": false,
+      "relatedTerms": ["Human baseline", "Confidence interval"]
+    },
+    {
+      "term": "Confidence interval",
+      "definition": "The range of values consistent with the data at a stated confidence level. An estimate without one says nothing about how much of the number is noise, which is why every effect in these docs ships with one.",
+      "autoLink": false,
+      "relatedTerms": ["AMCE", "Causal effect"]
+    },
+    {
+      "term": "Causal effect",
+      "definition": "The change in an outcome produced by changing one input, with everything else held fixed by design. Randomizing attribute levels is what licenses the causal reading; observing a correlation in existing data does not.",
+      "autoLink": false,
+      "relatedTerms": ["AMCE", "Conjoint analysis"]
+    },
+    {
+      "term": "Willingness to pay",
+      "abbreviation": "WTP",
+      "definition": "The price change that exactly offsets the utility gain from some other attribute change — read off the ratio of that attribute's coefficient to the price coefficient. It converts an effect into money.",
+      "aliases": ["WTP"],
+      "relatedTerms": ["AMCE", "Attribute"]
+    },
+    {
+      "term": "Part-worth",
+      "definition": "The estimated utility contribution of a single attribute level. Part-worths are the raw model coefficients that effects such as AMCE and willingness to pay are computed from.",
+      "relatedTerms": ["AMCE", "Willingness to pay", "Level"]
+    }
+  ]
+}
