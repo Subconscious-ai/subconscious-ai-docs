@@ -45,6 +45,18 @@ Defaults give you a general population. To target, see
 
 ## 4. Run it
 
+Before launch, record the research contract:
+
+- the decision owner and the action this result could change
+- the population that faces the decision
+- the primary comparison and its baseline
+- the attributes, levels, and alternatives that are deliberately out of scope
+- the evidence threshold for revising the decision
+
+Then check that each attribute is distinct, every level is plausible, and the
+population is large enough for the requested run. This is the last cheap point
+to catch a design problem.
+
 ```bash
 curl -X POST "$SUBCONSCIOUS_API/api/v1/experiments" \
   -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN" \
@@ -74,6 +86,9 @@ endpoint reports the wrong thing.
 
 Fetch the run for the design and estimated effects. To interpret AMCEs,
 importance, and willingness to pay, see [Methodology](/concepts/methodology).
+For the full path from a business question through Analytics Studio to a
+bounded recommendation, see
+[From question to decision](/guides/from-question-to-decision).
 
 ## Iterate
 
