@@ -41,6 +41,9 @@ jobs:
       - name: Check migration and retirement evidence
         run: pnpm run check:migration-evidence
 
+      - name: Test agent source contracts
+        run: pnpm run test:agent-source-contracts
+
       - name: Typecheck
         run: pnpm typecheck
 

@@ -10,35 +10,66 @@ Subconscious.ai ships an MCP server, so an AI assistant can design and run
 experiments directly. It is the fastest way to try the platform without writing
 integration code.
 
-## Connect a hosted client
+## Choose an entry point
+
+- Use the [REST API](/get-started/quickstart) for an application or service.
+  The [OpenAPI document](/openapi/subconscious.public.json) is the contract.
+- Use MCP for a local AI client such as Claude Desktop or Cursor. The
+  [tool manifest](https://docs.subconscious.ai/mcp/tools.json) lists the
+  supported tools and schemas.
+- Use the
+  [source repositories](https://github.com/orgs/Subconscious-ai/repositories)
+  when you need to inspect or contribute to the implementation. Rehoboam owns
+  the REST schema. Ghostshell owns the MCP registry.
+
+Agents can start with
+[/llms.txt](https://docs.subconscious.ai/llms.txt), read the full public text at
+[/llms-full.txt](https://docs.subconscious.ai/llms-full.txt), and verify source
+revisions in
+[/docs-manifest.json](https://docs.subconscious.ai/docs-manifest.json) and
+[/openapi/openapi-manifest.json](https://docs.subconscious.ai/openapi/openapi-manifest.json).
+
+## Supported: run locally over stdio
 
 Use your access token from [Settings](https://app.subconscious.ai/settings).
+Clone [Subconscious-ai/ghostshell](https://github.com/Subconscious-ai/ghostshell),
+create a Python virtual environment, and install the repository:
 
-**Claude Desktop**. `~/Library/Application Support/Claude/claude_desktop_config.json`:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -e ".[dev]"
+```
+
+Add this server to your client's MCP configuration. Use absolute paths:
 
 ```json
 {
   "mcpServers": {
     "subconscious-ai": {
-      "url": "https://ghostshell-runi.vercel.app/api/sse?token=YOUR_TOKEN"
+      "command": "/absolute/path/to/ghostshell/venv/bin/python3",
+      "args": ["/absolute/path/to/ghostshell/server/main.py"],
+      "env": {
+        "AUTH0_JWT_TOKEN": "YOUR_TOKEN",
+        "API_BASE_URL": "https://api.subconscious.ai"
+      }
     }
   }
 }
 ```
 
-**Cursor**. `~/.cursor/mcp.json`:
+Keep the configuration private because it contains a bearer credential. Restart
+the client after editing its configuration.
 
-```json
-{
-  "mcpServers": {
-    "subconscious-ai": {
-      "url": "https://ghostshell-runi.vercel.app/api/sse?token=YOUR_TOKEN"
-    }
-  }
-}
+The hosted SSE transport is experimental. It accepts bearer credentials only
+in the `Authorization` header. Never put a token in a URL. Hosted setup is not
+recommended until its credentialed protocol smoke test is complete.
+
+You can verify the supported local protocol without calling a paid tool:
+
+```bash
+python scripts/smoke_stdio_mcp.py
 ```
-
-Restart the client after editing its config.
 
 ## What you can ask for
 
@@ -49,8 +80,7 @@ work:
 - "What's the status of run a1b2c3d4?"
 - "Show me the AMCEs for that run."
 
-Progress streams over server-sent events, so a long-running experiment reports
-back as it goes.
+Long-running experiment status is available through the status tools.
 
 ## The request shape
 
