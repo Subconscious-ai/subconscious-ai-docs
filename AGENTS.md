@@ -19,13 +19,26 @@ https://docs.subconscious.ai. Treat every change as customer-facing.
 ```bash
 cd site
 pnpm install --frozen-lockfile
-pnpm run gen-api-docs   # regenerate the API reference from the spec
-pnpm build              # the only check that matters
-pnpm start              # local dev server
+pnpm run gen-api-docs                 # regenerate the API reference from the spec
+pnpm build                            # runs five steps, see below
+pnpm start                            # local dev server
+
+pnpm run test:release-proof           # deployment proof
+pnpm run check:migration-evidence     # route map and source inventory
+pnpm run test:agent-source-contracts  # pinned source digests
 ```
 
-`pnpm build` is the gate. `onBrokenLinks` and `onBrokenAnchors` are set to
-`throw`, so a bad link fails the build rather than shipping a dead page.
+`pnpm build` runs five steps in order: generate the API reference, stamp the
+revision, build the site, write `llms.txt`, write the agent artifacts.
+`onBrokenLinks` and `onBrokenAnchors` are set to `throw`, so a bad link fails
+the build rather than shipping a dead page.
+
+Three checks run in CI beside the build, and all three are cheap enough to run
+before opening a pull request. `test:agent-source-contracts` is the one that
+will surprise you: it fails when a pinned source in `site/provenance/` no longer
+matches its recorded SHA-256. That is not a flake. It means rehoboam or
+ghostshell changed a contract this repository republishes, and the pin needs
+updating deliberately rather than silently.
 
 ## What to change where
 
@@ -64,6 +77,13 @@ These are enforced by review, not by CI. They come from the design-system
   runs a secret scan. A key that reaches this repo is public immediately.
 - `sharp` needs a native build: `pnpm.onlyBuiltDependencies` lists it. Do not
   remove that entry.
+- **`packageManager` in `site/package.json` is load bearing.** It pins pnpm 10.
+  An unattended agent once resolved pnpm 11 through corepack, and pnpm 11 moved
+  `onlyBuiltDependencies` out of `package.json`, so the declaration above was
+  ignored and the install stopped waiting for an approval no agent can give.
+- **Two Vercel projects can attach to one repository.** Keep it at one. A second
+  project errors on every pull request and puts a permanent red check on work
+  that is fine.
 
 ## Pull requests
 
@@ -80,16 +100,33 @@ Re-read what you wrote before you merge it.
 
 ## Confirm the deploy
 
-A green merge is not a deploy. Vercel builds `main` through its GitHub
-integration, and on 2026-07-27 that stopped firing for several hours while pull
-request previews kept building, so eleven merges landed and none of them
-shipped. Nothing reported the failure. The cause was two Vercel projects
-connected to this one repository, `docs` and a duplicate that errored on every
-build; the duplicate was deleted the same day.
+A green merge is not a deploy. On 2026-07-27 Vercel stopped producing
+production deployments for merges to `main` while pull request previews kept
+building. Thirteen merges landed and none of them shipped. Vercel recorded
+nothing at all: no deployment, not skipped, not errored.
 
-Keep it at one project per repository. A second one competing for the same
-pushes is how the first failure hid for a day.
+**The cause is still unknown.** These were ruled out, each with evidence, so
+nobody repeats the work:
 
-After merging anything that changes the site, fetch the page you changed and
-look for your text. If it is not there within a few minutes, check the project's
-deployments in Vercel rather than assuming a delay.
+- A duplicate Vercel project on the same repository. Real, and deleted. Merges
+  still did not deploy afterwards, so this was not the cause.
+- `Require Verified Commits`. The merges that failed were all GitHub-signed; the
+  one direct push that succeeded was unsigned. Exactly backwards.
+- A custom ignored build step, a paused project, a wrong production branch, a
+  wrong root directory, a suspended GitHub App. All checked, all fine.
+- A deploy hook. Vercel answers HTTP 201 with a PENDING job and then builds
+  nothing.
+
+`.github/workflows/deploy.yml` sidesteps all of it by creating the deployment
+explicitly with the commit pinned, which has worked every time, then polling it
+to `READY`. **If that job is red, the site did not update.**
+
+To check any commit reached production:
+
+```bash
+curl -s https://docs.subconscious.ai/revision.json
+```
+
+The returned `revision` is the commit the live site was built from. Comparing
+that to `git rev-parse origin/main` is the whole check. Do not infer a deploy
+from a green merge.
