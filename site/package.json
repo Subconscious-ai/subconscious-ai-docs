@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "pnpm run gen-api-docs && node scripts/write-revision.mjs && docusaurus build && node scripts/gen-llms-txt.mjs",
+    "build": "pnpm run gen-api-docs && node scripts/write-revision.mjs && docusaurus build && node scripts/gen-llms-txt.mjs && node scripts/gen-agent-artifacts.mjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

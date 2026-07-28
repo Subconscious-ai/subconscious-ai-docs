@@ -1,22 +1,18 @@
 # Agent artifact source gate
 
-The requested `/llms-full.txt`, `/docs-manifest.json`,
-`/openapi/openapi-manifest.json`, and `/mcp/tools.json` endpoints are not wired
-into the production build yet.
+`sources.json` pins the exact Rehoboam and Ghostshell revisions and SHA-256
+digests consumed by this build. The files under `sources/` are copied from those
+source-owned revisions. Do not edit them by hand.
 
-Rehoboam #2140 was closed as not planned. Its accepted provenance is the exact
-Git commit plus the revision-named Actions artifact, not a second manifest.
-Ghostshell #15 contains the source-owned MCP manifest but remains an open draft.
+`scripts/agent-source-contracts.mjs` rejects source drift and unsafe MCP
+transport or authentication metadata. `scripts/gen-agent-artifacts.mjs` then
+publishes:
 
-`scripts/agent-source-contracts.mjs` is the validated consumption boundary. It
-accepts:
+- `/llms-full.txt`
+- `/docs-manifest.json`
+- `/openapi/openapi-manifest.json`
+- `/mcp/tools.json`
 
-- the curated OpenAPI bytes plus an exact Rehoboam repository, revision, path,
-  and SHA-256 pin; and
-- the source-owned Ghostshell manifest with an exact revision, deterministic
-  tool digest, supported stdio transport, and environment-delivered bearer
-  token.
-
-The scaffold emits nothing. Production generation remains blocked until the
-Ghostshell manifest is merged and both accepted inputs are pinned. Do not copy
-the abandoned Rehoboam draft manifest into this repository.
+Rehoboam remains the owner of the curated OpenAPI schema and its provenance
+manifest. Ghostshell remains the owner of the MCP tool registry. This repository
+only validates, pins, and publishes those contracts with the public docs.

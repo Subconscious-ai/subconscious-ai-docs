@@ -10,6 +10,25 @@ Subconscious.ai ships an MCP server, so an AI assistant can design and run
 experiments directly. It is the fastest way to try the platform without writing
 integration code.
 
+## Choose an entry point
+
+- Use the [REST API](/get-started/quickstart) for an application or service.
+  The [OpenAPI document](/openapi/subconscious.public.json) is the contract.
+- Use MCP for a local AI client such as Claude Desktop or Cursor. The
+  [tool manifest](https://docs.subconscious.ai/mcp/tools.json) lists the
+  supported tools and schemas.
+- Use the
+  [source repositories](https://github.com/orgs/Subconscious-ai/repositories)
+  when you need to inspect or contribute to the implementation. Rehoboam owns
+  the REST schema. Ghostshell owns the MCP registry.
+
+Agents can start with
+[/llms.txt](https://docs.subconscious.ai/llms.txt), read the full public text at
+[/llms-full.txt](https://docs.subconscious.ai/llms-full.txt), and verify source
+revisions in
+[/docs-manifest.json](https://docs.subconscious.ai/docs-manifest.json) and
+[/openapi/openapi-manifest.json](https://docs.subconscious.ai/openapi/openapi-manifest.json).
+
 ## Supported: run locally over stdio
 
 Use your access token from [Settings](https://app.subconscious.ai/settings).
