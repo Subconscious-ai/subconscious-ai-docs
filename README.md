@@ -12,6 +12,22 @@ retirement gates are in
 [`MIGRATION_RETIREMENT.md`](MIGRATION_RETIREMENT.md). That plan records unknowns
 as blockers and does not authorize deleting or disabling a source.
 
+## Current architecture
+
+As of 2026-07-28:
+
+| Concern | Source of truth | Published through |
+| --- | --- | --- |
+| Public narrative docs | This repository, `site/docs/` | `docs.subconscious.ai` |
+| Public REST contract | Rehoboam `develop` | Pinned OpenAPI artifact in this repository |
+| Public MCP contract | Ghostshell `main` | Pinned tool artifact in this repository |
+| Internal narrative docs | Private `subconscious-ai-docs-internal` repository | Exact artifact mounted by Holodeck |
+| Internal access control | Holodeck | Existing Auth0 session boundary at `/internal-docs/*` |
+
+The source repositories generate runtime contracts. This repository pins and
+publishes them. A source pull request, its merge, the downstream pin, and the
+production read-back are separate evidence.
+
 ## Layout
 
 ```
@@ -150,13 +166,12 @@ install stopped for an interactive approval that no agent can give.
 by direct URL but are excluded from the sidebar, search and sitemap. Remove the
 `unlisted: true` frontmatter to surface a page after editing it.
 
-**A merge is not currently a production deployment.** Vercel previews still
-build, but production stopped building squash merges from `main`. The attempted
-deploy hook also accepted requests without creating deployments, so the
-push-triggered hook is deliberately disarmed. Until the provider path is
-repaired and observed end to end, treat production deployment as blocked and
-manually authorized. `vercel.json` must stay in BOTH the repo root and `site/`;
-losing either copy silently breaks `cleanUrls`.
+**The explicit deployment workflow is the production path.** Vercel previews
+still build, but merge-triggered production builds proved unreliable.
+`.github/workflows/deploy.yml` creates a commit-pinned production deployment and
+waits for `READY`. Do not infer production state from the merge or preview.
+`vercel.json` must stay in both the repo root and `site/`; losing either copy
+silently breaks `cleanUrls`.
 
 The authoritative GitHub deployment environment is **`Production – docs`**.
 The older **`Production – subconscious-ai-docs`** project is a duplicate and

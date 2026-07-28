@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-07-27",
+  "as_of": "2026-07-28",
   "retirement_authorized": false,
   "exact_routes": [
     {
@@ -83,10 +83,10 @@
     },
     {
       "source": "/mcp/*",
-      "action": "publish-after-source-merge",
+      "action": "retain-public-generated",
       "destination": "/mcp/*",
-      "retirement_status": "blocked",
-      "reason": "Ghostshell export and public agent endpoint PRs are drafts"
+      "retirement_status": "not-applicable",
+      "reason": "current Ghostshell-owned public contract"
     }
   ],
   "default_legacy_action": "retain-source-and-record-unknown",
