@@ -8154,9 +8154,7 @@
             "content": {
               "application/json": {
                 "example": {
-                  "error": null,
                   "job_id": "5df7498e-1e89-4dd6-9bd5-20ef9ec842b5",
-                  "result": null,
                   "status": "running"
                 },
                 "schema": {
