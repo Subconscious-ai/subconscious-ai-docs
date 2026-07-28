@@ -68,17 +68,58 @@ function decodeHtml(value) {
   );
 }
 
+function plainTextFromMarkup(value) {
+  let output = "";
+  let blockedTag = null;
+  let index = 0;
+
+  while (index < value.length) {
+    if (value[index] !== "<") {
+      if (blockedTag === null) output += value[index];
+      index += 1;
+      continue;
+    }
+
+    const end = value.indexOf(">", index + 1);
+    if (end === -1) {
+      if (blockedTag === null) output += value.slice(index);
+      break;
+    }
+
+    const token = value.slice(index + 1, end).trim().toLowerCase();
+    const closing = token.startsWith("/");
+    const name = token
+      .replace(/^\/\s*/, "")
+      .match(/^[a-z][a-z0-9-]*/)?.[0];
+
+    if (blockedTag !== null) {
+      if (closing && name === blockedTag) blockedTag = null;
+    } else if (!closing && (name === "script" || name === "style")) {
+      blockedTag = name;
+    } else if (
+      name === "br" ||
+      (closing &&
+        (name === "p" ||
+          name === "li" ||
+          name === "pre" ||
+          name === "blockquote" ||
+          /^h[1-6]$/.test(name ?? "")))
+    ) {
+      output += "\n";
+    }
+
+    index = end + 1;
+  }
+
+  return output;
+}
+
 function articleText(html) {
   const article =
     html.match(
       /<div class="theme-doc-markdown markdown">([\s\S]*?)<footer class="theme-doc-footer/,
     )?.[1] ?? "";
-  return decodeHtml(
-    article
-      .replace(/<br\s*\/?>/gi, "\n")
-      .replace(/<\/(h[1-6]|p|li|pre|blockquote)>/gi, "\n")
-      .replace(/<[^>]+>/g, ""),
-  )
+  return decodeHtml(plainTextFromMarkup(article))
     .replace(/\u200b/g, "")
     .replace(/[ \t]+\n/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
