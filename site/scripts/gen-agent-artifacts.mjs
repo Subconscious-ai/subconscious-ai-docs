@@ -75,8 +75,6 @@ function articleText(html) {
     )?.[1] ?? "";
   return decodeHtml(
     article
-      .replace(/<script[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[\s\S]*?<\/style>/gi, "")
       .replace(/<br\s*\/?>/gi, "\n")
       .replace(/<\/(h[1-6]|p|li|pre|blockquote)>/gi, "\n")
       .replace(/<[^>]+>/g, ""),
