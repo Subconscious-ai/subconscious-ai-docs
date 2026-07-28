@@ -28,7 +28,38 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
+    permissions:
+      checks: read
     steps:
+      # `build` is a required check on main, so an ordinary merge cannot carry
+      # a red build. An admin merge can. This is the backstop for that, and it
+      # costs one API call.
+      - name: Require the build to have passed on this commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          deadline=$((SECONDS + 900))
+          while [ $SECONDS -lt $deadline ]; do
+            state=$(gh api "repos/$REPO/commits/$SHA/check-runs" \
+              --jq '[.check_runs[] | select(.name == "build")] | first
+                    | if . == null then "absent"
+                      elif .status != "completed" then "running"
+                      else .conclusion end')
+            case "$state" in
+              success) echo "build passed"; exit 0 ;;
+              failure|cancelled|timed_out|action_required)
+                echo "::error::build concluded $state; refusing to deploy."
+                exit 1 ;;
+            esac
+            echo "  build: $state"
+            sleep 15
+          done
+          echo "::error::build never concluded. Refusing to deploy blind."
+          exit 1
+
       - name: Create the production deployment
         id: create
         env:
