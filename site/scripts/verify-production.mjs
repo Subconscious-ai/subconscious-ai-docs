@@ -1,7 +1,12 @@
 import {resolve} from "node:path";
 import {fileURLToPath} from "node:url";
 
-const AUTHORITATIVE_ENVIRONMENT = "Production – docs";
+// Vercel names the GitHub deployment environment after the project only when
+// more than one project is attached to the repository. A duplicate project
+// existed until 2026-07-27, which is where "Production – docs" came from;
+// with one project it is plain "Production". Accept both so this keeps
+// working either way, and so it fails loudly rather than never running.
+const AUTHORITATIVE_ENVIRONMENTS = new Set(["Production", "Production – docs"]);
 const REPOSITORY = "Subconscious-ai/subconscious-ai-docs";
 const FORBIDDEN_BODY =
   /vercel\.com\/sso-api|sign in to vercel|page not found|<title[^>]*>404/i;
@@ -49,9 +54,9 @@ export async function verifyProduction({
   deploymentEnvironment,
   deploymentState,
 }) {
-  if (deploymentEnvironment !== AUTHORITATIVE_ENVIRONMENT) {
+  if (!AUTHORITATIVE_ENVIRONMENTS.has(deploymentEnvironment)) {
     throw new Error(
-      `Expected deployment environment ${AUTHORITATIVE_ENVIRONMENT}, got ${deploymentEnvironment}`,
+      `Expected one of ${[...AUTHORITATIVE_ENVIRONMENTS].join(" or ")}, got ${deploymentEnvironment}`,
     );
   }
   if (deploymentState !== "success") {

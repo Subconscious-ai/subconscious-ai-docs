@@ -33,13 +33,41 @@ test("correlates the canonical domain to the successful deployment SHA", async (
     fetchImpl: successfulFetch(),
     baseUrl: "https://docs.subconscious.ai",
     expectedRevision: SHA,
-    deploymentEnvironment: "Production – docs",
+    deploymentEnvironment: "Production",
     deploymentState: "success",
   });
 
   assert.equal(proof.revision, SHA);
-  assert.equal(proof.environment, "Production – docs");
+  assert.equal(proof.environment, "Production");
   assert.equal(proof.routes, PRODUCTION_ROUTES.length + 1);
+});
+
+// Vercel emitted "Production – docs" while a duplicate project was attached to
+// this repository. That project is gone, but a second one could appear again,
+// so both names stay accepted and both stay covered.
+test("still accepts the project-qualified environment name", async () => {
+  const proof = await verifyProduction({
+    fetchImpl: successfulFetch(),
+    baseUrl: "https://docs.subconscious.ai",
+    expectedRevision: SHA,
+    deploymentEnvironment: "Production – docs",
+    deploymentState: "success",
+  });
+
+  assert.equal(proof.environment, "Production – docs");
+});
+
+test("rejects an unrelated environment", async () => {
+  await assert.rejects(
+    verifyProduction({
+      fetchImpl: successfulFetch(),
+      baseUrl: "https://docs.subconscious.ai",
+      expectedRevision: SHA,
+      deploymentEnvironment: "Preview",
+      deploymentState: "success",
+    }),
+    /Expected one of/,
+  );
 });
 
 test("rejects redirects before accepting a login page", async () => {
