@@ -55,7 +55,9 @@ Before launch, record the research contract:
 
 Then check that each attribute is distinct, every level is plausible, and the
 population is large enough for the requested run. This is the last cheap point
-to catch a design problem.
+to catch a design problem. The
+[research validity checklist](/concepts/methodology#research-validity-checklist)
+covers the checks that follow after the run.
 
 ```bash
 curl -X POST "$SUBCONSCIOUS_API/api/v1/experiments" \

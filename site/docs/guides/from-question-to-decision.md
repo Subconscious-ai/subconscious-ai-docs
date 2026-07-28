@@ -24,7 +24,7 @@ Write down five things before opening Holodeck:
 | Who owns it? | The product lead |
 | Who is making the choice? | US premium smartphone buyers |
 | What alternatives are in scope? | The proposed product and current flagship competitors |
-| What evidence would change the decision? | A material preference difference that is stable across estimators and relevant segments |
+| What evidence would change the decision? | A predeclared effect direction and threshold that holds across estimators and relevant segments |
 
 Now state one choice question:
 
@@ -102,17 +102,19 @@ artifacts exist. See [Poll a run](/guides/poll-a-run).
 
 Open **Analytics Studio** and read the evidence in this order:
 
-1. **Experiment details.** Confirm the question, population, location, year,
-   sample, and choice task match the plan.
+1. **Experiment Summary.** Confirm the question, population, location, year,
+   sample, and choice task match the plan. In the current production view,
+   these details appear at the top of **Attribute Importance**.
 2. **Attribute Importance.** Identify which attributes moved modeled choice
-   most within this design.
-3. **Feature Level Importance.** Check direction and magnitude relative to the
-   declared baseline.
-4. **Willingness-To-Pay.** Use only when the price coefficient has the expected
+   most within this design. Then read its feature-level effects and
+   willingness-to-pay sections. Effects are relative to the declared baseline.
+   Use willingness to pay only when the price coefficient has the expected
    direction and the feature and price coefficients share a valid scale.
-5. **Market Simulation.** Compare feasible products, not imaginary bundles that
+3. **Market Simulation.** Compare feasible products, not imaginary bundles that
    cannot be built or sold.
-6. **Diverse Preferences.** Look for segments that move against the average.
+4. **Diverse Preferences.** Look for segments that move against the average.
+5. **Segmentation.** When available, check whether the proposed action still
+   makes sense for each decision-relevant segment.
 
 Do not turn the largest bar into the recommendation. Combine effect size,
 uncertainty, feasibility, segment variation, and the cost of acting.
@@ -149,22 +151,9 @@ do-not-infer boundary.
 For a complete executable client, see
 [Run an experiment in Python](/guides/python-workflow).
 
-## Research checklist
+## Make the decision
 
-Before treating the output as decision evidence, confirm:
-
-- The business decision, owner, alternatives, and success rule were written
-  before launch.
-- The population faces the choice and is feasible at the requested size.
-- Attributes are distinct, levels are plausible, and important alternatives
-  are not omitted.
-- The run produced its expected artifacts and the design shown in the result
-  matches the design approved before launch.
-- Effects are read relative to their baselines and with their uncertainty.
-- Estimator agreement and segment differences were checked.
-- Market simulations contain products the business could actually offer.
-- The conclusion is limited to modeled choice inside this design. It is not
-  presented as observed sales, population prevalence, or a market forecast.
-
-If any item fails, the next action is usually to revise and rerun the design,
-not to add confidence to the prose.
+Before treating the output as decision evidence, run the canonical
+[research validity checklist](/concepts/methodology#research-validity-checklist).
+If a check fails, revise and rerun the design. Do not repair weak evidence by
+adding confidence to the prose.
