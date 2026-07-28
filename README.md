@@ -28,16 +28,38 @@ site/
 ```bash
 cd site
 pnpm install --frozen-lockfile
-pnpm run gen-api-docs     # needed before pnpm start after a clean clone
+pnpm run gen-api-docs              # needed before pnpm start after a clean clone
 pnpm start
 pnpm typecheck
-pnpm run test:release-proof
-pnpm build                # generates the API reference, revision, and llms.txt
+pnpm run test:release-proof        # deployment proof
+pnpm run check:migration-evidence  # route map and source inventory
+pnpm run test:agent-source-contracts
+pnpm build
 ```
 
-`pnpm build` is the clean-checkout production command. It generates the API
-reference itself and fails on a broken link or broken anchor. That is
-deliberate: a broken link in docs becomes a support ticket.
+`pnpm build` is the clean-checkout production command and runs five steps in
+order: generate the API reference, stamp the revision, build the site, write
+`llms.txt`, write the agent artifacts. It fails on a broken link or broken
+anchor. That is deliberate: a broken link in docs becomes a support ticket.
+
+## What a build publishes besides pages
+
+| Path | What it is |
+| --- | --- |
+| `/revision.json` | The commit this build came from. CI asserts the stamp matches the SHA it was told to build, and `verify-production.mjs` checks the live site serves the deployed commit. |
+| `/llms.txt`, `/llms-full.txt` | The site as plain text for model consumption. |
+| `/docs-manifest.json` | Every published page with its disposition. |
+| `/mcp/tools.json`, `/openapi/openapi-manifest.json` | The MCP tool registry and the API schema, pinned by revision and SHA-256 in `site/provenance/sources.json`. |
+
+`scripts/agent-source-contracts.mjs` fails the build when a pinned source no
+longer matches its digest. rehoboam owns the OpenAPI schema and ghostshell owns
+the MCP registry; this repository validates and republishes, and must not become
+a second source of truth.
+
+`migration/route-map.json` and `migration/source-inventory.json` record what the
+migration produced, validated on every build by
+`scripts/check-migration-evidence.mjs`. `MIGRATION_RETIREMENT.md` is the
+decision record and authorizes nothing on its own.
 
 Docusaurus is configured with `url: "https://docs.subconscious.ai"` and
 `baseUrl: "/"`. Local or preview URLs do not change the canonical public base.
