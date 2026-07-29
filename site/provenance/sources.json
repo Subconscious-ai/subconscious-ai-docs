@@ -2,11 +2,11 @@
   "schema_version": 1,
   "openapi": {
     "repository": "Subconscious-ai/rehoboam",
-    "revision": "74a20e0300461098e32b5b2b06a1f5c9639f7601",
+    "revision": "93cc6b8cf9d3d59bfc0b154729ab48796de504ef",
     "schema_path": "openapi.public.json",
     "schema_sha256": "0b750962fc54d36beea5622e13016aac911d5277561916488099a4d50a82e0d7",
     "manifest_path": "openapi.public.provenance.json",
-    "manifest_sha256": "67b7c1abb67f65951ebb85855306bca21ce0dfc5cc7fbf9892677578d31c2659"
+    "manifest_sha256": "be79a2d9b527669d9d243ce7b12c9ad5be06291198edadb86e5f2fdc0511b811"
   },
   "mcp": {
     "repository": "Subconscious-ai/ghostshell",
