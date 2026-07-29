@@ -62,8 +62,8 @@ Population Group** for a reusable named group, or **Upload Population** when
 you have an approved first-party audience.
 
 Keep only traits that could plausibly change the choice. Validate a targeted
-population before launch. A large estimated pool does not guarantee recruitment
-yield or representativeness.
+population before launch. Check both that the requested simulated record count
+can be generated and that the population fits the decision.
 
 ### 4. What: Features to test
 

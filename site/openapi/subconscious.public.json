@@ -7024,7 +7024,7 @@
                   "attribute": "Range",
                   "level1": "250 miles",
                   "level2": "350 miles",
-                  "wtp": 0.9375
+                  "wtp": 1.4285714286
                 },
                 "schema": {
                   "$ref": "#/components/schemas/WTPResponse"
@@ -8388,6 +8388,27 @@
                       "Age": [
                         25,
                         45
+                      ],
+                      "Education Level": [
+                        "Bachelors",
+                        "Masters"
+                      ],
+                      "Gender": [
+                        "Female",
+                        "Male"
+                      ],
+                      "Home Ownership": [
+                        "Own",
+                        "Rent"
+                      ],
+                      "Household Size": [
+                        "2",
+                        "3",
+                        "4"
+                      ],
+                      "Household with Children": [
+                        "Yes",
+                        "No"
                       ]
                     }
                   },

@@ -17,6 +17,13 @@ Rehoboam remains the owner of the curated OpenAPI schema and its provenance
 manifest. Ghostshell remains the owner of the MCP tool registry. This repository
 only validates, pins, and publishes those contracts with the public docs.
 
+Run `pnpm run sync-spec` from `site/` to update the OpenAPI contract. The command
+resolves one exact Rehoboam commit, copies both committed schema copies and the
+owner manifest, updates both raw-byte digests and the consumer revision, and
+checks that the manifest's source revision is reachable and owns the same schema.
+The weekday synchronization workflow calls this same command, so manual and
+scheduled refreshes enforce one contract.
+
 ## Revision semantics
 
 The consumer revision and the artifact-owner revision can differ after a squash

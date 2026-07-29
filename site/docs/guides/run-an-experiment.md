@@ -54,10 +54,10 @@ Before launch, record the research contract:
 - the evidence threshold for revising the decision
 
 Then check that each attribute is distinct, every level is plausible, and the
-population is large enough for the requested run. This is the last cheap point
-to catch a design problem. The
+population is large enough for the requested run. This is a good point to catch
+a design problem. The
 [research validity checklist](/concepts/methodology#research-validity-checklist)
-covers the checks that follow after the run.
+covers checks across the full workflow, before and after the run.
 
 ```bash
 curl -X POST "$SUBCONSCIOUS_API/api/v1/experiments" \
