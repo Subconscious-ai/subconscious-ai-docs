@@ -83,3 +83,41 @@ A point estimate on its own is a decoration. The interval is the finding.
   changes the numbers without changing the underlying preference.
 - The experiment measures choice among the profiles you specified. It says
   nothing about options you did not put in the design.
+
+## Research validity checklist
+
+Use four checks before taking a result into a product or market decision.
+
+**Decision validity**
+
+- The experiment names the decision, chooser, alternatives, and outcome.
+- The planned action and success threshold were set before the result was seen.
+
+**Design validity**
+
+- Attributes are distinct and actionable.
+- Levels are plausible, mutually exclusive within an attribute, and cover the
+  range the decision owner can use.
+- The baseline and opt-out reflect a real choice.
+
+**Estimation validity**
+
+- The run produced its expected artifacts.
+- The result reports the design and population that were approved before
+  launch.
+- Effects are read with uncertainty, relative to their baselines.
+- OLS, conditional logit, and hierarchical Bayes estimates broadly agree, or
+  their disagreement is investigated.
+- Segment-level effects are checked before using an average as a universal
+  claim.
+
+**External validity**
+
+- The population faces the decision in the stated time and place.
+- Simulated choice is described as simulated choice, not observed sales,
+  prevalence, or recruitment yield.
+- Market simulations contain feasible products and only support comparisons
+  among the submitted alternatives.
+
+See [From question to decision](/guides/from-question-to-decision) for the
+operational workflow that applies this checklist.

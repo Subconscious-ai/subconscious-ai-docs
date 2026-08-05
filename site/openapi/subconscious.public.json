@@ -6439,10 +6439,35 @@
   "paths": {
     "/api/v1/aggregated/betas": {
       "post": {
+        "description": "Groups `HB_Beta` rows by attribute and level, then returns the mean,\nsample standard deviation, and respondent count for each group.\n\n**Interpretation.** `mean_estimate` gives the average relative preference\nfor a level. Compare levels within the same coded attribute and model.\n\n**Do not infer.** Means across differently coded attributes are not\ndirectly comparable. Aggregation also hides respondent segments and\nshould not replace inspection of the underlying distribution.\n",
         "operationId": "createAggregatedBetas",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "HB_Beta": [
+                  {
+                    "attribute_text": "Range",
+                    "estimate": 0.6,
+                    "level_text": "350 miles"
+                  },
+                  {
+                    "attribute_text": "Range",
+                    "estimate": 0.8,
+                    "level_text": "350 miles"
+                  },
+                  {
+                    "attribute_text": "Range",
+                    "estimate": 0.2,
+                    "level_text": "250 miles"
+                  },
+                  {
+                    "attribute_text": "Range",
+                    "estimate": 0.4,
+                    "level_text": "250 miles"
+                  }
+                ]
+              },
               "schema": {
                 "additionalProperties": true,
                 "title": "Data",
@@ -6456,6 +6481,27 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "aggregated_betas": [
+                    {
+                      "attribute_text": "Range",
+                      "count": 2,
+                      "level_text": "250 miles",
+                      "mean_estimate": 0.3,
+                      "std": 0.1414214
+                    },
+                    {
+                      "attribute_text": "Range",
+                      "count": 2,
+                      "level_text": "350 miles",
+                      "mean_estimate": 0.7,
+                      "std": 0.1414214
+                    }
+                  ],
+                  "aggregated_count": 2,
+                  "compression_ratio": "2.0x",
+                  "original_count": 4
+                },
                 "schema": {}
               }
             },
@@ -6467,7 +6513,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Aggregated Betas",
+        "summary": "Aggregate respondent part worths",
         "tags": [
           "conjoint-analytics"
         ]
@@ -6475,10 +6521,31 @@
     },
     "/api/v1/aggregated/importance": {
       "post": {
+        "description": "Groups `HB_Importance` rows by attribute and returns the mean, sample\nstandard deviation, minimum, maximum, and respondent count.\n\n**Interpretation.** Higher mean importance indicates that the attribute\nexplained more of the modeled choice variation for this experiment.\n\n**Do not infer.** Importance is relative to the attributes, levels, and\ncoding in one experiment. It does not establish causal importance or\ntransfer unchanged to another design.\n",
         "operationId": "createAggregatedImportance",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "HB_Importance": [
+                  {
+                    "attribute_text": "Range",
+                    "importance": 0.42
+                  },
+                  {
+                    "attribute_text": "Range",
+                    "importance": 0.5
+                  },
+                  {
+                    "attribute_text": "Charging",
+                    "importance": 0.2
+                  },
+                  {
+                    "attribute_text": "Charging",
+                    "importance": 0.26
+                  }
+                ]
+              },
               "schema": {
                 "additionalProperties": true,
                 "title": "Data",
@@ -6492,6 +6559,28 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "aggregated_count": 2,
+                  "aggregated_importance": [
+                    {
+                      "attribute_text": "Charging",
+                      "count": 2,
+                      "max": 0.26,
+                      "mean": 0.23,
+                      "min": 0.2,
+                      "std": 0.0424264
+                    },
+                    {
+                      "attribute_text": "Range",
+                      "count": 2,
+                      "max": 0.5,
+                      "mean": 0.46,
+                      "min": 0.42,
+                      "std": 0.0565685
+                    }
+                  ],
+                  "original_count": 4
+                },
                 "schema": {}
               }
             },
@@ -6503,7 +6592,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Aggregated Importance",
+        "summary": "Aggregate attribute importance",
         "tags": [
           "conjoint-analytics"
         ]
@@ -6511,10 +6600,35 @@
     },
     "/api/v1/aggregated/wtp": {
       "post": {
+        "description": "Groups `HB_WTP` rows by attribute and level, then returns mean willingness\nto pay, sample standard deviation, and respondent count.\n\n**Interpretation.** `mean_wtp` summarizes the modeled price-equivalent\nvalue of a level across the submitted respondent estimates.\n\n**Do not infer.** The mean is not a recommended price. Check coefficient\ndirection, units, outliers, and respondent-level variation before using\nit in a decision.\n",
         "operationId": "createAggregatedWtp",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "HB_WTP": [
+                  {
+                    "WTP": 4200,
+                    "attribute_text": "Range",
+                    "level_text": "350 miles"
+                  },
+                  {
+                    "WTP": 5000,
+                    "attribute_text": "Range",
+                    "level_text": "350 miles"
+                  },
+                  {
+                    "WTP": 1400,
+                    "attribute_text": "Charging",
+                    "level_text": "250 kW"
+                  },
+                  {
+                    "WTP": 1800,
+                    "attribute_text": "Charging",
+                    "level_text": "250 kW"
+                  }
+                ]
+              },
               "schema": {
                 "additionalProperties": true,
                 "title": "Data",
@@ -6528,6 +6642,26 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "aggregated_count": 2,
+                  "aggregated_wtp": [
+                    {
+                      "attribute_text": "Charging",
+                      "count": 2,
+                      "level_text": "250 kW",
+                      "mean_wtp": 1600,
+                      "std": 282.8427125
+                    },
+                    {
+                      "attribute_text": "Range",
+                      "count": 2,
+                      "level_text": "350 miles",
+                      "mean_wtp": 4600,
+                      "std": 565.6854249
+                    }
+                  ],
+                  "original_count": 4
+                },
                 "schema": {}
               }
             },
@@ -6539,7 +6673,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Aggregated Wtp",
+        "summary": "Aggregate respondent willingness to pay",
         "tags": [
           "conjoint-analytics"
         ]
@@ -6547,10 +6681,57 @@
     },
     "/api/v1/analytics/market-share": {
       "post": {
+        "description": "Compares named product scenarios with conjoint part-worth coefficients.\nInclude one row per attribute level in each scenario and one coefficient\nfor every level used.\n\n**Interpretation.** `share` is the multinomial-logit preference share\nwithin the submitted scenario set. `utility` is the sum of the matching\npart worths.\n\n**Do not infer.** Preference share is not observed market share, purchase\nprobability, or a forecast. It depends on the alternatives and\ncoefficients supplied in this request.\n",
         "operationId": "createAnalyticsMarketShare",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "coefficients": [
+                  {
+                    "attribute_text": "Range",
+                    "level_text": "250 miles",
+                    "part_worth": 0.2
+                  },
+                  {
+                    "attribute_text": "Range",
+                    "level_text": "350 miles",
+                    "part_worth": 0.7
+                  },
+                  {
+                    "attribute_text": "Charging",
+                    "level_text": "150 kW",
+                    "part_worth": 0.1
+                  },
+                  {
+                    "attribute_text": "Charging",
+                    "level_text": "250 kW",
+                    "part_worth": 0.4
+                  }
+                ],
+                "products": [
+                  {
+                    "Scenario": "Standard",
+                    "attribute_text": "Range",
+                    "level_text": "250 miles"
+                  },
+                  {
+                    "Scenario": "Standard",
+                    "attribute_text": "Charging",
+                    "level_text": "150 kW"
+                  },
+                  {
+                    "Scenario": "Long Range",
+                    "attribute_text": "Range",
+                    "level_text": "350 miles"
+                  },
+                  {
+                    "Scenario": "Long Range",
+                    "attribute_text": "Charging",
+                    "level_text": "250 kW"
+                  }
+                ]
+              },
               "schema": {
                 "$ref": "#/components/schemas/MarketShareRequest"
               }
@@ -6562,6 +6743,20 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "results": [
+                    {
+                      "Scenario": "Standard",
+                      "share": 0.3100255,
+                      "utility": 0.3
+                    },
+                    {
+                      "Scenario": "Long Range",
+                      "share": 0.6899745,
+                      "utility": 1.1
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/MarketShareResponse"
                 }
@@ -6575,7 +6770,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Market Share",
+        "summary": "Simulate preference share",
         "tags": [
           "conjoint-analytics"
         ]
@@ -6583,10 +6778,33 @@
     },
     "/api/v1/analytics/pareto-frontier": {
       "post": {
+        "description": "Finds scenarios for which no submitted alternative has both greater or\nequal preference share and greater or equal revenue, with at least one\nstrict improvement.\n\n**Interpretation.** A returned scenario is efficient for the submitted\nshare and revenue values. `Frontier` is set to `Efficient`.\n\n**Do not infer.** An efficient scenario is not automatically the best\nchoice. Costs, uncertainty, feasibility, and omitted alternatives are\noutside this calculation.\n",
         "operationId": "createAnalyticsParetoFrontier",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "scenarios": [
+                  {
+                    "Scenario": "Value",
+                    "price": 30000,
+                    "revenue": 15600000,
+                    "share": 0.52
+                  },
+                  {
+                    "Scenario": "Balanced",
+                    "price": 35000,
+                    "revenue": 15750000,
+                    "share": 0.45
+                  },
+                  {
+                    "Scenario": "Premium",
+                    "price": 40000,
+                    "revenue": 11200000,
+                    "share": 0.28
+                  }
+                ]
+              },
               "schema": {
                 "$ref": "#/components/schemas/ParetoFrontierRequest"
               }
@@ -6598,6 +6816,24 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "frontier": [
+                    {
+                      "Frontier": "Efficient",
+                      "Scenario": "Value",
+                      "price": 30000,
+                      "revenue": 15600000,
+                      "share": 0.52
+                    },
+                    {
+                      "Frontier": "Efficient",
+                      "Scenario": "Balanced",
+                      "price": 35000,
+                      "revenue": 15750000,
+                      "share": 0.45
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/ParetoFrontierResponse"
                 }
@@ -6611,7 +6847,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Pareto Frontier",
+        "summary": "Find efficient scenarios",
         "tags": [
           "conjoint-analytics"
         ]
@@ -6619,10 +6855,67 @@
     },
     "/api/v1/analytics/price-elasticity": {
       "post": {
+        "description": "Varies one named product from `price_min` through `price_max` in\n`price_step` increments, then calculates preference share and revenue at\neach price. The product name must match a `Scenario` in `base_products`.\n\n**Interpretation.** Compare points on `elasticity_curve` to see the\nmodeled tradeoff between price, preference share, and revenue.\n\n**Do not infer.** The curve is conditional on the submitted alternatives,\nprice-level coefficients, and market size. It is not a causal demand\nestimate or a revenue forecast.\n",
         "operationId": "createAnalyticsPriceElasticity",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "base_products": [
+                  {
+                    "Scenario": "Standard",
+                    "attribute_text": "Range",
+                    "level_text": "250 miles"
+                  },
+                  {
+                    "Scenario": "Standard",
+                    "attribute_text": "Price",
+                    "level_text": "$30000"
+                  },
+                  {
+                    "Scenario": "Long Range",
+                    "attribute_text": "Range",
+                    "level_text": "350 miles"
+                  },
+                  {
+                    "Scenario": "Long Range",
+                    "attribute_text": "Price",
+                    "level_text": "$35000"
+                  }
+                ],
+                "coefficients": [
+                  {
+                    "attribute_text": "Range",
+                    "level_text": "250 miles",
+                    "part_worth": 0.2
+                  },
+                  {
+                    "attribute_text": "Range",
+                    "level_text": "350 miles",
+                    "part_worth": 0.7
+                  },
+                  {
+                    "attribute_text": "Price",
+                    "level_text": "$30000",
+                    "part_worth": -0.2
+                  },
+                  {
+                    "attribute_text": "Price",
+                    "level_text": "$35000",
+                    "part_worth": -0.5
+                  },
+                  {
+                    "attribute_text": "Price",
+                    "level_text": "$40000",
+                    "part_worth": -0.9
+                  }
+                ],
+                "market_size": 10000,
+                "price_max": 40000,
+                "price_min": 30000,
+                "price_step": 5000,
+                "product_name": "Long Range"
+              },
               "schema": {
                 "$ref": "#/components/schemas/PriceElasticityRequest"
               }
@@ -6634,6 +6927,34 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "elasticity_curve": [
+                    {
+                      "Frontier": "Efficient",
+                      "Scenario": "Long Range",
+                      "price": 30000,
+                      "revenue": 186737799.3605563,
+                      "share": 0.6224593,
+                      "utility": 0.5
+                    },
+                    {
+                      "Frontier": "Efficient",
+                      "Scenario": "Long Range",
+                      "price": 35000,
+                      "revenue": 192441899.0593673,
+                      "share": 0.549834,
+                      "utility": 0.2
+                    },
+                    {
+                      "Frontier": "Suboptimal",
+                      "Scenario": "Long Range",
+                      "price": 40000,
+                      "revenue": 180066401.0750088,
+                      "share": 0.450166,
+                      "utility": -0.2
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/PriceElasticityResponse"
                 }
@@ -6647,7 +6968,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Price Elasticity",
+        "summary": "Simulate a price curve",
         "tags": [
           "conjoint-analytics"
         ]
@@ -6655,10 +6976,39 @@
     },
     "/api/v1/analytics/wtp": {
       "post": {
+        "description": "Converts the part-worth difference between two levels of one attribute\ninto price units using the mean coefficient for `price_attribute`.\n\n**Interpretation.** `wtp` is the modeled price-equivalent difference from\n`level1` to `level2`, on the scale of the supplied coefficients.\n\n**Do not infer.** The result is not a quoted price or observed willingness\nto pay. A meaningful result requires coefficients estimated on compatible\nscales and a nonzero price coefficient with the expected cost direction.\n",
         "operationId": "createAnalyticsWtp",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "attribute": "Range",
+                "coefficients": [
+                  {
+                    "attribute_text": "Range",
+                    "level_text": "250 miles",
+                    "part_worth": 0.2
+                  },
+                  {
+                    "attribute_text": "Range",
+                    "level_text": "350 miles",
+                    "part_worth": 0.7
+                  },
+                  {
+                    "attribute_text": "Price",
+                    "level_text": "$30000",
+                    "part_worth": -0.2
+                  },
+                  {
+                    "attribute_text": "Price",
+                    "level_text": "$35000",
+                    "part_worth": -0.5
+                  }
+                ],
+                "level1": "250 miles",
+                "level2": "350 miles",
+                "price_attribute": "Price"
+              },
               "schema": {
                 "$ref": "#/components/schemas/WTPRequest"
               }
@@ -6670,6 +7020,12 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "attribute": "Range",
+                  "level1": "250 miles",
+                  "level2": "350 miles",
+                  "wtp": 1.4285714286
+                },
                 "schema": {
                   "$ref": "#/components/schemas/WTPResponse"
                 }
@@ -6683,7 +7039,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Wtp Endpoint",
+        "summary": "Compare willingness to pay",
         "tags": [
           "conjoint-analytics"
         ]
@@ -7730,10 +8086,20 @@
     },
     "/api/v1/populations/location-recommendation": {
       "post": {
+        "description": "Starts an asynchronous recommendation for demographic boundaries and,\nfor United States requests, candidate states relevant to the research\nquestion. Poll the returned `job_id` with the matching GET endpoint.\n\n**Interpretation.** A `pending` or `running` status means the\nrecommendation is not ready. Use the completed result as a proposed\nstarting population and review its rationale and warnings.\n\n**Do not infer.** A recommendation does not prove sample feasibility,\nrepresentativeness, or causal identification. Validate the proposed\npopulation before launching an experiment.\n",
         "operationId": "createPopulationsLocationRecommendation",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "country": "United States",
+                "pre_selected_states": [
+                  "California",
+                  "Texas"
+                ],
+                "why_prompt": "Which electric vehicle offer best fits frequent interstate commuters?",
+                "year": "2024"
+              },
               "schema": {
                 "$ref": "#/components/schemas/LocationRecommendationRequest"
               }
@@ -7745,6 +8111,10 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "job_id": "5df7498e-1e89-4dd6-9bd5-20ef9ec842b5",
+                  "status": "pending"
+                },
                 "schema": {
                   "$ref": "#/components/schemas/LocationRecommendationAsyncResponse"
                 }
@@ -7758,7 +8128,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Create Location Recommendation",
+        "summary": "Start a population recommendation",
         "tags": [
           "v1.populations"
         ]
@@ -7766,6 +8136,7 @@
     },
     "/api/v1/populations/location-recommendation/{job_id}": {
       "get": {
+        "description": "Returns the current state of a location recommendation job. A completed\nresponse includes demographic boundaries, reasoning, candidate states,\nwarnings, and configuration patches. A failed response includes `error`.\n\n**Interpretation.** Apply a completed configuration only after reviewing\nthe stated assumptions, axis reasons, and warnings.\n\n**Do not infer.** Completion means the recommendation was generated. It\ndoes not mean the population is large enough or the proposed design is\nvalid.\n",
         "operationId": "getPopulationsLocationRecommendationByJobId",
         "parameters": [
           {
@@ -7782,6 +8153,10 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "job_id": "5df7498e-1e89-4dd6-9bd5-20ef9ec842b5",
+                  "status": "running"
+                },
                 "schema": {
                   "$ref": "#/components/schemas/LocationRecommendationJobResponse"
                 }
@@ -7795,7 +8170,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Get Location Recommendation",
+        "summary": "Get a population recommendation",
         "tags": [
           "v1.populations"
         ]
@@ -7803,10 +8178,35 @@
     },
     "/api/v1/populations/statement-direction": {
       "post": {
+        "description": "Classifies each statement as `positive` or `negative` from the ordering of\nits response labels. Use it to detect reversed Likert items before\nanalysis.\n\n**Interpretation.** `positive` means larger numeric values express more of\nthe named construct. `negative` means the scale should be reverse-scored\nfor that interpretation.\n\n**Do not infer.** Direction is not sentiment, agreement quality, or\nevidence that a statement measures the intended construct.\n",
         "operationId": "createPopulationsStatementDirection",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "statements": [
+                  {
+                    "scale": {
+                      "1": "Strongly disagree",
+                      "2": "Disagree",
+                      "3": "Neutral",
+                      "4": "Agree",
+                      "5": "Strongly agree"
+                    },
+                    "statement": "I would consider buying this vehicle."
+                  },
+                  {
+                    "scale": {
+                      "1": "Strongly agree",
+                      "2": "Agree",
+                      "3": "Neutral",
+                      "4": "Disagree",
+                      "5": "Strongly disagree"
+                    },
+                    "statement": "This vehicle would be difficult to charge."
+                  }
+                ]
+              },
               "schema": {
                 "$ref": "#/components/schemas/StatementDirectionInput"
               }
@@ -7818,6 +8218,10 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "I would consider buying this vehicle.": "positive",
+                  "This vehicle would be difficult to charge.": "negative"
+                },
                 "schema": {
                   "additionalProperties": true,
                   "title": "Response Get Statement Directions Api V1 Populations Statement Direction Post",
@@ -7833,7 +8237,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Get Statement Directions",
+        "summary": "Classify response scale direction",
         "tags": [
           "v1.populations"
         ]
@@ -7841,10 +8245,27 @@
     },
     "/api/v1/populations/validate": {
       "post": {
+        "description": "Checks the estimated size of a United States demographic population. If\nit is smaller than `number_of_records`, the response proposes a broader\npopulation and shows the effect of changing one trait at a time.\n\n**Interpretation.** Compare `original`, `suggestion`, and\n`one_trait_change` to find the smallest defensible relaxation that reaches\nthe requested sample size.\n\n**Do not infer.** Estimated size is not guaranteed recruitment yield or\nproof of representativeness. Keep traits that are necessary for the\nresearch question even if removing them increases the pool.\n",
         "operationId": "createPopulationsValidate",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "age": [
+                  25,
+                  45
+                ],
+                "gender": [
+                  "Female",
+                  "Male"
+                ],
+                "household_income": [
+                  50000,
+                  150000
+                ],
+                "number_of_records": 500,
+                "state": "California"
+              },
               "schema": {
                 "$ref": "#/components/schemas/PopulationRequest"
               }
@@ -7856,6 +8277,45 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "one_trait_change": {},
+                  "original": {
+                    "population_size": 18240,
+                    "population_traits": {
+                      "age": [
+                        25,
+                        45
+                      ],
+                      "gender": [
+                        "Female",
+                        "Male"
+                      ],
+                      "household_income": [
+                        50000,
+                        150000
+                      ],
+                      "state": "California"
+                    }
+                  },
+                  "suggestion": {
+                    "population_size": 18240,
+                    "population_traits": {
+                      "age": [
+                        25,
+                        45
+                      ],
+                      "gender": [
+                        "Female",
+                        "Male"
+                      ],
+                      "household_income": [
+                        50000,
+                        150000
+                      ],
+                      "state": "California"
+                    }
+                  }
+                },
                 "schema": {
                   "$ref": "#/components/schemas/PopulationRecommendationResponse"
                 }
@@ -7869,7 +8329,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Validate Population",
+        "summary": "Validate a United States population",
         "tags": [
           "v1.populations"
         ]
@@ -7877,10 +8337,38 @@
     },
     "/api/v1/populations/validate-non-us": {
       "post": {
+        "description": "Checks the estimated size of a non-US demographic population using the\nsupported age, gender, education, home ownership, household composition,\nand household size axes. The service recommends broader boundaries when\nthe estimated population is below 300.\n\n**Interpretation.** Compare the original and suggested populations to\nidentify which boundary limits the available sample.\n\n**Do not infer.** Estimated size is not guaranteed recruitment yield.\nCountry is supplied by the surrounding experiment flow, not this request,\nso use country-appropriate categories when constructing these fields.\n",
         "operationId": "createPopulationsValidateNonUs",
         "requestBody": {
           "content": {
             "application/json": {
+              "example": {
+                "Age": [
+                  25,
+                  45
+                ],
+                "Education_Level": [
+                  "Bachelors",
+                  "Masters"
+                ],
+                "Gender": [
+                  "Female",
+                  "Male"
+                ],
+                "Home_Ownership": [
+                  "Own",
+                  "Rent"
+                ],
+                "Household_Size": [
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "Household_with_Children": [
+                  "Yes",
+                  "No"
+                ]
+              },
               "schema": {
                 "$ref": "#/components/schemas/PopulationRequestNonUS"
               }
@@ -7892,6 +8380,69 @@
           "200": {
             "content": {
               "application/json": {
+                "example": {
+                  "one_trait_change": {},
+                  "original": {
+                    "population_size": 9600,
+                    "population_traits": {
+                      "Age": [
+                        25,
+                        45
+                      ],
+                      "Education Level": [
+                        "Bachelors",
+                        "Masters"
+                      ],
+                      "Gender": [
+                        "Female",
+                        "Male"
+                      ],
+                      "Home Ownership": [
+                        "Own",
+                        "Rent"
+                      ],
+                      "Household Size": [
+                        "2",
+                        "3",
+                        "4"
+                      ],
+                      "Household with Children": [
+                        "Yes",
+                        "No"
+                      ]
+                    }
+                  },
+                  "suggestion": {
+                    "population_size": 9600,
+                    "population_traits": {
+                      "Age": [
+                        25,
+                        45
+                      ],
+                      "Education Level": [
+                        "Bachelors",
+                        "Masters"
+                      ],
+                      "Gender": [
+                        "Female",
+                        "Male"
+                      ],
+                      "Home Ownership": [
+                        "Own",
+                        "Rent"
+                      ],
+                      "Household Size": [
+                        "2",
+                        "3",
+                        "4"
+                      ],
+                      "Household with Children": [
+                        "Yes",
+                        "No"
+                      ]
+                    }
+                  }
+                },
                 "schema": {
                   "$ref": "#/components/schemas/PopulationRecommendationResponseNonUS"
                 }
@@ -7905,7 +8456,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Validate Population Non Us",
+        "summary": "Validate a population outside the United States",
         "tags": [
           "v1.populations"
         ]

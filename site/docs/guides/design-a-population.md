@@ -52,10 +52,23 @@ estimates.
 curl -X POST "$SUBCONSCIOUS_API/api/v1/populations/validate" \
   -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{ "target_population": { } }'
+  -d '{
+    "age": [25, 45],
+    "household_income": [50000, 150000],
+    "state": "California",
+    "gender": ["Female", "Male"],
+    "number_of_records": 500
+  }'
 ```
 
 Use `/api/v1/populations/validate-non-us` for non-US populations.
+
+If you need help defining the boundary, start a
+[population recommendation](/api-reference/create-populations-location-recommendation)
+from the research question, then
+[poll the job](/api-reference/get-populations-location-recommendation-by-job-id).
+Treat the completed result as a proposal. Review its assumptions and warnings,
+then validate the proposed population before launch.
 
 ## Population groups and external personas
 

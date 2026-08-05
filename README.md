@@ -68,9 +68,11 @@ anchor. That is deliberate: a broken link in docs becomes a support ticket.
 | `/mcp/tools.json`, `/openapi/openapi-manifest.json` | The MCP tool registry and the API schema, pinned by revision and SHA-256 in `site/provenance/sources.json`. |
 
 `scripts/agent-source-contracts.mjs` fails the build when a pinned source no
-longer matches its digest. rehoboam owns the OpenAPI schema and ghostshell owns
-the MCP registry; this repository validates and republishes, and must not become
-a second source of truth.
+longer matches its digest. `pnpm run sync-spec` updates both committed schema
+copies, the owner manifest, the consumer revision, and both raw-byte digests as
+one contract. rehoboam owns the OpenAPI schema and ghostshell owns the MCP
+registry; this repository validates and republishes, and must not become a
+second source of truth.
 
 `migration/route-map.json` and `migration/source-inventory.json` record what the
 migration produced, validated on every build by
@@ -190,9 +192,10 @@ HTTP status is `200`.
 **`onBrokenLinks` is `throw`.** It caught a broken link in the privacy policy
 and twelve in the human-baselines index. Keep it that way.
 
-**The API spec syncs itself.** `.github/workflows/sync-spec.yml` pulls
-`openapi.public.json` from rehoboam on weekdays and opens a PR when it differs.
-It needs the `REHOBOAM_READ_TOKEN` secret; without it the job warns and skips.
+**The API contract syncs itself.** `.github/workflows/sync-spec.yml` runs the
+same provenance-aware sync used locally on weekdays and opens a PR when the
+schema, downloadable copy, owner manifest, revision, or digest differs. It
+needs the `REHOBOAM_READ_TOKEN` secret; without it the job warns and skips.
 
 **Verify a merge before deleting the branch.** A squash merge of the migration
 PR landed on `main` without 80 of its pages — the imports, `/human-baselines`,

@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch the published spec from rehoboam
+      - name: Fetch the published contract from rehoboam
         id: fetch
         env:
           GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
@@ -34,28 +34,18 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          gh api "repos/Subconscious-ai/rehoboam/contents/openapi.public.json?ref=develop" \
-            --jq '.content' | base64 -d > /tmp/upstream.json
-
-          # Guard: never publish a spec that lost its servers block or gained
-          # internal paths. Cheap, and it fails closed.
-          python3 - <<'PY'
-          import json, sys
-          spec = json.load(open("/tmp/upstream.json"))
-          assert spec.get("servers"), "spec has no servers block"
-          leaked = [p for p in spec["paths"] if p.startswith(("/api/v1/payments", "/api/v3/"))]
-          assert not leaked, f"internal paths present: {leaked}"
-          print(f"upstream: {len(spec['paths'])} paths")
-          PY
-
-          if diff -q /tmp/upstream.json site/openapi/subconscious.public.json > /dev/null; then
-            echo "spec is already in sync"
+          cd site
+          REHOBOAM_REF=develop bash scripts/sync-spec.sh
+          if git diff --quiet -- \
+            openapi/subconscious.public.json \
+            static/openapi/subconscious.public.json \
+            provenance/sources/openapi.public.provenance.json \
+            provenance/sources.json; then
+            echo "contract is already in sync"
             echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            cp /tmp/upstream.json site/openapi/subconscious.public.json
-            cp /tmp/upstream.json site/static/openapi/subconscious.public.json
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Open a PR with the new spec
         if: steps.fetch.outputs.changed == 'true'
@@ -65,8 +55,9 @@ jobs:
           title: "chore: sync the API spec from rehoboam"
           commit-message: "chore: sync the API spec from rehoboam"
           body: |
-            The published spec in rehoboam has moved on. Merging this
-            regenerates the API reference and the playground.
+            The published contract in rehoboam has moved on. Merging this
+            refreshes the schema, downloadable copy, provenance manifest, and
+            exact source digests used by the API reference and playground.
 
             Review what changed before merging — a new operation appearing here
             means it was deliberately published in
