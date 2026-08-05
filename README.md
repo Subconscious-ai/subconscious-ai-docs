@@ -72,6 +72,15 @@ documentation. Company-internal ownership, execution routing, and runbooks stay
 in private repositories; do not copy or link private material into this public
 site.
 
+## Data placement
+
+Put customer-facing explanations in `site/docs/`. Change executable API or MCP
+contracts in their owning service repositories, then republish the pinned
+artifacts here. Keep brand source language in design-system and keep internal
+operations, customer records, credentials, and agent memory out of this public
+repository. The private Hermes source registry routes internal agents; this
+public repository does not copy or expose that registry.
+
 `scripts/agent-source-contracts.mjs` fails the build when a pinned source no
 longer matches its digest. `pnpm run sync-spec` updates both committed schema
 copies, the owner manifest, the consumer revision, and both raw-byte digests as
