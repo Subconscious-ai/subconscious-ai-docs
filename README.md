@@ -67,6 +67,11 @@ anchor. That is deliberate: a broken link in docs becomes a support ticket.
 | `/docs-manifest.json` | Every published page with its disposition. |
 | `/mcp/tools.json`, `/openapi/openapi-manifest.json` | The MCP tool registry and the API schema, pinned by revision and SHA-256 in `site/provenance/sources.json`. |
 
+This repository and those published agent surfaces are the canonical public
+documentation. Company-internal ownership, execution routing, and runbooks stay
+in private repositories; do not copy or link private material into this public
+site.
+
 `scripts/agent-source-contracts.mjs` fails the build when a pinned source no
 longer matches its digest. `pnpm run sync-spec` updates both committed schema
 copies, the owner manifest, the consumer revision, and both raw-byte digests as
