@@ -1,6 +1,10 @@
 import {pathToFileURL} from "node:url";
 
 export function requireEnvironment(names, env = process.env) {
+  if (names.length === 0) {
+    throw new Error("At least one required environment variable must be named");
+  }
+
   const missing = names.filter((name) => !env[name]?.trim());
   if (missing.length > 0) {
     throw new Error(`Missing required environment variables: ${missing.join(", ")}`);
