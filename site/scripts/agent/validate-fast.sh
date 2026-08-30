@@ -4,7 +4,8 @@ set -euo pipefail
 SITE_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$SITE_ROOT"
 
-export DOCS_SOURCE_REVISION="${DOCS_SOURCE_REVISION:-$(git rev-parse HEAD)}"
+DOCS_SOURCE_REVISION="${DOCS_SOURCE_REVISION:-$(git rev-parse HEAD)}"
+export DOCS_SOURCE_REVISION
 
 pnpm run test:release-proof
 pnpm run test:ci-contracts
