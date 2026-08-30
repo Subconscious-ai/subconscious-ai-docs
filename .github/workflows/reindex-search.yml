@@ -13,6 +13,7 @@ on:
 jobs:
   reindex:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -20,12 +21,4 @@ jobs:
         env:
           APPLICATION_ID: ${{ secrets.ALGOLIA_APP_ID }}
           API_KEY: ${{ secrets.ALGOLIA_WRITE_KEY }}
-        run: |
-          if [ -z "$APPLICATION_ID" ] || [ -z "$API_KEY" ]; then
-            echo "::warning::Algolia secrets not set; skipping reindex"
-            exit 0
-          fi
-          docker run --rm \
-            -e APPLICATION_ID -e API_KEY \
-            -e "CONFIG=$(cat site/scripts/docsearch.json | tr -d '\n')" \
-            algolia/docsearch-scraper
+        run: node site/scripts/reindex-search.mjs

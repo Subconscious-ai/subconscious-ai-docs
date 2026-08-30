@@ -24,8 +24,10 @@ pnpm build                            # runs five steps, see below
 pnpm start                            # local dev server
 
 pnpm run test:release-proof           # deployment proof
+pnpm run test:ci-contracts            # CI credential and reindex behavior
 pnpm run check:migration-evidence     # route map and source inventory
 pnpm run test:agent-source-contracts  # pinned source digests
+bash scripts/agent/validate-fast.sh   # complete local pre-merge gate
 ```
 
 `pnpm build` runs five steps in order: generate the API reference, stamp the

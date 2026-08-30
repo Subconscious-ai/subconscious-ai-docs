@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     env:
       DOCS_SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
     defaults:
@@ -35,21 +36,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Verify release-proof scripts
-        run: pnpm run test:release-proof
-
-      - name: Check migration and retirement evidence
-        run: pnpm run check:migration-evidence
-
-      - name: Test agent source contracts
-        run: pnpm run test:agent-source-contracts
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Build
-        # Broken links and broken anchors fail the build by config.
-        run: pnpm build
+      - name: Validate docs
+        # This is the same contributor gate documented in AGENTS.md.
+        run: bash scripts/agent/validate-fast.sh
 
       - name: Verify exact build revision
         run: |
