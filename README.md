@@ -46,10 +46,18 @@ cd site
 pnpm install --frozen-lockfile
 pnpm run gen-api-docs              # needed before pnpm start after a clean clone
 pnpm start
+bash scripts/agent/validate-fast.sh   # the pre-merge gate; run this before opening a PR
+```
+
+`scripts/agent/validate-fast.sh` is the same gate the Build docs workflow runs,
+so a green run locally means a green run in CI. It runs, in order:
+
+```bash
+pnpm run test:release-proof           # deployment proof
+pnpm run test:ci-contracts            # CI credential and reindex behavior
+pnpm run check:migration-evidence     # route map and source inventory
+pnpm run test:agent-source-contracts  # pinned source digests
 pnpm typecheck
-pnpm run test:release-proof        # deployment proof
-pnpm run check:migration-evidence  # route map and source inventory
-pnpm run test:agent-source-contracts
 pnpm build
 ```
 
@@ -209,7 +217,8 @@ and twelve in the human-baselines index. Keep it that way.
 **The API contract syncs itself.** `.github/workflows/sync-spec.yml` runs the
 same provenance-aware sync used locally on weekdays and opens a PR when the
 schema, downloadable copy, owner manifest, revision, or digest differs. It
-needs the `REHOBOAM_READ_TOKEN` secret; without it the job warns and skips.
+requires the `REHOBOAM_READ_TOKEN` secret and fails when it is missing, so a
+lost credential shows up as a red job rather than a silent skip.
 
 **Verify a merge before deleting the branch.** A squash merge of the migration
 PR landed on `main` without 80 of its pages — the imports, `/human-baselines`,

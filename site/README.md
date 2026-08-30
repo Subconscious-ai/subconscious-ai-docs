@@ -9,10 +9,11 @@ From this directory:
 
 ```bash
 pnpm install --frozen-lockfile
-pnpm typecheck
-pnpm run test:release-proof
-pnpm build
+bash scripts/agent/validate-fast.sh
 ```
+
+`validate-fast.sh` is the pre-merge gate the Build docs workflow runs. The root
+[`README.md`](../README.md) lists the individual steps it runs.
 
 `pnpm build` generates the API reference and release metadata before producing
 the site. Production deployment is currently blocked on a repaired and observed

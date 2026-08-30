@@ -24,8 +24,10 @@ pnpm build                            # runs five steps, see below
 pnpm start                            # local dev server
 
 pnpm run test:release-proof           # deployment proof
+pnpm run test:ci-contracts            # CI credential and reindex behavior
 pnpm run check:migration-evidence     # route map and source inventory
 pnpm run test:agent-source-contracts  # pinned source digests
+bash scripts/agent/validate-fast.sh   # complete local pre-merge gate
 ```
 
 `pnpm build` runs five steps in order: generate the API reference, stamp the
@@ -33,7 +35,7 @@ revision, build the site, write `llms.txt`, write the agent artifacts.
 `onBrokenLinks` and `onBrokenAnchors` are set to `throw`, so a bad link fails
 the build rather than shipping a dead page.
 
-Three checks run in CI beside the build, and all three are cheap enough to run
+Four checks run in CI beside the build, and all four are cheap enough to run
 before opening a pull request. `test:agent-source-contracts` is the one that
 will surprise you: it fails when a pinned source in `site/provenance/` no longer
 matches its recorded SHA-256. That is not a flake. It means rehoboam or

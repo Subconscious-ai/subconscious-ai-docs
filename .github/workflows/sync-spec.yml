@@ -21,19 +21,20 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
+      - name: Require private repository access
+        env:
+          GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
+        run: node site/scripts/require-ci-env.mjs GH_TOKEN
 
       - name: Fetch the published contract from rehoboam
         id: fetch
         env:
           GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
         run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo "::warning::REHOBOAM_READ_TOKEN not set; cannot read the private repo"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
           cd site
           REHOBOAM_REF=develop bash scripts/sync-spec.sh
           if git diff --quiet -- \
