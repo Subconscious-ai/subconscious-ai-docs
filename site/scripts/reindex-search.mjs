@@ -36,7 +36,11 @@ export function runReindex({
     throw result.error;
   }
   if (result.status !== 0) {
-    throw new Error(`DocSearch scraper exited with status ${result.status}`);
+    throw new Error(
+      result.status === null && result.signal
+        ? `DocSearch scraper was terminated by signal ${result.signal}`
+        : `DocSearch scraper exited with status ${result.status}`,
+    );
   }
 }
 

@@ -55,3 +55,14 @@ test("propagates a scraper failure", () => {
     /status 17/,
   );
 });
+
+test("names the signal when the scraper is killed rather than exiting", () => {
+  assert.throws(
+    () => runReindex({
+      env: {APPLICATION_ID: "app-id", API_KEY: "write-key"},
+      readFile: () => "{}",
+      spawn: () => ({status: null, signal: "SIGKILL"}),
+    }),
+    /terminated by signal SIGKILL/,
+  );
+});
