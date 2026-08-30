@@ -13,6 +13,23 @@ test("rejects a degraded run when a required credential is missing", () => {
   );
 });
 
+test("refuses to run the scraper when the reindex credentials are missing", () => {
+  let spawned = false;
+
+  assert.throws(
+    () => runReindex({
+      env: {APPLICATION_ID: "app-id"},
+      readFile: () => "{}",
+      spawn: () => {
+        spawned = true;
+        return {status: 0};
+      },
+    }),
+    /API_KEY/,
+  );
+  assert.equal(spawned, false);
+});
+
 test("passes validated credentials and compact config to the scraper", () => {
   const calls = [];
   const env = {APPLICATION_ID: "app-id", API_KEY: "write-key"};
