@@ -1222,7 +1222,7 @@
           "use_population_group": false,
           "user_uploaded_persona": false,
           "why_prompt": "What are the key factors influencing consumers' purchase consideration and preference for upgrading their mobile devices, such as from an iPhone 12 to an iPhone 15 or Samsung Galaxy S22 to S24?",
-          "year": "July 2026"
+          "year": "January 2026"
         },
         "properties": {
           "add_neither_option": {
@@ -1721,7 +1721,7 @@
             "title": "Levels Per Trait"
           },
           "llm_temperature": {
-            "default": 1.0,
+            "default": 0.0,
             "title": "Llm Temperature",
             "type": "number"
           },
@@ -1947,6 +1947,16 @@
             ],
             "default": 1000,
             "title": "Price Generation Seed"
+          },
+          "priority": {
+            "default": "high",
+            "description": "Which worker tier runs this study. `high` routes to the `high_priority` queue and `default` to the `default` queue; each has its own dedicated worker, so `high` never queues behind `default` and `default` is never starved. Omitted requests get `high`. Note this replaces an older server-side inference from `hb_run_id`: a replication sourced by W&B run id used to be routed to `default` automatically and now is not, so send `\"default\"` explicitly if that is what you want.",
+            "enum": [
+              "default",
+              "high"
+            ],
+            "title": "Priority",
+            "type": "string"
           },
           "prob_to_discrete_seed": {
             "anyOf": [
@@ -2328,7 +2338,6 @@
             "title": "Why Prompt"
           },
           "year": {
-            "default": "July 2026",
             "title": "Year",
             "type": "string"
           }
@@ -2338,6 +2347,18 @@
       },
       "ExperimentAsyncResponse": {
         "properties": {
+          "queue_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The queue this study was actually enqueued on, so the caller can see where their work went rather than inferring it from the `priority` they sent. Null when the experiment ran inline (DEBUG mode) or when the request failed before dispatch.",
+            "title": "Queue Name"
+          },
           "wandb_run_id": {
             "title": "Wandb Run Id",
             "type": "string"
@@ -8745,7 +8766,7 @@
         ]
       },
       "get": {
-        "description": "Fetch details of a specific experiment run.\n\nParameters:\n- `run_id`: Unique identifier of the run.\n\nReturns:\nJSONResponse with:\n- `run_details`: Details of the requested run\n\nNotes:\n- Returns 403 if the run is private and not accessible to the user\n\nRaises:\n- HTTPException 500: If fetching run details fails",
+        "description": "Fetch details of a specific experiment run.\n\nParameters:\n- `run_id`: Unique identifier of the run.\n\nReturns:\nJSONResponse with:\n- `run_details`: Details of the requested run\n\nNotes:\n- Returns 403 if the run is private and not accessible to the user\n- Returns 404 (not 500) while the run has no W&B record yet, with a\n  `retryable` flag and a `Retry-After` header when the run is still live\n\nRaises:\n- HTTPException 404: If W&B has no record of the run\n- HTTPException 500: If fetching run details fails",
         "operationId": "getRunsByRunId",
         "parameters": [
           {
@@ -8781,7 +8802,7 @@
     },
     "/api/v1/runs/{run_id}/status": {
       "get": {
-        "description": "Returns the current state of a run.\n\n**Known limitation.** This endpoint is unreliable in both directions: it\ncan report a terminal `lost` state for a run that is still queued, and\n`finished` for a run that failed and produced no artifacts. Treat the\nW&B run as the source of truth \u2014 check its `summary.status` together with\n`logged_artifacts()`. W&B's own `state` field can itself remain `running`\nafter a timeout.\n\nNormalised states are `in-queue`, `running`, `finished`, `failed`,\n`crashed`, `killed`, `lost`, and `not found`. A run is terminal in every\nstate except `in-queue` and `running`.\n",
+        "description": "Returns the current state of a run.\n\n**A terminal state is only reported with positive evidence.** The status\nis resolved from three stores in order \u2014 the W&B run, Celery's result\nbackend, and the enqueue-time run record \u2014 and a run that no store knows\nabout is reported as `unknown`, which is never terminal. Absence is not\nfailure: a run is invisible to W&B for the whole window between\nsubmission and the creation of its W&B run, queue wait included.\n\nNormalised states are `in-queue`, `running`, `unknown`, `finished`,\n`failed`, `crashed`, `killed`, and `lost`. A run is terminal in every\nstate except `in-queue`, `running`, and `unknown`.\n\n`lost` now means one specific thing: a submitted run whose record never\nreached a terminal state and is older than the six-hour grace window. It\nis no longer produced for a run that is merely queued or running.\n\n**Do not resubmit on a non-terminal status.** `in-queue`, `running`, and\n`unknown` all mean \"keep polling\". Resubmitting multiplies server-side\nruns of several hundred simulated respondents each.\n\n**Still true of `finished`:** a run can finish having produced no\nartifacts. A W&B `state` of `finished` whose `summary.status` is `failed`\nis reported here as `failed`, but check `logged_artifacts()` before\ntreating a `finished` run as usable.\n",
         "operationId": "getRunsByRunIdStatus",
         "parameters": [
           {
@@ -8817,7 +8838,7 @@
     },
     "/api/v1/tasks/{task_id}": {
       "get": {
-        "description": "Get the status of a Celery task.\n\nParameters:\n- `task_id`: Unique identifier of the Celery task\n\nReturns:\nJSONResponse with:\n- `task_id`: The ID of the task\n- `task_status`: Current status of the task\n- `task_result`: Result of the task (if available)\n\nExample Response:\n{\n    \"task_id\": \"abc123\",\n    \"task_status\": \"SUCCESS\",\n    \"task_result\": {\"some_key\": \"some_value\"}\n}\n\nRaises:\n- HTTPException 500: If fetching the task status fails",
+        "description": "Get the status of a task.\n\nParameters:\n- `task_id`: the deterministic `{user_id}_{run_id}` id returned when a run\n  was submitted.\n\nReturns a JSONResponse with `task_id`, `task_status`\n(`PENDING`/`STARTED`/`SUCCESS`/`FAILURE`), and `task_result`. Status is\nread from the run-state record; a `FAILURE` carries a `task_result` of\n`{\"error\": <reason>, \"detail\": ...}`.\n\nOnly experiment runs have a run-state record, so a ping message id or a\nlocation-recommendation job id reports `PENDING`. An id that is not a\n`{user_id}_{run_id}` pair is a `404` (was a `500` under Celery, #2019).\n\nRaises:\n- HTTPException 403: the caller does not own this task\n- HTTPException 404: the id does not name a run",
         "operationId": "getTasksByTaskId",
         "parameters": [
           {
