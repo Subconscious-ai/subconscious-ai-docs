@@ -1,13 +1,13 @@
 {
   "allowlist_policy": {
     "filename": "docs/api/public_surface.yml",
-    "sha256": "533c92b24d493e99595da1330b7e5c05aab1cd013bd7c4e11f183661de324ca3",
+    "sha256": "7453eb2adf297aa1fba53d40a3522e548bb7c09c6fe123b87e4f4e9327819b6f",
     "version": 1
   },
-  "generated_at": "2026-07-28T22:20:02-04:00",
+  "generated_at": "2026-09-01T16:50:12+04:30",
   "manifest_version": 1,
   "schema": {
-    "canonical_sha256": "b2471ec5e06cfc8b717a325978d9e146f0ec7d69ca2909f9b2c64ac2cc4e360d",
+    "canonical_sha256": "211341faa4b16280860717e330cd9f52390387752197619de7a311dbfe16e169",
     "filename": "openapi.public.json",
     "operation_count": 59,
     "path_count": 58
@@ -15,6 +15,6 @@
   "schema_version": "3.1.0",
   "source": {
     "repository": "Subconscious-ai/rehoboam",
-    "revision": "d5ecc7aadced0fd3f5bb7036f190f18c07ed6ad6"
+    "revision": "0542cfc79fd31e2030c77c69218d28f7bb22ef90"
   }
 }
