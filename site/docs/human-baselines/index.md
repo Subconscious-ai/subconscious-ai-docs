@@ -12,10 +12,15 @@ Each study below is a published human conjoint experiment. We re-run it with
 synthetic respondents, estimate the same average marginal component effects
 (AMCEs) the paper reports, and compare them level by level.
 
-**Interactive showcase:** every study has a page with the human AMCE beside the
-synthetic AMCE for each attribute level, an identity-line scatter, the rank
-order of levels, and every estimator's score. Hover any mark for the level name
-and both numbers. [Open the showcase](https://showcase-wasm2.vercel.app).
+![Human AMCE against synthetic AMCE, one panel per Golden-10 study, 95% intervals on both axes](/img/human-baselines/xy_levels_2026-07-27.png)
+
+Each dot is one attribute level. The horizontal bar is the paper's own 95%
+interval for that level; the vertical bar is the synthetic estimate's
+cluster-robust 95% interval. A study whose rank correlation cannot be told
+apart from zero is titled in red: that is a failure of correlation, not a low
+score. The rows behind this figure, with the same two intervals, are the
+`levels` table on the cohort evaluation run in Weights & Biases, where they can
+be grouped by research domain, design, or estimator.
 
 ## How to read the score
 
