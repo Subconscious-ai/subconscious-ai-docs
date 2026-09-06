@@ -30,6 +30,7 @@ const sidebars: SidebarsConfig = {
       items: [
         "guides/from-question-to-decision",
         "guides/run-an-experiment",
+        "guides/reproducible-runs",
         "guides/python-workflow",
         "guides/design-a-population",
         "guides/poll-a-run",
