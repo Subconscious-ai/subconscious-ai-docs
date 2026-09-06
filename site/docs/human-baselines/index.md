@@ -37,7 +37,40 @@ be grouped by research domain, design, or estimator.
   1,500 choices and 0.009 at 6,000. Differences smaller than that are not
   evidence.
 
-## The Golden-10
+## The Golden-15 (benchmark of record since 2026-09-06)
+
+The Golden-10 below was assembled from source-validated studies. The Golden-15 replaces it
+as the benchmark of record and is chosen on the quality of the human study alone: the source
+PDF is confirmed to be the paper, it is a real choice experiment, the paper's own analytic N
+is at least 500, at least ten published coefficients are numeric, and the paper states both
+the opt-out and the tasks per respondent. Qualifying studies are ranked by human N. No
+fidelity score, historic or current, enters the selection, so a good score on this set cannot
+come from picking the studies we already matched.
+
+| # | Study | Human N | Numeric coefs | Options/task | Opt-out | Tasks |
+|---|---|---|---|---|---|---|
+| 1 | Duch2021 | 15,536 | 16 | 2 | no | 8 |
+| 2 | Argote2021 | 6,489 | 13 | 1 (single profile) | no | 5 |
+| 3 | Muhlbacher2016 | 3,900 | 19 | 2 | no | 15 |
+| 4 | LiuR2019 | 2,092 | 31 | 3 | yes | 12 |
+| 5 | Kreps2020 | 1,971 | 12 | 2 | yes | 5 |
+| 6 | Leng2021 | 1,883 | 13 | 2 | no | 8 |
+| 7 | Klein2020 | 1,673 | 20 | 3 | yes | 10 |
+| 8 | Donnaloja2022 | 1,597 | 14 | 2 | yes | 5 |
+| 9 | BROOKS2010 | 1,552 | 18 | 4 | yes | 16 |
+| 10 | Klaiman2016 | 1,500 | 33 | 4 | yes | 5 |
+| 11 | Wu2015 | 1,489 | 11 | 3 | yes | 12 |
+| 12 | Hainmueller2014 | 1,407 | 14 | 2 | no | 5 |
+| 13 | Jankowski2021 | 1,274 | 34 | 2 | no | 6 |
+| 14 | Blasch2013 | 1,010 | 70 | 3 | yes | 8 |
+| 15 | Motta2021 | 990 | 12 | 3 | no | 2 |
+
+Eight of the fifteen are not two-option tasks; those run through the v2 replication runner
+until the platform can state the number of alternatives per task. The rule, the full ranked
+list of twenty-eight qualifying studies, and every score come from the `Subconscious-ai/Ditto`
+repository (`docs/golden-15.md`, `data/golden15_candidates.csv`).
+
+## The Golden-10 (frozen canary)
 
 Ten source-validated studies form the standing benchmark. Two synthetic eras are
 shown: the production platform run of 2026-07-27 (one run per study, each
