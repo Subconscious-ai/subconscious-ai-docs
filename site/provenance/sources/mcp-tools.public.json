@@ -12,7 +12,7 @@
   "scope": "source discovery; no tool execution or deployed-availability proof",
   "source": {
     "repository": "Subconscious-ai/rehoboam",
-    "revision": "df7ea889b46dbce2ceb600add4f143d49431d654"
+    "revision": "2c3377c893c8a6e872eac82d8031b819563f03ee"
   },
   "tool_count": 17,
   "tools": [
@@ -7978,7 +7978,6 @@
       }
     }
   ],
-  "tools_sha256": "0219c5f6cadddb1cd7cb881291e711326d4068bb98913b6f8242baa6df026ce0",
   "transport": {
     "path": "/mcp/",
     "stateful": true,

@@ -4,7 +4,7 @@
     "sha256": "7453eb2adf297aa1fba53d40a3522e548bb7c09c6fe123b87e4f4e9327819b6f",
     "version": 1
   },
-  "generated_at": "2026-09-07T18:46:09-04:00",
+  "generated_at": "2026-09-07T19:02:53-04:00",
   "manifest_version": 1,
   "schema": {
     "canonical_sha256": "bd935033a59fa968f83cef43ac38cefe727d704bc731e5f684931255bf60271f",
@@ -15,6 +15,6 @@
   "schema_version": "3.1.0",
   "source": {
     "repository": "Subconscious-ai/rehoboam",
-    "revision": "df7ea889b46dbce2ceb600add4f143d49431d654"
+    "revision": "2c3377c893c8a6e872eac82d8031b819563f03ee"
   }
 }
