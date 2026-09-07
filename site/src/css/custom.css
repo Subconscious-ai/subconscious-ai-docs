@@ -279,3 +279,12 @@ html[data-theme="dark"] .openapi-explorer__playground-btn:hover {
 .openapi-schema__container {
   font-size: 14px;
 }
+
+/* Wide option tables scroll within the reading column on phones. */
+@media (max-width: 996px) {
+  .markdown table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
