@@ -1,0 +1,279 @@
+.landing {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 56px;
+  --research-accent: #08795a;
+}
+:global([data-theme="dark"]) .landing {
+  --research-accent: #72d5b7;
+}
+.hero {
+  padding: 64px 0 72px;
+  max-width: 920px;
+}
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(48px, 7.6vw, 96px);
+  line-height: 1.01;
+  letter-spacing: -0.065em;
+  margin: 0 0 28px;
+  font-weight: 800;
+}
+.intro {
+  font-size: clamp(20px, 2.1vw, 26px);
+  line-height: 1.4;
+  max-width: 650px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin: 32px 0 20px;
+}
+.landing .primary {
+  background: var(--ifm-font-color-base);
+  color: var(--ifm-background-color);
+  padding: 14px 22px;
+  text-decoration: none !important;
+  border-radius: 2px;
+  font-weight: 600;
+}
+.audience,
+.caption {
+  font-size: 14px;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.5;
+}
+.example {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 56px;
+  border-block: 1px solid var(--ifm-color-emphasis-300);
+  padding: 40px 0 48px;
+}
+.example > * {
+  min-width: 0;
+}
+.landing h2 {
+  border: 0;
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+.disciplines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+.disciplines button {
+  font: inherit;
+  font-size: 14px;
+  background: none;
+  color: inherit;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.disciplines button[aria-pressed="true"] {
+  background: var(--ifm-font-color-base);
+  color: var(--ifm-background-color);
+  border-color: var(--ifm-font-color-base);
+}
+.landing :is(a, button):focus-visible {
+  outline: 3px solid var(--research-accent);
+  outline-offset: 5px;
+}
+.choice {
+  padding-top: 8px;
+}
+.landing .choice table {
+  margin: 0;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.landing .choice th,
+.landing .choice td {
+  padding: 20px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  font: inherit;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+  background: none;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.landing .choice thead th {
+  font: 12px var(--font-mono);
+  padding-top: 0;
+}
+.landing .choice th:first-child {
+  width: 34%;
+}
+.landing .choice tr {
+  background: none;
+}
+.landing .choice tbody td {
+  font-size: 18px;
+  font-weight: 600;
+}
+.interpretation {
+  margin: 28px 0 0;
+  border-left: 3px solid var(--research-accent);
+  padding-left: 20px;
+}
+.interpretation p {
+  margin-bottom: 12px;
+}
+.journey {
+  padding: 64px 0;
+}
+.journey h2 {
+  max-width: 700px;
+}
+.journey ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  list-style: none;
+  counter-reset: journey;
+  padding: 0;
+  margin: 36px 0 0;
+}
+.journey li {
+  min-width: 0;
+  counter-increment: journey;
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+  padding-top: 20px;
+}
+.journey li:before {
+  content: "0" counter(journey);
+  font: 13px var(--font-mono);
+  display: block;
+  margin-bottom: 20px;
+  color: var(--ifm-color-emphasis-700);
+}
+.journey li a {
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.2;
+  display: block;
+  margin-bottom: 12px;
+}
+.journey p {
+  font-size: 16px;
+}
+.entryPoints {
+  padding: 48px 0 64px;
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+}
+.entryPoints > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 44px;
+}
+.entryPoints article {
+  min-width: 0;
+}
+.landing .entryPoints h3 {
+  font-size: 24px;
+  margin: 16px 0;
+}
+.entryPoints a {
+  display: block;
+  margin-top: 12px;
+}
+.evidence {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 56px;
+  background: var(--ifm-color-emphasis-100);
+  padding: 40px;
+}
+.evidence > * {
+  min-width: 0;
+}
+.evidence a {
+  display: block;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.evidence p {
+  margin-bottom: 0;
+}
+@media (max-width: 900px) {
+  .example {
+    gap: 28px;
+  }
+  .journey ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .entryPoints > div {
+    gap: 24px;
+  }
+  .evidence {
+    gap: 28px;
+  }
+}
+@media (max-width: 650px) {
+  .landing {
+    padding: 0 4px 24px;
+  }
+  .hero {
+    padding: 36px 0 40px;
+  }
+  .hero h1 {
+    font-size: 52px;
+  }
+  .example,
+  .evidence {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .example {
+    padding: 28px 0;
+  }
+  .entryPoints > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .entryPoints article + article {
+    border-top: 1px solid var(--ifm-color-emphasis-300);
+    padding-top: 16px;
+  }
+  .journey {
+    padding: 40px 0;
+  }
+  .journey ol {
+    gap: 24px;
+  }
+  .evidence {
+    padding: 24px;
+  }
+  .landing .choice th,
+  .landing .choice td {
+    padding: 16px 8px;
+    font-size: 13px;
+  }
+  .landing .choice tbody td {
+    font-size: 16px;
+  }
+  .actions {
+    gap: 20px;
+  }
+  .disciplines {
+    margin-bottom: 24px;
+  }
+}

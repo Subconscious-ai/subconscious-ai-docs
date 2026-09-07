@@ -71,8 +71,8 @@ pages.sort((a, b) => a.url.localeCompare(b.url));
 const lines = [
   "# Subconscious.ai",
   "",
-  "> REST API for running causal experiments — conjoint analysis on synthetic",
-  "> respondent populations, validated against replicated human studies.",
+  "> REST API for choice experiments: conjoint analysis on synthetic",
+  "> respondent populations, research guides, and scoped human-baseline comparisons.",
   "",
   "## Docs",
   "",
