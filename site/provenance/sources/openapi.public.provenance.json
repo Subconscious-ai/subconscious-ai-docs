@@ -4,10 +4,10 @@
     "sha256": "7453eb2adf297aa1fba53d40a3522e548bb7c09c6fe123b87e4f4e9327819b6f",
     "version": 1
   },
-  "generated_at": "2026-09-06T15:02:33-04:00",
+  "generated_at": "2026-09-07T19:02:53-04:00",
   "manifest_version": 1,
   "schema": {
-    "canonical_sha256": "fe51ec4e27a63f8182474f7b7070b87e1b2c1826e992563bab66ead27eecb2aa",
+    "canonical_sha256": "bd935033a59fa968f83cef43ac38cefe727d704bc731e5f684931255bf60271f",
     "filename": "openapi.public.json",
     "operation_count": 59,
     "path_count": 58
@@ -15,6 +15,6 @@
   "schema_version": "3.1.0",
   "source": {
     "repository": "Subconscious-ai/rehoboam",
-    "revision": "4e29dc3edfca770cf918af5b5a5106a2c2982f2c"
+    "revision": "2c3377c893c8a6e872eac82d8031b819563f03ee"
   }
 }

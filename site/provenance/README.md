@@ -1,42 +1,35 @@
 # Agent artifact source gate
 
-`sources.json` pins the exact Rehoboam and Ghostshell revisions and SHA-256
-digests consumed by this build. The files under `sources/` are copied from those
-source-owned revisions. Do not edit them by hand.
+`sources.json` pins the exact Rehoboam revision and raw SHA-256 digests consumed
+by this build. The files under `sources/` come from that source-owned revision;
+do not edit them by hand. Rehoboam owns both public REST and native MCP contracts.
 
-`scripts/agent-source-contracts.mjs` rejects source drift and unsafe MCP
-transport or authentication metadata. `scripts/gen-agent-artifacts.mjs` then
-publishes:
+`release.json` records the successful production workflow run and exact revision
+confirmed by the live backend health receipt at synchronization time. It is a
+release receipt, not a perpetual assertion about current runtime health.
 
-- `/llms-full.txt`
-- `/docs-manifest.json`
-- `/openapi/openapi-manifest.json`
-- `/mcp/tools.json`
+`scripts/agent-source-contracts.mjs` rejects changed bytes, mismatched owners,
+and unsafe MCP transport or authentication metadata. The build then publishes
+`/llms-full.txt`, `/docs-manifest.json`, `/openapi/openapi-manifest.json`, and
+`/mcp/tools.json`, plus generated human-readable REST and MCP references.
 
-Rehoboam remains the owner of the curated OpenAPI schema and its provenance
-manifest. Ghostshell remains the owner of the MCP tool registry. This repository
-only validates, pins, and publishes those contracts with the public docs.
+## Updating the pins
 
-Run `pnpm run sync-spec` from `site/` to update the OpenAPI contract. The command
-resolves one exact Rehoboam commit, copies both committed schema copies and the
-owner manifest, updates both raw-byte digests and the consumer revision, and
-checks that the manifest's source revision is reachable and owns the same schema.
-The weekday synchronization workflow calls this same command, so manual and
-scheduled refreshes enforce one contract.
+From `site/`, run `REHOBOAM_REF=<verified-production-sha> pnpm run sync-spec`.
+The existing sync command downloads both contracts before changing tracked files,
+checks their provenance and ancestry, and refreshes all consumer digests together.
+The scheduled workflow resolves a successful production release and checks its
+revision against backend health before calling this same command.
 
 ## Revision semantics
 
-The consumer revision and the artifact-owner revision can differ after a squash
-merge:
+- `revision` is the exact production commit from which the artifact was copied.
+- OpenAPI `source.revision` owns the schema and visibility policy bytes.
+- MCP `registry_revision` owns the source tool definitions and public allowlist.
 
-- `revision` is the exact default-branch commit from which this repository
-  copied the file.
-- The OpenAPI manifest's `source.revision` is the reachable commit that owns the
-  schema bytes.
-- `registry_revision` is the reachable Ghostshell commit that owns the exported
-  tool registry.
+An owner revision may precede the consumer revision, but must be reachable from
+it. After a squash merge, refresh source-owned revision manifests on the durable
+branch before downstream adoption. Raw artifact digests cover all nested schemas;
+there is no second cross-language JSON checksum with ambiguous numeric spelling.
 
-This distinction is intentional. A green source pull request proves proposed
-bytes, not default-branch adoption. After any source merge, regenerate
-revision-bearing evidence from the final lineage, then refresh every downstream
-revision and digest together.
+See [maintenance policy](../../docs/maintenance.md) for cadence and merge bounds.

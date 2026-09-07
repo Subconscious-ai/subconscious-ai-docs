@@ -7224,7 +7224,7 @@
     },
     "/api/v1/experiments": {
       "post": {
-        "description": "Starts an experiment asynchronously and returns a W&B run id to poll.\n\nThe request model accepts ~105 fields, nearly all of them internal tuning\nknobs with defaults. In practice a useful experiment needs only the\nresearch question; the fields below are the supported minimal contract,\nmirroring `MCPExperimentRequest` in the MCP server.\n\n**Accepted is not the same as queued.** A 200 response with a run id does\nnot guarantee the run was enqueued. If no W&B run appears within roughly\n25 minutes, resubmit. See the run status endpoint for how to verify.\n",
+        "description": "Starts an experiment asynchronously and returns a W&B run id to poll.\n\nSupply the research question and a supported population selection, then\nreview the request schema. The REST model, MCP typed advanced options,\nand browser form are different contracts.\n\nPoll the returned run identity. Normal execution queues the run; debug\nmode can execute inline. Keep polling in-queue, running, and unknown.\nA missing W&B record or timed-out read is not a reason to submit another\npotentially chargeable experiment. Reconcile an ambiguous launch before\nretrying; REST does not provide the MCP launch-idempotency protocol.\n",
         "operationId": "createExperiments",
         "requestBody": {
           "content": {
@@ -7232,9 +7232,10 @@
               "example": {
                 "experiment_type": "conjoint",
                 "is_private": false,
-                "population_traits": {
-                  "Travel frequency": [
-                    "Weekly"
+                "target_population": {
+                  "age": [
+                    25,
+                    45
                   ]
                 },
                 "why_prompt": "What factors drive consumer choice of electric vehicles?"
@@ -8897,7 +8898,7 @@
     },
     "/api/v1/runs/{run_id}/status": {
       "get": {
-        "description": "Returns the current state of a run.\n\n**A terminal state is only reported with positive evidence.** The status\nis resolved from three stores in order \u2014 the W&B run, Celery's result\nbackend, and the enqueue-time run record \u2014 and a run that no store knows\nabout is reported as `unknown`, which is never terminal. Absence is not\nfailure: a run is invisible to W&B for the whole window between\nsubmission and the creation of its W&B run, queue wait included.\n\nNormalised states are `in-queue`, `running`, `unknown`, `finished`,\n`failed`, `crashed`, `killed`, and `lost`. A run is terminal in every\nstate except `in-queue`, `running`, and `unknown`.\n\n`lost` now means one specific thing: a submitted run whose record never\nreached a terminal state and is older than the six-hour grace window. It\nis no longer produced for a run that is merely queued or running.\n\n**Do not resubmit on a non-terminal status.** `in-queue`, `running`, and\n`unknown` all mean \"keep polling\". Resubmitting multiplies server-side\nruns of several hundred simulated respondents each.\n\n**Still true of `finished`:** a run can finish having produced no\nartifacts. A W&B `state` of `finished` whose `summary.status` is `failed`\nis reported here as `failed`, but check `logged_artifacts()` before\ntreating a `finished` run as usable.\n",
+        "description": "Returns the current state of a run.\n\n**A terminal state is only reported with positive evidence.** The status\nis resolved from the W&B run and then the enqueue-time run record.\nSQS has no result backend. A run that neither store knows\nabout is reported as `unknown`, which is never terminal. Absence is not\nfailure: a run is invisible to W&B for the whole window between\nsubmission and the creation of its W&B run, queue wait included.\n\nNormalised states are `in-queue`, `running`, `unknown`, `finished`,\n`failed`, `crashed`, `killed`, and `lost`. A run is terminal in every\nstate except `in-queue`, `running`, and `unknown`.\n\n`lost` now means one specific thing: a submitted run whose record never\nreached a terminal state and is older than the six-hour grace window. It\ncan therefore be produced for an old queued or running record, but never\nfrom absence alone.\n\n**Do not resubmit on a non-terminal status.** `in-queue`, `running`, and\n`unknown` all mean \"keep polling\". Resubmitting multiplies server-side\nruns of several hundred simulated respondents each.\n\n**Still true of `finished`:** a run can finish having produced no\nartifacts. A W&B `state` of `finished` whose `summary.status` is `failed`\nis reported here as `failed`, but check `logged_artifacts()` before\ntreating a `finished` run as usable.\n",
         "operationId": "getRunsByRunIdStatus",
         "parameters": [
           {
