@@ -14,13 +14,13 @@ as blockers and does not authorize deleting or disabling a source.
 
 ## Current architecture
 
-As of 2026-07-28:
+As of 2026-09-07:
 
 | Concern | Source of truth | Published through |
 | --- | --- | --- |
 | Public narrative docs | This repository, `site/docs/` | `docs.subconscious.ai` |
-| Public REST contract | Rehoboam `develop` | Pinned OpenAPI artifact in this repository |
-| Public MCP contract | Ghostshell `main` | Pinned tool artifact in this repository |
+| Public REST contract | Rehoboam successful `production` release | Pinned OpenAPI artifact in this repository |
+| Public MCP contract | Rehoboam native MCP, same production release | Pinned tool artifact in this repository |
 | Internal narrative docs | Private `subconscious-ai-docs-internal` repository | Exact artifact mounted by Holodeck |
 | Internal access control | Holodeck | Existing Auth0 session boundary at `/internal-docs/*` |
 
@@ -50,7 +50,7 @@ bash scripts/agent/validate-fast.sh   # the pre-merge gate; run this before open
 ```
 
 `scripts/agent/validate-fast.sh` is the same gate the Build docs workflow runs,
-so a green run locally means a green run in CI. It runs, in order:
+with CI providing the final check on the proposed revision. It runs, in order:
 
 ```bash
 pnpm run test:release-proof           # deployment proof
@@ -61,9 +61,8 @@ pnpm typecheck
 pnpm build
 ```
 
-`pnpm build` is the clean-checkout production command and runs five steps in
-order: generate the API reference, stamp the revision, build the site, write
-`llms.txt`, write the agent artifacts. It fails on a broken link or broken
+`pnpm build` is the clean-checkout production command and generates REST and MCP references, stamps the revision, builds the site, writes
+agent artifacts, and checks key route content. It fails on a broken link or broken
 anchor. That is deliberate: a broken link in docs becomes a support ticket.
 
 ## What a build publishes besides pages
@@ -92,7 +91,7 @@ public repository does not copy or expose that registry.
 `scripts/agent-source-contracts.mjs` fails the build when a pinned source no
 longer matches its digest. `pnpm run sync-spec` updates both committed schema
 copies, the owner manifest, the consumer revision, and both raw-byte digests as
-one contract. rehoboam owns the OpenAPI schema and ghostshell owns the MCP
+one contract. Rehoboam owns both the OpenAPI schema and native MCP
 registry; this repository validates and republishes, and must not become a
 second source of truth.
 
@@ -113,7 +112,7 @@ surface is decided in this repo.
 
 ```bash
 cd site
-pnpm run sync-spec        # pull the spec from rehoboam (REHOBOAM_REF=develop)
+REHOBOAM_REF=<verified-production-sha> pnpm run sync-spec
 pnpm run rebuild-api-docs # regenerate the MDX
 pnpm build
 ```
@@ -215,10 +214,11 @@ HTTP status is `200`.
 and twelve in the human-baselines index. Keep it that way.
 
 **The API contract syncs itself.** `.github/workflows/sync-spec.yml` runs the
-same provenance-aware sync used locally on weekdays and opens a PR when the
-schema, downloadable copy, owner manifest, revision, or digest differs. It
-requires the `REHOBOAM_READ_TOKEN` secret and fails when it is missing, so a
-lost credential shows up as a red job rather than a silent skip.
+same provenance-aware sync used locally after detecting a successful release
+and during daily reconciliation. It maintains one PR when the pinned contracts differ. It
+requires `REHOBOAM_READ_TOKEN` with Rehoboam Contents and Actions read access.
+Daily and manual runs fail visibly on missing credentials or inconsistent release
+evidence; hourly deployment transitions do not notify engineers.
 
 **Verify a merge before deleting the branch.** A squash merge of the migration
 PR landed on `main` without 80 of its pages — the imports, `/human-baselines`,
@@ -239,3 +239,8 @@ hand-drawn. The only Docusaurus OG plugin is at `1.0.4-alpha`, which is not
 worth putting in the deploy path, so the card is rendered once from SVG through
 `sharp` (already present via `plugin-ideal-image`) and committed. Per-page
 override still works: set `image:` in a page's frontmatter.
+
+## Keeping documentation current
+
+See [Documentation maintenance](docs/maintenance.md) for PR checks, release
+reconciliation, weekly review, ownership, and the bounded generated-file merge policy.

@@ -36,6 +36,7 @@ const sidebars: SidebarsConfig = {
         "guides/design-a-population",
         "guides/poll-a-run",
         "guides/mcp-server",
+        "reference/mcp-tools",
       ],
     },
     {

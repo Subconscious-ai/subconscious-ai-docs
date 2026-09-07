@@ -6,28 +6,31 @@ description: Make two runs of the same experiment comparable, and know how much 
 
 # Reproducible runs
 
-By default every run draws a fresh choice-task design and generates a fresh
-latent-variable battery for its respondents. That is right for a one-off
-study. It is wrong when you want to compare two runs, because the noise
-between two identical runs is then larger than most effects you are
-looking for.
+To compare two runs, keep the population, design, respondent instructions,
+model, analysis, and artifact lineage explicit. A fixed seed controls a
+particular draw. It does not establish that the whole pipeline or an external
+model provider will return identical bytes.
 
-Five request fields make two runs comparable. All of them default to the
-non-comparable behaviour, so nothing changes unless you ask.
+The current request schema already defaults `llm_temperature` to `0.0`,
+`resample_population` to `false`, and `population_seed` to `100`. Design and
+latent-variable generation need additional controls for a planned comparison.
 
-| Field | Comparable value | Default | What it pins |
-|---|---|---|---|
-| `llm_temperature` | `0.0` | `0.0` | respondent sampling |
-| `resample_population` + `population_seed` | `false` + a fixed seed | `false`, `100` | which respondents answer |
-| `design_seed` | any fixed integer | `null` (fresh design) | the choice tasks and their order |
-| `deterministic_stages` | `true` | `false` | the pre-survey stages (latent variables, persona bios, mood statements) run at `llm_temperature` instead of a fixed 0.7 |
-| `latent_variables_from_run` | the first run's name | `null` | reuses the first run's latent-variable battery and scores, so respondent prompts repeat |
+| Field                                     | Comparable value       | Default               | What it pins                                                                                                            |
+| ----------------------------------------- | ---------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `llm_temperature`                         | `0.0`                  | `0.0`                 | respondent sampling                                                                                                     |
+| `resample_population` + `population_seed` | `false` + a fixed seed | `false`, `100`        | which respondents answer                                                                                                |
+| `design_seed`                             | any fixed integer      | `null` (fresh design) | the choice tasks and their order                                                                                        |
+| `deterministic_stages`                    | `true`                 | `false`               | the pre-survey stages (latent variables, persona bios, mood statements) run at `llm_temperature` instead of a fixed 0.7 |
+| `latent_variables_from_run`               | the first run's name   | `null`                | reuses the first run's latent-variable battery and scores, so respondent prompts repeat                                 |
 
-## Run 1
+## Apply the settings to a complete request
+
+Merge this settings fragment into the study request from
+[Run an experiment](/guides/run-an-experiment), after reviewing its population,
+attributes, levels, privacy, and cost:
 
 ```json
 {
-  "why_prompt": "Which vaccine attributes drive uptake?",
   "llm_temperature": 0.0,
   "resample_population": false,
   "population_seed": 100,
@@ -36,34 +39,29 @@ non-comparable behaviour, so nothing changes unless you ask.
 }
 ```
 
-Note the `wandb_run_name` in the response.
+Retain the returned `wandb_run_name` with the request and artifacts. For a
+later run of the same definition, set `latent_variables_from_run` to that
+actual run name. This reuses the latent-variable bundle instead of generating
+a new one. It requires the same population; inspect the reused artifact and
+its respondent mapping rather than assuming that a matching count proves
+matching identities.
 
-## Every later run of the same definition
+## Measure the variation that remains
 
-Add the first run's name:
+Keep the model and provider version, complete settings, realized design,
+population artifact, latent-variable bundle, and analysis code with each run.
+Compare the same estimand on the same scale and report the repeat-run variation
+for your own study. Do not apply a correlation from another benchmark as a
+universal noise threshold.
 
-```json
-{ "latent_variables_from_run": "echo-26-09-06-03-47-08-783" }
-```
+Temperature zero does not guarantee identical model responses. A repeated
+synthetic result is also not validation against human behavior. Use the
+[research validity checklist](/concepts/methodology#research-validity-checklist)
+when deciding what the comparison supports.
 
-The run reuses the artifact `experiment_latent_variables_<name>` and skips
-generation. It requires the same population: a respondent-count mismatch
-is rejected, never silently partial.
+## What the controls do not replace
 
-## How much noise remains
-
-Measured on seven published conjoint studies, two identical runs with the
-full recipe agree at a median Pearson of 0.995 between their AMCE vectors
-(minimum 0.938). The same respondent, shown the same task with the same
-prompt, picks the same option about 80% of the time; that residue is the
-model's own sampling at temperature 0. Without the recipe the same
-comparison sat at 0.85 on the noisiest study.
-
-Treat the per-study number as the band a prompt, model, or population
-change must exceed before it means anything.
-
-## What stays random
-
-With no flags set, the design is a fresh draw every run and two runs share
-no choice tasks. The seeds only make a draw repeatable when you ask; they
-never remove the randomization inside a run.
+Seeds preserve repeatability of specific random draws when the surrounding
+inputs and implementation remain fixed. They do not remove randomization
+within a design, freeze external services, repair a population mismatch, or
+make two different study definitions comparable.
