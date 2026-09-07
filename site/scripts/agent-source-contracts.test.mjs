@@ -91,7 +91,6 @@ test("accepts only the source-owned safe MCP transport contract", () => {
     },
     tool_count: tools.length,
     tools,
-    tools_sha256: sha256(JSON.stringify(canonicalize(tools))),
   };
   const bytes = Buffer.from(JSON.stringify(manifest));
   const pin = {
@@ -103,6 +102,12 @@ test("accepts only the source-owned safe MCP transport contract", () => {
   };
 
   assert.equal(validateMcpSource(bytes, pin).tool_count, 1);
+  const changed = structuredClone(manifest);
+  changed.tools[0].inputSchema.properties.seed = { type: "integer", default: 42 };
+  assert.throws(
+    () => validateMcpSource(Buffer.from(JSON.stringify(changed)), pin),
+    /Expected values to be strictly equal/,
+  );
 
   const unsafe = {
     ...manifest,
