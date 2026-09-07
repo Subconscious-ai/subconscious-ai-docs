@@ -170,7 +170,20 @@ const config: Config = {
     ],
   ],
 
-  themes: ["docusaurus-theme-openapi-docs", "@docusaurus/theme-mermaid"],
+  themes: [
+    "docusaurus-theme-openapi-docs",
+    "@docusaurus/theme-mermaid",
+    [
+      "@easyops-cn/docusaurus-search-local",
+      {
+        hashed: true,
+        docsRouteBasePath: "/",
+        indexBlog: false,
+        language: "en",
+        highlightSearchTermsOnTargetPage: true,
+      },
+    ],
+  ],
 
   clientModules: ["./src/analytics/posthog.ts"],
 
@@ -208,7 +221,7 @@ const config: Config = {
         "@type": "TechArticle",
         name: "Subconscious.ai API Documentation",
         description:
-          "REST API for designing and running causal experiments — conjoint " +
+          "Design choice experiments with synthetic respondents: conjoint " +
           "analysis, synthetic respondent populations, and human baselines.",
         publisher: {
           "@type": "Organization",
@@ -225,20 +238,12 @@ const config: Config = {
       selector: ".markdown img, .markdown figure img",
       background: { light: "#ffffff", dark: "#000000" },
     },
-    algolia: {
-      appId: "BNEN1CKK95",
-      // Search-only key: safe to publish, and it is in the client bundle by
-      // design. The write key never leaves CI.
-      apiKey: "4a1a16de76e172055e7a15abff1d87df",
-      indexName: "subconscious_docs",
-      contextualSearch: false,
-    },
     image: "img/social-card.png",
     metadata: [
       {
         name: "description",
         content:
-          "Design and run causal experiments through an API: conjoint " +
+          "Design choice experiments through an API: conjoint " +
           "analysis, synthetic respondent populations, and human baselines.",
       },
     ],
@@ -258,7 +263,7 @@ const config: Config = {
           label: "Get started",
           position: "left",
         },
-        { to: "/guides/run-an-experiment", label: "Guides", position: "left" },
+        { to: "/guides/research-design", label: "Guides", position: "left" },
         {
           type: "dropdown",
           label: "API",
@@ -277,14 +282,8 @@ const config: Config = {
           label: "Human baselines",
           position: "left",
         },
-        { to: "/concepts/methodology", label: "Concepts", position: "left" },
         {
-          href: "https://discord.gg/3bgj4ZhABz",
-          label: "Discord",
-          position: "right",
-        },
-        {
-          href: "https://github.com/Subconscious-ai/ghostshell",
+          to: "/guides/mcp-server",
           label: "MCP server",
           position: "right",
         },

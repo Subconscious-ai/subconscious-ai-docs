@@ -28,6 +28,7 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Guides",
       items: [
+        "guides/research-design",
         "guides/from-question-to-decision",
         "guides/run-an-experiment",
         "guides/reproducible-runs",
