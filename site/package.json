@@ -18,7 +18,7 @@
     "check:migration-evidence": "node scripts/check-migration-evidence.mjs",
     "test:agent-source-contracts": "node --test scripts/agent-source-contracts.test.mjs",
     "sync-spec": "bash scripts/sync-spec.sh",
-    "gen-api-docs": "node scripts/gen-mcp-docs.mjs && docusaurus gen-api-docs all",
+    "gen-api-docs": "docusaurus clean-api-docs all && node scripts/gen-mcp-docs.mjs && docusaurus gen-api-docs all",
     "clean-api-docs": "docusaurus clean-api-docs all",
     "rebuild-api-docs": "pnpm run clean-api-docs && pnpm run gen-api-docs"
   },

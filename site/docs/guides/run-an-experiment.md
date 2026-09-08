@@ -25,22 +25,27 @@ A vague question produces a vague design. Time spent here pays back more than an
 You can let the platform generate attributes and levels from the question, or
 supply your own.
 
-Generate them:
+For a reviewed draft, use [Holodeck](https://app.subconscious.ai/ideation)
+or the [MCP workflow](/guides/mcp-server) before launching. In REST, supply your
+reviewed design through `pre_cooked_attributes_and_levels_lookup`:
 
-```bash
-curl -X POST "$SUBCONSCIOUS_API/api/v1/attributes-levels" \
-  -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"why_prompt": "What factors drive consumer choice of electric vehicles?"}'
+```json
+{
+  "pre_cooked_attributes_and_levels_lookup": [
+    ["Price", ["$30,000", "$40,000", "$50,000"]],
+    ["Range", ["200 miles", "300 miles", "400 miles"]]
+  ],
+  "null_levels": false
+}
 ```
 
-Review what comes back before running. Attributes that overlap in meaning
-produce muddled effects, and levels that no real product would offer produce
-findings you cannot act on.
+This is a request fragment to add to the launch request below. Omit the lookup
+to let the engine generate attributes and levels. Set `null_levels: false` when
+the design should contain only your submitted levels.
 
 ## 3. Select a population
 
-Defaults give you a general population. To target, see
+Choose explicit demographic constraints. See
 [Design a population](/guides/design-a-population).
 
 ## 4. Run it
@@ -66,23 +71,18 @@ curl -X POST "$SUBCONSCIOUS_API/api/v1/experiments" \
   -d '{
     "why_prompt": "What factors drive consumer choice of electric vehicles?",
     "experiment_type": "conjoint",
-    "is_private": false
+    "target_population": {"age": [18, 99]},
+    "is_private": true
   }'
 ```
 
-The request model accepts around 105 fields. Nearly all are internal tuning
-knobs with sensible defaults, and a few are inert. Start with the four fields
-above; add more only when you have a reason.
-
-:::note Size and cost
-The smallest conjoint experiment is roughly 2,400 model calls. Experiments cost
-real money to run: check the design before you launch, not after.
-:::
+Review the [request schema](/api-reference/create-experiments) for supported
+options. A run consumes resources; review its design and population before
+launching. A timeout is not authorization to start a duplicate run.
 
 ## 5. Track it
 
-See [Poll a run](/guides/poll-a-run), including the cases where the status
-endpoint reports the wrong thing.
+Keep the returned run ID and follow [Poll a run](/guides/poll-a-run).
 
 ## 6. Read the results
 

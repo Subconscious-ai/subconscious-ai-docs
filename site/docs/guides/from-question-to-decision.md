@@ -119,21 +119,13 @@ Open **Analytics Studio** and read the evidence in this order:
 Do not turn the largest bar into the recommendation. Combine effect size,
 uncertainty, feasibility, segment variation, and the cost of acting.
 
-## Choose the matching analytics operation
+## Choose the matching analysis
 
-The seven analytics operations answer different decision questions. Each
-reference page contains a checked request, response, interpretation, and
-do-not-infer boundary.
-
-| Decision question | Operation | Read the result as |
-| --- | --- | --- |
-| How would these exact product profiles split preference? | [Simulate preference share](/api-reference/create-analytics-market-share) | Relative preference within the submitted choice set |
-| Which submitted share and revenue points are non-dominated? | [Find efficient scenarios](/api-reference/create-analytics-pareto-frontier) | A shortlist for further business review |
-| How does one product's modeled share and revenue change with price? | [Simulate a price curve](/api-reference/create-analytics-price-elasticity) | A conditional price trade-off, not a demand forecast |
-| What is the price-equivalent difference between two levels? | [Compare willingness to pay](/api-reference/create-analytics-wtp) | A coefficient-scale conversion |
-| What is the average part worth for each level? | [Aggregate respondent part worths](/api-reference/create-aggregated-betas) | A summary of respondent-level estimates |
-| Which attributes mattered most on average? | [Aggregate attribute importance](/api-reference/create-aggregated-importance) | Relative importance within this experiment |
-| What is average respondent willingness to pay? | [Aggregate respondent willingness to pay](/api-reference/create-aggregated-wtp) | A distribution summary that still requires outlier and segment checks |
+Use Analytics Studio or the [customer MCP tools](/reference/mcp-tools) for
+analysis of a completed run. Read preference share as a comparison within the
+submitted choice set, price simulations as conditional trade-offs, and
+willingness to pay as a coefficient-scale conversion. These are not forecasts
+of market demand. Check respondent variation before relying on an average.
 
 ## The same path through the API
 
@@ -141,12 +133,11 @@ do-not-infer boundary.
 | --- | --- |
 | Why | Set `why_prompt` on [Create an experiment](/api-reference/create-experiments) |
 | When/where | Set `country`, `year`, and applicable location fields |
-| Who | [Start a population recommendation](/api-reference/create-populations-location-recommendation), then [poll it](/api-reference/get-populations-location-recommendation-by-job-id) |
-| Validate who | [Validate a US population](/api-reference/create-populations-validate) or [validate a non-US population](/api-reference/create-populations-validate-non-us) |
-| Check reversed scales | [Classify response scale direction](/api-reference/create-populations-statement-direction) |
-| What | Generate or supply attributes and levels, then review them |
+| Who | Choose demographic constraints in the [population guide](/guides/design-a-population) |
+| Review | Check the complete design in Holodeck or an MCP draft before launch |
+| What | Supply reviewed attributes and levels on the experiment request, or let the engine generate them |
 | Run | Create the experiment and [poll the run](/guides/poll-a-run) |
-| Decide | Retrieve the result and call only the analytics operation that matches the decision |
+| Decide | Retrieve the run; inspect its evidence in Analytics Studio or through MCP |
 
 For a complete executable client, see
 [Run an experiment in Python](/guides/python-workflow).

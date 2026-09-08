@@ -9,7 +9,7 @@ description: "Common questions about Subconscious.ai: what it is, how experiment
 ## What is Subconscious.ai?
 
 A platform for running causal experiments at scale. Instead of recruiting human
-respondents, it builds a representative synthetic population and runs a
+respondents, it builds a synthetic population for the study and runs a
 randomised discrete choice experiment against it. Causal experiments of this
 kind are standard in product design, transport, political science, public
 health, and economics, wherever a decision-maker needs to know how a population
@@ -25,7 +25,8 @@ chooses: in academia, in industry, and in policy.
 An experiment is not a question to a model. Attributes are randomised
 independently, respondents see structured choice tasks, and effects are
 estimated with the same statistics used on human conjoint data. Randomisation
-is what makes the result causal, and the design is what makes it measurable.
+supports causal comparisons within the simulated experiment. Generalizing those
+comparisons to human behavior requires validation.
 
 ## Why should I trust simulated respondents?
 
@@ -35,8 +36,8 @@ effect. See [Human baselines](/concepts/human-baselines).
 
 ## How long does an experiment take?
 
-Tens of minutes, not seconds. The smallest conjoint experiment is roughly 2,400
-model calls. Poll every 30–60 seconds; see [Poll a run](/guides/poll-a-run).
+Completion time depends on the design, population and queue. Poll every
+30–60 seconds and retain the original run ID; see [Poll a run](/guides/poll-a-run).
 
 ## What does it cost?
 
@@ -51,10 +52,10 @@ See [Run an experiment](/guides/run-an-experiment).
 
 ## Can I bring my own audience?
 
-Yes: supply external personas, or target a population by traits and
-demographics. Note that external personas and named population groups are
-mutually exclusive. See
-[Design a population](/guides/design-a-population).
+Choose demographic constraints, a supported population group, or the
+application's population upload flow. Modeled traits enrich selected respondents;
+they are not observed-behavior filters. `external_personas` is a separate
+LinkedIn-profile input. See [Design a population](/guides/design-a-population).
 
 ## Is my experiment private?
 
@@ -62,8 +63,8 @@ Set `is_private: true` on the request and the run is hidden from other users.
 
 ## My run says `finished` but there are no results
 
-Then it did not succeed. The status endpoint has known failure modes in both
-directions; artifacts are the reliable signal. See
+Check the expected artifacts before treating the run as usable. A terminal
+label alone does not establish that the evidence you need exists. See
 [Poll a run](/guides/poll-a-run).
 
 ## Is there an SDK?

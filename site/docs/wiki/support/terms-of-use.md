@@ -35,7 +35,7 @@ You must be at least thirteen (13) years old to use the \*\*SERVICE\*\*. By agre
 
 **1.2 Account Creation**
 
-In order to use certain features of the \*\*SERVICE\*\*, you must register for an account (“Account”) and provide certain information about yourself as prompted in the account registration process. You represent and warrant that: (i) all required registration information you submit is truthful and accurate; and (ii) you will maintain the accuracy of such information. You may delete your Account at any time, for any reason, by contacting [suppor@subconscious.ai ](mailto:suppor@subconscious.ai)**to request** deletion of your Account. Company may suspend or terminate your Account in accordance with Section 9.2 or 10.8.
+In order to use certain features of the \*\*SERVICE\*\*, you must register for an account (“Account”) and provide certain information about yourself as prompted in the account registration process. You represent and warrant that: (i) all required registration information you submit is truthful and accurate; and (ii) you will maintain the accuracy of such information. You may delete your Account at any time, for any reason, by contacting [support@subconscious.ai ](mailto:support@subconscious.ai)**to request** deletion of your Account. Company may suspend or terminate your Account in accordance with Section 9.2 or 10.8.
 
 **1.3 Account Responsibilities.**
 

@@ -1,79 +1,64 @@
 ---
 id: poll-a-run
 title: Poll a run
-description: How to track a Subconscious.ai experiment to completion, including the known reliability limits of the status endpoint.
+description: Track the original experiment run, handle uncertain states, and verify its result artifacts.
 ---
 
 # Poll a run
 
-Starting an experiment returns immediately with a run id. Everything after that
-is polling.
+Keep the `wandb_run_id` returned by your launch request. Poll that identity until
+there is a terminal result or your client stops waiting.
 
 ```bash
 curl "https://api.subconscious.ai/api/v1/runs/$RUN_ID/status" \
   -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN"
 ```
 
-## States
+## Read the state
 
-| State | Terminal | Meaning |
+| State | Terminal | What to do |
 | --- | --- | --- |
-| `in-queue` | no | Accepted and waiting for a worker |
-| `running` | no | Executing |
-| `finished` | yes | Completed |
-| `failed` | yes | Failed during execution |
-| `crashed` | yes | Worker died |
-| `killed` | yes | Cancelled |
-| `lost` | yes | The platform lost track of the run |
-| `not found` | yes | No such run id |
+| `in-queue` | No | Wait for a worker and keep polling. |
+| `running` | No | Keep polling the original run. |
+| `unknown` | No | The status stores have insufficient evidence. Keep the ID; do not infer failure. |
+| `finished` | Yes | Inspect the result and expected artifacts. |
+| `failed` | Yes | Inspect the failure before designing a new run. |
+| `crashed` | Yes | Inspect the failed run and contact support if needed. |
+| `killed` | Yes | Execution was stopped; inspect available evidence. |
+| `lost` | Yes | An existing non-terminal run record exceeded the six-hour grace window. Reconcile that run before retrying. |
+
+A missing record is not a terminal `not found` state. The status service reports
+`unknown` when it lacks evidence. The run-details endpoint can separately return
+`404` while the original run has no results record yet; inspect its retry
+information and continue polling status.
 
 ## Poll politely
 
-Experiments take tens of minutes. Poll every 30–60 seconds with a ceiling on
-total attempts. A tight loop gains you nothing and will get rate limited.
+Poll every 30–60 seconds and bound how long your client waits. Completion time
+depends on the design, population and queue. If your client times out, save the
+run ID and resume polling later. A client timeout does not cancel the server run.
 
-## Known limits
-
-:::warning The status endpoint is not fully reliable
-Two failure modes are known and currently open:
-
-- A **queued** run can report a terminal `lost` state. The run is often still
-  alive.
-- A **failed** run that produced no artifacts can report `finished`.
-
-Treat status as a hint, not as truth.
-:::
-
-The dependable check is whether the run produced artifacts. A run that reports
-`finished` and has no artifacts did not succeed, whatever the status says:
+## Inspect the result
 
 ```bash
 curl "https://api.subconscious.ai/api/v1/runs/$RUN_ID" \
   -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN"
 ```
 
-```mermaid
-flowchart TD
-  S["POST /experiments returns a run id"] --> W{"Status terminal?"}
-  W -- "no" --> Z["Wait 30-60s"] --> W
-  W -- "yes" --> A{"Run has artifacts?"}
-  A -- "yes" --> OK["Succeeded"]
-  A -- "no" --> F["Treat as failed, whatever status says"]
-  W -- "nothing after ~25 min" --> RS["Never queued. Resubmit"]
-```
+The response wraps the result in `run_details`. Review the recorded design,
+population and available artifacts in Analytics Studio or through the
+[customer MCP tools](/reference/mcp-tools). A `finished` label alone does not
+prove that the expected evidence is present. Artifact existence alone does not
+prove that the experiment is valid; apply the
+[research validity checklist](/concepts/methodology#research-validity-checklist).
 
-Recommended logic:
+## Recover an ambiguous launch
 
-1. Poll status until terminal, or until your timeout.
-2. On any terminal state, fetch the run and check for artifacts.
-3. Artifacts present → succeeded. Artifacts absent → treat as failed,
-   regardless of the reported state.
+Do not automatically resubmit after a fixed delay. REST does not provide the
+MCP draft-and-launch idempotency protocol. An automatic retry can create a
+second experiment while the first is still running.
 
-## Accepted is not queued
-
-`POST /api/v1/experiments` can return a run id for a run that never starts. If
-a run has not appeared after roughly 25 minutes, resubmit rather than continuing
-to poll.
-
-If you hit this repeatedly, tell us: include the run ids in your message to
-[support](/support/contact).
+If launch timed out before returning an ID, check Holodeck and contact
+[support@subconscious.ai](mailto:support@subconscious.ai) with the approximate
+submission time and any run ID you received. Reconcile the original submission
+before launching again. Never include your access token in the message.

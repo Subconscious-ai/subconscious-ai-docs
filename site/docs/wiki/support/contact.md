@@ -13,7 +13,7 @@ status: review-required
 ---
 # Contact
 
-For product support or questions please [join our Discord](https://discord.gg/paMzAcqEQ2) and ask questions in our #support chatrooms.
+For product support or questions, email [support@subconscious.ai](mailto:support@subconscious.ai).
 
 For Journalist inquiries:
 
@@ -21,4 +21,4 @@ For Journalist inquiries:
 
 For Commercial inquiries:
 
-[ethicsboard@subconscious.ai](mailto:ethicsboard@subconscious.ai)
+[support@subconscious.ai](mailto:support@subconscious.ai)
