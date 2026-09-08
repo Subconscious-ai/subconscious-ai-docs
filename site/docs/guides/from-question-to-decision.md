@@ -10,6 +10,10 @@ The useful output of an experiment is a decision, not a dashboard. This guide
 follows the current Holodeck journey from a business question to a bounded
 recommendation, using a premium smartphone choice as the running example.
 
+For the full range of pricing, product, shelf, volume, message, segmentation,
+and competitive questions, use the
+[study compatibility matrix](/guides/study-compatibility).
+
 The same journey was used for the Antler hackathon. The workflow below replaces
 that walkthrough's older requests and fixed waits with the current product and
 API contracts.
@@ -124,8 +128,11 @@ uncertainty, feasibility, segment variation, and the cost of acting.
 Use Analytics Studio or the [customer MCP tools](/reference/mcp-tools) for
 analysis of a completed run. Read preference share as a comparison within the
 submitted choice set, price simulations as conditional trade-offs, and
-willingness to pay as a coefficient-scale conversion. These are not forecasts
-of market demand. Check respondent variation before relying on an average.
+willingness to pay only on a verified monetary scale. These outputs can inform
+prospective decisions; a market-demand forecast additionally requires external
+calibration and the relevant market inputs. Follow the
+[forecast requirements](/guides/study-compatibility#turn-a-scenario-into-a-prospective-forecast)
+and check respondent variation before relying on an average.
 
 ## The same path through the API
 

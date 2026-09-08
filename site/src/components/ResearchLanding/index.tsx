@@ -59,13 +59,15 @@ export default function ResearchLanding() {
           <br />A question at a time.
         </h1>
         <p className={styles.intro}>
-          Turn a research question into a choice experiment. Run it with
-          synthetic respondents. Understand what the evidence can tell you.
+          Design controlled experiments with synthetic respondents. Estimate
+          what changes choice, compare future actions, and inspect the evidence
+          before you act.
         </p>
         <div className={styles.actions}>
           <Link className={styles.primary} to="/guides/research-design">
             Design your first study
           </Link>
+          <Link to="/guides/study-compatibility">Choose a business study</Link>
           <Link to="/get-started/quickstart">Start with the API</Link>
         </div>
         <p className={styles.audience}>
@@ -146,9 +148,9 @@ export default function ResearchLanding() {
               "/guides/reproducible-runs",
             ],
             [
-              "Interpret with care",
-              "Read effects within the tested design. Check uncertainty and compare with relevant human evidence.",
-              "/concepts/methodology",
+              "Compare future actions",
+              "Use the fitted model to compare feasible scenarios. Check uncertainty and relevant human evidence before acting.",
+              "/concepts/prospective-analytics",
             ],
           ].map(([title, body, to]) => (
             <li key={title}>
