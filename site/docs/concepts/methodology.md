@@ -10,6 +10,11 @@ A Subconscious.ai experiment is a discrete choice experiment (a conjoint
 study), run against simulated respondents rather than recruited humans. The
 statistical machinery is the same one used for human conjoint data.
 
+The [study matrix](/guides/study-compatibility) maps this choice-model foundation
+and other study workflows to eight business decisions. For its role in testing
+actions before a launch or price change, see
+[Causal and prospective analytics](/concepts/prospective-analytics).
+
 ## Experimental design
 
 An experiment describes a set of **attributes** (the features under study) and
@@ -32,9 +37,11 @@ randomness so a run can be reproduced.
 
 The headline quantity is the **AMCE**, the average marginal component effect:
 the average change in the probability that a profile is chosen when one
-attribute moves from its baseline level to another, holding everything else
-fixed. Because the design is randomised and orthogonal, an AMCE is a causal
-estimate within the experiment, not a correlation.
+attribute moves from its baseline level to another, averaged over the design's
+distribution of the other attributes. Under the randomized design's
+identification assumptions, an AMCE is a causal estimate within the experiment.
+See [Hainmueller, Hopkins and Yamamoto (2014)](https://doi.org/10.1093/pan/mpt024)
+for the estimand and assumptions.
 
 Derived quantities include:
 

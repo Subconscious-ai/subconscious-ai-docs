@@ -28,6 +28,7 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Guides",
       items: [
+        "guides/study-compatibility",
         "guides/research-design",
         "guides/from-question-to-decision",
         "guides/run-an-experiment",
@@ -49,6 +50,7 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Concepts",
       items: [
+        "concepts/prospective-analytics",
         "concepts/how-it-works",
         "concepts/methodology",
         "concepts/human-baselines",

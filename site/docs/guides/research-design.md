@@ -6,6 +6,11 @@ description: Turn a behavioral research question into a choice experiment with a
 
 # Design your first study
 
+For pricing, product, message, segment, or competitive decisions, start with the
+[eight-decision study matrix](/guides/study-compatibility). It connects the
+business question to the method, required inputs, and execution path. This guide
+develops the controlled choice experiment at the center of that workflow.
+
 Begin with a comparison you can explain. A conjoint experiment varies attributes
 of alternatives and records which alternative a respondent chooses. In
 Subconscious.ai, those respondents are synthetic: the observations are model
@@ -146,8 +151,10 @@ a reason to create another potentially chargeable run.
 
 A useful report states the question, population construction, design, analysis,
 effect scale, uncertainty, sensitivity checks, and relevant human comparison.
-Separate predeclared tests from exploratory analyses. Avoid translating a
-modeled preference share into a sales, adoption, or election forecast.
+Separate predeclared tests from exploratory analyses. A sales, adoption, or
+other real-world forecast requires a validated connection between modeled
+preference and the target outcome, with the relevant market inputs and
+uncertainty. See [prospective forecasts](/guides/study-compatibility#turn-a-scenario-into-a-prospective-forecast).
 
 Use this reporting sentence as a starting point:
 

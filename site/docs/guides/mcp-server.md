@@ -7,6 +7,8 @@ description: Connect an assistant to Rehoboam, review a study draft, explicitly 
 # Connect through MCP
 
 Use MCP when you want an assistant to help design and inspect an experiment.
+Start with the [study compatibility matrix](/guides/study-compatibility) to map
+your business decision to a supported launch or analysis workflow.
 Rehoboam owns the server and its tool schemas. The complete
 [tool reference](/reference/mcp-tools) is generated from native discovery;
 [the manifest](https://docs.subconscious.ai/mcp/tools.json) records the source revision and exact schemas.
