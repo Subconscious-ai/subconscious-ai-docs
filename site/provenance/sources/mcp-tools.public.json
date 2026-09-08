@@ -12,7 +12,7 @@
   "scope": "source discovery; no tool execution or deployed-availability proof",
   "source": {
     "repository": "Subconscious-ai/rehoboam",
-    "revision": "2c3377c893c8a6e872eac82d8031b819563f03ee"
+    "revision": "baf8904bb7abac7d48460fc73ef9a3c612c685cf"
   },
   "tool_count": 17,
   "tools": [
@@ -569,7 +569,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -1353,7 +1353,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -2073,7 +2073,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -3314,7 +3314,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -4034,7 +4034,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -5374,7 +5374,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -6183,7 +6183,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -6903,7 +6903,7 @@
                           }
                         ],
                         "default": null,
-                        "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                        "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                       },
                       "target_population": {
                         "anyOf": [
@@ -7676,7 +7676,7 @@
                       }
                     ],
                     "default": null,
-                    "description": "Trait filters keyed by trait name, for example {'Travel frequency': ['Weekly']}."
+                    "description": "Modeled traits keyed by trait name, for example {'Travel frequency': ['Weekly']}. These enrich selected respondents; they do not select a population. Pair them with a supported population selection."
                   },
                   "target_population": {
                     "anyOf": [

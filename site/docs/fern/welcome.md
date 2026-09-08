@@ -51,4 +51,4 @@ This enables businesses to gain near-real-time insights into customer behaviors,
     - [Github](https://github.com/Subconscious-ai/sublime/)
 ## Get support
 
-Want to get in touch with the Subconscious AI team? Reach out to us via [email](mailto:ethicsboard@subconscious.ai). We're here to help!
+Want to get in touch with the Subconscious AI team? Reach out to us via [email](mailto:support@subconscious.ai). We're here to help!
