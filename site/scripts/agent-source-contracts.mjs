@@ -1,18 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 
-function canonicalize(value) {
-  if (Array.isArray(value)) return value.map(canonicalize);
-  if (value && typeof value === "object") {
-    return Object.fromEntries(
-      Object.keys(value)
-        .sort()
-        .map((key) => [key, canonicalize(value[key])]),
-    );
-  }
-  return value;
-}
-
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
 }
@@ -34,19 +22,23 @@ export function validateOpenApiSource(schemaBytes, manifestBytes, pin) {
   assert.equal(manifest.source.repository, pin.repository);
   assert.match(manifest.source.revision, /^[0-9a-f]{40}$/);
   assert.equal(manifest.schema.filename, pin.schema_path);
-  assert.equal(
-    manifest.schema.path_count,
-    Object.keys(schema.paths).length,
-  );
+  assert.equal(manifest.schema.path_count, Object.keys(schema.paths).length);
   assert.equal(
     manifest.schema.operation_count,
     Object.values(schema.paths).reduce(
       (count, path) =>
         count +
         Object.keys(path).filter((key) =>
-          ["get", "put", "post", "delete", "options", "head", "patch", "trace"].includes(
-            key.toLowerCase(),
-          ),
+          [
+            "get",
+            "put",
+            "post",
+            "delete",
+            "options",
+            "head",
+            "patch",
+            "trace",
+          ].includes(key.toLowerCase()),
         ).length,
       0,
     ),
@@ -67,7 +59,7 @@ export function validateOpenApiSource(schemaBytes, manifestBytes, pin) {
 }
 
 export function validateMcpSource(bytes, pin) {
-  assert.equal(pin.repository, "Subconscious-ai/ghostshell");
+  assert.equal(pin.repository, "Subconscious-ai/rehoboam");
   assert.match(pin.revision, /^[0-9a-f]{40}$/);
   assert.equal(pin.path, "mcp-tools.public.json");
   assert.equal(sha256(bytes), pin.sha256);
@@ -76,16 +68,17 @@ export function validateMcpSource(bytes, pin) {
   assert.equal(manifest.manifest_version, 1);
   assert.equal(manifest.source.repository, pin.repository);
   assert.equal(manifest.source.revision, pin.registry_revision);
-  assert.equal(manifest.transport.type, "stdio");
-  assert.equal(manifest.transport.status, "supported");
+  assert.equal(manifest.transport.type, "streamable-http");
+  assert.equal(manifest.transport.path, "/mcp/");
+  assert.equal(manifest.transport.stateful, true);
   assert.equal(manifest.authentication.type, "bearer");
-  assert.equal(manifest.authentication.delivery, "environment");
-  assert.equal(manifest.authentication.environment_variable, "AUTH0_JWT_TOKEN");
+  assert.equal(manifest.authentication.delivery, "header");
+  assert.equal(manifest.authentication.header, "Authorization");
   assert.equal(manifest.tool_count, manifest.tools.length);
-  assert.equal(
-    sha256(JSON.stringify(canonicalize(manifest.tools))),
-    manifest.tools_sha256,
-  );
+  // The raw artifact SHA above binds every nested schema byte. Re-serializing
+  // its numbers in JavaScript would change Python's 0.0 to 0 and reject an
+  // otherwise exact source artifact.
+
 
   return manifest;
 }

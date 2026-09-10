@@ -1,6 +1,7 @@
 name: Build docs
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: [main]
@@ -52,19 +53,3 @@ jobs:
           path: site/build
           if-no-files-found: error
 
-      - name: Check the spec is in sync with rehoboam
-        # Warns rather than fails: the docs spec is pinned deliberately, and a
-        # backend merge should not turn this repo red. It should be visible.
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
-        run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo "::notice::REHOBOAM_READ_TOKEN not set; skipping spec drift check"
-            exit 0
-          fi
-          gh api "repos/Subconscious-ai/rehoboam/contents/openapi.public.json?ref=develop" \
-            --jq '.content' | base64 -d > /tmp/upstream.json
-          if ! diff -q /tmp/upstream.json openapi/subconscious.public.json > /dev/null; then
-            echo "::warning::The published spec has moved on in rehoboam. Run 'pnpm run sync-spec'."
-          fi

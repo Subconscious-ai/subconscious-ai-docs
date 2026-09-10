@@ -11,6 +11,12 @@ features change the decision, and by how much. That shape recurs across
 domains, which is why the same platform serves a pricing question and a vaccine
 acceptance study.
 
+Use the [eight-decision study matrix](/guides/study-compatibility) to select a
+method and define the required inputs and outputs. Read
+[Causal and prospective analytics](/concepts/prospective-analytics) to see how
+the fitted model supports decisions before a price change, product launch, or
+competitive response.
+
 ## What teams run
 
 | Area | Questions it answers |
@@ -48,12 +54,14 @@ unchanged for a pricing study.
   to test. Use qualitative research first.
 - **When the decision is not a choice among alternatives.** The method measures
   trade-offs between profiles.
-- **When you need an absolute number.** The output is a relative effect, not a
-  sales forecast.
+- **When a required forecast input is missing.** A relative preference effect
+  alone does not supply market size, availability, purchase frequency, or
+  costs. A unit or financial forecast needs those inputs as applicable and a
+  validated calibration to the target outcome.
 
 ## Evidence for your domain
 
-The [human baselines](/human-baselines) record covers twelve published studies
+The [human baselines](/human-baselines) record contains published studies
 reproduced on the platform, each with its rank correlation against the original
 human result. That is the most direct evidence for whether the method holds in
 an area you care about.

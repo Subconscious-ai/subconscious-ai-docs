@@ -1,14 +1,9 @@
 name: Reindex search
 
-# Algolia's hosted DocSearch crawler is not provisioned for this site, so we
-# run Algolia's own open-source scraper ourselves. Without this, search
-# silently drifts from the site: pages that no longer exist keep appearing and
-# new ones are unfindable.
+# Legacy Algolia index, retained for manual recovery only. The public site
+# builds its bundled search index with each Docusaurus release.
 on:
-  # After a deploy has had time to go live.
   workflow_dispatch:
-  schedule:
-    - cron: "0 6 * * *"
 
 jobs:
   reindex:

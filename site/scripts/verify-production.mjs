@@ -13,8 +13,12 @@ const FORBIDDEN_BODY =
   /vercel\.com\/sso-api|sign in to vercel|page not found|<title[^>]*>404/i;
 
 export const PRODUCTION_ROUTES = [
-  {path: "/", expected: "Subconscious.ai documentation"},
+  {path: "/", expected: "Human behavior."},
+  {path: "/guides/research-design", expected: "Design your first study"},
   {path: "/human-baselines", expected: "Human baselines"},
+  {path: "/guides/mcp-server", expected: "Connect through MCP"},
+  {path: "/reference/mcp-tools", expected: "Complete input and output contract"},
+  {path: "/mcp/tools.json", expected: '"repository": "Subconscious-ai/rehoboam"'},
   {path: "/api-reference/superego", expected: "SuperEgo API"},
   {path: "/search", expected: "Search"},
   {path: "/llms.txt", expected: "# Subconscious.ai"},

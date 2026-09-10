@@ -15,13 +15,13 @@ explains what that run did, so you can judge whether the answer is any good.
    under study) and levels (the values each can take), then into an orthogonal,
    blocked design matrix of choice tasks.
 2. **Population.** A synthetic respondent population is assembled from your
-   targeting, or from the default general population.
+   explicit population selection.
 3. **Execution.** Simulated respondents answer the choice tasks.
 4. **Estimation.** Three models are fitted. OLS, conditional logit, and a
    hierarchical Bayes mixed logit: and effects are written to the run.
 
-This takes tens of minutes. The smallest conjoint experiment is roughly 2,400
-model calls.
+Completion time depends on the design, population and queue. Keep the original
+run ID and poll for its state.
 
 ## Judging the result
 
@@ -34,8 +34,9 @@ not succeed. See [Poll a run](/guides/poll-a-run).
 their effects are split between them and both look weak. If a level is
 implausible, respondents avoid it and you learn nothing you can act on.
 
-**Do the estimators agree?** Broad agreement across the three models is
-evidence the effect is real. Disagreement means look closer before acting.
+**Do the estimators agree?** Agreement is a consistency check on the modeled
+data. It does not prove that the effect generalizes to human behavior.
+Disagreement means look closer before acting.
 
 ## What it does not tell you
 

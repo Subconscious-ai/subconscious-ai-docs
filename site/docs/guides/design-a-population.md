@@ -1,92 +1,109 @@
 ---
 id: design-a-population
 title: Design a population
-description: Target and validate the synthetic respondent population for a Subconscious.ai experiment.
+description: Define who is sampled, which characteristics are modeled, and what stays fixed across experiments.
 ---
 
 # Design a population
 
-By default an experiment runs against a general population. Targeting narrows
-who answers.
+A population defines who faces the decision. A persona is a simulated respondent
+constructed for that population. Demographic selection, modeled traits, and a
+respondent's generated answers are different parts of the experiment.
 
-## Traits
+## Choose who is sampled
 
-Traits are the characteristics a respondent can have. Fetch the catalogue
-before you target: the ids are what the API expects:
+Start with one population mode. For a US adult starting point, use an explicit
+age range. With no state specified, the standard US draw uses twelve
+representative states; this is not a promise of a nationally weighted
+probability sample.
+
+```json
+{
+  "why_prompt": "How do price and driving range affect electric vehicle choice?",
+  "experiment_type": "conjoint",
+  "target_population": {"age": [18, 99]},
+  "is_private": true
+}
+```
+
+For a narrower US population, narrow the demographic constraints:
+
+```json
+{
+  "why_prompt": "How do price and driving range affect electric vehicle choice among adults aged 25 to 45?",
+  "experiment_type": "conjoint",
+  "target_population": {"age": [25, 45]},
+  "is_private": true
+}
+```
+
+Submit either complete example through
+[Create an experiment](/api-reference/create-experiments). Review the question,
+design and cost before launch. These examples illustrate selection; they do not
+establish that the sampled adults are vehicle buyers.
+
+| Selection option | Meaning and constraint |
+| --- | --- |
+| `target_population` | US demographic selection. Age and income are inclusive ranges; other supported constraints use allowed-value lists. Supply an explicit constraint for the population you intend to study. |
+| `non_us_target_population` | A separate non-US population mode. Coverage and constraint support depend on the population builder; use Holodeck to review the available configuration. |
+| `use_population_group` and `population_group` | Select one named segment from the schema's allowed labels. A named segment is a selection rule, not a guarantee of identical individuals across runs. |
+
+Do not combine competing selection modes. For supported fields and allowed
+values, use the [experiment request schema](/api-reference/create-experiments).
+For guided design and review before a paid launch, use
+[Holodeck](https://app.subconscious.ai/ideation) or the [MCP workflow](/guides/mcp-server).
+
+## Add modeled traits
+
+`population_traits` adds modeled characteristics to already selected
+respondents. It does **not** filter a population by observed behavior or prove
+that a respondent has a real-world characteristic.
+
+Fetch the catalogue to read the trait descriptions:
 
 ```bash
 curl "$SUBCONSCIOUS_API/api/v1/traits" \
   -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN"
 ```
 
-Each trait carries a short and long description, a measurement type, and
-whether it is ordinal.
-
-## Target by trait
-
-Pass trait filters on the experiment request:
+The experiment dictionary uses trait **names** and modeled values, rather than
+catalogue IDs alone. For example, add this field to either complete request above:
 
 ```json
-{
-  "why_prompt": "What factors drive consumer choice of electric vehicles?",
-  "population_traits": {
-    "Travel frequency": ["Weekly"]
-  }
-}
+{"population_traits": {"Travel frequency": ["Weekly"]}}
 ```
 
-## Target by demographics
+This gives selected respondents modeled travel context. It does not identify
+verified weekly travelers. Always pair modeled traits with an explicit supported population selection.
 
-US demographic targeting goes in `target_population`; outside the US, use
-`non_us_target_population`. Available axes include age, income, education,
-racial group, home ownership, household size, and households with children.
+## Keep persona sources distinct
 
-## Validate before running
+An uploaded population and `external_personas` are separate inputs.
+`external_personas` contains LinkedIn profile URLs when
+`use_external_personas` is enabled; it is not an arbitrary customer-data upload
+format. Holodeck's population upload uses a separate stored respondent file.
+Use the application's supported upload flow, and contact
+[support@subconscious.ai](mailto:support@subconscious.ai) about a first-party
+population before incorporating sensitive customer information.
 
-Validation tells you whether a targeted population can actually be built.
-Over-constrained targeting is the most common cause of a disappointing run:
-each additional filter shrinks the pool, and a thin pool produces noisy
-estimates.
+## Make comparisons reproducible
 
-```bash
-curl -X POST "$SUBCONSCIOUS_API/api/v1/populations/validate" \
-  -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "age": [25, 45],
-    "household_income": [50000, 150000],
-    "state": "California",
-    "gender": ["Female", "Male"],
-    "number_of_records": 500
-  }'
-```
+Record the selection rule, modeled traits, respondent count and seeds with the
+experiment. Holding `population_seed` and the configuration fixed with
+`resample_population: false` preserves the respondent draw under the same
+population data and implementation. Changing the source data or implementation
+can change that draw. Set `resample_population: true` when independent draws are
+part of the analysis plan.
 
-Use `/api/v1/populations/validate-non-us` for non-US populations.
+A repeatable draw does not establish that the answers match human behavior.
+Keep the population definition alongside the design and validation evidence.
+See [Research design](/guides/research-design) and
+[Human baselines](/concepts/human-baselines).
 
-If you need help defining the boundary, start a
-[population recommendation](/api-reference/create-populations-location-recommendation)
-from the research question, then
-[poll the job](/api-reference/get-populations-location-recommendation-by-job-id).
-Treat the completed result as a proposal. Review its assumptions and warnings,
-then validate the proposed population before launch.
+## Review before launch
 
-## Population groups and external personas
-
-You can run against a named population group, or supply your own personas.
-These two are mutually exclusive: pick one. Supplying personas is the right
-move when you have first-party audience data; a named group is the right move
-when you want a familiar segment reproduced consistently across runs.
-
-## Practical advice
-
-- Target on what plausibly changes the decision. Filters that do not affect the
-  choice cost you precision and buy nothing.
-
-![Prince Charles and Ozzy Osbourne share every demographic attribute](/img/memes/personas-are-not-demographics.png)
-
-Two people can match on every demographic filter and decide nothing alike. Target
-on what moves the choice.
-
-- Validate first, then run.
-- Keep the population fixed when comparing two designs. Changing the audience
-  and the design at once makes the comparison meaningless.
+- State who is included and excluded, and why that boundary matters to the decision.
+- Separate observed demographic selection from modeled behavioral assumptions.
+- Check the configured population and respondent count in Holodeck or the MCP draft.
+- Keep selection and design fixed when the comparison is meant to isolate one change.
+- Treat sample feasibility and external validity as separate questions.

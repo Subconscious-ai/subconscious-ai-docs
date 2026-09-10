@@ -34,17 +34,16 @@ magnitude, same ranking of what matters: the platform reproduces that study.
 Where they diverge, that is a finding too, and a bound on what the platform
 should be trusted for.
 
-## Through the API
+## Review the evidence
 
-Baseline replications and their AMCEs are available:
+Use the [methodology](/concepts/methodology) and
+[research design guide](/guides/research-design) to plan a matched comparison.
+For a study-specific replication record, contact
+[support@subconscious.ai](mailto:support@subconscious.ai) with the study,
+population, design and result you want to evaluate.
 
-```bash
-curl "$SUBCONSCIOUS_API/api/v1/human-baselines/$HB_FOLDER/replications-amces" \
-  -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN"
-```
-
-You can also run baselines in batch, and transcribe a study from a PDF to set
-one up. See the [API reference](/api-reference/superego).
+A useful record identifies the original study, the matched experimental design,
+the estimator, the reported comparisons and where the simulation diverged.
 
 ## How to use this
 

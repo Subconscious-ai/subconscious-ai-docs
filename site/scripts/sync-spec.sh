@@ -6,11 +6,11 @@
 #   - a spec change shows up as a reviewable diff in a docs PR
 #   - a broken backend deploy cannot break the docs site
 #
-# Pin REHOBOAM_REF to a tag when cutting a docs release. It defaults to
-# `develop` for day-to-day refreshes.
+# REHOBOAM_REF may name a deliberate source revision. The scheduled workflow
+# supplies only a successful release that matches the live health receipt.
 set -euo pipefail
 
-REHOBOAM_REF="${REHOBOAM_REF:-develop}"
+REHOBOAM_REF="${REHOBOAM_REF:?Set REHOBOAM_REF to the verified release revision}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SITE_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 SCHEMA_DEST="${SITE_DIR}/openapi/subconscious.public.json"
@@ -35,6 +35,10 @@ gh api \
   "repos/Subconscious-ai/rehoboam/contents/openapi.public.provenance.json?ref=${RESOLVED_REVISION}" \
   --jq '.content' | base64 -d > "${TEMP_DIR}/manifest.json"
 
+gh api \
+  "repos/Subconscious-ai/rehoboam/contents/mcp-tools.public.json?ref=${RESOLVED_REVISION}" \
+  --jq '.content' | base64 -d > "${TEMP_DIR}/mcp.json"
+
 SOURCE_REVISION="$(
   python3 - "${TEMP_DIR}/manifest.json" <<'PY'
 import json
@@ -43,6 +47,17 @@ import sys
 print(json.load(open(sys.argv[1]))["source"]["revision"])
 PY
 )"
+
+[[ "$SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo "Invalid OpenAPI source revision" >&2; exit 1; }
+MCP_SOURCE_REVISION="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["source"]["revision"])' "${TEMP_DIR}/mcp.json")"
+[[ "$MCP_SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo "Invalid MCP source revision" >&2; exit 1; }
+for source_ref in "$SOURCE_REVISION" "$MCP_SOURCE_REVISION"; do
+  ancestry="$(gh api "repos/Subconscious-ai/rehoboam/compare/${source_ref}...${RESOLVED_REVISION}" --jq '.status')"
+  case "$ancestry" in
+    ahead|identical) ;;
+    *) echo "Source provenance is outside the released lineage; refresh it after squash." >&2; exit 1 ;;
+  esac
+done
 
 # The embedded source revision must remain reachable and own the same schema.
 # This catches a provenance manifest stranded by a squash merge.
@@ -57,14 +72,14 @@ python3 - \
   "${TEMP_DIR}/source-schema.json" \
   "$SOURCES_DEST" \
   "${TEMP_DIR}/sources.json" \
-  "$RESOLVED_REVISION" <<'PY'
+  "$RESOLVED_REVISION" "${TEMP_DIR}/mcp.json" <<'PY'
 import hashlib
 import json
 import re
 import sys
 from pathlib import Path
 
-schema_path, manifest_path, source_schema_path, pins_path, output_path, revision = sys.argv[1:]
+schema_path, manifest_path, source_schema_path, pins_path, output_path, revision, mcp_path = sys.argv[1:]
 schema_bytes = Path(schema_path).read_bytes()
 manifest_bytes = Path(manifest_path).read_bytes()
 schema = json.loads(schema_bytes)
@@ -116,6 +131,20 @@ pin["schema_path"] = "openapi.public.json"
 pin["schema_sha256"] = hashlib.sha256(schema_bytes).hexdigest()
 pin["manifest_path"] = "openapi.public.provenance.json"
 pin["manifest_sha256"] = hashlib.sha256(manifest_bytes).hexdigest()
+mcp_bytes = Path(mcp_path).read_bytes()
+mcp = json.loads(mcp_bytes)
+assert mcp["source"]["repository"] == "Subconscious-ai/rehoboam"
+assert re.fullmatch(r"[0-9a-f]{40}", mcp["source"]["revision"])
+assert mcp["transport"] == {"type": "streamable-http", "path": "/mcp/", "stateful": True}
+assert mcp["authentication"] == {"type": "bearer", "delivery": "header", "header": "Authorization"}
+assert mcp["tool_count"] == len(mcp["tools"])
+pins["mcp"] = {
+    "repository": "Subconscious-ai/rehoboam",
+    "revision": revision,
+    "registry_revision": mcp["source"]["revision"],
+    "path": "mcp-tools.public.json",
+    "sha256": hashlib.sha256(mcp_bytes).hexdigest(),
+}
 Path(output_path).write_text(json.dumps(pins, indent=2) + "\n")
 PY
 
@@ -123,6 +152,7 @@ cp "${TEMP_DIR}/schema.json" "$SCHEMA_DEST"
 cp "${TEMP_DIR}/schema.json" "$DOWNLOAD_DEST"
 cp "${TEMP_DIR}/manifest.json" "$MANIFEST_DEST"
 cp "${TEMP_DIR}/sources.json" "$SOURCES_DEST"
+cp "${TEMP_DIR}/mcp.json" "${SITE_DIR}/provenance/sources/mcp-tools.public.json"
 
 echo "Wrote the schema, downloadable copy, provenance manifest, and source pins"
 echo "Next: pnpm run gen-api-docs && pnpm build"

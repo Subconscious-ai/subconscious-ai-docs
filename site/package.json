@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "pnpm run gen-api-docs && node scripts/write-revision.mjs && docusaurus build && node scripts/gen-llms-txt.mjs && node scripts/gen-agent-artifacts.mjs",
+    "build": "pnpm run gen-api-docs && node scripts/write-revision.mjs && docusaurus build && node scripts/gen-llms-txt.mjs && node scripts/gen-agent-artifacts.mjs && node scripts/verify-built-routes.mjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -14,11 +14,11 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "pnpm run gen-api-docs && tsc",
     "test:release-proof": "node --test scripts/write-revision.test.mjs scripts/verify-production.test.mjs",
-    "test:ci-contracts": "node --test scripts/ci-contracts.test.mjs",
+    "test:ci-contracts": "node --test scripts/ci-contracts.test.mjs scripts/resolve-released-contract.test.mjs",
     "check:migration-evidence": "node scripts/check-migration-evidence.mjs",
     "test:agent-source-contracts": "node --test scripts/agent-source-contracts.test.mjs",
     "sync-spec": "bash scripts/sync-spec.sh",
-    "gen-api-docs": "docusaurus gen-api-docs all",
+    "gen-api-docs": "docusaurus clean-api-docs all && node scripts/gen-mcp-docs.mjs && docusaurus gen-api-docs all",
     "clean-api-docs": "docusaurus clean-api-docs all",
     "rebuild-api-docs": "pnpm run clean-api-docs && pnpm run gen-api-docs"
   },

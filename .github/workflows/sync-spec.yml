@@ -1,22 +1,20 @@
-name: Sync API spec
-
-# Answers "does anything re-sync the spec automatically?" — now yes.
-#
-# rehoboam is the source of truth for openapi.public.json. Until this existed
-# the copy in this repo only moved when someone ran scripts/sync-spec.sh by
-# hand, so the published API reference could silently lag the API. This checks
-# daily and opens a PR when they differ, rather than committing straight to
-# main: a spec change can alter what is publicly documented, which deserves a
-# human look.
+name: Sync released API and MCP contracts
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 7 * * 1-5"
+    # Lightweight release detection, with a daily full reconciliation.
+    - cron: "17 * * * *"
+    - cron: "0 7 * * *"
+
+concurrency:
+  group: sync-released-contracts
+  cancel-in-progress: false
 
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 jobs:
   sync:
@@ -24,43 +22,67 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-      - name: Require private repository access
-        env:
-          GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
-        run: node site/scripts/require-ci-env.mjs GH_TOKEN
-
-      - name: Fetch the published contract from rehoboam
-        id: fetch
+      - name: Resolve the successful release and live revision
+        id: release
+        # Hourly detection stays quiet during deployment transitions. Daily
+        # reconciliation and explicit manual runs surface persistent failures.
+        continue-on-error: ${{ github.event_name == 'schedule' && github.event.schedule != '0 7 * * *' }}
         env:
           GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
         run: |
-          cd site
-          REHOBOAM_REF=develop bash scripts/sync-spec.sh
-          if git diff --quiet -- \
-            openapi/subconscious.public.json \
-            static/openapi/subconscious.public.json \
-            provenance/sources/openapi.public.provenance.json \
-            provenance/sources.json; then
-            echo "contract is already in sync"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
+          node site/scripts/require-ci-env.mjs GH_TOKEN
+          node site/scripts/resolve-released-contract.mjs > /tmp/released-contract.json
+          if [ '${{ github.event.schedule }}' = '17 * * * *' ] && cmp -s /tmp/released-contract.json site/provenance/release.json; then
+            echo "Current successful release is already documented."
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
           fi
-          echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Open a PR with the new spec
-        if: steps.fetch.outputs.changed == 'true'
+      - name: Sync the exact released public contracts
+        if: steps.release.outcome == 'success' && steps.release.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.REHOBOAM_READ_TOKEN }}
+        run: |
+          REHOBOAM_REF="$(jq -r .revision /tmp/released-contract.json)" bash site/scripts/sync-spec.sh
+          cp /tmp/released-contract.json site/provenance/release.json
+          node --test site/scripts/agent-source-contracts.test.mjs site/scripts/resolve-released-contract.test.mjs
+
+      - name: Maintain one contract sync PR
+        id: pr
+        if: steps.release.outcome == 'success' && steps.release.outputs.needed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: chore/sync-api-spec
-          title: "chore: sync the API spec from rehoboam"
-          commit-message: "chore: sync the API spec from rehoboam"
+          title: "docs: sync the released API and MCP contracts"
+          commit-message: "docs: sync the released API and MCP contracts"
+          add-paths: |
+            site/openapi/subconscious.public.json
+            site/static/openapi/subconscious.public.json
+            site/provenance/sources/openapi.public.provenance.json
+            site/provenance/sources/mcp-tools.public.json
+            site/provenance/sources.json
+            site/provenance/release.json
           body: |
-            The published contract in rehoboam has moved on. Merging this
-            refreshes the schema, downloadable copy, provenance manifest, and
-            exact source digests used by the API reference and playground.
+            Synchronizes the source-owned public REST and MCP contracts from a
+            successful production deployment whose revision matches the live
+            health receipt. The release identity is in site/provenance/release.json.
 
-            Review what changed before merging — a new operation appearing here
-            means it was deliberately published in
-            `rehoboam/docs/api/public_surface.yml`.
+            The existing build generates the references and checks source pins.
+            Public visibility changes remain ordinary reviewable changes.
+            This PR is updated in place; no new PR or comment is posted when clean.
           delete-branch: true
+
+      - name: Run normal checks for the bot-created head
+        if: steps.pr.outputs.pull-request-operation == 'created' || steps.pr.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # GITHUB_TOKEN-created PRs do not trigger pull_request workflows.
+        # workflow_dispatch is the supported exception; no extra PAT is needed.
+        run: |
+          gh workflow run build.yml --ref chore/sync-api-spec
+          gh workflow run secret-scan.yml --ref chore/sync-api-spec

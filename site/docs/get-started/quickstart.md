@@ -1,7 +1,7 @@
 ---
 id: quickstart
 title: Quickstart
-description: Run your first Subconscious.ai causal experiment through the API in about ten minutes.
+description: Authenticate, launch a Subconscious.ai experiment, and retrieve its run.
 ---
 
 # Quickstart
@@ -34,8 +34,8 @@ A JSON array means you are ready. A `403` means the token is wrong or expired.
 
 ## 2. Start an experiment
 
-The only field an experiment truly needs is the research question. Everything
-else has a default.
+State the question and choose a population. This example uses US
+adult demographic constraints; review its [selection limits](/guides/design-a-population).
 
 ```bash
 curl -X POST "$SUBCONSCIOUS_API/api/v1/experiments" \
@@ -44,7 +44,8 @@ curl -X POST "$SUBCONSCIOUS_API/api/v1/experiments" \
   -d '{
     "why_prompt": "What factors drive consumer choice of electric vehicles?",
     "experiment_type": "conjoint",
-    "is_private": false
+    "target_population": {"age": [18, 99]},
+    "is_private": true
   }'
 ```
 
@@ -57,16 +58,16 @@ The response gives you the run id to track:
 }
 ```
 
-:::caution Accepted is not the same as queued
-A run id does not guarantee the run was enqueued. If nothing appears within
-about 25 minutes, resubmit. [Poll a run](/guides/poll-a-run) explains how to
-tell the difference.
+:::caution Keep the original run identity
+Continue polling `in-queue`, `running`, or `unknown`. A missing result or a
+client timeout does not establish that a run failed. Do not resubmit until the
+original launch is reconciled. See [Poll a run](/guides/poll-a-run).
 :::
 
 ## 3. Wait for it
 
-Experiments are not fast. The smallest conjoint experiment is roughly 2,400
-model calls, so plan for tens of minutes, not seconds.
+Completion time depends on the design, population and queue. The status
+response reports progress; it does not promise a completion time.
 
 ```bash
 curl "$SUBCONSCIOUS_API/api/v1/runs/a1b2c3d4/status" \
