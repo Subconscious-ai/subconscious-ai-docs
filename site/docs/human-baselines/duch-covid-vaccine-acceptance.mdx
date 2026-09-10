@@ -9,6 +9,10 @@ hide_title: true
 import Xy from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance/xy.svg";
 import Forest from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance/forest.svg";
 import Eras from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance/eras.svg";
+import Tost from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance/tost.svg";
+import Dose from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance/dose.svg";
+import Fingerprint from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance/fingerprint.svg";
+import Counterfactual from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance/counterfactual.svg";
 
 <div className="hb">
 
@@ -65,6 +69,63 @@ import Eras from "@site/static/img/human-baselines/duch-covid-vaccine-acceptance
 <p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
 <div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
 </section>
+
+
+## Same answers, or the same causes?
+
+<p className="hb-cap">A conjoint randomizes every attribute, so the effects on this page are already interventional, not correlational: matching them is more than matching marginals. What that does not settle is whether the <em>structure</em> of causes matches. These are the measures that ask, one rung at a time. Each is drawn only where the data supports it.</p>
+
+<div className="hb-ladder"><div className="hb-rung"><div className="hb-r"><b>Association</b>Rung 1</div><div className="hb-a">Do synthetic respondents answer the way people answer?</div><div className="hb-m">Rank correlation of the effects, RMSE after one fitted scale, accuracy against the human ceiling. Necessary, and where most of the industry stops.</div></div><div className="hb-rung"><div className="hb-r"><b>Intervention</b>Rung 2</div><div className="hb-a">When the experimenter changes an attribute, does the effect on choice match in size, direction and shape?</div><div className="hb-m">A conjoint randomizes every attribute, so its effects are already interventional. Calibration slope, equivalence level by level, dose-response, and the interaction fingerprint live here.</div></div><div className="hb-rung"><div className="hb-r"><b>Heterogeneity</b>Rung 2½</div><div className="hb-a">Is the effect larger for the same kind of person?</div><div className="hb-m">Conditional effects by respondent stratum. The literature&#x27;s weak point: main effects replicate at about .85 while treatment-by-subgroup interactions replicate at about zero.</div></div><div className="hb-rung"><div className="hb-r"><b>Counterfactual</b>Rung 3</div><div className="hb-a">For this respondent, would one changed attribute have flipped the choice?</div><div className="hb-m">The spread of within-respondent effects, against the human spread. Averages can agree while the spreads do not.</div></div></div>
+
+<div className="hb-stats hb-mech">
+<div className="hb-stat"><div className="hb-v">1.32</div><div className="hb-k">calibration slope · synthetic effect per unit of human effect · 1.00 is the same sensitivity</div></div>
+<div className="hb-stat"><div className="hb-v">.48</div><div className="hb-k">dispersion at matched respondents · below 1.00 means the panel is more certain than the people (300 synthetic vs 15536 human)</div></div>
+<div className="hb-stat"><div className="hb-v">12 / 16</div><div className="hb-k">levels equivalent within ±.10 · 3 within ±.05</div></div>
+<div className="hb-deck">Slope says whether the panel feels causes as strongly as people; dispersion whether it is more certain than people; equivalence how many levels agree inside a margin we state rather than derive.</div>
+</div>
+
+### Equivalence, level by level
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The difference with its 90% interval, against a margin stated in advance.</p><div className="hb-hint">Ink: inside ±.05 · grey: inside ±.10 · <b>red: neither</b></div></div>
+<div className="hb-wrap"><Tost /></div>
+<p className="hb-cap">This is the bioequivalence question asked level by level: a level counts as equivalent only when its whole interval sits inside the margin, which is the regulator's two one-sided tests rather than a correlation. <em>The margin is a decision, not a statistic; ±.10 is printed here so a reader can disagree with it.</em></p>
+<div className="hb-src"><b>Source</b> the levels table of this run and the paper's own intervals &nbsp; <b>Method</b> TOST at alpha .05; difference SE from both 95% intervals; margin ±.10 with ±.05 as the tighter reading &nbsp; <b>Status</b> <span className="hb-st">the margin is stated, not derived</span></div>
+</section>
+
+### Dose-response on ordered attributes
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">As the dose rises, do both sides move the same way?</p><div className="hb-hint">Solid: human · dashed: synthetic · τ compares effect order with level order</div></div>
+<div className="hb-wrap"><Dose /></div>
+<p className="hb-cap">Ordered attributes (Age Category) carry a shape, not just a rank. A panel with the mechanism climbs when the dose climbs, even when it climbs further; a gap between the curves is the same exaggeration the calibration slope measures. <em>An attribute is treated as ordered only when the record says so or every level is a number; an order we invented would not be the paper's.</em></p>
+</section>
+
+### Which attributes interact
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Every pair of attributes, scored against shuffled answers.</p><div className="hb-hint">Darker is a stronger interaction · z above 3 is beyond chance</div></div>
+<div className="hb-wrap"><Fingerprint /></div>
+<p className="hb-cap">An interaction is two attributes that matter more, or less, together than apart, and it is the part of a mechanism a rank correlation cannot see. The panel shows 0 pairs beyond chance. This paper has no released respondent data, so only the synthetic side is drawn. <em>Raw variance explained grows with the number of levels a pair adds, so two shuffled copies of the same data would "agree" at about .86 on it; only the null-calibrated score is drawn.</em></p>
+<div className="hb-src"><b>Source</b> respondent-level answers for the synthetic side &nbsp; <b>Method</b> ΔR² of each pairwise interaction over the additive model, z against 25 shuffles of the outcome &nbsp; <b>Status</b> <span className="hb-st">exploratory</span></div>
+</section>
+<div className="hb-absent"><div className="hb-q">Is the effect larger for the same people?</div><div className="hb-a">Not measured for this study. This arm&#x27;s respondents carry no persona, or no stratum reached 40 respondents.</div></div>
+### Would it have changed this respondent's mind?
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">One effect per respondent, not one effect per study.</p><div className="hb-hint">Synthetic only: this paper released no respondent data</div></div>
+<div className="hb-wrap"><Counterfactual /></div>
+<p className="hb-cap">Each respondent saw the same contrast more than once, so each has an effect of their own: the share they chose when <b>4</b> was present, minus the share when it was not.  A panel that answers with one voice would pile up on a single value where people spread out, and 1% of these respondents move against the average effect. <em>These are within-respondent contrasts inferred from separate tasks, not paired counterfactual tasks; asking the same respondent the flipped profile is the next step.</em></p>
+<div className="hb-src"><b>Source</b> respondent-level answers for the synthetic panel &nbsp; <b>Method</b> share chosen with the level minus share chosen without it, per respondent &nbsp; <b>Status</b> <span className="hb-st">rung-3 evidence by inference, not by paired design</span></div>
+</section>
+
+### What we measure next
+
+<div className="hb-wrap"><table className="hb-levels hb-adopt"><thead><tr><th>Measure</th><th>Rung</th><th>State</th><th>What it asks</th></tr></thead><tbody><tr><td><b>Calibration slope and dispersion</b></td><td>2</td><td>on this page</td><td>Slope of synthetic on human effects through the origin; interval-width and R² ratios at matched respondents.</td></tr><tr><td><b>Equivalence per level (TOST)</b></td><td>2</td><td>on this page</td><td>90% interval of the difference inside a stated margin, the FDA&#x27;s two one-sided tests.</td></tr><tr><td><b>Dose-response monotonicity</b></td><td>2</td><td>on this page where an attribute is ordered</td><td>Kendall τ of effect order against level order; the record must name the order or the levels must be numeric.</td></tr><tr><td><b>Interaction fingerprint</b></td><td>2</td><td>on this page where respondent data exists</td><td>Each pair&#x27;s ΔR², z-scored against shuffled outcomes so it cannot be a count of dummies.</td></tr><tr><td><b>Conditional effects by stratum</b></td><td>2½</td><td>on this page where the panel carries personas</td><td>The same effects within respondent strata, both sides where the paper released its covariates.</td></tr><tr><td><b>Within-respondent counterfactuals</b></td><td>3</td><td>on this page where respondent data exists</td><td>The distribution of individual effects; a panel with one voice spikes where people spread.</td></tr><tr><td><b>Invariance across environments</b></td><td>3</td><td>next</td><td>The same effects across seeds, models, prompts and countries; a Chow-type test of the choice regression (Peters, Bühlmann, Meinshausen).</td></tr><tr><td><b>Paired counterfactual tasks</b></td><td>3</td><td>next</td><td>Ask the same respondent the profile with one attribute flipped, rather than inferring the contrast from separate tasks.</td></tr><tr><td><b>Held-out prediction</b></td><td>3</td><td>next</td><td>Predict a paper&#x27;s effects from the others before running it, and report calibration on the held-out set.</td></tr><tr><td><b>Mechanism probes</b></td><td>3</td><td>next</td><td>Loss aversion, framing, decoy and anchoring run as designed experiments against the value the literature reports.</td></tr></tbody></table></div>
+
+<p className="hb-cap">Nothing above shows that the model reasons like a person. It shows that under the experimenter's interventions the response surface has the same rank, shape and interaction structure, with a distortion this page measures. <em>Rung 3 is not implied by rung 2.</em></p>
+<div className="hb-src"><b>Source</b> synthetic respondents: direct table, 300 respondents; no human respondent data adapted for this paper &nbsp; <b>Method</b> ditto_metastudy.mechanism, cached per arm &nbsp; <b>Status</b> <span className="hb-st">exploratory; the plan and the audited literature are Ditto#361</span></div>
+
 
 ## Replication criteria, stated side by side
 
