@@ -1,0 +1,84 @@
+---
+title: "Argote 2021"
+sidebar_label: "Argote 2021"
+description: "The shot, the message, and the messenger: COVID-19 vaccine acceptance in Latin America, replicated with synthetic respondents: rank correlation .66 on 13 levels, every level with its 95% interval on both sides."
+slug: /human-baselines/argote-2021
+hide_title: true
+---
+
+import Xy from "@site/static/img/human-baselines/argote-2021/xy.svg";
+import Forest from "@site/static/img/human-baselines/argote-2021/forest.svg";
+import Eras from "@site/static/img/human-baselines/argote-2021/eras.svg";
+
+<div className="hb">
+
+<div className="hb-label">Replication receipt <span className="hb-sub">Public Health · Argentina, Brazil, Chile, Colombia, Mexico, Peru · 2021</span></div>
+
+# Argote 2021, <em>replicated with synthetic respondents.</em>
+
+<div className="hb-stats">
+<div className="hb-stat"><div className="hb-v hb-lead">.66<small> [.14, .90]</small></div><div className="hb-k">Spearman rho, paper AMCEs vs synthetic, 13 levels · 2026-09 direct · zai.glm-5 · seed 401</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">normalized accuracy · rho ÷ human ceiling (not measured)</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">RMSE after one fitted scale · not computed for this arm</div></div>
+<div className="hb-deck">The paper asked 6,489 respondents in Argentina, Brazil, Chile, Colombia, Mexico, Peru to choose between 1 profiles. We ran the same design with synthetic respondents and estimated the same effects. <b>When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .66 on 13 levels.</b> Every claim below carries its interval and its source.</div>
+</div>
+
+<div className="hb-plain">
+<div><div className="hb-q">What we did, in plain words</div><div className="hb-a">The paper asked 6,489 respondents in Argentina, Brazil, Chile, Colombia, Mexico, Peru to choose between 1 profiles. We ran the same design with synthetic respondents and estimated the same effects.</div></div>
+<div><div className="hb-q">What we found</div><div className="hb-a">When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .66 on 13 levels.</div></div>
+<div><div className="hb-q">What it does not prove</div><div className="hb-a">Shown, not hidden: 4 levels where the two intervals do not touch (drawn in red).</div></div>
+</div>
+
+<dl className="hb-design">
+<div><dt>Human sample</dt><dd>6,489 respondents · Argentina, Brazil, Chile, Colombia, Mexico, Peru</dd></div>
+<div><dt>Task, as the humans saw it</dt><dd>1 profiles · 5 tasks each</dd></div>
+<div><dt>Attributes · levels</dt><dd>5 attributes · 21 published levels</dd></div>
+<div><dt>Paper's estimator</dt><dd>OLS (standard errors clustered at the respondent (individual) lev)</dd></div>
+<div><dt>Synthetic run</dt><dd>zai.glm-5 · 13 levels scored · seed 401</dd></div>
+<div><dt>Design difference</dt><dd className="">none recorded</dd></div>
+</dl>
+
+## Each level is a field of belief
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The paper's interval on x, the synthetic interval on y.</p><div className="hb-hint">Denser where fields overlap · dotted line is perfect agreement · <b>red fields: intervals do not touch</b></div></div>
+<div className="hb-xy"><Xy /></div>
+<div className="hb-legend"><span><i className="hb-i-heat"></i>one level's 95% field</span><span><i className="hb-i-gap"></i>fields disjoint</span></div>
+<p className="hb-cap">Each blob is one attribute level: its width is the paper's 95% interval, its height the synthetic panel's. Where blobs pile up along the dotted diagonal, humans and the panel agree with confidence; a blob far from it, or in red, is a level the panel got wrong. <em>The solid fit line's slope is the calibration: 1.0 would mean the panel is as sensitive as the humans.</em></p>
+<div className="hb-src"><b>Source</b> <a href="https://doi.org/10.1038/s41541-021-00380-x">The shot, the message, and the messenger: COVID-19 vaccine acceptance in Latin America</a>, doi:10.1038/s41541-021-00380-x · Ditto record data/transcription_evidence_v2/Argote2021.merged.json · W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp; <b>Method</b> OLS AMCE re-referenced to the paper's base levels · ex-reference convention · scorer ditto_metastudy.fidelity_charts &nbsp; <b>Status</b> <span className="hb-st">transcription not yet audited against the PDF</span></div>
+</section>
+
+## Every level, human beside synthetic
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The receipt behind the scatter: find the level that failed.</p><div className="hb-hint">Filled: human, paper interval · hollow: synthetic · <b>red connector: the gap</b></div></div>
+<div className="hb-wrap"><Forest /></div>
+<div className="hb-legend"><span><i className="hb-i-ink"></i>human · paper 95% CI</span><span><i className="hb-i-hollow"></i>synthetic · cluster-robust 95% CI</span><span><i className="hb-i-gap"></i>intervals disjoint</span></div>
+<p className="hb-cap"><em>Reference levels sit at zero on both sides by construction and are not scored.</em></p>
+</section>
+
+## Every replication of this study
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Each era on the rank-correlation axis.</p><div className="hb-hint">No human ceiling has been measured for this paper</div></div>
+<div className="hb-wrap"><Eras /></div>
+<p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
+<div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
+</section>
+
+## Replication criteria, stated side by side
+
+<div className="hb-criteria">
+<div><div className="hb-q">Rank-correlation interval excludes zero</div><div className="hb-a hb-pass">rho .66 [.14, .90] on 13 levels</div></div><div><div className="hb-q">Within the measured human ceiling</div><div className="hb-a hb-na">no respondent-level human data has been measured for this paper</div></div><div><div className="hb-q">Sign agreement on at least 80% of non-zero levels</div><div className="hb-a hb-pass">92% of levels share the paper&#x27;s sign</div></div><div><div className="hb-q">Intervals overlap on at least 70% of levels</div><div className="hb-a hb-fail">50% of 8 levels with both intervals overlap; the rest are drawn in red</div></div><div><div className="hb-q">Design conformant to the paper</div><div className="hb-a hb-pass">the direct runner uses the record&#x27;s design verbatim: tasks, choice set and opt-out as printed</div></div><div><div className="hb-q">Transcription audited against the PDF</div><div className="hb-a hb-na">transcription not yet audited against the PDF</div></div>
+</div>
+
+<p className="hb-cap">No single verdict, after Open Science Collaboration 2015 and Camerer et al. 2016. Thresholds (80% sign, 70% overlap) are stated, not derived.</p>
+
+<details>
+<summary>All 19 levels as a table</summary>
+<div className="hb-wrap"><table className="hb-levels"><thead><tr><th>Attribute</th><th>Level</th><th>Human β</th><th>±95%</th><th>Synthetic β</th><th>±95%</th><th>Scored</th></tr></thead><tbody><tr className=""><td>Producer/country</td><td>Pfizer (USA)</td><td className="hb-n">0.025</td><td className="hb-n">0.022</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>yes</td></tr><tr className="hb-gap"><td>Producer/country</td><td>AstraZeneca-University of Oxford (UK)</td><td className="hb-n">0.021</td><td className="hb-n">0.022</td><td className="hb-n">-0.058</td><td className="hb-n">0.038</td><td>yes</td></tr><tr className="hb-gap"><td>Producer/country</td><td>Gamaleya Institute (Russia)</td><td className="hb-n">-0.050</td><td className="hb-n">0.022</td><td className="hb-n">-0.339</td><td className="hb-n">0.047</td><td>yes</td></tr><tr className="hb-gap"><td>Producer/country</td><td>Sinovax (China)</td><td className="hb-n">-0.110</td><td className="hb-n">0.022</td><td className="hb-n">-0.364</td><td className="hb-n">0.053</td><td>yes</td></tr><tr className=""><td>Community take-up rate</td><td>Unspecified</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">-0.458</td><td className="hb-n">0.043</td><td>yes</td></tr><tr className=""><td>Phase 3 trial efficacy</td><td>Yes</td><td className="hb-n">0.076</td><td className="hb-n">0.017</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Endorser</td><td>The President</td><td className="hb-n">-0.037</td><td className="hb-n">0.014</td><td className="hb-n">-0.009</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Endorser</td><td>Mayor of your municipality</td><td className="hb-n">-0.037</td><td className="hb-n">0.014</td><td className="hb-n">-0.067</td><td className="hb-n">0.053</td><td>yes</td></tr><tr className=""><td>Endorser</td><td>Medical association</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.050</td><td>reference</td></tr><tr className=""><td>Endorser</td><td>Religious leader</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.304</td><td className="hb-n">0.060</td><td>reference</td></tr><tr className=""><td>Endorser</td><td>Left-leaning newspaper</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.143</td><td className="hb-n">0.056</td><td>reference</td></tr><tr className=""><td>Endorser</td><td>Right-leaning newspaper</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.172</td><td className="hb-n">0.057</td><td>reference</td></tr><tr className=""><td>Implementer</td><td>Healthcare system</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className="hb-gap"><td>Implementer</td><td>Military</td><td className="hb-n">-0.017</td><td className="hb-n">0.010</td><td className="hb-n">-0.155</td><td className="hb-n">0.037</td><td>yes</td></tr><tr className=""><td>Implementer</td><td>Civil society</td><td className="hb-n">-0.021</td><td className="hb-n">0.011</td><td className="hb-n">-0.044</td><td className="hb-n">0.036</td><td>yes</td></tr><tr className=""><td>Community take-up rate</td><td>1%</td><td className="hb-n">-0.027</td><td className="hb-n">0.022</td><td className="hb-n">-0.407</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Community take-up rate</td><td>25%</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.180</td><td className="hb-n">0.062</td><td>reference</td></tr><tr className=""><td>Community take-up rate</td><td>50%</td><td className="hb-n">0.031</td><td className="hb-n">0.022</td><td className="hb-n">0.011</td><td className="hb-n">0.055</td><td>yes</td></tr><tr className=""><td>Community take-up rate</td><td>75%</td><td className="hb-n">0.053</td><td className="hb-n">0.022</td><td className="hb-n">0.071</td><td className="hb-n">0.054</td><td>yes</td></tr></tbody></table></div>
+</details>
+
+<div className="hb-foot"><b>Reference</b> Ditto data/transcription_evidence_v2/Argote2021.merged.json &nbsp;·&nbsp; <b>Replication</b> W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp;·&nbsp; <b>Scores</b> per-level rows in the <code>levels</code> table of that project &nbsp;·&nbsp; <b>Generated</b> by <code>hb publish --docs</code> from those records; nothing on this page is typed by hand</div>
+
+</div>

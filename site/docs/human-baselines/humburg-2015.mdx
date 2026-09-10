@@ -1,0 +1,84 @@
+---
+title: "Humburg 2015"
+sidebar_label: "Humburg 2015"
+description: "Skills and the graduate recruitment process: Evidence from two discrete choice experiments, replicated with synthetic respondents: rank correlation .74 on 16 levels, every level with its 95% interval on both sides."
+slug: /human-baselines/humburg-2015
+hide_title: true
+---
+
+import Xy from "@site/static/img/human-baselines/humburg-2015/xy.svg";
+import Forest from "@site/static/img/human-baselines/humburg-2015/forest.svg";
+import Eras from "@site/static/img/human-baselines/humburg-2015/eras.svg";
+
+<div className="hb">
+
+<div className="hb-label">Replication receipt <span className="hb-sub">Business Administration · Czech Republic, France, Germany, Italy, Poland, Spain, Sweden, The Netherlands, United Kingdom · 2015</span></div>
+
+# Humburg 2015, <em>replicated with synthetic respondents.</em>
+
+<div className="hb-stats">
+<div className="hb-stat"><div className="hb-v hb-lead">.74<small> [.37, .91]</small></div><div className="hb-k">Spearman rho, paper AMCEs vs synthetic, 16 levels · 2026-07 platform · databricks-claude-sonnet-4</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">normalized accuracy · rho ÷ human ceiling (not measured)</div></div>
+<div className="hb-stat"><div className="hb-v">.449</div><div className="hb-k">RMSE after one fitted scale, AMCE units</div></div>
+<div className="hb-deck">The paper asked 903 respondents in the Czech Republic, France, Germany, Italy, Poland, Spain, Sweden, The Netherlands, United Kingdom to choose between 3 profiles. We ran the same design with synthetic respondents and estimated the same effects. <b>When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .74 on 16 levels.</b> Every claim below carries its interval and its source.</div>
+</div>
+
+<div className="hb-plain">
+<div><div className="hb-q">What we did, in plain words</div><div className="hb-a">The paper asked 903 respondents in the Czech Republic, France, Germany, Italy, Poland, Spain, Sweden, The Netherlands, United Kingdom to choose between 3 profiles. We ran the same design with synthetic respondents and estimated the same effects.</div></div>
+<div><div className="hb-q">What we found</div><div className="hb-a">When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .74 on 16 levels.</div></div>
+<div><div className="hb-q">What it does not prove</div><div className="hb-a">No design difference is recorded for this run.</div></div>
+</div>
+
+<dl className="hb-design">
+<div><dt>Human sample</dt><dd>903 respondents · Czech Republic, France, Germany, Italy, Poland, Spain, Sweden, The Netherlands, United Kingdom</dd></div>
+<div><dt>Task, as the humans saw it</dt><dd>3 profiles · with opt-out · 10 tasks each</dd></div>
+<div><dt>Attributes · levels</dt><dd>7 attributes · 46 published levels</dd></div>
+<div><dt>Paper's estimator</dt><dd>mixed_logit (Standard errors adjusted for 903 clusters (individuals))</dd></div>
+<div><dt>Synthetic run</dt><dd>databricks-claude-sonnet-4 · 16 levels scored · run 87a6a570</dd></div>
+<div><dt>Design difference</dt><dd className="">none recorded</dd></div>
+</dl>
+
+## Each level is a field of belief
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The paper's interval on x, the synthetic interval on y.</p><div className="hb-hint">Denser where fields overlap · dotted line is perfect agreement · <b>red fields: intervals do not touch</b></div></div>
+<div className="hb-xy"><Xy /></div>
+<div className="hb-legend"><span><i className="hb-i-heat"></i>one level's 95% field</span><span><i className="hb-i-gap"></i>fields disjoint</span></div>
+<p className="hb-cap">Each blob is one attribute level: its width is the paper's 95% interval, its height the synthetic panel's. Where blobs pile up along the dotted diagonal, humans and the panel agree with confidence; a blob far from it, or in red, is a level the panel got wrong. <em>The solid fit line's slope is the calibration: 1.0 would mean the panel is as sensitive as the humans.</em></p>
+<div className="hb-src"><b>Source</b> <a href="https://doi.org/10.1016/j.econedurev.2015.07.001">Skills and the graduate recruitment process: Evidence from two discrete choice experiments</a>, doi:10.1016/j.econedurev.2015.07.001 · Ditto record data/transcription_evidence_v2/Humburg2015.merged.json · W&amp;B why-earth/dev-subconscious-ai run 87a6a570-06a6-439a-9650-6923e8914a6c &nbsp; <b>Method</b> CLM AMCE re-referenced to the paper's base levels · ex-reference convention · scorer ditto_metastudy.fidelity_charts &nbsp; <b>Status</b> <span className="hb-st">transcription not yet audited against the PDF</span></div>
+</section>
+
+## Every level, human beside synthetic
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The receipt behind the scatter: find the level that failed.</p><div className="hb-hint">Filled: human, paper interval · hollow: synthetic · <b>red connector: the gap</b></div></div>
+<div className="hb-wrap"><Forest /></div>
+<div className="hb-legend"><span><i className="hb-i-ink"></i>human · paper 95% CI</span><span><i className="hb-i-hollow"></i>synthetic · cluster-robust 95% CI</span><span><i className="hb-i-gap"></i>intervals disjoint</span></div>
+<p className="hb-cap"><em>Reference levels sit at zero on both sides by construction and are not scored.</em></p>
+</section>
+
+## Every replication of this study
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Each era on the rank-correlation axis.</p><div className="hb-hint">No human ceiling has been measured for this paper</div></div>
+<div className="hb-wrap"><Eras /></div>
+<p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
+<div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
+</section>
+
+## Replication criteria, stated side by side
+
+<div className="hb-criteria">
+<div><div className="hb-q">Rank-correlation interval excludes zero</div><div className="hb-a hb-pass">rho .74 [.37, .91] on 16 levels</div></div><div><div className="hb-q">Within the measured human ceiling</div><div className="hb-a hb-na">no respondent-level human data has been measured for this paper</div></div><div><div className="hb-q">Sign agreement on at least 80% of non-zero levels</div><div className="hb-a hb-pass">88% of levels share the paper&#x27;s sign</div></div><div><div className="hb-q">Intervals overlap on at least 70% of levels</div><div className="hb-a hb-na">one side publishes no interval</div></div><div><div className="hb-q">Design conformant to the paper</div><div className="hb-a hb-pass">attributes, levels and choice set checked against the transcription</div></div><div><div className="hb-q">Transcription audited against the PDF</div><div className="hb-a hb-na">transcription not yet audited against the PDF</div></div>
+</div>
+
+<p className="hb-cap">No single verdict, after Open Science Collaboration 2015 and Camerer et al. 2016. Thresholds (80% sign, 70% overlap) are stated, not derived.</p>
+
+<details>
+<summary>All 23 levels as a table</summary>
+<div className="hb-wrap"><table className="hb-levels"><thead><tr><th>Attribute</th><th>Level</th><th>Human β</th><th>±95%</th><th>Synthetic β</th><th>±95%</th><th>Scored</th></tr></thead><tbody><tr className=""><td>Professional expertise</td><td>Professional expertise is Average</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Professional expertise</td><td>Professional expertise is High</td><td className="hb-n">0.507</td><td className="hb-n">—</td><td className="hb-n">1.384</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Professional expertise</td><td>Professional expertise is Low</td><td className="hb-n">-1.219</td><td className="hb-n">—</td><td className="hb-n">-1.994</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>General academic skills</td><td>General academic skills are Average</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>General academic skills</td><td>General academic skills are High</td><td className="hb-n">0.305</td><td className="hb-n">—</td><td className="hb-n">0.859</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>General academic skills</td><td>General academic skills are Low</td><td className="hb-n">-0.900</td><td className="hb-n">—</td><td className="hb-n">-1.580</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Innovative/creative skills</td><td>Innovative/creative skills are Average</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Innovative/creative skills</td><td>Innovative/creative skills are High</td><td className="hb-n">0.392</td><td className="hb-n">—</td><td className="hb-n">0.427</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Innovative/creative skills</td><td>Innovative/creative skills are Low</td><td className="hb-n">-1.045</td><td className="hb-n">—</td><td className="hb-n">-0.372</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Strategic/organizational skills</td><td>Strategic/organizational skills are Average</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Strategic/organizational skills</td><td>Strategic/organizational skills are High</td><td className="hb-n">0.376</td><td className="hb-n">—</td><td className="hb-n">0.684</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Strategic/organizational skills</td><td>Strategic/organizational skills are Low</td><td className="hb-n">-0.878</td><td className="hb-n">—</td><td className="hb-n">-0.833</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Interpersonal skills</td><td>Interpersonal skills are Average</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Interpersonal skills</td><td>Interpersonal skills are High</td><td className="hb-n">0.422</td><td className="hb-n">—</td><td className="hb-n">0.549</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Interpersonal skills</td><td>Interpersonal skills are Low</td><td className="hb-n">-1.329</td><td className="hb-n">—</td><td className="hb-n">-1.009</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Commercial/enterpreneurial skills</td><td>Commercial/enterpreneurial skills are Average</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Commercial/enterpreneurial skills</td><td>Commercial/enterpreneurial skills are High</td><td className="hb-n">0.248</td><td className="hb-n">—</td><td className="hb-n">0.677</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Commercial/enterpreneurial skills</td><td>Commercial/enterpreneurial skills are Low</td><td className="hb-n">1.114</td><td className="hb-n">—</td><td className="hb-n">-0.444</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Salary</td><td>Salary is Average</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Salary</td><td>Salary is 25% below average</td><td className="hb-n">0.014</td><td className="hb-n">—</td><td className="hb-n">-0.661</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Salary</td><td>Salary is 10 % below average</td><td className="hb-n">-0.019</td><td className="hb-n">—</td><td className="hb-n">-0.257</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Salary</td><td>Salary is 10 % above average</td><td className="hb-n">-0.340</td><td className="hb-n">—</td><td className="hb-n">-0.134</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Salary</td><td>Salary is 25% above average</td><td className="hb-n">-0.874</td><td className="hb-n">—</td><td className="hb-n">-0.768</td><td className="hb-n">—</td><td>yes</td></tr></tbody></table></div>
+</details>
+
+<div className="hb-foot"><b>Reference</b> Ditto data/transcription_evidence_v2/Humburg2015.merged.json &nbsp;·&nbsp; <b>Replication</b> W&amp;B why-earth/dev-subconscious-ai run 87a6a570-06a6-439a-9650-6923e8914a6c &nbsp;·&nbsp; <b>Scores</b> per-level rows in the <code>levels</code> table of that project &nbsp;·&nbsp; <b>Generated</b> by <code>hb publish --docs</code> from those records; nothing on this page is typed by hand</div>
+
+</div>

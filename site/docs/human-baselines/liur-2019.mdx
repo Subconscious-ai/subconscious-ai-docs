@@ -1,0 +1,84 @@
+---
+title: "Liu 2019"
+sidebar_label: "Liu 2019"
+description: "Consumers' valuation for food traceability in China: Does trust matter?, replicated with synthetic respondents: rank correlation .37 on 10 levels, every level with its 95% interval on both sides."
+slug: /human-baselines/liur-2019
+hide_title: true
+---
+
+import Xy from "@site/static/img/human-baselines/liur-2019/xy.svg";
+import Forest from "@site/static/img/human-baselines/liur-2019/forest.svg";
+import Eras from "@site/static/img/human-baselines/liur-2019/eras.svg";
+
+<div className="hb">
+
+<div className="hb-label">Replication receipt <span className="hb-sub">Consumer Food Choice · China · 2019</span></div>
+
+# Liu 2019, <em>replicated with synthetic respondents.</em>
+
+<div className="hb-stats">
+<div className="hb-stat"><div className="hb-v hb-lead hb-red">.37<small> [-.38, .83]</small></div><div className="hb-k">Spearman rho, paper AMCEs vs synthetic, 10 levels · 2026-09 direct · zai.glm-5 · seed 401</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">normalized accuracy · rho ÷ human ceiling (not measured)</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">RMSE after one fitted scale · not computed for this arm</div></div>
+<div className="hb-deck">The paper asked 2,092 respondents in China to choose between 3 profiles. We ran the same design with synthetic respondents and estimated the same effects. <b>Rank correlation .37, and its interval covers zero: the synthetic panel cannot be told apart from noise on this study.</b> Every claim below carries its interval and its source.</div>
+</div>
+
+<div className="hb-plain">
+<div><div className="hb-q">What we did, in plain words</div><div className="hb-a">The paper asked 2,092 respondents in China to choose between 3 profiles. We ran the same design with synthetic respondents and estimated the same effects.</div></div>
+<div><div className="hb-q">What we found</div><div className="hb-a">Rank correlation .37, and its interval covers zero: the synthetic panel cannot be told apart from noise on this study.</div></div>
+<div><div className="hb-q">What it does not prove</div><div className="hb-a">No design difference is recorded for this run.</div></div>
+</div>
+
+<dl className="hb-design">
+<div><dt>Human sample</dt><dd>2,092 respondents · China</dd></div>
+<div><dt>Task, as the humans saw it</dt><dd>3 profiles · with opt-out · 12 tasks each</dd></div>
+<div><dt>Attributes · levels</dt><dd>4 attributes · 16 published levels</dd></div>
+<div><dt>Paper's estimator</dt><dd>mixed_logit (Panel structure of the data taken into account (12 choices p)</dd></div>
+<div><dt>Synthetic run</dt><dd>zai.glm-5 · 10 levels scored · seed 401</dd></div>
+<div><dt>Design difference</dt><dd className="">none recorded</dd></div>
+</dl>
+
+## Each level is a field of belief
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The paper's interval on x, the synthetic interval on y.</p><div className="hb-hint">Denser where fields overlap · dotted line is perfect agreement · <b>red fields: intervals do not touch</b></div></div>
+<div className="hb-xy"><Xy /></div>
+<div className="hb-legend"><span><i className="hb-i-heat"></i>one level's 95% field</span><span><i className="hb-i-gap"></i>fields disjoint</span></div>
+<p className="hb-cap">Each blob is one attribute level: its width is the paper's 95% interval, its height the synthetic panel's. Where blobs pile up along the dotted diagonal, humans and the panel agree with confidence; a blob far from it, or in red, is a level the panel got wrong. <em>The solid fit line's slope is the calibration: 1.0 would mean the panel is as sensitive as the humans.</em></p>
+<div className="hb-src"><b>Source</b> <a href="https://doi.org/10.1016/j.foodpol.2019.101768">Consumers&#x27; valuation for food traceability in China: Does trust matter?</a>, doi:10.1016/j.foodpol.2019.101768 · Ditto record data/transcription_evidence_v2/LiuR2019.merged.json · W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp; <b>Method</b> OLS AMCE re-referenced to the paper's base levels · ex-reference convention · scorer ditto_metastudy.fidelity_charts &nbsp; <b>Status</b> <span className="hb-st">transcription not yet audited against the PDF</span></div>
+</section>
+
+## Every level, human beside synthetic
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The receipt behind the scatter: find the level that failed.</p><div className="hb-hint">Filled: human, paper interval · hollow: synthetic · <b>red connector: the gap</b></div></div>
+<div className="hb-wrap"><Forest /></div>
+<div className="hb-legend"><span><i className="hb-i-ink"></i>human · paper 95% CI</span><span><i className="hb-i-hollow"></i>synthetic · cluster-robust 95% CI</span><span><i className="hb-i-gap"></i>intervals disjoint</span></div>
+<p className="hb-cap"><em>Reference levels sit at zero on both sides by construction and are not scored.</em></p>
+</section>
+
+## Every replication of this study
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Each era on the rank-correlation axis.</p><div className="hb-hint">No human ceiling has been measured for this paper</div></div>
+<div className="hb-wrap"><Eras /></div>
+<p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
+<div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
+</section>
+
+## Replication criteria, stated side by side
+
+<div className="hb-criteria">
+<div><div className="hb-q">Rank-correlation interval excludes zero</div><div className="hb-a hb-fail">rho .37 [-.38, .83] on 10 levels</div></div><div><div className="hb-q">Within the measured human ceiling</div><div className="hb-a hb-na">no respondent-level human data has been measured for this paper</div></div><div><div className="hb-q">Sign agreement on at least 80% of non-zero levels</div><div className="hb-a hb-pass">80% of levels share the paper&#x27;s sign</div></div><div><div className="hb-q">Intervals overlap on at least 70% of levels</div><div className="hb-a hb-na">one side publishes no interval</div></div><div><div className="hb-q">Design conformant to the paper</div><div className="hb-a hb-pass">the direct runner uses the record&#x27;s design verbatim: tasks, choice set and opt-out as printed</div></div><div><div className="hb-q">Transcription audited against the PDF</div><div className="hb-a hb-na">transcription not yet audited against the PDF</div></div>
+</div>
+
+<p className="hb-cap">No single verdict, after Open Science Collaboration 2015 and Camerer et al. 2016. Thresholds (80% sign, 70% overlap) are stated, not derived.</p>
+
+<details>
+<summary>All 16 levels as a table</summary>
+<div className="hb-wrap"><table className="hb-levels"><thead><tr><th>Attribute</th><th>Level</th><th>Human β</th><th>±95%</th><th>Synthetic β</th><th>±95%</th><th>Scored</th></tr></thead><tbody><tr className=""><td>Traceability information</td><td>Traceability information that includes only the production part of the value chain (LOTRACE)</td><td className="hb-n">-0.001</td><td className="hb-n">—</td><td className="hb-n">0.100</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Traceability information</td><td>Traceability information that includes the production and processing parts of the value chain (MITRACE)</td><td className="hb-n">0.001</td><td className="hb-n">—</td><td className="hb-n">0.228</td><td className="hb-n">0.023</td><td>yes</td></tr><tr className=""><td>Traceability information</td><td>Traceability information that includes the production, processing and distribution parts of the value chain (HITRACE)</td><td className="hb-n">0.003</td><td className="hb-n">—</td><td className="hb-n">0.343</td><td className="hb-n">0.023</td><td>yes</td></tr><tr className=""><td>Traceability information</td><td>No traceability information (NOTRACE)</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.021</td><td>reference</td></tr><tr className=""><td>Certification type</td><td>Government certification (GOVCERT)</td><td className="hb-n">0.006</td><td className="hb-n">—</td><td className="hb-n">0.279</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Certification type</td><td>Domestic third-party certification (DOTHCERT)</td><td className="hb-n">0.008</td><td className="hb-n">—</td><td className="hb-n">0.163</td><td className="hb-n">0.023</td><td>yes</td></tr><tr className=""><td>Certification type</td><td>International third-party certification (INTHCERT)</td><td className="hb-n">0.010</td><td className="hb-n">—</td><td className="hb-n">0.217</td><td className="hb-n">0.022</td><td>yes</td></tr><tr className=""><td>Certification type</td><td>No certification (NOTHCERT)</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.022</td><td>reference</td></tr><tr className=""><td>Region of origin claim</td><td>Produced in Shandong (SD)</td><td className="hb-n">0.006</td><td className="hb-n">—</td><td className="hb-n">0.243</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Region of origin claim</td><td>Produced in Xinjiang (XJ)</td><td className="hb-n">0.010</td><td className="hb-n">—</td><td className="hb-n">0.262</td><td className="hb-n">0.023</td><td>yes</td></tr><tr className=""><td>Region of origin claim</td><td>Produced in Shaanxi (SHX)</td><td className="hb-n">0.011</td><td className="hb-n">—</td><td className="hb-n">0.277</td><td className="hb-n">0.024</td><td>yes</td></tr><tr className=""><td>Region of origin claim</td><td>No region of origin claim (NOCLAIM)</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.021</td><td>reference</td></tr><tr className=""><td>Price (Chinese yuan)</td><td>12 yuan per 500 g</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Price (Chinese yuan)</td><td>10 yuan per 500 g</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.107</td><td className="hb-n">0.022</td><td>reference</td></tr><tr className=""><td>Price (Chinese yuan)</td><td>8 yuan per 500 g</td><td className="hb-n">-0.002</td><td className="hb-n">—</td><td className="hb-n">0.207</td><td className="hb-n">0.022</td><td>yes</td></tr><tr className=""><td>Price (Chinese yuan)</td><td>6 yuan per 500 g</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.290</td><td className="hb-n">0.021</td><td>reference</td></tr></tbody></table></div>
+</details>
+
+<div className="hb-foot"><b>Reference</b> Ditto data/transcription_evidence_v2/LiuR2019.merged.json &nbsp;·&nbsp; <b>Replication</b> W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp;·&nbsp; <b>Scores</b> per-level rows in the <code>levels</code> table of that project &nbsp;·&nbsp; <b>Generated</b> by <code>hb publish --docs</code> from those records; nothing on this page is typed by hand</div>
+
+</div>

@@ -1,0 +1,84 @@
+---
+title: "Eliasson 2017"
+sidebar_label: "Eliasson 2017"
+description: "Patients' Preferences for the Treatment of Metastatic Castrate-resistant Prostate Cancer: A Discrete Choice Experiment, replicated with synthetic respondents: rank correlation .71 on 14 levels, every level with its 95% interval on both sides."
+slug: /human-baselines/eliasson-2017
+hide_title: true
+---
+
+import Xy from "@site/static/img/human-baselines/eliasson-2017/xy.svg";
+import Forest from "@site/static/img/human-baselines/eliasson-2017/forest.svg";
+import Eras from "@site/static/img/human-baselines/eliasson-2017/eras.svg";
+
+<div className="hb">
+
+<div className="hb-label">Replication receipt <span className="hb-sub">Public Health · France, Germany, United Kingdom · 2017</span></div>
+
+# Eliasson 2017, <em>replicated with synthetic respondents.</em>
+
+<div className="hb-stats">
+<div className="hb-stat"><div className="hb-v hb-lead">.71<small> [.26, .91]</small></div><div className="hb-k">Spearman rho, paper AMCEs vs synthetic, 14 levels · 2026-07 platform · databricks-claude-sonnet-4</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">normalized accuracy · rho ÷ human ceiling (not measured)</div></div>
+<div className="hb-stat"><div className="hb-v">.247</div><div className="hb-k">RMSE after one fitted scale, AMCE units</div></div>
+<div className="hb-deck">The paper asked 285 respondents in France, Germany, United Kingdom to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects. <b>When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .71 on 14 levels.</b> Every claim below carries its interval and its source.</div>
+</div>
+
+<div className="hb-plain">
+<div><div className="hb-q">What we did, in plain words</div><div className="hb-a">The paper asked 285 respondents in France, Germany, United Kingdom to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects.</div></div>
+<div><div className="hb-q">What we found</div><div className="hb-a">When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .71 on 14 levels.</div></div>
+<div><div className="hb-q">What it does not prove</div><div className="hb-a">Shown, not hidden: a “neither” button the humans never saw.</div></div>
+</div>
+
+<dl className="hb-design">
+<div><dt>Human sample</dt><dd>285 respondents · France, Germany, United Kingdom</dd></div>
+<div><dt>Task, as the humans saw it</dt><dd>2 profiles · forced choice · 18 tasks each</dd></div>
+<div><dt>Attributes · levels</dt><dd>7 attributes · 21 published levels</dd></div>
+<div><dt>Paper's estimator</dt><dd>clogit (unknown)</dd></div>
+<div><dt>Synthetic run</dt><dd>databricks-claude-sonnet-4 · 14 levels scored · run 3a27e3ba</dd></div>
+<div><dt>Design difference</dt><dd className="hb-red">platform added “neither”; paper did not</dd></div>
+</dl>
+
+## Each level is a field of belief
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The paper's interval on x, the synthetic interval on y.</p><div className="hb-hint">Denser where fields overlap · dotted line is perfect agreement · <b>red fields: intervals do not touch</b></div></div>
+<div className="hb-xy"><Xy /></div>
+<div className="hb-legend"><span><i className="hb-i-heat"></i>one level's 95% field</span><span><i className="hb-i-gap"></i>fields disjoint</span></div>
+<p className="hb-cap">Each blob is one attribute level: its width is the paper's 95% interval, its height the synthetic panel's. Where blobs pile up along the dotted diagonal, humans and the panel agree with confidence; a blob far from it, or in red, is a level the panel got wrong. <em>The solid fit line's slope is the calibration: 1.0 would mean the panel is as sensitive as the humans.</em></p>
+<div className="hb-src"><b>Source</b> <a href="https://doi.org/10.1016/j.clinthera.2017.02.009">Patients&#x27; Preferences for the Treatment of Metastatic Castrate-resistant Prostate Cancer: A Discrete Choice Experiment</a>, doi:10.1016/j.clinthera.2017.02.009 · Ditto record data/transcription_evidence_v2/Eliasson2017.merged.json · W&amp;B why-earth/dev-subconscious-ai run 3a27e3ba-a1c8-463a-8368-98294b0fb702 &nbsp; <b>Method</b> CLM AMCE re-referenced to the paper's base levels · ex-reference convention · scorer ditto_metastudy.fidelity_charts &nbsp; <b>Status</b> <span className="hb-st">transcription not yet audited against the PDF</span></div>
+</section>
+
+## Every level, human beside synthetic
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The receipt behind the scatter: find the level that failed.</p><div className="hb-hint">Filled: human, paper interval · hollow: synthetic · <b>red connector: the gap</b></div></div>
+<div className="hb-wrap"><Forest /></div>
+<div className="hb-legend"><span><i className="hb-i-ink"></i>human · paper 95% CI</span><span><i className="hb-i-hollow"></i>synthetic · cluster-robust 95% CI</span><span><i className="hb-i-gap"></i>intervals disjoint</span></div>
+<p className="hb-cap"><em>Reference levels sit at zero on both sides by construction and are not scored.</em></p>
+</section>
+
+## Every replication of this study
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Each era on the rank-correlation axis.</p><div className="hb-hint">No human ceiling has been measured for this paper</div></div>
+<div className="hb-wrap"><Eras /></div>
+<p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
+<div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
+</section>
+
+## Replication criteria, stated side by side
+
+<div className="hb-criteria">
+<div><div className="hb-q">Rank-correlation interval excludes zero</div><div className="hb-a hb-pass">rho .71 [.26, .91] on 14 levels</div></div><div><div className="hb-q">Within the measured human ceiling</div><div className="hb-a hb-na">no respondent-level human data has been measured for this paper</div></div><div><div className="hb-q">Sign agreement on at least 80% of non-zero levels</div><div className="hb-a hb-pass">93% of levels share the paper&#x27;s sign</div></div><div><div className="hb-q">Intervals overlap on at least 70% of levels</div><div className="hb-a hb-na">one side publishes no interval</div></div><div><div className="hb-q">Design conformant to the paper</div><div className="hb-a hb-pass">attributes, levels and choice set checked against the transcription; the platform added a “neither” option the paper did not offer</div></div><div><div className="hb-q">Transcription audited against the PDF</div><div className="hb-a hb-na">transcription not yet audited against the PDF</div></div>
+</div>
+
+<p className="hb-cap">No single verdict, after Open Science Collaboration 2015 and Camerer et al. 2016. Thresholds (80% sign, 70% overlap) are stated, not derived.</p>
+
+<details>
+<summary>All 21 levels as a table</summary>
+<div className="hb-wrap"><table className="hb-levels"><thead><tr><th>Attribute</th><th>Level</th><th>Human β</th><th>±95%</th><th>Synthetic β</th><th>±95%</th><th>Scored</th></tr></thead><tbody><tr className=""><td>Effectiveness</td><td>Treatment is effective for 42 months before you need chemotherapy</td><td className="hb-n">0.547</td><td className="hb-n">0.110</td><td className="hb-n">2.364</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Effectiveness</td><td>Treatment is effective for 39 months before you need chemotherapy</td><td className="hb-n">0.097</td><td className="hb-n">0.120</td><td className="hb-n">1.237</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Effectiveness</td><td>Treatment is effective for 36 months before you need chemotherapy</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Steroid use</td><td>No steroid use</td><td className="hb-n">0.166</td><td className="hb-n">0.120</td><td className="hb-n">0.647</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Steroid use</td><td>Steroid use is on the advice of a clinician</td><td className="hb-n">0.243</td><td className="hb-n">0.120</td><td className="hb-n">0.879</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Steroid use</td><td>Steroid use is twice a day, every day</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Possible drug interactions</td><td>There will be no additional visits to the hospital because of drug interactions</td><td className="hb-n">0.330</td><td className="hb-n">0.130</td><td className="hb-n">0.590</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Possible drug interactions</td><td>There will be one additional visit to the hospital per month because of drug interactions</td><td className="hb-n">0.219</td><td className="hb-n">0.120</td><td className="hb-n">0.265</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Possible drug interactions</td><td>There will be two additional visits to the hospital per month because of drug interactions</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Memory and concentration</td><td>There is a 1% chance memory and concentration will be affected</td><td className="hb-n">0.749</td><td className="hb-n">0.130</td><td className="hb-n">1.920</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Memory and concentration</td><td>There is a 5% chance memory and concentration will be affected</td><td className="hb-n">0.234</td><td className="hb-n">0.120</td><td className="hb-n">1.044</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Memory and concentration</td><td>There is a 10% chance memory and concentration will be affected</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Extreme tiredness</td><td>30% of people feel extreme tiredness</td><td className="hb-n">0.257</td><td className="hb-n">0.110</td><td className="hb-n">0.757</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Extreme tiredness</td><td>40% of people feel extreme tiredness</td><td className="hb-n">0.311</td><td className="hb-n">0.110</td><td className="hb-n">0.532</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Extreme tiredness</td><td>50% of people feel extreme tiredness</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Food restrictions</td><td>There is no need to take treatment with food</td><td className="hb-n">-0.084</td><td className="hb-n">0.110</td><td className="hb-n">0.476</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Food restrictions</td><td>Treatment must be taken with food</td><td className="hb-n">-0.071</td><td className="hb-n">0.120</td><td className="hb-n">-0.026</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Food restrictions</td><td>Treatment must be taken on an empty stomach</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Bone pain</td><td>Bone pain is fully controlled by treatments</td><td className="hb-n">2.490</td><td className="hb-n">0.130</td><td className="hb-n">5.396</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Bone pain</td><td>Bone pain is partially controlled by treatments but is difficult to live with at its worst</td><td className="hb-n">1.560</td><td className="hb-n">0.110</td><td className="hb-n">3.060</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Bone pain</td><td>Bone pain is not controlled by treatments and is severe and very difficult to live with at its worst</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr></tbody></table></div>
+</details>
+
+<div className="hb-foot"><b>Reference</b> Ditto data/transcription_evidence_v2/Eliasson2017.merged.json &nbsp;·&nbsp; <b>Replication</b> W&amp;B why-earth/dev-subconscious-ai run 3a27e3ba-a1c8-463a-8368-98294b0fb702 &nbsp;·&nbsp; <b>Scores</b> per-level rows in the <code>levels</code> table of that project &nbsp;·&nbsp; <b>Generated</b> by <code>hb publish --docs</code> from those records; nothing on this page is typed by hand</div>
+
+</div>

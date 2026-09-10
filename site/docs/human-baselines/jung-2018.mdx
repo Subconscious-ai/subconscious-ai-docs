@@ -1,0 +1,84 @@
+---
+title: "Jung 2018"
+sidebar_label: "Jung 2018"
+description: "Analyzing the Effects of Car Sharing Services on the Reduction of Greenhouse Gas (GHG) Emissions, replicated with synthetic respondents: rank correlation .94 on 6 levels, every level with its 95% interval on both sides."
+slug: /human-baselines/jung-2018
+hide_title: true
+---
+
+import Xy from "@site/static/img/human-baselines/jung-2018/xy.svg";
+import Forest from "@site/static/img/human-baselines/jung-2018/forest.svg";
+import Eras from "@site/static/img/human-baselines/jung-2018/eras.svg";
+
+<div className="hb">
+
+<div className="hb-label">Replication receipt <span className="hb-sub">Consumer Choice · South Korea · 2018</span></div>
+
+# Jung 2018, <em>replicated with synthetic respondents.</em>
+
+<div className="hb-stats">
+<div className="hb-stat"><div className="hb-v hb-lead">.94<small> [.51, .99]</small></div><div className="hb-k">Spearman rho, paper AMCEs vs synthetic, 6 levels · 2026-09 direct · zai.glm-5 · seed 401</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">normalized accuracy · rho ÷ human ceiling (not measured)</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">RMSE after one fitted scale · not computed for this arm</div></div>
+<div className="hb-deck">The paper asked 807 respondents in South Korea to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects. <b>When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .94 on 6 levels.</b> Every claim below carries its interval and its source.</div>
+</div>
+
+<div className="hb-plain">
+<div><div className="hb-q">What we did, in plain words</div><div className="hb-a">The paper asked 807 respondents in South Korea to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects.</div></div>
+<div><div className="hb-q">What we found</div><div className="hb-a">When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .94 on 6 levels.</div></div>
+<div><div className="hb-q">What it does not prove</div><div className="hb-a">No design difference is recorded for this run.</div></div>
+</div>
+
+<dl className="hb-design">
+<div><dt>Human sample</dt><dd>807 respondents · South Korea</dd></div>
+<div><dt>Task, as the humans saw it</dt><dd>2 profiles · with opt-out · 8 tasks each</dd></div>
+<div><dt>Attributes · levels</dt><dd>6 attributes · 18 published levels</dd></div>
+<div><dt>Paper's estimator</dt><dd>mixed_logit (unknown)</dd></div>
+<div><dt>Synthetic run</dt><dd>zai.glm-5 · 6 levels scored · seed 401</dd></div>
+<div><dt>Design difference</dt><dd className="">none recorded</dd></div>
+</dl>
+
+## Each level is a field of belief
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The paper's interval on x, the synthetic interval on y.</p><div className="hb-hint">Denser where fields overlap · dotted line is perfect agreement · <b>red fields: intervals do not touch</b></div></div>
+<div className="hb-xy"><Xy /></div>
+<div className="hb-legend"><span><i className="hb-i-heat"></i>one level's 95% field</span><span><i className="hb-i-gap"></i>fields disjoint</span></div>
+<p className="hb-cap">Each blob is one attribute level: its width is the paper's 95% interval, its height the synthetic panel's. Where blobs pile up along the dotted diagonal, humans and the panel agree with confidence; a blob far from it, or in red, is a level the panel got wrong. <em>The solid fit line's slope is the calibration: 1.0 would mean the panel is as sensitive as the humans.</em></p>
+<div className="hb-src"><b>Source</b> <a href="https://doi.org/10.3390/su10020539">Analyzing the Effects of Car Sharing Services on the Reduction of Greenhouse Gas (GHG) Emissions</a>, doi:10.3390/su10020539 · Ditto record data/transcription_evidence_v2/Jung2018.merged.json · W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp; <b>Method</b> OLS AMCE re-referenced to the paper's base levels · ex-reference convention · scorer ditto_metastudy.fidelity_charts &nbsp; <b>Status</b> <span className="hb-st">transcription not yet audited against the PDF</span></div>
+</section>
+
+## Every level, human beside synthetic
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The receipt behind the scatter: find the level that failed.</p><div className="hb-hint">Filled: human, paper interval · hollow: synthetic · <b>red connector: the gap</b></div></div>
+<div className="hb-wrap"><Forest /></div>
+<div className="hb-legend"><span><i className="hb-i-ink"></i>human · paper 95% CI</span><span><i className="hb-i-hollow"></i>synthetic · cluster-robust 95% CI</span><span><i className="hb-i-gap"></i>intervals disjoint</span></div>
+<p className="hb-cap"><em>Reference levels sit at zero on both sides by construction and are not scored.</em></p>
+</section>
+
+## Every replication of this study
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Each era on the rank-correlation axis.</p><div className="hb-hint">No human ceiling has been measured for this paper</div></div>
+<div className="hb-wrap"><Eras /></div>
+<p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
+<div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
+</section>
+
+## Replication criteria, stated side by side
+
+<div className="hb-criteria">
+<div><div className="hb-q">Rank-correlation interval excludes zero</div><div className="hb-a hb-pass">rho .94 [.51, .99] on 6 levels</div></div><div><div className="hb-q">Within the measured human ceiling</div><div className="hb-a hb-na">no respondent-level human data has been measured for this paper</div></div><div><div className="hb-q">Sign agreement on at least 80% of non-zero levels</div><div className="hb-a hb-pass">83% of levels share the paper&#x27;s sign</div></div><div><div className="hb-q">Intervals overlap on at least 70% of levels</div><div className="hb-a hb-pass">100% of 3 levels with both intervals overlap; the rest are drawn in red</div></div><div><div className="hb-q">Design conformant to the paper</div><div className="hb-a hb-pass">the direct runner uses the record&#x27;s design verbatim: tasks, choice set and opt-out as printed</div></div><div><div className="hb-q">Transcription audited against the PDF</div><div className="hb-a hb-na">transcription not yet audited against the PDF</div></div>
+</div>
+
+<p className="hb-cap">No single verdict, after Open Science Collaboration 2015 and Camerer et al. 2016. Thresholds (80% sign, 70% overlap) are stated, not derived.</p>
+
+<details>
+<summary>All 18 levels as a table</summary>
+<div className="hb-wrap"><table className="hb-levels"><thead><tr><th>Attribute</th><th>Level</th><th>Human β</th><th>±95%</th><th>Synthetic β</th><th>±95%</th><th>Scored</th></tr></thead><tbody><tr className=""><td>Fuel type</td><td>Gasoline or diesel</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Fuel type</td><td>LPG</td><td className="hb-n">-0.003</td><td className="hb-n">0.001</td><td className="hb-n">-0.031</td><td className="hb-n">0.030</td><td>yes</td></tr><tr className=""><td>Fuel type</td><td>Electricity</td><td className="hb-n">0.001</td><td className="hb-n">0.001</td><td className="hb-n">0.000</td><td className="hb-n">0.030</td><td>yes</td></tr><tr className=""><td>Fuel charging station supply rate</td><td>15%</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Fuel charging station supply rate</td><td>50%</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.110</td><td className="hb-n">0.034</td><td>reference</td></tr><tr className=""><td>Fuel charging station supply rate</td><td>80%</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.230</td><td className="hb-n">0.034</td><td>reference</td></tr><tr className=""><td>Fuel charging station supply rate</td><td>100%</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.283</td><td className="hb-n">0.034</td><td>reference</td></tr><tr className=""><td>Vehicle type</td><td>Economy, subcompact, or compact vehicle</td><td className="hb-n">-0.002</td><td className="hb-n">0.001</td><td className="hb-n">-0.008</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Vehicle type</td><td>Mid-size or full-size vehicle</td><td className="hb-n">-0.001</td><td className="hb-n">0.001</td><td className="hb-n">0.026</td><td className="hb-n">0.029</td><td>yes</td></tr><tr className=""><td>Vehicle type</td><td>SUV (Sports utility vehicle)</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.026</td><td>reference</td></tr><tr className=""><td>Pickup &amp; delivery Service</td><td>Provided</td><td className="hb-n">0.003</td><td className="hb-n">0.001</td><td className="hb-n">0.202</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Pickup &amp; delivery Service</td><td>Not provided</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.024</td><td>reference</td></tr><tr className=""><td>One-way drive</td><td>Allowed</td><td className="hb-n">0.004</td><td className="hb-n">0.001</td><td className="hb-n">0.227</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>One-way drive</td><td>Not allowed</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.025</td><td>reference</td></tr><tr className=""><td>Cost (USD/h)</td><td>5</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Cost (USD/h)</td><td>10</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.058</td><td className="hb-n">0.036</td><td>reference</td></tr><tr className=""><td>Cost (USD/h)</td><td>15</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.186</td><td className="hb-n">0.034</td><td>reference</td></tr><tr className=""><td>Cost (USD/h)</td><td>20</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.300</td><td className="hb-n">0.032</td><td>reference</td></tr></tbody></table></div>
+</details>
+
+<div className="hb-foot"><b>Reference</b> Ditto data/transcription_evidence_v2/Jung2018.merged.json &nbsp;·&nbsp; <b>Replication</b> W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp;·&nbsp; <b>Scores</b> per-level rows in the <code>levels</code> table of that project &nbsp;·&nbsp; <b>Generated</b> by <code>hb publish --docs</code> from those records; nothing on this page is typed by hand</div>
+
+</div>
