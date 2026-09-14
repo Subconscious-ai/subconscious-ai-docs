@@ -13,7 +13,7 @@ it, read the result.
 
 You need an access token. Get one at
 **[app.subconscious.ai/settings](https://app.subconscious.ai/settings)** →
-**Generate API Token**, then copy it from **Your Access Token**. Full detail in
+**Get Access Token**, then copy it from **Your Access Token**. Full detail in
 [Authentication](/get-started/authentication).
 
 ```bash
@@ -30,7 +30,10 @@ curl "$SUBCONSCIOUS_API/api/v1/traits" \
   -H "Authorization: Bearer $SUBCONSCIOUS_TOKEN"
 ```
 
-A JSON array means you are ready. A `403` means the token is wrong or expired.
+A successful JSON array confirms access to the trait catalogue. An expired or
+invalid bearer token returns `401`; a `403` can indicate missing credentials or
+insufficient access. Read the response detail and the
+[authentication guide](/get-started/authentication) before retrying.
 
 ## 2. Start an experiment
 
