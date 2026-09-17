@@ -29,7 +29,7 @@ const lines = [
   "Use [Connect through MCP](/guides/mcp-server) for setup, approval, run lifecycle, and interpretation.",
   "",
   `This reference contains **${manifest.tool_count} tools**, generated from the pinned Rehoboam discovery manifest.`,
-  `Source revision: \`${manifest.source.revision}\`. [Download the complete manifest](https://docs.subconscious.ai/mcp/tools.json).`,
+  `Source revision: \`${pins.mcp.registry_revision}\`. [Download the complete manifest](https://docs.subconscious.ai/mcp/tools.json).`,
   "",
   "Required and nullable are different. A required key must be present; a nullable value may be null. Nested schemas, unions, enumerations, defaults and output definitions are preserved below. Runtime authorization and cross-field validation still apply.",
   "",

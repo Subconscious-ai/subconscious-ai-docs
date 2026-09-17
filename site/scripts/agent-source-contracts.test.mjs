@@ -24,7 +24,8 @@ function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
 }
 
-test("accepts an exact native OpenAPI revision pin", () => {
+for (const version of [1, 2]) {
+test(`accepts an exact native OpenAPI revision pin (v${version})`, () => {
   const schema = {
     openapi: "3.1.0",
     info: { title: "Public API", version: "1" },
@@ -32,10 +33,10 @@ test("accepts an exact native OpenAPI revision pin", () => {
   };
   const schemaBytes = Buffer.from(JSON.stringify(schema));
   const manifest = {
-    manifest_version: 1,
+    manifest_version: version,
     source: {
       repository: "Subconscious-ai/rehoboam",
-      revision: "b".repeat(40),
+      ...(version === 1 ? { revision: "b".repeat(40) } : {}),
     },
     schema: {
       filename: "openapi.public.json",
@@ -69,7 +70,7 @@ test("accepts an exact native OpenAPI revision pin", () => {
   );
 });
 
-test("accepts only the source-owned safe MCP transport contract", () => {
+test(`accepts only the source-owned safe MCP transport contract (v${version})`, () => {
   const tools = [
     {
       name: "check_causality",
@@ -78,10 +79,10 @@ test("accepts only the source-owned safe MCP transport contract", () => {
     },
   ];
   const manifest = {
-    manifest_version: 1,
+    manifest_version: version,
     source: {
       repository: "Subconscious-ai/rehoboam",
-      revision: "b".repeat(40),
+      ...(version === 1 ? { revision: "b".repeat(40) } : {}),
     },
     transport: { type: "streamable-http", path: "/mcp/", stateful: true },
     authentication: {
@@ -90,13 +91,14 @@ test("accepts only the source-owned safe MCP transport contract", () => {
       header: "Authorization",
     },
     tool_count: tools.length,
+    ...(version === 2 ? { tools_sha256: sha256(JSON.stringify(canonicalize(tools))) } : {}),
     tools,
   };
   const bytes = Buffer.from(JSON.stringify(manifest));
   const pin = {
     repository: "Subconscious-ai/rehoboam",
     revision: "c".repeat(40),
-    registry_revision: "b".repeat(40),
+    registry_revision: (version === 1 ? "b" : "c").repeat(40),
     path: "mcp-tools.public.json",
     sha256: sha256(bytes),
   };
@@ -123,6 +125,8 @@ test("accepts only the source-owned safe MCP transport contract", () => {
     /header/,
   );
 });
+
+}
 
 test("accepts the exact checked source artifacts", async () => {
   const provenanceRoot = new URL("../provenance/", import.meta.url);

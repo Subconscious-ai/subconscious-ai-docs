@@ -18,9 +18,14 @@ export function validateOpenApiSource(schemaBytes, manifestBytes, pin) {
   assert.match(schema.openapi, /^3\./);
   assert.equal(typeof schema.info?.title, "string");
   assert.equal(typeof schema.paths, "object");
-  assert.equal(manifest.manifest_version, 1);
+  assert.ok([1, 2].includes(manifest.manifest_version), "unsupported manifest version");
   assert.equal(manifest.source.repository, pin.repository);
-  assert.match(manifest.source.revision, /^[0-9a-f]{40}$/);
+  if (manifest.manifest_version === 1) {
+    assert.match(manifest.source.revision, /^[0-9a-f]{40}$/);
+  } else {
+    assert.equal(manifest.source.revision, undefined);
+    assert.equal(manifest.generated_at, undefined);
+  }
   assert.equal(manifest.schema.filename, pin.schema_path);
   assert.equal(manifest.schema.path_count, Object.keys(schema.paths).length);
   assert.equal(
@@ -65,9 +70,16 @@ export function validateMcpSource(bytes, pin) {
   assert.equal(sha256(bytes), pin.sha256);
 
   const manifest = JSON.parse(bytes);
-  assert.equal(manifest.manifest_version, 1);
+  assert.ok([1, 2].includes(manifest.manifest_version), "unsupported manifest version");
   assert.equal(manifest.source.repository, pin.repository);
-  assert.equal(manifest.source.revision, pin.registry_revision);
+  assert.match(pin.registry_revision, /^[0-9a-f]{40}$/);
+  if (manifest.manifest_version === 1) {
+    assert.equal(manifest.source.revision, pin.registry_revision);
+  } else {
+    assert.equal(manifest.source.revision, undefined);
+    assert.equal(pin.registry_revision, pin.revision);
+    assert.match(manifest.tools_sha256, /^[0-9a-f]{64}$/);
+  }
   assert.equal(manifest.transport.type, "streamable-http");
   assert.equal(manifest.transport.path, "/mcp/");
   assert.equal(manifest.transport.stateful, true);
