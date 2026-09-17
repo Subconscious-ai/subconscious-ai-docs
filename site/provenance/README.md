@@ -24,12 +24,17 @@ revision against backend health before calling this same command.
 ## Revision semantics
 
 - `revision` is the exact production commit from which the artifact was copied.
-- OpenAPI `source.revision` owns the schema and visibility policy bytes.
-- MCP `registry_revision` owns the source tool definitions and public allowlist.
+- Version-2 source manifests bind contract content and allowlist digests. They
+  contain no commit IDs or commit timestamps; squash merges leave them unchanged.
+- For version 2, MCP `registry_revision` is the exact downloaded release commit.
+- Version-1 manifests remain supported for older releases. Their embedded
+  `source.revision` must still be reachable from the downloaded release and own
+  the same schema. Version-1 ancestry failures remain errors.
 
-An owner revision may precede the consumer revision, but must be reachable from
-it. After a squash merge, refresh source-owned revision manifests on the durable
-branch before downstream adoption. Raw artifact digests cover all nested schemas;
-there is no second cross-language JSON checksum with ambiguous numeric spelling.
+The sync records the resolved commit and raw artifact digests together. The
+producer's CI still rejects stale schema/tool/policy bytes. No follow-up
+provenance commit is needed for version 2 after a squash merge. Raw artifact
+digests cover every nested schema; there is no second cross-language JSON
+checksum with ambiguous numeric spelling.
 
 See [maintenance policy](../../docs/maintenance.md) for cadence and merge bounds.
