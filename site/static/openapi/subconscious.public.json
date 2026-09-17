@@ -493,6 +493,7 @@
               }
             ],
             "default": true,
+            "description": "Append a 'None of these' opt-out row to every choice task. Default true. Replication mode defaults it to false unless the payload sends it.",
             "title": "Add Neither Option"
           },
           "additional_notes_max_workers": {
@@ -505,6 +506,7 @@
               }
             ],
             "default": 100,
+            "description": "Parallel model calls for additional notes. Default 100. Operator knob; leave unset.",
             "title": "Additional Notes Max Workers"
           },
           "all_combinations_index": {
@@ -527,6 +529,7 @@
                 ""
               ]
             ],
+            "description": "Unused; kept for payload compatibility.",
             "title": "All Combinations Index"
           },
           "alternative_shuffle_seed": {
@@ -539,7 +542,22 @@
               }
             ],
             "default": 10000,
+            "description": "Seed for the order profiles appear within each choice task. Default 10000.",
             "title": "Alternative Shuffle Seed"
+          },
+          "alternatives_per_task": {
+            "anyOf": [
+              {
+                "maximum": 6.0,
+                "minimum": 2.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Number of profiles shown per choice task. None (default): today's behaviour \u2014 the attribute-count heuristic, or 2 when binary_choice is true. Set 2..6 to show exactly that many profiles (the opt-out row, when add_neither_option is true, is added on top). The run summary reports both the requested and the realized count. Single-profile rating tasks (1) are not supported yet.",
+            "title": "Alternatives Per Task"
           },
           "attribute_count": {
             "anyOf": [
@@ -553,6 +571,7 @@
               }
             ],
             "default": 8,
+            "description": "Attributes to generate when the engine builds the design, 2 to 10. Default 8. Ignored with pre_cooked_attributes_and_levels_lookup.",
             "title": "Attribute Count"
           },
           "attribute_shuffle_seed": {
@@ -565,6 +584,7 @@
               }
             ],
             "default": 1000,
+            "description": "Seed for the order attributes appear in each profile. Default 1000. With design_seed, price_generation_seed and alternative_shuffle_seed it fixes the realized survey.",
             "title": "Attribute Shuffle Seed"
           },
           "batch_size": {
@@ -577,6 +597,7 @@
               }
             ],
             "default": 20,
+            "description": "Respondents per model batch in the survey step. Default 20. Operator knob; leave unset.",
             "title": "Batch Size"
           },
           "binary_choice": {
@@ -589,10 +610,12 @@
               }
             ],
             "default": false,
+            "description": "Show exactly two profiles per choice task. Default false uses the attribute-count heuristic. alternatives_per_task overrides both.",
             "title": "Binary Choice"
           },
           "block_optimization_iteration_limit": {
             "default": 100,
+            "description": "Iterations the block optimizer spends balancing choice tasks across respondents. Default 100 on dev, 200 elsewhere. Operator knob; leave unset.",
             "title": "Block Optimization Iteration Limit",
             "type": "integer"
           },
@@ -606,6 +629,7 @@
               }
             ],
             "default": true,
+            "description": "Applies to engine-generated designs only. When `pre_cooked_attributes_and_levels_lookup` is supplied, submitted levels are used exactly as sent and this flag has no effect (#2074, #2396): the engine never reclassifies a submitted level as continuous or draws replacement values.",
             "title": "Check For Continuous Variables"
           },
           "concept_description": {
@@ -617,10 +641,12 @@
                 "type": "null"
               }
             ],
+            "description": "Text description of the concept for concept_testing, used with or instead of an image.",
             "title": "Concept Description"
           },
           "concept_heading": {
             "default": "",
+            "description": "Heading the worker composes for a concept_testing run from the concept description, image and statements. Written by the worker into the run summary; ignored on input.",
             "title": "Concept Heading",
             "type": "string"
           },
@@ -637,6 +663,7 @@
                 "type": "null"
               }
             ],
+            "description": "Statements respondents rate in concept_testing, each {statement, labels} where labels is the ordered rating scale.",
             "title": "Concept Statements"
           },
           "confidence_level": {
@@ -649,15 +676,18 @@
               }
             ],
             "default": "Low",
+            "description": "Low, Medium or High, derived from model fit. Written by the worker into the run summary; ignored on input.",
             "title": "Confidence Level"
           },
           "conjoint_time": {
             "default": 0.0,
+            "description": "Minutes the survey stage took. Written by the worker into the run summary; ignored on input.",
             "title": "Conjoint Time",
             "type": "number"
           },
           "context": {
             "default": "",
+            "description": "Study context shown to respondents ahead of the choice tasks. Empty (default) lets the worker derive it from why_prompt.",
             "title": "Context",
             "type": "string"
           },
@@ -671,10 +701,12 @@
               }
             ],
             "default": 0.0,
+            "description": "Model cost of the run in USD. Written by the worker into the run summary; ignored on input.",
             "title": "Cost Amount"
           },
           "country": {
             "default": "United States",
+            "description": "Country of the respondent population and design context. Default 'United States'. Other countries need non_us_target_population.",
             "title": "Country",
             "type": "string"
           },
@@ -688,10 +720,12 @@
               }
             ],
             "default": 0.0,
+            "description": "Reserved; currently always 0. Written by the worker into the run summary; ignored on input.",
             "title": "Coverage Probability"
           },
           "dcm_survey_workers": {
             "default": 128,
+            "description": "Parallel model calls for the survey step, capped at the task count. Default 128. Operator knob; leave unset.",
             "title": "Dcm Survey Workers",
             "type": "integer"
           },
@@ -705,6 +739,7 @@
               }
             ],
             "default": 1000,
+            "description": "Not read by the worker; kept for payload compatibility.",
             "title": "Decision Time Seed"
           },
           "design_seed": {
@@ -742,6 +777,7 @@
               }
             ],
             "default": false,
+            "description": "Run a background GPT Researcher pass on why_prompt alongside the study and attach its report to the run. Default false. Forced false in replication mode and skipped for human-baseline runs.",
             "title": "Do Research"
           },
           "dv_llm_model": {
@@ -753,7 +789,8 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that phrases the dependent variable (the choice question) from why_prompt. Not used when respondent_dependent_variable is supplied. Default Databricks Claude Sonnet 3.7."
           },
           "effect_encoding": {
             "anyOf": [
@@ -765,15 +802,18 @@
               }
             ],
             "default": true,
+            "description": "Effects-code attribute levels (sum to zero) in the utility model instead of dummy coding. Default true.",
             "title": "Effect Encoding"
           },
           "ensure_25_trait_level_count": {
             "default": false,
+            "description": "Grow the sample until every trait level has at least 25 respondents. Default false.",
             "title": "Ensure 25 Trait Level Count",
             "type": "boolean"
           },
           "estimation_method": {
             "default": "HB",
+            "description": "Utility estimation. HB (default): hierarchical Bayes mixed logit with individual-level utilities. MLE: a single multinomial logit.",
             "enum": [
               "MLE",
               "HB"
@@ -783,6 +823,7 @@
           },
           "experiment_type": {
             "default": "conjoint",
+            "description": "conjoint (default) runs a discrete choice experiment over attributes and levels. concept_testing shows a concept (image or description) and asks respondents to rate concept_statements.",
             "enum": [
               "concept_testing",
               "conjoint"
@@ -799,10 +840,12 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that answers the survey as each respondent. Default is the Databricks-served Claude Sonnet 3.7."
           },
           "external_personas": {
             "default": [],
+            "description": "LinkedIn profile URLs to build respondents from when use_external_personas is true.",
             "items": {
               "type": "string"
             },
@@ -819,6 +862,7 @@
               }
             ],
             "default": false,
+            "description": "Ask the model for free-text notes per respondent during latent-variable scoring. Default false.",
             "title": "Generate Additional Notes"
           },
           "hb_folder": {
@@ -831,6 +875,7 @@
               }
             ],
             "default": "",
+            "description": "Legacy human-baseline path, now owned by Ditto: storage folder of a stored study to replicate. Only one of hb_folder and hb_run_id may be set. Prefer replication_mode with pre_cooked_attributes_and_levels_lookup.",
             "title": "Hb Folder"
           },
           "hb_run_id": {
@@ -843,6 +888,7 @@
               }
             ],
             "default": "",
+            "description": "Legacy human-baseline path, now owned by Ditto: W&B run id of a stored study to replicate. Only one of hb_folder and hb_run_id may be set.",
             "title": "Hb Run Id"
           },
           "image_name1": {
@@ -854,6 +900,7 @@
                 "type": "null"
               }
             ],
+            "description": "Uploaded image file name of the first concept for concept_testing. With image_name2 the run compares two concepts.",
             "title": "Image Name1"
           },
           "image_name2": {
@@ -865,6 +912,7 @@
                 "type": "null"
               }
             ],
+            "description": "Uploaded image file name of the second concept for concept_testing. Leave empty to test one concept.",
             "title": "Image Name2"
           },
           "include_price_brand": {
@@ -877,6 +925,7 @@
               }
             ],
             "default": false,
+            "description": "Ask the design generator to include price and brand attributes. Default false. Engine-generated designs only.",
             "title": "Include Price Brand"
           },
           "is_hb_run": {
@@ -889,6 +938,7 @@
               }
             ],
             "default": false,
+            "description": "Legacy: marks the run as a human-baseline replication, which skips do_research and enables the hb_folder / hb_run_id sourcing. Default false.",
             "title": "Is Hb Run"
           },
           "is_private": {
@@ -901,10 +951,12 @@
               }
             ],
             "default": false,
+            "description": "Restrict run visibility to its owner. Default false.",
             "title": "Is Private"
           },
           "latent_variables": {
             "default": true,
+            "description": "Generate, score and paste the latent-variable (attitudinal) battery into every respondent prompt. Default true. Forced false in replication mode. See latent_variables_from_run to reuse a previous bundle instead of generating one.",
             "title": "Latent Variables",
             "type": "boolean"
           },
@@ -929,7 +981,8 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that generates the latent-variable battery (variable names). Default Databricks Claude Sonnet 3.7."
           },
           "latent_variables_measurement_count": {
             "anyOf": [
@@ -941,6 +994,7 @@
               }
             ],
             "default": 3,
+            "description": "Statements per latent variable. Default 3.",
             "title": "Latent Variables Measurement Count"
           },
           "latent_variables_scale_labels_count": {
@@ -953,6 +1007,7 @@
               }
             ],
             "default": 5,
+            "description": "Points on the rating scale used to score each statement. Default 5.",
             "title": "Latent Variables Scale Labels Count"
           },
           "latent_variables_traits_count": {
@@ -965,6 +1020,7 @@
               }
             ],
             "default": 4,
+            "description": "How many latent variables the battery generates. Default 4.",
             "title": "Latent Variables Traits Count"
           },
           "level_count": {
@@ -979,6 +1035,7 @@
               }
             ],
             "default": 5,
+            "description": "Levels per generated attribute, 2 to 10. Default 5. Ignored with pre_cooked_attributes_and_levels_lookup.",
             "title": "Level Count"
           },
           "levels_llm_model": {
@@ -990,7 +1047,8 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that generates attributes and levels from why_prompt. Not used when pre_cooked_attributes_and_levels_lookup is supplied. Default Databricks Claude Sonnet 3.7."
           },
           "levels_per_trait": {
             "anyOf": [
@@ -1002,10 +1060,12 @@
               }
             ],
             "default": 100,
+            "description": "Legacy: levels per trait when personas are generated through the traits API (use_api). Default 100.",
             "title": "Levels Per Trait"
           },
           "llm_temperature": {
             "default": 0.0,
+            "description": "Sampling temperature of the respondent survey step. Default 0.0: randomness here is measurement noise, not respondent heterogeneity. The pre-survey stages keep their fixed 0.7 unless deterministic_stages is true.",
             "title": "Llm Temperature",
             "type": "number"
           },
@@ -1019,6 +1079,7 @@
               }
             ],
             "default": 100,
+            "description": "Parallel model calls for the latent-variable summaries pasted into respondent prompts. Default 100. Operator knob; leave unset.",
             "title": "Lv Based Nl Summary Max Workers"
           },
           "lv_statement_llm_model": {
@@ -1030,7 +1091,8 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that writes the Likert statements for each latent variable. Default Databricks Claude Sonnet 3.7."
           },
           "lv_statement_max_workers": {
             "anyOf": [
@@ -1042,15 +1104,18 @@
               }
             ],
             "default": 100,
+            "description": "Parallel model calls for latent-variable statements. Default 100. Operator knob; leave unset.",
             "title": "Lv Statement Max Workers"
           },
           "match_population_distribution": {
             "default": false,
+            "description": "Resample so the respondent mix matches the target population's distribution on the constrained demographics. Default false.",
             "title": "Match Population Distribution",
             "type": "boolean"
           },
           "match_population_distribution_concept": {
             "default": true,
+            "description": "Concept-testing counterpart of match_population_distribution. Default true.",
             "title": "Match Population Distribution Concept",
             "type": "boolean"
           },
@@ -1064,6 +1129,7 @@
               }
             ],
             "default": 40,
+            "description": "Length limit passed to the attribute and level generator for each label. Default 40. Engine-generated designs only.",
             "title": "Max Length"
           },
           "mnp_model": {
@@ -1076,6 +1142,7 @@
               }
             ],
             "default": true,
+            "description": "Estimate with the multinomial probit (MNP) model; false uses multinomial logit (MNL). Default true.",
             "title": "Mnp Model"
           },
           "mood_statement_seed": {
@@ -1088,6 +1155,7 @@
               }
             ],
             "default": 178942,
+            "description": "Seed for assigning mood statements to respondents. Default 178942. Replication mode injects no mood.",
             "title": "Mood Statement Seed"
           },
           "non_us_target_population": {
@@ -1101,6 +1169,7 @@
               }
             ],
             "default": {},
+            "description": "Constraints for a non-US population, passed as a free-form dict to the population builder. Cannot be combined with target_population or population_preset.",
             "title": "Non Us Target Population"
           },
           "null_levels": {
@@ -1118,6 +1187,7 @@
           },
           "optimization_context": {
             "default": "",
+            "description": "What the decision maker is optimizing, appended to target_behavior in the decision context. Empty (default) lets the worker derive it from why_prompt.",
             "title": "Optimization Context",
             "type": "string"
           },
@@ -1137,6 +1207,7 @@
               }
             ],
             "default": [],
+            "description": "Rows of the source paper's reported results for human-baseline comparison; the worker reads the regression_model entry. Default empty.",
             "title": "Paper Data"
           },
           "persona_nl_llm_model": {
@@ -1148,10 +1219,12 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that writes each respondent's natural-language bio from its demographic and trait record. Default Databricks Claude Sonnet 3.7."
           },
           "persona_nl_workers": {
             "default": 128,
+            "description": "Parallel model calls for respondent bios, capped at the respondent count. Default 128. Operator knob; leave unset.",
             "title": "Persona Nl Workers",
             "type": "integer"
           },
@@ -1163,7 +1236,19 @@
               {
                 "type": "null"
               }
-            ]
+            ],
+            "description": "Named segment to draw from when use_population_group is true."
+          },
+          "population_preset": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PopulationPreset"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Name a stored US population instead of writing target_population by hand. us_general_adults resolves to age 18 to 99 across the twelve representative states the worker uses when no state is given, so a request that only carries population_traits can still queue. Cannot be combined with an explicit target_population constraint, non_us_target_population, use_nrg_population, use_external_personas, use_population_group or user_uploaded_persona; the request would then be describing the population twice, and is rejected with 422."
           },
           "population_seed": {
             "anyOf": [
@@ -1175,6 +1260,7 @@
               }
             ],
             "default": 100,
+            "description": "Seed for the respondent draw. Identical configurations draw identical respondents unless resample_population is true. Default 100.",
             "title": "Population Seed"
           },
           "population_traits": {
@@ -1186,7 +1272,8 @@
                 "type": "null"
               }
             ],
-            "default": {}
+            "default": {},
+            "description": "Modeled traits added uniformly to every respondent, keyed by trait name with a value or list of allowed values. Traits never select respondents: pair them with target_population or population_preset."
           },
           "pre_cooked_attributes_and_levels_lookup": {
             "anyOf": [
@@ -1219,6 +1306,7 @@
           },
           "predict_trait_workers": {
             "default": 128,
+            "description": "Parallel model calls for trait prediction, capped at the respondent count. Default 128. Operator knob; leave unset.",
             "title": "Predict Trait Workers",
             "type": "integer"
           },
@@ -1232,6 +1320,7 @@
               }
             ],
             "default": 1000,
+            "description": "Seed for synthesized price levels when the engine generates the design. No effect with pre_cooked_attributes_and_levels_lookup. Default 1000.",
             "title": "Price Generation Seed"
           },
           "priority": {
@@ -1254,6 +1343,7 @@
               }
             ],
             "default": 500,
+            "description": "Seed for converting probabilistic responses to a single choice when response_type is probabilistic. Default 500.",
             "title": "Prob To Discrete Seed"
           },
           "prompt_type": {
@@ -1266,10 +1356,12 @@
               }
             ],
             "default": "generic",
+            "description": "How the design generator frames why_prompt: generic (default), product ('when purchasing') or service ('when choosing options for this service').",
             "title": "Prompt Type"
           },
           "r_analytics_time": {
             "default": 0.0,
+            "description": "Minutes the R analytics stage took. Written by the worker into the run summary; ignored on input.",
             "title": "R Analytics Time",
             "type": "number"
           },
@@ -1283,6 +1375,7 @@
               }
             ],
             "default": 0,
+            "description": "Model fit as a whole-number percentage. Written by the worker into the run summary; ignored on input.",
             "title": "R Squared"
           },
           "realworld_products": {
@@ -1299,7 +1392,21 @@
               }
             ],
             "default": [],
+            "description": "Brand and product combinations behind a Product attribute. Engine-generated designs fill this from why_prompt. With pre_cooked_attributes_and_levels_lookup, more than one entry adds an always-available Product attribute. Default empty.",
             "title": "Realworld Products"
+          },
+          "replication_mode": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": false,
+            "description": "Run the supplied study definition verbatim and refuse to improve it. Requires respondent_dependent_variable, which is used unchanged; add_neither_option defaults to false unless sent explicitly; no attitudinal battery or latent-variable scoring; no mood, decision-strategy, fatigue, price or second-best rules reach the respondent prompt. Use for replicating a published study. Default false.",
+            "title": "Replication Mode"
           },
           "resample_population": {
             "anyOf": [
@@ -1324,6 +1431,7 @@
               }
             ],
             "default": "",
+            "description": "The choice question shown to respondents, used verbatim when supplied. Empty (default) lets dv_llm_model phrase it from why_prompt. Required in replication mode.",
             "title": "Respondent Dependent Variable"
           },
           "respondent_instruction_for_concept": {
@@ -1335,6 +1443,7 @@
                 "type": "null"
               }
             ],
+            "description": "Instruction shown to respondents before they rate the concept in concept_testing.",
             "title": "Respondent Instruction For Concept"
           },
           "respondent_instructions_preamble": {
@@ -1347,7 +1456,18 @@
               }
             ],
             "default": "",
+            "description": "Text placed before the choice question in every respondent prompt. Empty by default.",
             "title": "Respondent Instructions Preamble"
+          },
+          "response_contract": {
+            "default": "cot_json",
+            "description": "How respondents answer the survey step. cot_json (default) is today's contract: chain-of-thought inside a JSON object per task. short is the trimmed template with at most two sentences of reasoning per task and one final JSON line of choices; about 60% fewer output tokens.",
+            "enum": [
+              "cot_json",
+              "short"
+            ],
+            "title": "Response Contract",
+            "type": "string"
           },
           "response_type": {
             "anyOf": [
@@ -1358,7 +1478,8 @@
                 "type": "null"
               }
             ],
-            "default": "discrete"
+            "default": "discrete",
+            "description": "discrete (default): each respondent picks one profile per task. probabilistic: the respondent gives a probability per profile, converted to a choice with prob_to_discrete_seed."
           },
           "sample_size": {
             "anyOf": [
@@ -1370,6 +1491,7 @@
               }
             ],
             "default": 0,
+            "description": "Respondents actually surveyed. Written by the worker into the run summary; ignored on input.",
             "title": "Sample Size"
           },
           "score_llm_model": {
@@ -1381,7 +1503,8 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that scores each respondent on the latent-variable statements. Default Databricks Claude Sonnet 3.7."
           },
           "spearman_correlation": {
             "anyOf": [
@@ -1393,6 +1516,7 @@
               }
             ],
             "default": 0.0,
+            "description": "Reserved for the Spearman correlation of feature importance; currently always 0. Written by the worker into the run summary; ignored on input.",
             "title": "Spearman Correlation"
           },
           "state": {
@@ -1404,6 +1528,7 @@
                 "type": "null"
               }
             ],
+            "description": "US state to restrict the population to; also settable inside target_population. None draws from twelve representative states.",
             "title": "State"
           },
           "survey_design_filelink": {
@@ -1416,6 +1541,7 @@
               }
             ],
             "default": "",
+            "description": "Storage key of an uploaded survey design parquet (survey-design/<uuid>.parquet). When set, that design is used instead of generating one.",
             "title": "Survey Design Filelink"
           },
           "survey_editable_lines": {
@@ -1431,6 +1557,7 @@
               }
             ],
             "default": {},
+            "description": "Line-level overrides of the survey prompt template keyed by line number, as produced by the Holodeck prompt editor. Empty by default.",
             "title": "Survey Editable Lines"
           },
           "survey_prompt": {
@@ -1443,10 +1570,12 @@
               }
             ],
             "default": "Respondent Instructions:\nYou are answering questions as if you are a human. Do not break character.\nYou are an agent with the following personas: {persona_traits}.\nCurrently living in {state}, {country}, Time of Survey: year: {year}.\n\nInstructions:\n{study_subject}.\nIn this context, we have designed a discrete choice survey question where you are presented with three options/alternatives including None of these.\nThe options/alternatives are defined as a function of attribute-level combinations.\nBelow we provide the list of attributes/features and the possible values (attribute level) it may take.\n{attributes_levels}.\n\nConsider the options in the Questionnaire below. Please read the specifications carefully.\nThen, select the most preferred option considering that the current year is {year} and your place of residence is {country}.\n\nQuestionnaire:\n{options}\n{none_option}: None of these\n{format_instructions}",
+            "description": "Survey prompt template. Defaults to the built-in template; override only for prompt experiments. survey_editable_lines patches single lines instead.",
             "title": "Survey Prompt"
           },
           "target_behavior": {
             "default": "",
+            "description": "The behavior under study, for example 'choose a mobile phone to upgrade to'. Empty (default) lets the worker derive it from why_prompt.",
             "title": "Target Behavior",
             "type": "string"
           },
@@ -1460,6 +1589,7 @@
               }
             ],
             "default": false,
+            "description": "Set true by the worker when a study context was derived from why_prompt. Ignored on input.",
             "title": "Target Behavior Context"
           },
           "target_population": {
@@ -1471,7 +1601,8 @@
                 "type": "null"
               }
             ],
-            "default": {}
+            "default": {},
+            "description": "Demographic constraints that select US respondents. age and household_income are inclusive [low, high] ranges; the other keys are allowed-value lists. At least one constraint is required unless another population mode or population_preset is used. Omitting state draws from twelve representative states."
           },
           "tasks_per_respondent": {
             "anyOf": [
@@ -1483,6 +1614,7 @@
               }
             ],
             "default": 0,
+            "description": "Choice tasks each respondent answered. Written by the worker into the run summary; ignored on input.",
             "title": "Tasks Per Respondent"
           },
           "title": {
@@ -1495,6 +1627,7 @@
               }
             ],
             "default": "",
+            "description": "Display name of the run. Empty (default) lets the worker derive one from why_prompt.",
             "title": "Title"
           },
           "token_count": {
@@ -1507,6 +1640,7 @@
               }
             ],
             "default": 0,
+            "description": "Model tokens consumed by the run. Written by the worker into the run summary; ignored on input.",
             "title": "Token Count"
           },
           "total_number_of_tasks": {
@@ -1519,6 +1653,7 @@
               }
             ],
             "default": 0,
+            "description": "Choice tasks in the realized design. Written by the worker into the run summary; ignored on input.",
             "title": "Total Number Of Tasks"
           },
           "trait_prediction_llm_model": {
@@ -1530,7 +1665,8 @@
                 "type": "null"
               }
             ],
-            "default": "databricks-claude-sonnet-4"
+            "default": "databricks-claude-sonnet-4",
+            "description": "Model that predicts each respondent's values for the modeled population_traits. Default Databricks Claude Sonnet 3.7."
           },
           "use_api": {
             "anyOf": [
@@ -1542,6 +1678,7 @@
               }
             ],
             "default": true,
+            "description": "Legacy switch for how trait personas are generated on the linear-schema path (API generator when true). Default true. Operator knob; leave unset.",
             "title": "Use Api"
           },
           "use_batching": {
@@ -1554,10 +1691,12 @@
               }
             ],
             "default": true,
+            "description": "Not read by the worker; kept for payload compatibility. Respondent batching is always on.",
             "title": "Use Batching"
           },
           "use_external_personas": {
             "default": false,
+            "description": "Population mode: build respondents from the LinkedIn profile URLs in external_personas. Exactly one population mode may be set.",
             "title": "Use External Personas",
             "type": "boolean"
           },
@@ -1571,6 +1710,7 @@
               }
             ],
             "default": false,
+            "description": "Fill an under-sized orthogonal array with Halton draws instead of Sobol. Default false. Engine-generated designs only.",
             "title": "Use Halton Draws"
           },
           "use_multiprocessing": {
@@ -1583,15 +1723,18 @@
               }
             ],
             "default": false,
+            "description": "Not read by the worker; kept for payload compatibility.",
             "title": "Use Multiprocessing"
           },
           "use_population_group": {
             "default": false,
+            "description": "Population mode: draw respondents from the named segment in population_group. Exactly one population mode may be set.",
             "title": "Use Population Group",
             "type": "boolean"
           },
           "use_preassigned_blocks": {
             "default": false,
+            "description": "Assign choice tasks from the Block column of an uploaded respondent file; falls back to random blocks when the column is absent. Default false.",
             "title": "Use Preassigned Blocks",
             "type": "boolean"
           },
@@ -1605,10 +1748,12 @@
               }
             ],
             "default": true,
+            "description": "Not read by the worker; kept for payload compatibility.",
             "title": "Use Threading"
           },
           "user_uploaded_persona": {
             "default": false,
+            "description": "Population mode: survey the respondents in the file at user_uploaded_persona_filelink instead of the synthetic population. Exactly one population mode may be set.",
             "title": "User Uploaded Persona",
             "type": "boolean"
           },
@@ -1622,6 +1767,7 @@
               }
             ],
             "default": "",
+            "description": "Storage key of the uploaded respondent parquet (population/<uuid>.parquet). Required when user_uploaded_persona is true.",
             "title": "User Uploaded Persona Filelink"
           },
           "why_prompt": {
@@ -1634,9 +1780,11 @@
               }
             ],
             "default": "",
+            "description": "The research question. Every generated part of the study (attributes, levels, dependent variable, context) is derived from it. Required.",
             "title": "Why Prompt"
           },
           "year": {
+            "description": "Time context given to the design generator and respondents. Defaults to the current month and year.",
             "title": "Year",
             "type": "string"
           }
@@ -1720,9 +1868,21 @@
           "databricks-llama4-maverick",
           "databricks-llama3.3-70B",
           "databricks-llama3.3-405B",
-          "bedrock:xai.grok-4.3"
+          "bedrock:xai.grok-4.3",
+          "bedrock:zai.glm-5",
+          "bedrock:moonshotai.kimi-k2.5",
+          "bedrock:qwen.qwen3-next-80b-a3b",
+          "bedrock:deepseek.v3.2"
         ],
         "title": "LLMModel",
+        "type": "string"
+      },
+      "PopulationPreset": {
+        "description": "Named US populations a caller can select instead of spelling out\ndemographic constraints. Each resolves to a TargetPopulation with at least\none real constraint, so the run takes the bounded marginals-then-sample\npath every constrained run takes (see Prepare_Population's guard on an\nall-empty target, which exists because an unconstrained run fans out over\nthe whole frame until the worker is killed).",
+        "enum": [
+          "us_general_adults"
+        ],
+        "title": "PopulationPreset",
         "type": "string"
       },
       "PopulationTraits": {
@@ -1765,6 +1925,7 @@
                 "type": "null"
               }
             ],
+            "description": "Inclusive [low, high] age range in years, for example [18, 65].",
             "title": "Age"
           },
           "education_level": {
@@ -1779,6 +1940,7 @@
                 "type": "null"
               }
             ],
+            "description": "Allowed education levels; a respondent matching any listed value is eligible.",
             "title": "Education Level"
           },
           "gender": {
@@ -1793,6 +1955,7 @@
                 "type": "null"
               }
             ],
+            "description": "Allowed genders; a respondent matching any listed value is eligible.",
             "title": "Gender"
           },
           "household_income": {
@@ -1807,6 +1970,7 @@
                 "type": "null"
               }
             ],
+            "description": "Inclusive [low, high] annual household income range in USD.",
             "title": "Household Income"
           },
           "number_of_children": {
@@ -1821,6 +1985,7 @@
                 "type": "null"
               }
             ],
+            "description": "Allowed number-of-children buckets; a respondent matching any listed value is eligible.",
             "title": "Number Of Children"
           },
           "racial_group": {
@@ -1835,6 +2000,7 @@
                 "type": "null"
               }
             ],
+            "description": "Allowed racial groups; a respondent matching any listed value is eligible.",
             "title": "Racial Group"
           },
           "state": {
@@ -1845,7 +2011,8 @@
               {
                 "type": "null"
               }
-            ]
+            ],
+            "description": "Single US state to draw from. Omitted: twelve representative states."
           }
         },
         "title": "TargetPopulation",
@@ -1991,7 +2158,7 @@
   "paths": {
     "/api/v1/experiments": {
       "post": {
-        "description": "Starts an experiment asynchronously and returns a W&B run id to poll.\n\nSupply the research question and a supported population selection, then\nreview the design, response and reproducibility options in the request\nschema. The REST Experiment model and MCP's typed `advanced` object are\ndifferent contracts; not every REST option is exposed through MCP or the\nbrowser form.\n\n**Poll the returned run identity.** Normal execution queues the run;\ndebug mode can execute inline. A definite submission rejection returns\nan error. Keep polling `in-queue`, `running` and `unknown`; a missing W&B\nrecord or timed-out read is not a reason to submit another experiment.\nREST does not provide the MCP launch-idempotency protocol. For a failed\nor ambiguous launch, reconcile the original run before retrying.\n\n**`population_traits` do not select a population.** Traits add modeled\nattributes to respondents selected by `target_population` or another\nsupported population mode. Always supply an explicit population selection\nalongside trait enrichment. A trait label is not evidence of observed\nbehavior in the sampled population.\n\n**`check_for_continuous_variables` only affects engine-generated\ndesigns.** When `pre_cooked_attributes_and_levels_lookup` is supplied,\nthe submitted levels are used exactly as sent and the flag has no\neffect: nothing is reclassified as continuous and no replacement values\nare drawn. Omit the levels to let the engine generate the design if\ncontinuous inference is wanted.\n",
+        "description": "Starts an experiment asynchronously and returns a W&B run id to poll.\n\nSupply the research question and a supported population selection, then\nreview the design, response and reproducibility options in the request\nschema. The REST Experiment model and MCP's typed `advanced` object are\ndifferent contracts; not every REST option is exposed through MCP or the\nbrowser form.\n\n**Poll the returned run identity.** Normal execution queues the run;\ndebug mode can execute inline. A definite submission rejection returns\nan error. Keep polling `in-queue`, `running` and `unknown`; a missing W&B\nrecord or timed-out read is not a reason to submit another experiment.\nREST does not provide the MCP launch-idempotency protocol. For a failed\nor ambiguous launch, reconcile the original run before retrying.\n\n**`population_traits` do not select a population.** Traits add modeled\nattributes to respondents who were already selected by\n`target_population` (or another population mode). A request that sends\n`population_traits` with an empty or absent `target_population` is\nrejected with `422` before anything is queued or any model is called; the\nerror names the missing constraint (for example `age`, `gender`,\n`household_income`, `education_level`, `racial_group`,\n`number_of_children`, or `state`).\n\n**`check_for_continuous_variables` only affects engine-generated\ndesigns.** When `pre_cooked_attributes_and_levels_lookup` is supplied,\nthe submitted levels are used exactly as sent and the flag has no\neffect: nothing is reclassified as continuous and no replacement values\nare drawn. Omit the levels to let the engine generate the design if\ncontinuous inference is wanted.\n\n**`population_preset` is a stored population.** Send\n`population_preset: us_general_adults` instead of writing\n`target_population` by hand; it expands to adults aged 18 to 99 across the\ntwelve representative states. It may carry `population_traits`, but a\npreset next to `target_population`, `non_us_target_population`,\n`use_population_group`, `use_external_personas`, `use_nrg_population` or\n`user_uploaded_persona` is rejected with `422`, and an unknown preset name\nis rejected by schema validation.\n",
         "operationId": "createExperiments",
         "requestBody": {
           "content": {
