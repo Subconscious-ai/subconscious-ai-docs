@@ -4,9 +4,13 @@ title: Connect through MCP
 description: Connect an assistant to Rehoboam, review a study draft, explicitly approve a paid launch, and retrieve interpretable results.
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Connect through MCP
 
-Use MCP when you want an assistant to help design and inspect an experiment.
+Connect your AI assistant to Subconscious.ai to help design a study and inspect
+experiment results. Start by choosing your client below.
 Start with the [study compatibility matrix](/guides/study-compatibility) to map
 your business decision to a supported launch or analysis workflow.
 Rehoboam owns the server and its tool schemas. The complete
@@ -15,10 +19,139 @@ Rehoboam owns the server and its tool schemas. The complete
 
 ## Connect your client
 
-Configure a remote MCP connection to **`https://api.subconscious.ai/mcp/`**
-using **Streamable HTTP**. Supply your access token in the
-`Authorization: Bearer YOUR_ACCESS_TOKEN` header. Obtain the token through
-[the authentication guide](/get-started/authentication).
+### 1. Get your access token
+
+Sign in to [Settings](https://app.subconscious.ai/settings) and select
+**Get Access Token**. Copy the value under **Your Access Token** into your
+client's credential field or local secret storage. Keep it out of chat messages,
+URLs, screenshots, and shared configuration files.
+
+See [Authentication](/get-started/authentication) for account access details.
+
+### 2. Add the server
+
+Use this server address, including the trailing slash:
+
+```text
+https://api.subconscious.ai/mcp/
+```
+
+The connection uses **Streamable HTTP** and an
+`Authorization: Bearer YOUR_ACCESS_TOKEN` header. The setup examples below use
+each client's documented configuration format. They do not certify every client
+version for paid launches.
+
+<Tabs groupId="mcp-client">
+<TabItem value="vscode" label="VS Code" default>
+
+Run **MCP: Open User Configuration** from the Command Palette. Merge the following
+entries into your configuration, preserving any existing servers and inputs:
+
+```json
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "subconscious-token",
+      "description": "Subconscious.ai access token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "subconscious": {
+      "type": "http",
+      "url": "https://api.subconscious.ai/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${input:subconscious-token}"
+      }
+    }
+  }
+}
+```
+
+Start the server from the configuration editor. Enter your token when prompted,
+then enable its tools in agent chat.
+[VS Code configuration reference](https://code.visualstudio.com/docs/agents/reference/mcp-configuration).
+
+</TabItem>
+<TabItem value="claude-code" label="Claude Code">
+
+Make your token available as the `SUBCONSCIOUS_ACCESS_TOKEN` environment variable
+in the shell that starts Claude Code. Use your local secret manager or a hidden
+shell prompt; avoid putting the token in shell history.
+
+Merge this entry into your project's `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "subconscious": {
+      "type": "http",
+      "url": "https://api.subconscious.ai/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${SUBCONSCIOUS_ACCESS_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+Keep the variable reference as written; do not replace it with the token in the
+file. Start Claude Code from that shell, approve the project server when asked,
+and use `/mcp` to check its connection. The environment variable must be available
+each time you start the client.
+[Claude Code MCP reference](https://code.claude.com/docs/en/mcp).
+
+</TabItem>
+<TabItem value="cursor" label="Cursor">
+
+Merge this entry into your personal `~/.cursor/mcp.json`, preserving any existing
+servers. Replace `YOUR_ACCESS_TOKEN` locally with the token from Settings.
+
+```json
+{
+  "mcpServers": {
+    "subconscious": {
+      "url": "https://api.subconscious.ai/mcp/",
+      "headers": {
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+      }
+    }
+  }
+}
+```
+
+This file contains a credential. Keep it private and do not copy it into a
+project's shared `.cursor/mcp.json`. Enable the server in Cursor's MCP settings,
+then open an agent conversation.
+[Cursor MCP configuration](https://cursor.com/help/customization/mcp).
+
+</TabItem>
+<TabItem value="other" label="Other clients">
+
+Choose a remote **Streamable HTTP** connection and enter the server address
+above. Set the `Authorization` header to `Bearer ` followed by your access token
+in the client's private credential settings.
+
+The client must support custom authentication headers. If its setup screen only
+offers an OAuth sign-in and no way to supply a bearer token, use one of the
+configurations above. Do not put the token in the server URL.
+
+</TabItem>
+</Tabs>
+
+### 3. Check the connection
+
+Open your client's MCP tool list. A successful connection shows the Subconscious
+tools returned by the server. Then try:
+
+> List the tools available from Subconscious and explain which ones help me
+> design a study and inspect existing results. Do not start an experiment.
+
+Listing tools does not launch a paid experiment. For a first study, try the
+[example below](#follow-a-study-from-question-to-evidence).
+
+### Before launching a paid experiment
 
 The transport is session-aware. Your client must retain the MCP session and
 support the server's elicitation flow to approve a paid launch. Configuration
@@ -34,6 +167,15 @@ The published manifest describes its pinned source; your connected server's
 `tools/list` response is the authority for the capabilities available in that session.
 The older Ghostshell stdio instructions describe a different registry and should
 not be used to configure this connection.
+
+### Troubleshooting
+
+| What you see | What to check |
+| --- | --- |
+| Authentication fails | Use the current access token from Settings, include the `Bearer ` prefix, and check that an environment variable or input prompt resolved to a value. |
+| Connection fails or no tools appear | Check the full server address and HTTP transport, enable the server, and reconnect. Inspect your client's MCP status or logs without sharing credentials. |
+| Tools appear but paid launch approval fails | The client must retain the MCP session and support elicitation. Use the [browser workflow](https://app.subconscious.ai) if your client cannot show the approval request. |
+| A launch was interrupted | Follow the existing run or launch receipt before retrying. See [Poll a run](/guides/poll-a-run). |
 
 ## Follow a study from question to evidence
 
