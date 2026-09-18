@@ -9,8 +9,8 @@ import TabItem from '@theme/TabItem';
 
 # Connect through MCP
 
-Connect your AI assistant to Subconscious.ai to help design a study and inspect
-experiment results. Start by choosing your client below.
+Connect your AI assistant to the **Subconscious.ai Rehoboam MCP server** to help
+design a study and inspect experiment results. Start by choosing your client below.
 Start with the [study compatibility matrix](/guides/study-compatibility) to map
 your business decision to a supported launch or analysis workflow.
 Rehoboam owns the server and its tool schemas. The complete
@@ -189,15 +189,61 @@ not be used to configure this connection.
 | Inspect results        | `get_experiment_details`, `ask_experiment`                                   | Are the expected artifacts present and relevant to your question? |
 | Analyze                | The analytics tools below                                                    | Which contrast answers the decision you planned?                  |
 
-A useful initial instruction is:
+### Example 1: design a study before launching
 
-> Help me design a study of job-offer preferences. Compare salary, working
-> arrangement, and commute for my stated target population. Explain the
-> assumptions and show me the draft before asking for launch approval.
+> Help me design a study of job-offer preferences for US software engineers.
+> Include annual salary, working arrangement, and commute. Ask me about any
+> consequential missing details. Propose distinct, actionable attributes and
+> exact levels with units; keep salary separate from benefits. Preserve values
+> I supply, explain the assumptions, and show me the draft. Do not start a paid
+> experiment until I have reviewed the design and approved the client's launch
+> confirmation.
 
 Treat generated designs as proposals. Use
 [Design your first study](/guides/research-design) to check population,
 comparisons, interpretation, and the plan for human validation.
+
+### Example 2: inspect an existing study
+
+> Help me inspect my completed job-offer study. If your available tools include
+> find_experiments, find my matching studies and ask me to choose if more than
+> one matches; otherwise ask me for the run ID. Verify the run has finished and
+> has the required results. Use get_analytics_metadata to discover exact labels,
+> then use the direct numeric tools to compare attribute importance and two
+> complete offer configurations that I approve. Report sample sizes, units,
+> uncertainty, and source hashes when available. Describe shares as modeled
+> preferences, not observed hiring outcomes. Do not launch a new experiment or
+> call the delegated analyst.
+
+Study discovery, when available, uses a cached list of your owned studies. Check
+its freshness and coverage before concluding that a study is missing. Confirm
+the study type before choosing analytics: conjoint calculations require conjoint
+results and their respondent artifacts.
+
+Direct numeric tools are the default analysis path. The optional `ask_analyst`
+tool, or its older `ask_experiment` alias, delegates interpretation and may incur
+model inference costs. Use the names advertised by your connected server.
+
+### Review the design with your assistant
+
+- Keep one dimension per attribute level: use `$14`, not `$14 with premium
+  support`. Use exact values and units instead of ranges.
+- Prefer distinct, actionable attributes with realistic, mutually exclusive
+  levels. Rehoboam's starting guidance is 5–7 attributes and 3–4 levels each;
+  adapt the design to the decision rather than adding filler.
+- Preserve a supplied design and choice question. Ask about consequential gaps
+  instead of silently replacing the customer's inputs.
+- Include a “not offered” level or a “neither” choice only when it represents a
+  real decision option. Review those settings explicitly.
+- Review the resolved respondent count before promising subgroup analysis.
+  `confidence_level` is an output summary, not a control for sample size. Follow
+  the selected tool's sample-size requirements; report unavailable comparisons
+  rather than substituting overall results.
+
+After approval, poll the returned run. A timeout is a reason to retry a read,
+not to launch again. Keep the run ID, specification hash, approval receipt, and
+idempotency key. If the client cannot display the launch confirmation, stop and
+use the browser workflow rather than retrying with new keys.
 
 ## Review before approving a paid launch
 
