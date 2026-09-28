@@ -40,16 +40,20 @@ gh api \
   --jq '.content' | base64 -d > "${TEMP_DIR}/mcp.json"
 
 SOURCE_REVISION="$(
-  python3 - "${TEMP_DIR}/manifest.json" <<'PY'
+  python3 - "${TEMP_DIR}/manifest.json" "$RESOLVED_REVISION" <<'PY'
 import json
 import sys
 
-print(json.load(open(sys.argv[1]))["source"]["revision"])
+manifest = json.load(open(sys.argv[1]))
+assert manifest["manifest_version"] in (1, 2)
+print(manifest["source"]["revision"] if manifest["manifest_version"] == 1 else sys.argv[2])
 PY
 )"
 
 [[ "$SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo "Invalid OpenAPI source revision" >&2; exit 1; }
-MCP_SOURCE_REVISION="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["source"]["revision"])' "${TEMP_DIR}/mcp.json")"
+MCP_SOURCE_REVISION="$(python3 -c 'import json,sys; manifest = json.load(open(sys.argv[1]))
+assert manifest["manifest_version"] in (1, 2)
+print(manifest["source"]["revision"] if manifest["manifest_version"] == 1 else sys.argv[2])' "${TEMP_DIR}/mcp.json" "$RESOLVED_REVISION")"
 [[ "$MCP_SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo "Invalid MCP source revision" >&2; exit 1; }
 for source_ref in "$SOURCE_REVISION" "$MCP_SOURCE_REVISION"; do
   ancestry="$(gh api "repos/Subconscious-ai/rehoboam/compare/${source_ref}...${RESOLVED_REVISION}" --jq '.status')"
@@ -59,8 +63,8 @@ for source_ref in "$SOURCE_REVISION" "$MCP_SOURCE_REVISION"; do
   esac
 done
 
-# The embedded source revision must remain reachable and own the same schema.
-# This catches a provenance manifest stranded by a squash merge.
+# Version 1 retains its legacy ancestry check. Version 2 is content-bound;
+# the resolved download commit is its source identity, pinned below.
 gh api "repos/Subconscious-ai/rehoboam/commits/${SOURCE_REVISION}" >/dev/null
 gh api \
   "repos/Subconscious-ai/rehoboam/contents/openapi.public.json?ref=${SOURCE_REVISION}" \
@@ -112,9 +116,13 @@ assert schema.get("servers"), "spec is missing a servers block"
 leaked = [p for p in paths if p.startswith(("/api/v1/payments", "/api/v3/"))]
 assert not leaked, f"internal operations present: {leaked}"
 assert re.fullmatch(r"[0-9a-f]{40}", revision), "resolved revision is not a commit SHA"
-assert manifest["manifest_version"] == 1
+assert manifest["manifest_version"] in (1, 2)
 assert manifest["source"]["repository"] == "Subconscious-ai/rehoboam"
-assert re.fullmatch(r"[0-9a-f]{40}", manifest["source"]["revision"])
+if manifest["manifest_version"] == 1:
+    assert re.fullmatch(r"[0-9a-f]{40}", manifest["source"]["revision"])
+else:
+    assert "revision" not in manifest["source"]
+    assert "generated_at" not in manifest
 assert manifest["schema"]["filename"] == "openapi.public.json"
 assert manifest["schema"]["canonical_sha256"] == canonical_sha256(schema)
 assert manifest["schema"]["path_count"] == len(paths)
@@ -134,14 +142,19 @@ pin["manifest_sha256"] = hashlib.sha256(manifest_bytes).hexdigest()
 mcp_bytes = Path(mcp_path).read_bytes()
 mcp = json.loads(mcp_bytes)
 assert mcp["source"]["repository"] == "Subconscious-ai/rehoboam"
-assert re.fullmatch(r"[0-9a-f]{40}", mcp["source"]["revision"])
+assert mcp["manifest_version"] in (1, 2)
+if mcp["manifest_version"] == 1:
+    assert re.fullmatch(r"[0-9a-f]{40}", mcp["source"]["revision"])
+else:
+    assert "revision" not in mcp["source"]
+    assert mcp["tools_sha256"] == canonical_sha256(mcp["tools"])
 assert mcp["transport"] == {"type": "streamable-http", "path": "/mcp/", "stateful": True}
 assert mcp["authentication"] == {"type": "bearer", "delivery": "header", "header": "Authorization"}
 assert mcp["tool_count"] == len(mcp["tools"])
 pins["mcp"] = {
     "repository": "Subconscious-ai/rehoboam",
     "revision": revision,
-    "registry_revision": mcp["source"]["revision"],
+    "registry_revision": mcp["source"]["revision"] if mcp["manifest_version"] == 1 else revision,
     "path": "mcp-tools.public.json",
     "sha256": hashlib.sha256(mcp_bytes).hexdigest(),
 }
