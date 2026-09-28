@@ -41,10 +41,24 @@ attributes, levels, privacy, and cost:
 
 Retain the returned `wandb_run_name` with the request and artifacts. For a
 later run of the same definition, set `latent_variables_from_run` to that
-actual run name. This reuses the latent-variable bundle instead of generating
-a new one. It requires the same population; inspect the reused artifact and
-its respondent mapping rather than assuming that a matching count proves
-matching identities.
+actual run name. When latent-variable enrichment is enabled, this reuses the
+bundle instead of generating a new one. It requires the same population;
+inspect the reused artifact and its respondent mapping rather than assuming
+that a matching count proves matching identities.
+
+## Keep response mode and model selection fixed
+
+For discrete conjoint studies, `response_mode: "fast"` skips generated attitudes,
+mood, and decision strategies. It also bypasses `latent_variables_from_run`,
+so supplying a previous run name does not restore that enrichment. The
+`"reliable"` mode enables enrichment and uses the full respondent prompt.
+Changing between these modes changes the procedure, not just how long it takes.
+
+Record the resolved respondent model or panel and the routing configuration
+with each run. Leaving `expr_llm_model` unset or `null` uses the deployed survey
+route or enabled panel default; it does not pin a model across releases.
+Preserve an explicit model selection when that is part of the comparison,
+and still retain the resolved configuration and provider evidence.
 
 ## Measure the variation that remains
 
