@@ -1,0 +1,126 @@
+---
+title: "Donnaloja 2022"
+sidebar_label: "Donnaloja 2022"
+description: "British Nationals' Preferences Over Who Gets to Be a Citizen According to a Choice-BasedConjoint Experiment, replicated with synthetic respondents: rank correlation .91 on 14 levels, every level with its 95% interval on both sides."
+slug: /human-baselines/donnaloja-2022
+hide_title: true
+---
+
+import Xy from "@site/static/img/human-baselines/donnaloja-2022/xy.svg";
+import Forest from "@site/static/img/human-baselines/donnaloja-2022/forest.svg";
+import Eras from "@site/static/img/human-baselines/donnaloja-2022/eras.svg";
+import Fingerprint from "@site/static/img/human-baselines/donnaloja-2022/fingerprint.svg";
+import Counterfactual from "@site/static/img/human-baselines/donnaloja-2022/counterfactual.svg";
+
+<div className="hb">
+
+<div className="hb-label">Replication receipt <span className="hb-sub">Public Policy · United Kingdom · 2022</span></div>
+
+# Donnaloja 2022, <em>replicated with synthetic respondents.</em>
+
+<div className="hb-stats">
+<div className="hb-stat"><div className="hb-v hb-lead">.91<small> [.71, .97]</small></div><div className="hb-k">Spearman rho, paper AMCEs vs synthetic, 14 levels · 2026-09 direct · zai.glm-5 · seed 401</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">normalized accuracy · rho ÷ human ceiling (not measured)</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">RMSE after one fitted scale · not computed for this arm</div></div>
+<div className="hb-deck">The paper asked 1,597 respondents in the United Kingdom to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects. <b>When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .91 on 14 levels.</b> Every claim below carries its interval and its source.</div>
+</div>
+
+<div className="hb-plain">
+<div><div className="hb-q">What we did, in plain words</div><div className="hb-a">The paper asked 1,597 respondents in the United Kingdom to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects.</div></div>
+<div><div className="hb-q">What we found</div><div className="hb-a">When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .91 on 14 levels.</div></div>
+<div><div className="hb-q">What it does not prove</div><div className="hb-a">No design difference is recorded for this run.</div></div>
+</div>
+
+<dl className="hb-design">
+<div><dt>Human sample</dt><dd>1,597 respondents · United Kingdom</dd></div>
+<div><dt>Task, as the humans saw it</dt><dd>2 profiles · with opt-out · 5 tasks each</dd></div>
+<div><dt>Attributes · levels</dt><dd>8 attributes · 37 published levels</dd></div>
+<div><dt>Paper's estimator</dt><dd>OLS (standard errors clustered by respondent; design weights prov)</dd></div>
+<div><dt>Synthetic run</dt><dd>zai.glm-5 · 14 levels scored · seed 401</dd></div>
+<div><dt>Design difference</dt><dd className="">none recorded</dd></div>
+</dl>
+
+## Each level is a field of belief
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The paper's interval on x, the synthetic interval on y.</p><div className="hb-hint">Denser where fields overlap · dotted line is perfect agreement · <b>red fields: intervals do not touch</b></div></div>
+<div className="hb-xy"><Xy /></div>
+<div className="hb-legend"><span><i className="hb-i-heat"></i>one level's 95% field</span><span><i className="hb-i-gap"></i>fields disjoint</span></div>
+<p className="hb-cap">Each blob is one attribute level: its width is the paper's 95% interval, its height the synthetic panel's. Where blobs pile up along the dotted diagonal, humans and the panel agree with confidence; a blob far from it, or in red, is a level the panel got wrong. <em>The solid fit line's slope is the calibration: 1.0 would mean the panel is as sensitive as the humans.</em></p>
+<div className="hb-src"><b>Source</b> <a href="https://doi.org/10.1093/esr/jcab034">British Nationals&#x27; Preferences Over Who Gets to Be a Citizen According to a Choice-BasedConjoint Experiment</a>, doi:10.1093/esr/jcab034 · Ditto record data/transcription_evidence_v2/Donnaloja2022.merged.json · W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp; <b>Method</b> OLS AMCE re-referenced to the paper's base levels · ex-reference convention · scorer ditto_metastudy.fidelity_charts &nbsp; <b>Status</b> <span className="hb-st">transcription not yet audited against the PDF</span></div>
+</section>
+
+## Every level, human beside synthetic
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The receipt behind the scatter: find the level that failed.</p><div className="hb-hint">Filled: human, paper interval · hollow: synthetic · <b>red connector: the gap</b></div></div>
+<div className="hb-wrap"><Forest /></div>
+<div className="hb-legend"><span><i className="hb-i-ink"></i>human · paper 95% CI</span><span><i className="hb-i-hollow"></i>synthetic · cluster-robust 95% CI</span><span><i className="hb-i-gap"></i>intervals disjoint</span></div>
+<p className="hb-cap"><em>Reference levels sit at zero on both sides by construction and are not scored.</em></p>
+</section>
+
+## Every replication of this study
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Each era on the rank-correlation axis.</p><div className="hb-hint">No human ceiling has been measured for this paper</div></div>
+<div className="hb-wrap"><Eras /></div>
+<p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
+<div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
+</section>
+
+
+## Same answers, or the same causes?
+
+<p className="hb-cap">A conjoint randomizes every attribute, so the effects on this page are already interventional, not correlational: matching them is more than matching marginals. What that does not settle is whether the <em>structure</em> of causes matches. These are the measures that ask, one rung at a time. Each is drawn only where the data supports it.</p>
+
+<div className="hb-ladder"><div className="hb-rung"><div className="hb-r"><b>Association</b>Rung 1</div><div className="hb-a">Do synthetic respondents answer the way people answer?</div><div className="hb-m">Rank correlation of the effects, RMSE after one fitted scale, accuracy against the human ceiling. Necessary, and where most of the industry stops.</div></div><div className="hb-rung"><div className="hb-r"><b>Intervention</b>Rung 2</div><div className="hb-a">When the experimenter changes an attribute, does the effect on choice match in size, direction and shape?</div><div className="hb-m">A conjoint randomizes every attribute, so its effects are already interventional. Calibration slope, equivalence level by level, dose-response, and the interaction fingerprint live here.</div></div><div className="hb-rung"><div className="hb-r"><b>Heterogeneity</b>Rung 2½</div><div className="hb-a">Is the effect larger for the same kind of person?</div><div className="hb-m">Conditional effects by respondent stratum. The literature&#x27;s weak point: main effects replicate at about .85 while treatment-by-subgroup interactions replicate at about zero.</div></div><div className="hb-rung"><div className="hb-r"><b>Counterfactual</b>Rung 3</div><div className="hb-a">For this respondent, would one changed attribute have flipped the choice?</div><div className="hb-m">The spread of within-respondent effects, against the human spread. Averages can agree while the spreads do not.</div></div></div>
+
+<div className="hb-stats hb-mech">
+<div className="hb-stat"><div className="hb-v">1.25</div><div className="hb-k">calibration slope · synthetic effect per unit of human effect · 1.00 is the same sensitivity</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">dispersion · not measured</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">equivalence · not measured</div></div>
+<div className="hb-deck">Slope says whether the panel feels causes as strongly as people; dispersion whether it is more certain than people; equivalence how many levels agree inside a margin we state rather than derive.</div>
+</div>
+<div className="hb-absent"><div className="hb-q">Equivalence, level by level</div><div className="hb-a">Not measured for this study. It needs a 95% interval on both sides; this paper or this run does not publish one.</div></div><div className="hb-absent"><div className="hb-q">Dose-response</div><div className="hb-a">Not measured for this study. No attribute in this design is ordered by the record or by numeric levels.</div></div>
+### Which attributes interact
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Every pair of attributes, scored against shuffled answers.</p><div className="hb-hint">Darker is a stronger interaction · z above 3 is beyond chance</div></div>
+<div className="hb-wrap"><Fingerprint /></div>
+<p className="hb-cap">An interaction is two attributes that matter more, or less, together than apart, and it is the part of a mechanism a rank correlation cannot see. The panel shows 0 pairs beyond chance. This paper has no released respondent data, so only the synthetic side is drawn. <em>Raw variance explained grows with the number of levels a pair adds, so two shuffled copies of the same data would "agree" at about .86 on it; only the null-calibrated score is drawn.</em></p>
+<div className="hb-src"><b>Source</b> respondent-level answers for the synthetic side &nbsp; <b>Method</b> ΔR² of each pairwise interaction over the additive model, z against 25 shuffles of the outcome &nbsp; <b>Status</b> <span className="hb-st">exploratory</span></div>
+</section>
+<div className="hb-absent"><div className="hb-q">Is the effect larger for the same people?</div><div className="hb-a">Not measured for this study. This arm&#x27;s respondents carry no persona, or no stratum reached 40 respondents.</div></div>
+### Would it have changed this respondent's mind?
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">One effect per respondent, not one effect per study.</p><div className="hb-hint">Synthetic only: this paper released no respondent data</div></div>
+<div className="hb-wrap"><Counterfactual /></div>
+<p className="hb-cap">Each respondent saw the same contrast more than once, so each has an effect of their own: the share they chose when <b>6</b> was present, minus the share when it was not.  A panel that answers with one voice would pile up on a single value where people spread out, and 16% of these respondents move against the average effect. <em>These are within-respondent contrasts inferred from separate tasks, not paired counterfactual tasks; asking the same respondent the flipped profile is the next step.</em></p>
+<div className="hb-src"><b>Source</b> respondent-level answers for the synthetic panel &nbsp; <b>Method</b> share chosen with the level minus share chosen without it, per respondent &nbsp; <b>Status</b> <span className="hb-st">rung-3 evidence by inference, not by paired design</span></div>
+</section>
+
+### What we measure next
+
+<div className="hb-wrap"><table className="hb-levels hb-adopt"><thead><tr><th>Measure</th><th>Rung</th><th>State</th><th>What it asks</th></tr></thead><tbody><tr><td><b>Calibration slope and dispersion</b></td><td>2</td><td>on this page</td><td>Slope of synthetic on human effects through the origin; interval-width and R² ratios at matched respondents.</td></tr><tr><td><b>Equivalence per level (TOST)</b></td><td>2</td><td>on this page</td><td>90% interval of the difference inside a stated margin, the FDA&#x27;s two one-sided tests.</td></tr><tr><td><b>Dose-response monotonicity</b></td><td>2</td><td>on this page where an attribute is ordered</td><td>Kendall τ of effect order against level order; the record must name the order or the levels must be numeric.</td></tr><tr><td><b>Interaction fingerprint</b></td><td>2</td><td>on this page where respondent data exists</td><td>Each pair&#x27;s ΔR², z-scored against shuffled outcomes so it cannot be a count of dummies.</td></tr><tr><td><b>Conditional effects by stratum</b></td><td>2½</td><td>on this page where the panel carries personas</td><td>The same effects within respondent strata, both sides where the paper released its covariates.</td></tr><tr><td><b>Within-respondent counterfactuals</b></td><td>3</td><td>on this page where respondent data exists</td><td>The distribution of individual effects; a panel with one voice spikes where people spread.</td></tr><tr><td><b>Invariance across environments</b></td><td>3</td><td>next</td><td>The same effects across seeds, models, prompts and countries; a Chow-type test of the choice regression (Peters, Bühlmann, Meinshausen).</td></tr><tr><td><b>Paired counterfactual tasks</b></td><td>3</td><td>next</td><td>Ask the same respondent the profile with one attribute flipped, rather than inferring the contrast from separate tasks.</td></tr><tr><td><b>Held-out prediction</b></td><td>3</td><td>next</td><td>Predict a paper&#x27;s effects from the others before running it, and report calibration on the held-out set.</td></tr><tr><td><b>Mechanism probes</b></td><td>3</td><td>next</td><td>Loss aversion, framing, decoy and anchoring run as designed experiments against the value the literature reports.</td></tr></tbody></table></div>
+
+<p className="hb-cap">Nothing above shows that the model reasons like a person. It shows that under the experimenter's interventions the response surface has the same rank, shape and interaction structure, with a distortion this page measures. <em>Rung 3 is not implied by rung 2.</em></p>
+<div className="hb-src"><b>Source</b> synthetic respondents: direct table, 300 respondents; no human respondent data adapted for this paper &nbsp; <b>Method</b> ditto_metastudy.mechanism, cached per arm &nbsp; <b>Status</b> <span className="hb-st">exploratory; the plan and the audited literature are Ditto#361</span></div>
+
+
+## Replication criteria, stated side by side
+
+<div className="hb-criteria">
+<div><div className="hb-q">Rank-correlation interval excludes zero</div><div className="hb-a hb-pass">rho .91 [.71, .97] on 14 levels</div></div><div><div className="hb-q">Within the measured human ceiling</div><div className="hb-a hb-na">no respondent-level human data has been measured for this paper</div></div><div><div className="hb-q">Sign agreement on at least 80% of non-zero levels</div><div className="hb-a hb-pass">100% of levels share the paper&#x27;s sign</div></div><div><div className="hb-q">Intervals overlap on at least 70% of levels</div><div className="hb-a hb-na">one side publishes no interval</div></div><div><div className="hb-q">Design conformant to the paper</div><div className="hb-a hb-pass">the direct runner uses the record&#x27;s design verbatim: tasks, choice set and opt-out as printed</div></div><div><div className="hb-q">Transcription audited against the PDF</div><div className="hb-a hb-na">transcription not yet audited against the PDF</div></div>
+</div>
+
+<p className="hb-cap">No single verdict, after Open Science Collaboration 2015 and Camerer et al. 2016. Thresholds (80% sign, 70% overlap) are stated, not derived.</p>
+
+<details>
+<summary>All 37 levels as a table</summary>
+<div className="hb-wrap"><table className="hb-levels"><thead><tr><th>Attribute</th><th>Level</th><th>Human β</th><th>±95%</th><th>Synthetic β</th><th>±95%</th><th>Scored</th></tr></thead><tbody><tr className=""><td>Gender</td><td>Male</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Gender</td><td>Female</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.067</td><td className="hb-n">0.030</td><td>reference</td></tr><tr className=""><td>Length of residence</td><td>4 years</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Length of residence</td><td>6 years</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.098</td><td className="hb-n">0.041</td><td>reference</td></tr><tr className=""><td>Length of residence</td><td>10 years</td><td className="hb-n">0.090</td><td className="hb-n">—</td><td className="hb-n">0.247</td><td className="hb-n">0.043</td><td>yes</td></tr><tr className=""><td>Length of residence</td><td>20 years</td><td className="hb-n">0.120</td><td className="hb-n">—</td><td className="hb-n">0.403</td><td className="hb-n">0.042</td><td>yes</td></tr><tr className=""><td>Country of origin</td><td>Germany</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Country of origin</td><td>Poland</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.063</td><td className="hb-n">0.066</td><td>reference</td></tr><tr className=""><td>Country of origin</td><td>Italy</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.006</td><td className="hb-n">0.066</td><td>reference</td></tr><tr className=""><td>Country of origin</td><td>India</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.069</td><td className="hb-n">0.067</td><td>reference</td></tr><tr className=""><td>Country of origin</td><td>Pakistan</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.075</td><td className="hb-n">0.066</td><td>reference</td></tr><tr className=""><td>Country of origin</td><td>Nigeria</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.104</td><td className="hb-n">0.069</td><td>reference</td></tr><tr className=""><td>Country of origin</td><td>Ireland</td><td className="hb-n">0.080</td><td className="hb-n">—</td><td className="hb-n">0.081</td><td className="hb-n">0.072</td><td>yes</td></tr><tr className=""><td>Country of origin</td><td>Australia</td><td className="hb-n">0.070</td><td className="hb-n">—</td><td className="hb-n">0.058</td><td className="hb-n">0.067</td><td>yes</td></tr><tr className=""><td>Country of origin</td><td>Syria</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.124</td><td className="hb-n">0.071</td><td>reference</td></tr><tr className=""><td>Country of origin</td><td>Somalia</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.119</td><td className="hb-n">0.067</td><td>reference</td></tr><tr className=""><td>Occupation</td><td>Corporate manager</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Occupation</td><td>Doctor</td><td className="hb-n">0.050</td><td className="hb-n">—</td><td className="hb-n">0.249</td><td className="hb-n">0.065</td><td>yes</td></tr><tr className=""><td>Occupation</td><td>IT professional</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.018</td><td className="hb-n">0.065</td><td>reference</td></tr><tr className=""><td>Occupation</td><td>Language teacher</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.028</td><td className="hb-n">0.066</td><td>reference</td></tr><tr className=""><td>Occupation</td><td>Admin worker</td><td className="hb-n">-0.050</td><td className="hb-n">—</td><td className="hb-n">-0.062</td><td className="hb-n">0.063</td><td>yes</td></tr><tr className=""><td>Occupation</td><td>Farmer</td><td className="hb-n">-0.070</td><td className="hb-n">—</td><td className="hb-n">-0.126</td><td className="hb-n">0.066</td><td>yes</td></tr><tr className=""><td>Occupation</td><td>Cleaner</td><td className="hb-n">-0.090</td><td className="hb-n">—</td><td className="hb-n">-0.110</td><td className="hb-n">0.064</td><td>yes</td></tr><tr className=""><td>Occupation</td><td>Unemployed</td><td className="hb-n">-0.360</td><td className="hb-n">—</td><td className="hb-n">-0.289</td><td className="hb-n">0.061</td><td>yes</td></tr><tr className=""><td>Occupation</td><td>Stay at home parent</td><td className="hb-n">-0.170</td><td className="hb-n">—</td><td className="hb-n">-0.206</td><td className="hb-n">0.060</td><td>yes</td></tr><tr className=""><td>Ancestry</td><td>British parent</td><td className="hb-n">0.100</td><td className="hb-n">—</td><td className="hb-n">0.182</td><td className="hb-n">—</td><td>yes</td></tr><tr className=""><td>Ancestry</td><td>British grandparent</td><td className="hb-n">0.060</td><td className="hb-n">—</td><td className="hb-n">0.074</td><td className="hb-n">0.039</td><td>yes</td></tr><tr className=""><td>Ancestry</td><td>Neither</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">0.035</td><td>reference</td></tr><tr className=""><td>Refugee status</td><td>Not refugee</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Refugee status</td><td>Refugee</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.001</td><td className="hb-n">0.039</td><td>reference</td></tr><tr className=""><td>Refugee status</td><td>NA</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.015</td><td className="hb-n">0.038</td><td>reference</td></tr><tr className=""><td>English proficiency</td><td>Basic</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>English proficiency</td><td>Good</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">0.234</td><td className="hb-n">0.039</td><td>reference</td></tr><tr className=""><td>English proficiency</td><td>Excellent</td><td className="hb-n">0.110</td><td className="hb-n">—</td><td className="hb-n">0.313</td><td className="hb-n">0.033</td><td>yes</td></tr><tr className=""><td>Religion</td><td>Christian</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Religion</td><td>Muslim</td><td className="hb-n">-0.160</td><td className="hb-n">—</td><td className="hb-n">-0.102</td><td className="hb-n">0.037</td><td>yes</td></tr><tr className=""><td>Religion</td><td>No religion</td><td className="hb-n">—</td><td className="hb-n">—</td><td className="hb-n">-0.094</td><td className="hb-n">0.037</td><td>reference</td></tr></tbody></table></div>
+</details>
+
+<div className="hb-foot"><b>Reference</b> Ditto data/transcription_evidence_v2/Donnaloja2022.merged.json &nbsp;·&nbsp; <b>Replication</b> W&amp;B why-earth/dev-subconscious-ai levels table (run xy7ekbxs) &nbsp;·&nbsp; <b>Scores</b> per-level rows in the <code>levels</code> table of that project &nbsp;·&nbsp; <b>Generated</b> by <code>hb publish --docs</code> from those records; nothing on this page is typed by hand</div>
+
+</div>

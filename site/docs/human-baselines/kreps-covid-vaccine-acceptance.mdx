@@ -1,0 +1,155 @@
+---
+title: "Kreps 2020"
+sidebar_label: "Kreps 2020"
+description: "Factors Associated With US Adults' Likelihood of Accepting COVID-19 Vaccination, replicated with synthetic respondents: rank correlation .95 on 11 levels, every level with its 95% interval on both sides."
+slug: /human-baselines/kreps-covid-vaccine-acceptance
+hide_title: true
+---
+
+import Xy from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/xy.svg";
+import Forest from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/forest.svg";
+import Eras from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/eras.svg";
+import Tost from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/tost.svg";
+import Dose from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/dose.svg";
+import Fingerprint from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/fingerprint.svg";
+import Strata from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/strata.svg";
+import Counterfactual from "@site/static/img/human-baselines/kreps-covid-vaccine-acceptance/counterfactual.svg";
+
+<div className="hb">
+
+<div className="hb-label">Replication receipt <span className="hb-sub">Public Health · United States · 2020</span></div>
+
+# Kreps 2020, <em>replicated with synthetic respondents.</em>
+
+<div className="hb-stats">
+<div className="hb-stat"><div className="hb-v hb-lead">.95<small> [.81, .99]</small></div><div className="hb-k">Spearman rho, paper AMCEs vs synthetic, 11 levels · 2026-07 platform · databricks-claude-sonnet-4</div></div>
+<div className="hb-stat"><div className="hb-v">—</div><div className="hb-k">normalized accuracy · rho ÷ human ceiling (not measured)</div></div>
+<div className="hb-stat"><div className="hb-v">.021</div><div className="hb-k">RMSE after one fitted scale, AMCE units</div></div>
+<div className="hb-deck">The paper asked 1,971 respondents in the United States to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects. <b>When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .95 on 11 levels.</b> Every claim below carries its interval and its source.</div>
+</div>
+
+<div className="hb-plain">
+<div><div className="hb-q">What we did, in plain words</div><div className="hb-a">The paper asked 1,971 respondents in the United States to choose between 2 profiles. We ran the same design with synthetic respondents and estimated the same effects.</div></div>
+<div><div className="hb-q">What we found</div><div className="hb-a">When humans preferred a level, the synthetic panel did too, most of the time: rank correlation .95 on 11 levels.</div></div>
+<div><div className="hb-q">What it does not prove</div><div className="hb-a">Shown, not hidden: 5 levels where the two intervals do not touch (drawn in red).</div></div>
+</div>
+
+<dl className="hb-design">
+<div><dt>Human sample</dt><dd>1,971 respondents · United States</dd></div>
+<div><dt>Task, as the humans saw it</dt><dd>2 profiles · with opt-out · 5 tasks each</dd></div>
+<div><dt>Attributes · levels</dt><dd>7 attributes · 18 published levels</dd></div>
+<div><dt>Paper's estimator</dt><dd>OLS (standard errors clustered on respondent; 95% CIs calculated )</dd></div>
+<div><dt>Synthetic run</dt><dd>databricks-claude-sonnet-4 · 11 levels scored · run 41b1b063</dd></div>
+<div><dt>Design difference</dt><dd className="">none recorded</dd></div>
+</dl>
+
+## Each level is a field of belief
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The paper's interval on x, the synthetic interval on y.</p><div className="hb-hint">Denser where fields overlap · dotted line is perfect agreement · <b>red fields: intervals do not touch</b></div></div>
+<div className="hb-xy"><Xy /></div>
+<div className="hb-legend"><span><i className="hb-i-heat"></i>one level's 95% field</span><span><i className="hb-i-gap"></i>fields disjoint</span></div>
+<p className="hb-cap">Each blob is one attribute level: its width is the paper's 95% interval, its height the synthetic panel's. Where blobs pile up along the dotted diagonal, humans and the panel agree with confidence; a blob far from it, or in red, is a level the panel got wrong. <em>The solid fit line's slope is the calibration: 1.0 would mean the panel is as sensitive as the humans.</em></p>
+<div className="hb-src"><b>Source</b> <a href="https://doi.org/10.1001/jamanetworkopen.2020.25594">Factors Associated With US Adults&#x27; Likelihood of Accepting COVID-19 Vaccination</a>, doi:10.1001/jamanetworkopen.2020.25594 · Ditto record data/transcription_evidence_v2/Kreps2020.merged.json · W&amp;B why-earth/dev-subconscious-ai run 41b1b063-e98c-43f5-ba58-22d65dc0acc6 &nbsp; <b>Method</b> OLS AMCE re-referenced to the paper's base levels · ex-reference convention · scorer ditto_metastudy.fidelity_charts &nbsp; <b>Status</b> transcription corrections employee-approved and applied</div>
+</section>
+
+## Every level, human beside synthetic
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The receipt behind the scatter: find the level that failed.</p><div className="hb-hint">Filled: human, paper interval · hollow: synthetic · <b>red connector: the gap</b></div></div>
+<div className="hb-wrap"><Forest /></div>
+<div className="hb-legend"><span><i className="hb-i-ink"></i>human · paper 95% CI</span><span><i className="hb-i-hollow"></i>synthetic · cluster-robust 95% CI</span><span><i className="hb-i-gap"></i>intervals disjoint</span></div>
+<p className="hb-cap"><em>Reference levels sit at zero on both sides by construction and are not scored.</em></p>
+</section>
+
+## Every replication of this study
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Each era on the rank-correlation axis.</p><div className="hb-hint">No human ceiling has been measured for this paper</div></div>
+<div className="hb-wrap"><Eras /></div>
+<p className="hb-cap">Earlier eras report a mean over runs with no interval, so they are drawn hollow. <em>The direct runner uses the paper's design verbatim (choice set, tasks, opt-out as printed) and no personas unless labelled; its runs are unreviewed and shown as separate marks, never averaged. Two seeds of the same arm differ by about 0.02, the measured noise floor.</em></p>
+<div className="hb-src"><b>Source</b> data/historic_replications.csv · data/cohort_2026-07-27.csv · W&amp;B levels tables · data/human_ceiling.csv &nbsp; <b>Method</b> Spearman rho; Fieller interval on Fisher z; ceiling = split-half at a matched task budget (Ditto#269) &nbsp; <b>Status</b> <span className="hb-st">direct-runner rows are unreviewed and drawn hollow; historic means carry no interval</span></div>
+</section>
+
+
+## Same answers, or the same causes?
+
+<p className="hb-cap">A conjoint randomizes every attribute, so the effects on this page are already interventional, not correlational: matching them is more than matching marginals. What that does not settle is whether the <em>structure</em> of causes matches. These are the measures that ask, one rung at a time. Each is drawn only where the data supports it.</p>
+
+<div className="hb-ladder"><div className="hb-rung"><div className="hb-r"><b>Association</b>Rung 1</div><div className="hb-a">Do synthetic respondents answer the way people answer?</div><div className="hb-m">Rank correlation of the effects, RMSE after one fitted scale, accuracy against the human ceiling. Necessary, and where most of the industry stops.</div></div><div className="hb-rung"><div className="hb-r"><b>Intervention</b>Rung 2</div><div className="hb-a">When the experimenter changes an attribute, does the effect on choice match in size, direction and shape?</div><div className="hb-m">A conjoint randomizes every attribute, so its effects are already interventional. Calibration slope, equivalence level by level, dose-response, and the interaction fingerprint live here.</div></div><div className="hb-rung"><div className="hb-r"><b>Heterogeneity</b>Rung 2½</div><div className="hb-a">Is the effect larger for the same kind of person?</div><div className="hb-m">Conditional effects by respondent stratum. The literature&#x27;s weak point: main effects replicate at about .85 while treatment-by-subgroup interactions replicate at about zero.</div></div><div className="hb-rung"><div className="hb-r"><b>Counterfactual</b>Rung 3</div><div className="hb-a">For this respondent, would one changed attribute have flipped the choice?</div><div className="hb-m">The spread of within-respondent effects, against the human spread. Averages can agree while the spreads do not.</div></div></div>
+
+<div className="hb-stats hb-mech">
+<div className="hb-stat"><div className="hb-v">2.18</div><div className="hb-k">calibration slope · synthetic effect per unit of human effect · 1.00 is the same sensitivity</div></div>
+<div className="hb-stat"><div className="hb-v">.43</div><div className="hb-k">dispersion at matched respondents · below 1.00 means the panel is more certain than the people (400 synthetic vs 1971 human)</div></div>
+<div className="hb-stat"><div className="hb-v">4 / 11</div><div className="hb-k">levels equivalent within ±.10 · 1 within ±.05</div></div>
+<div className="hb-deck">Slope says whether the panel feels causes as strongly as people; dispersion whether it is more certain than people; equivalence how many levels agree inside a margin we state rather than derive.</div>
+</div>
+
+### Equivalence, level by level
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The difference with its 90% interval, against a margin stated in advance.</p><div className="hb-hint">Ink: inside ±.05 · grey: inside ±.10 · <b>red: neither</b></div></div>
+<div className="hb-wrap"><Tost /></div>
+<p className="hb-cap">This is the bioequivalence question asked level by level: a level counts as equivalent only when its whole interval sits inside the margin, which is the regulator's two one-sided tests rather than a correlation. <em>The margin is a decision, not a statistic; ±.10 is printed here so a reader can disagree with it.</em></p>
+<div className="hb-src"><b>Source</b> the levels table of this run and the paper's own intervals &nbsp; <b>Method</b> TOST at alpha .05; difference SE from both 95% intervals; margin ±.10 with ±.05 as the tighter reading &nbsp; <b>Status</b> <span className="hb-st">the margin is stated, not derived</span></div>
+</section>
+
+### Dose-response on ordered attributes
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">As the dose rises, do both sides move the same way?</p><div className="hb-hint">Solid: human · dashed: synthetic · τ compares effect order with level order</div></div>
+<div className="hb-wrap"><Dose /></div>
+<p className="hb-cap">Ordered attributes (Vaccine efficacy) carry a shape, not just a rank. A panel with the mechanism climbs when the dose climbs, even when it climbs further; a gap between the curves is the same exaggeration the calibration slope measures. <em>An attribute is treated as ordered only when the record says so or every level is a number; an order we invented would not be the paper's.</em></p>
+</section>
+
+### Which attributes interact
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">Every pair of attributes, scored against shuffled answers.</p><div className="hb-hint">Darker is a stronger interaction · z above 3 is beyond chance</div></div>
+<div className="hb-wrap"><Fingerprint /></div>
+<p className="hb-cap">An interaction is two attributes that matter more, or less, together than apart, and it is the part of a mechanism a rank correlation cannot see. The panel shows 15 pairs beyond chance. This paper has no released respondent data, so only the synthetic side is drawn. <em>Raw variance explained grows with the number of levels a pair adds, so two shuffled copies of the same data would "agree" at about .86 on it; only the null-calibrated score is drawn.</em></p>
+<div className="hb-src"><b>Source</b> respondent-level answers for the synthetic side &nbsp; <b>Method</b> ΔR² of each pairwise interaction over the additive model, z against 25 shuffles of the outcome &nbsp; <b>Status</b> <span className="hb-st">exploratory</span></div>
+</section>
+
+### Is the effect larger for the same people?
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">The same effects, computed inside two respondent strata.</p><div className="hb-hint">Filled: 45+ · hollow: 18-44 · a long connector is disagreement</div></div>
+<div className="hb-wrap"><Strata /></div>
+<p className="hb-cap">Strata come from the persona the platform attaches to every synthetic respondent, here <b>age</b>. The widest disagreement is on The vaccine is endorsed by the CDC, 0.064 apart. <em>This is the rung the literature says fails most: main effects replicate near .85 while treatment-by-subgroup interactions replicate near zero. Comparing it against the humans needs the paper's own covariates, which are released for a minority of these studies.</em></p>
+<div className="hb-src"><b>Source</b> the persona of every synthetic respondent on this run &nbsp; <b>Method</b> AMCE within each stratum, strata of at least 40 respondents; field age &nbsp; <b>Status</b> <span className="hb-st">synthetic side only until the paper&#x27;s covariates are adapted</span></div>
+</section>
+
+### Would it have changed this respondent's mind?
+
+<section className="hb-fig">
+<div className="hb-fighead"><p className="hb-figtitle">One effect per respondent, not one effect per study.</p><div className="hb-hint">Synthetic only: this paper released no respondent data</div></div>
+<div className="hb-wrap"><Counterfactual /></div>
+<p className="hb-cap">Each respondent saw the same contrast more than once, so each has an effect of their own: the share they chose when <b>The vaccine efficacy is 90%</b> was present, minus the share when it was not.  A panel that answers with one voice would pile up on a single value where people spread out, and 18% of these respondents move against the average effect. <em>These are within-respondent contrasts inferred from separate tasks, not paired counterfactual tasks; asking the same respondent the flipped profile is the next step.</em></p>
+<div className="hb-src"><b>Source</b> respondent-level answers for the synthetic panel &nbsp; <b>Method</b> share chosen with the level minus share chosen without it, per respondent &nbsp; <b>Status</b> <span className="hb-st">rung-3 evidence by inference, not by paired design</span></div>
+</section>
+
+### What we measure next
+
+<div className="hb-wrap"><table className="hb-levels hb-adopt"><thead><tr><th>Measure</th><th>Rung</th><th>State</th><th>What it asks</th></tr></thead><tbody><tr><td><b>Calibration slope and dispersion</b></td><td>2</td><td>on this page</td><td>Slope of synthetic on human effects through the origin; interval-width and R² ratios at matched respondents.</td></tr><tr><td><b>Equivalence per level (TOST)</b></td><td>2</td><td>on this page</td><td>90% interval of the difference inside a stated margin, the FDA&#x27;s two one-sided tests.</td></tr><tr><td><b>Dose-response monotonicity</b></td><td>2</td><td>on this page where an attribute is ordered</td><td>Kendall τ of effect order against level order; the record must name the order or the levels must be numeric.</td></tr><tr><td><b>Interaction fingerprint</b></td><td>2</td><td>on this page where respondent data exists</td><td>Each pair&#x27;s ΔR², z-scored against shuffled outcomes so it cannot be a count of dummies.</td></tr><tr><td><b>Conditional effects by stratum</b></td><td>2½</td><td>on this page where the panel carries personas</td><td>The same effects within respondent strata, both sides where the paper released its covariates.</td></tr><tr><td><b>Within-respondent counterfactuals</b></td><td>3</td><td>on this page where respondent data exists</td><td>The distribution of individual effects; a panel with one voice spikes where people spread.</td></tr><tr><td><b>Invariance across environments</b></td><td>3</td><td>next</td><td>The same effects across seeds, models, prompts and countries; a Chow-type test of the choice regression (Peters, Bühlmann, Meinshausen).</td></tr><tr><td><b>Paired counterfactual tasks</b></td><td>3</td><td>next</td><td>Ask the same respondent the profile with one attribute flipped, rather than inferring the contrast from separate tasks.</td></tr><tr><td><b>Held-out prediction</b></td><td>3</td><td>next</td><td>Predict a paper&#x27;s effects from the others before running it, and report calibration on the held-out set.</td></tr><tr><td><b>Mechanism probes</b></td><td>3</td><td>next</td><td>Loss aversion, framing, decoy and anchoring run as designed experiments against the value the literature reports.</td></tr></tbody></table></div>
+
+<p className="hb-cap">Nothing above shows that the model reasons like a person. It shows that under the experimenter's interventions the response surface has the same rank, shape and interaction structure, with a distortion this page measures. <em>Rung 3 is not implied by rung 2.</em></p>
+<div className="hb-src"><b>Source</b> synthetic respondents: platform table, 400 respondents; no human respondent data adapted for this paper &nbsp; <b>Method</b> ditto_metastudy.mechanism, cached per arm &nbsp; <b>Status</b> <span className="hb-st">exploratory; the plan and the audited literature are Ditto#361</span></div>
+
+
+## Replication criteria, stated side by side
+
+<div className="hb-criteria">
+<div><div className="hb-q">Rank-correlation interval excludes zero</div><div className="hb-a hb-pass">rho .95 [.81, .99] on 11 levels</div></div><div><div className="hb-q">Within the measured human ceiling</div><div className="hb-a hb-na">no respondent-level human data has been measured for this paper</div></div><div><div className="hb-q">Sign agreement on at least 80% of non-zero levels</div><div className="hb-a hb-pass">91% of levels share the paper&#x27;s sign</div></div><div><div className="hb-q">Intervals overlap on at least 70% of levels</div><div className="hb-a hb-fail">55% of 11 levels with both intervals overlap; the rest are drawn in red</div></div><div><div className="hb-q">Design conformant to the paper</div><div className="hb-a hb-pass">attributes, levels and choice set checked against the transcription</div></div><div><div className="hb-q">Transcription audited against the PDF</div><div className="hb-a hb-pass">transcription corrections employee-approved and applied</div></div>
+</div>
+
+<p className="hb-cap">No single verdict, after Open Science Collaboration 2015 and Camerer et al. 2016. Thresholds (80% sign, 70% overlap) are stated, not derived.</p>
+
+<details>
+<summary>All 18 levels as a table</summary>
+<div className="hb-wrap"><table className="hb-levels"><thead><tr><th>Attribute</th><th>Level</th><th>Human β</th><th>±95%</th><th>Synthetic β</th><th>±95%</th><th>Scored</th></tr></thead><tbody><tr className=""><td>Vaccine efficacy</td><td>The vaccine efficacy is 50%</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className="hb-gap"><td>Vaccine efficacy</td><td>The vaccine efficacy is 70%</td><td className="hb-n">0.070</td><td className="hb-n">0.029</td><td className="hb-n">0.213</td><td className="hb-n">0.026</td><td>yes</td></tr><tr className="hb-gap"><td>Vaccine efficacy</td><td>The vaccine efficacy is 90%</td><td className="hb-n">0.160</td><td className="hb-n">0.029</td><td className="hb-n">0.418</td><td className="hb-n">0.032</td><td>yes</td></tr><tr className=""><td>Protection duration</td><td>The vaccine protection lasts 1 year</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Protection duration</td><td>The vaccine protection lasts 5 years</td><td className="hb-n">0.050</td><td className="hb-n">0.029</td><td className="hb-n">0.073</td><td className="hb-n">0.020</td><td>yes</td></tr><tr className=""><td>Major adverse effect rate</td><td>Major adverse effects occur for 1 in 10000</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className="hb-gap"><td>Major adverse effect rate</td><td>Major adverse effects occur for 1 in 1000000</td><td className="hb-n">0.070</td><td className="hb-n">0.029</td><td className="hb-n">0.229</td><td className="hb-n">0.028</td><td>yes</td></tr><tr className=""><td>Minor adverse effect rate</td><td>Minor adverse effects occur for 1 in 10</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Minor adverse effect rate</td><td>Minor adverse effects occur for 1 in 30</td><td className="hb-n">0.010</td><td className="hb-n">0.030</td><td className="hb-n">0.010</td><td className="hb-n">0.024</td><td>yes</td></tr><tr className=""><td>FDA Approval</td><td>The vaccine is FDA approved and licensed</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className="hb-gap"><td>FDA Approval</td><td>The vaccine has FDA Emergency Use Authorization</td><td className="hb-n">-0.030</td><td className="hb-n">0.029</td><td className="hb-n">-0.127</td><td className="hb-n">0.025</td><td>yes</td></tr><tr className=""><td>Vaccine origin</td><td>The vaccine origin was the United States of America</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Vaccine origin</td><td>The vaccine origin was the United Kingdom</td><td className="hb-n">-0.040</td><td className="hb-n">0.039</td><td className="hb-n">-0.105</td><td className="hb-n">0.031</td><td>yes</td></tr><tr className=""><td>Vaccine origin</td><td>The vaccine origin was China</td><td className="hb-n">-0.130</td><td className="hb-n">0.039</td><td className="hb-n">-0.143</td><td className="hb-n">0.029</td><td>yes</td></tr><tr className=""><td>Endorsement</td><td>The vaccine is endorsed by Trump</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td className="hb-n">0.000</td><td className="hb-n">—</td><td>reference</td></tr><tr className=""><td>Endorsement</td><td>The vaccine is endorsed by Biden</td><td className="hb-n">0.020</td><td className="hb-n">0.042</td><td className="hb-n">-0.007</td><td className="hb-n">0.039</td><td>yes</td></tr><tr className="hb-gap"><td>Endorsement</td><td>The vaccine is endorsed by the CDC</td><td className="hb-n">0.090</td><td className="hb-n">0.039</td><td className="hb-n">0.177</td><td className="hb-n">0.041</td><td>yes</td></tr><tr className=""><td>Endorsement</td><td>The vaccine is endorsed by the WHO</td><td className="hb-n">0.060</td><td className="hb-n">0.039</td><td className="hb-n">0.128</td><td className="hb-n">0.043</td><td>yes</td></tr></tbody></table></div>
+</details>
+
+<div className="hb-foot"><b>Reference</b> Ditto data/transcription_evidence_v2/Kreps2020.merged.json &nbsp;·&nbsp; <b>Replication</b> W&amp;B why-earth/dev-subconscious-ai run 41b1b063-e98c-43f5-ba58-22d65dc0acc6 &nbsp;·&nbsp; <b>Scores</b> per-level rows in the <code>levels</code> table of that project &nbsp;·&nbsp; <b>Generated</b> by <code>hb publish --docs</code> from those records; nothing on this page is typed by hand</div>
+
+</div>
