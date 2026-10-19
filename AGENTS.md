@@ -136,3 +136,17 @@ curl -s https://docs.subconscious.ai/revision.json
 The returned `revision` is the commit the live site was built from. Comparing
 that to `git rev-parse origin/main` is the whole check. Do not infer a deploy
 from a green merge.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Standard five-role vocabulary. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single root context, reusing existing domain documentation. See `docs/agents/domain.md`.
