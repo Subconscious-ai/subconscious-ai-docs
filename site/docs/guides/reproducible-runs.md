@@ -46,19 +46,21 @@ bundle instead of generating a new one. It requires the same population;
 inspect the reused artifact and its respondent mapping rather than assuming
 that a matching count proves matching identities.
 
-## Keep response mode and model selection fixed
+## Keep enrichment and model selection fixed
 
-For discrete conjoint studies, `response_mode: "fast"` skips generated attitudes,
-mood, and decision strategies. It also bypasses `latent_variables_from_run`,
-so supplying a previous run name does not restore that enrichment. The
-`"reliable"` mode enables enrichment and uses the full respondent prompt.
-Changing between these modes changes the procedure, not just how long it takes.
+Reusing a latent-variable bundle requires a workflow with enrichment enabled.
+A previous run name does not enable enrichment when the selected workflow
+bypasses it. Keep the enrichment settings and respondent instructions with
+each run, and check the resulting artifacts before comparing results.
+Use only request fields exposed by the published API or connected MCP tool.
 
-Record the resolved respondent model or panel and the routing configuration
-with each run. Leaving `expr_llm_model` unset or `null` uses the deployed survey
-route or enabled panel default; it does not pin a model across releases.
-Preserve an explicit model selection when that is part of the comparison,
-and still retain the resolved configuration and provider evidence.
+The pinned REST schema lists `databricks-claude-sonnet-4` as the
+`expr_llm_model` default. A schema default is not a guarantee that every
+release uses the same routing configuration. Preserve an explicit model
+selection when the published contract supports it and the comparison requires
+it. Record the resolved respondent model or panel, routing configuration,
+and provider evidence with each run; do not rely on an omitted value as a
+fixed control across releases.
 
 ## Measure the variation that remains
 
