@@ -27,10 +27,15 @@ curl "https://api.subconscious.ai/api/v1/runs/$RUN_ID/status" \
 | `killed` | Yes | Execution was stopped; inspect available evidence. |
 | `lost` | Yes | An existing non-terminal run record exceeded the six-hour grace window. Reconcile that run before retrying. |
 
-A missing record is not a terminal `not found` state. The status service reports
-`unknown` when it lacks evidence. The run-details endpoint can separately return
-`404` while the original run has no results record yet; inspect its retry
-information and continue polling status.
+For a run that has not been deleted, missing status evidence produces
+`unknown`, not a terminal failure. The run-details endpoint can separately return
+`404` before results exist; inspect its retry information and continue polling status.
+
+Deleted runs are different: status and details requests can return `404` because
+the run is no longer visible. A `404` alone does not establish the cause.
+If you deleted the run, stop polling it. Contact
+[support@subconscious.ai](mailto:support@subconscious.ai) if deletion was unintended;
+do not automatically launch a replacement.
 
 ## Poll politely
 
