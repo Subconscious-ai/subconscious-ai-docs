@@ -83,8 +83,9 @@ published REST and MCP contracts define what an integration can submit today.
   Repeating a configuration is different from preserving accuracy across time.
 - **Uncertainty:** distinguish a confidence interval on an estimated effect,
   variation across respondent utilities, and uncertainty in a calibrated
-  forecast. The request's `confidence_level` is a configuration setting, not a
-  measured guarantee about the result.
+  forecast. The run's `confidence_level` is a summary label derived from model
+  fit. Setting that field in a launch request does not select an interval's
+  confidence level or guarantee accuracy.
 
 ### Read the analysis contract
 

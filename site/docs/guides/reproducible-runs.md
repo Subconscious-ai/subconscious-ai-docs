@@ -41,10 +41,26 @@ attributes, levels, privacy, and cost:
 
 Retain the returned `wandb_run_name` with the request and artifacts. For a
 later run of the same definition, set `latent_variables_from_run` to that
-actual run name. This reuses the latent-variable bundle instead of generating
-a new one. It requires the same population; inspect the reused artifact and
-its respondent mapping rather than assuming that a matching count proves
-matching identities.
+actual run name. When latent-variable enrichment is enabled, this reuses the
+bundle instead of generating a new one. It requires the same population;
+inspect the reused artifact and its respondent mapping rather than assuming
+that a matching count proves matching identities.
+
+## Keep enrichment and model selection fixed
+
+Reusing a latent-variable bundle requires a workflow with enrichment enabled.
+A previous run name does not enable enrichment when the selected workflow
+bypasses it. Keep the enrichment settings and respondent instructions with
+each run, and check the resulting artifacts before comparing results.
+Use only request fields exposed by the published API or connected MCP tool.
+
+The pinned REST schema lists `databricks-claude-sonnet-4` as the
+`expr_llm_model` default. A schema default is not a guarantee that every
+release uses the same routing configuration. Preserve an explicit model
+selection when the published contract supports it and the comparison requires
+it. Record the resolved respondent model or panel, routing configuration,
+and provider evidence with each run; do not rely on an omitted value as a
+fixed control across releases.
 
 ## Measure the variation that remains
 
