@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Finding the code
+
+Follow an API contract change into the [documentation site](site/). The [publishing guide](README.md) identifies the source and release path for customer documentation. For shared code, use [Graphify](https://github.com/Graphify-Labs/graphify) on this revision. Check direct callers with `graphify affected <symbol> --relation calls --depth 1` and verify them in source. On a managed checkout, open the shared Repository tools guide for service ownership and runtime evidence.
+
 Public documentation for Subconscious.ai. Merging to `main` deploys
 https://docs.subconscious.ai. Treat every change as customer-facing.
 
