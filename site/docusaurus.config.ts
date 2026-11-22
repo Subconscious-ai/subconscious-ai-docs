@@ -28,10 +28,9 @@ const config: Config = {
 
   i18n: { defaultLocale: "en", locales: ["en"] },
 
-  // Supplied by the Vercel environment. Both are publishable client-side
-  // identifiers (GA4 measurement id, PostHog project key); keeping them in the
-  // environment means rotation does not need a commit, and a local build with
-  // neither set simply runs without analytics.
+  // Publishable client-side identifiers, committed in source: the PostHog
+  // project key here and the GA4 measurement id in the `plugin-google-gtag`
+  // entry below. Rotating either one needs a commit.
   customFields: {
     posthogKey: "phc_BtQX3ltCKgwlMS3TDF4zhV8eMeepa8qY0Y3c9Gp6m70",
   },
