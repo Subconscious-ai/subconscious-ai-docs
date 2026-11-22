@@ -38,13 +38,11 @@ competitive response.
 
 ## Where it is used
 
-Market research · retail and e-commerce · technology and SaaS · media and
-entertainment · financial services and fintech · education and EdTech · FMCG
-and CPG · automotive, including electric vehicles · travel and hospitality ·
+Market research · retail and e-commerce · healthcare and pharmaceuticals ·
+technology and SaaS · media and entertainment · financial services and fintech ·
+public policy and government · education and EdTech · FMCG and CPG ·
+automotive, including electric vehicles · travel and hospitality ·
 telecommunications · energy and utilities.
-
-Subconscious is building toward public policy and government, and healthcare
-and pharmaceuticals.
 
 The academic conjoint literature is largely policy work, which is why the
 [replication record](/human-baselines) is heaviest there. The same designs run
