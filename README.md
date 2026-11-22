@@ -185,9 +185,9 @@ bearing. An unattended agent resolved pnpm 11 through corepack while CI used
 pnpm 10; pnpm 11 ignores `pnpm.onlyBuiltDependencies` in `package.json`, so the
 install stopped for an interactive approval that no agent can give.
 
-**The archive is `unlisted`, not deleted.** `/wiki` and `/fern` stay reachable
-by direct URL but are excluded from the sidebar, search and sitemap. Remove the
-`unlisted: true` frontmatter to surface a page after editing it.
+**The GitBook and Fern archives are deleted.** `/wiki` and `/fern` pages return
+404. Git history and tag `fern-final` keep the old text. Only the four Fern
+redirects in `site/docusaurus.config.ts` remain.
 
 **The explicit deployment workflow is the production path.** Vercel previews
 still build, but merge-triggered production builds proved unreliable.
