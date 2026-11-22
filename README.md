@@ -7,11 +7,6 @@ This replaced two earlier systems: a Fern site (last substantive change
 December 2024, preserved at tag `fern-final`) and an unmodified Mintlify
 starter template that was serving on the domain.
 
-The authoritative two-repository architecture, source inventory, route map, and
-retirement gates are in
-[`MIGRATION_RETIREMENT.md`](MIGRATION_RETIREMENT.md). That plan records unknowns
-as blockers and does not authorize deleting or disabling a source.
-
 ## Current architecture
 
 As of 2026-09-07:
@@ -54,8 +49,7 @@ with CI providing the final check on the proposed revision. It runs, in order:
 
 ```bash
 pnpm run test:release-proof           # deployment proof
-pnpm run test:ci-contracts            # CI credential and reindex behavior
-pnpm run check:migration-evidence     # route map and source inventory
+pnpm run test:ci-contracts            # CI credential and contract checks
 pnpm run test:agent-source-contracts  # pinned source digests
 pnpm typecheck
 pnpm build
@@ -95,11 +89,6 @@ one contract. Rehoboam owns both the OpenAPI schema and native MCP
 registry; this repository validates and republishes, and must not become a
 second source of truth.
 
-`migration/route-map.json` and `migration/source-inventory.json` record what the
-migration produced, validated on every build by
-`scripts/check-migration-evidence.mjs`. `MIGRATION_RETIREMENT.md` is the
-decision record and authorizes nothing on its own.
-
 Docusaurus is configured with `url: "https://docs.subconscious.ai"` and
 `baseUrl: "/"`. Local or preview URLs do not change the canonical public base.
 
@@ -125,8 +114,7 @@ PR there.
 
 - Structure follows [Diátaxis](https://diataxis.fr): get started (learning),
   guides (tasks), API reference (information), concepts (understanding).
-- Do not restate marketing claims without a source. `CONTENT_TRIAGE.md` lists
-  the claims deliberately withheld from the old site.
+- Do not restate marketing claims without a source.
 - Legal pages are migrated verbatim. Do not edit them for style.
 - Generated API pages are build artifacts. Fix the spec, not the MDX.
 

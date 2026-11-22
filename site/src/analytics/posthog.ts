@@ -6,9 +6,8 @@
  * single-page app.
  *
  * The key is a PostHog *project* key (`phc_...`): write-only ingestion,
- * designed to ship in client bundles. It is supplied at build time from the
- * Vercel environment rather than committed, so it can be rotated without a
- * code change. With no key set (local dev), analytics is simply off.
+ * designed to ship in client bundles. It is committed in
+ * `docusaurus.config.ts` `customFields`, so rotating it needs a commit.
  */
 import posthog from "posthog-js";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";

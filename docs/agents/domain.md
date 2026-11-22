@@ -5,8 +5,7 @@ changing terminology, read `GLOSSARY.md` when present, or follow
 `GLOSSARY-MAP.md` if the repository later introduces multiple contexts.
 Read ADRs under `docs/adr/` that concern the change.
 
-Read `MIGRATION_RETIREMENT.md` for this repository's architecture and migration
-decisions. Existing context, architecture, and decision documents named in the repository's
+Read `README.md` for this repository's architecture. Existing context, architecture, and decision documents named in the repository's
 agent instructions remain authoritative. Reuse those documents before adding
 another glossary or decision record. Workspace packages alone do not require
 separate domain contexts.
