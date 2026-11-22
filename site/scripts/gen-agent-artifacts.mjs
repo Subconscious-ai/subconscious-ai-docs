@@ -19,9 +19,7 @@ const SITE = "https://docs.subconscious.ai";
 const SKIP_PREFIXES = [
   "/api-playground",
   "/api-reference/",
-  "/fern",
   "/search",
-  "/wiki",
   "/404",
 ];
 

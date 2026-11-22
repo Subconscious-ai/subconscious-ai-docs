@@ -15,14 +15,12 @@ const BUILD_DIR = new URL("../build/", import.meta.url).pathname;
 const SITE = "https://docs.subconscious.ai";
 
 // Reference pages are numerous and repetitive; one pointer to the spec serves
-// an assistant better than 141 near-identical entries. Archives and the
-// client-rendered playground also have no useful static content to publish.
+// an assistant better than 141 near-identical entries. The client-rendered
+// playground also has no useful static content to publish.
 const SKIP_PREFIXES = [
   "/api-playground",
   "/api-reference/",
-  "/fern",
   "/search",
-  "/wiki",
   "/404",
 ];
 
