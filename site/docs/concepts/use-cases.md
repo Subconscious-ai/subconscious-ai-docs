@@ -45,8 +45,8 @@ automotive, including electric vehicles · travel and hospitality ·
 telecommunications · energy and utilities.
 
 The academic conjoint literature is largely policy work, which is why the
-[replication record](/human-baselines) is heaviest there. The same designs run
-unchanged for a pricing study.
+[Replication Record](https://design.subconscious.ai/preview/replication-timeline.html)
+covers more policy studies. The same designs work for pricing studies.
 
 ## When not to use it
 
@@ -61,7 +61,7 @@ unchanged for a pricing study.
 
 ## Evidence for your domain
 
-The [human baselines](/human-baselines) record contains published studies
-reproduced on the platform, each with its rank correlation against the original
-human result. That is the most direct evidence for whether the method holds in
-an area you care about.
+The [Replication Record](https://design.subconscious.ai/preview/replication-timeline.html)
+shows published studies reproduced on the platform and their available rank
+correlations against the original human results. Use it to review the evidence
+for your domain.

@@ -38,7 +38,9 @@ should be trusted for.
 
 Use the [methodology](/concepts/methodology) and
 [research design guide](/guides/research-design) to plan a matched comparison.
-For a study-specific replication record, contact
+Review saved results in the
+[Replication Record](https://design.subconscious.ai/preview/replication-timeline.html).
+For questions about a specific study, contact
 [support@subconscious.ai](mailto:support@subconscious.ai) with the study,
 population, design and result you want to evaluate.
 

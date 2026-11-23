@@ -35,8 +35,10 @@ export default function NotFoundContent({ className }: Props): React.JSX.Element
                 published endpoint
               </li>
               <li>
-                <Link to="/human-baselines">Human baselines</Link> — replicated
-                studies
+                <Link href="https://design.subconscious.ai/preview/replication-timeline.html">
+                  Human baselines
+                </Link>{" "}
+                — replicated studies
               </li>
               <li>
                 <Link to="/">Documentation home</Link>

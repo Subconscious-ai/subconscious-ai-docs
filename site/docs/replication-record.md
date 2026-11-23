@@ -1,5 +1,5 @@
 ---
-id: human-baselines-index
+id: replication-record
 title: Human baselines
 description: Published human conjoint studies replicated on the Subconscious.ai platform, with the correlation between our estimates and the original human results.
 slug: /human-baselines

@@ -165,4 +165,5 @@ Use this reporting sentence as a starting point:
 
 Before sharing the result, work through the
 [research validity checklist](/concepts/methodology#research-validity-checklist)
-and read how [human-baseline comparisons](/human-baselines) are scoped.
+and see how [human-baseline comparisons](https://design.subconscious.ai/preview/replication-timeline.html)
+are scoped.

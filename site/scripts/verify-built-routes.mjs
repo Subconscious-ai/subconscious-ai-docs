@@ -21,6 +21,13 @@ for (const {path, expected, redirectTo} of PRODUCTION_ROUTES) {
 }
 console.log(`Verified production content assertions against ${PRODUCTION_ROUTES.length} built routes.`);
 
+const useCases = await readFile(new URL("concepts/use-cases.html", build), "utf8");
+const recordUrl = PRODUCTION_ROUTES.find(({path}) => path === "/human-baselines").redirectTo;
+assert.ok(useCases.includes(`href=${recordUrl} `) || useCases.includes(`href="${recordUrl}"`),
+  "Docs links must open the Replication Record");
+assert.doesNotMatch(useCases, /href="?\/human-baselines["\s>]/, "Docs links must bypass the legacy SPA route");
+assert.ok(useCases.includes("Archived study reports"), "Docs sidebar must retain access to archived reports");
+
 // Generation must remove retired pages, including their search/agent content.
 // Compare the generator's embedded method/path with the source-owned spec.
 const spec = JSON.parse(await readFile(new URL("../openapi/subconscious.public.json", import.meta.url)));
