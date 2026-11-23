@@ -6,11 +6,18 @@ import {inflateSync} from "node:zlib";
 import {PRODUCTION_ROUTES} from "./verify-production.mjs";
 
 const build = new URL("../build/", import.meta.url);
-for (const {path, expected} of PRODUCTION_ROUTES) {
+const {redirects} = JSON.parse(await readFile(new URL("../vercel.json", import.meta.url)));
+for (const {path, expected, redirectTo} of PRODUCTION_ROUTES) {
   const file = path === "/" ? "index.html"
     : /\.[a-z]+$/i.test(path) ? path.slice(1) : `${path.slice(1)}.html`;
   const body = await readFile(new URL(file, build), "utf8");
-  assert.ok(body.includes(expected), `${path}: build is missing ${JSON.stringify(expected)}`);
+  const content = redirectTo ?? expected;
+  assert.ok(body.includes(content), `${path}: build is missing ${JSON.stringify(content)}`);
+  if (redirectTo) {
+    assert.ok(redirects.some(({source, destination, permanent}) =>
+      source === path && destination === redirectTo && permanent === false),
+    `${path}: expected a temporary redirect to ${redirectTo}`);
+  }
 }
 console.log(`Verified production content assertions against ${PRODUCTION_ROUTES.length} built routes.`);
 

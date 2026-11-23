@@ -27,6 +27,13 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/human-baselines",
+      "destination": "https://design.subconscious.ai/preview/replication-timeline.html",
+      "permanent": false
+    }
+  ],
   "cleanUrls": true,
   "trailingSlash": false
 }
