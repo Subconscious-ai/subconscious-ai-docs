@@ -277,7 +277,7 @@ const config: Config = {
           ],
         },
         {
-          to: "/human-baselines",
+          href: "https://design.subconscious.ai/preview/replication-timeline.html",
           label: "Human baselines",
           position: "left",
         },

@@ -14,7 +14,7 @@ function response(body, status = 200, headers = {}) {
 
 function successfulFetch(pathOverrides = {}) {
   const bodies = Object.fromEntries(
-    PRODUCTION_ROUTES.map(({path, expected}) => [path, expected]),
+    PRODUCTION_ROUTES.filter(({expected}) => expected).map(({path, expected}) => [path, expected]),
   );
   bodies["/revision.json"] = JSON.stringify({
     repository: "Subconscious-ai/subconscious-ai-docs",
@@ -24,6 +24,12 @@ function successfulFetch(pathOverrides = {}) {
 
   return async (url) => {
     const path = new URL(url).pathname;
+    if (bodies[path] instanceof Response) return bodies[path];
+    if (path === "/human-baselines" && !(path in pathOverrides)) {
+      return response("", 307, {
+        location: "https://design.subconscious.ai/preview/replication-timeline.html?proof=" + SHA,
+      });
+    }
     return response(bodies[path] ?? "missing", bodies[path] ? 200 : 404);
   };
 }
@@ -40,6 +46,34 @@ test("correlates the canonical domain to the successful deployment SHA", async (
   assert.equal(proof.revision, SHA);
   assert.equal(proof.environment, "Production");
   assert.equal(proof.routes, PRODUCTION_ROUTES.length + 1);
+});
+
+test("rejects a legacy human-baselines index that still renders the old benchmark", async () => {
+  await assert.rejects(
+    verifyProduction({
+      fetchImpl: successfulFetch({"/human-baselines": "Human baselines"}),
+      baseUrl: "https://docs.subconscious.ai",
+      expectedRevision: SHA,
+      deploymentEnvironment: "Production",
+      deploymentState: "success",
+    }),
+    /expected 307 to/,
+  );
+});
+
+test("rejects a legacy human-baselines redirect to the wrong page", async () => {
+  await assert.rejects(
+    verifyProduction({
+      fetchImpl: successfulFetch({
+        "/human-baselines": response("", 307, {location: "https://design.subconscious.ai/"}),
+      }),
+      baseUrl: "https://docs.subconscious.ai",
+      expectedRevision: SHA,
+      deploymentEnvironment: "Production",
+      deploymentState: "success",
+    }),
+    /expected 307 to/,
+  );
 });
 
 // Vercel emitted "Production – docs" while a duplicate project was attached to

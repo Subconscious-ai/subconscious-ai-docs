@@ -210,7 +210,9 @@ export default function ResearchLanding() {
           <Link to="/concepts/methodology#research-validity-checklist">
             Read the research validity checklist
           </Link>
-          <Link to="/human-baselines">Explore human-baseline studies</Link>
+          <Link href="https://design.subconscious.ai/preview/replication-timeline.html">
+            Explore human-baseline studies
+          </Link>
           <p className={styles.caption}>
             A benchmark supports the study and metric it measures. It does not
             certify every new population or research question.

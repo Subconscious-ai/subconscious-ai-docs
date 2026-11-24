@@ -85,7 +85,8 @@ The [causal-fidelity working paper](https://fidelity.subconscious.ai/papers/caus
 distinguishes agreement in effect direction and rank from calibrated effect
 magnitudes and realized intervention lift. Its reported rank fidelity does not
 establish the stronger quantities. The paper is not peer reviewed; inspect
-the [human-baseline records](/human-baselines) for study-level evidence.
+the [Replication Record](https://design.subconscious.ai/preview/replication-timeline.html)
+for study-level evidence.
 
 For any new decision, report the intervention, outcome scale, interval type,
 population, held-out comparison, and known misses. Claims of superior accuracy

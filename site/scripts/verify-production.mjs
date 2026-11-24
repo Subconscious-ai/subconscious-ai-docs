@@ -15,7 +15,8 @@ const FORBIDDEN_BODY =
 export const PRODUCTION_ROUTES = [
   {path: "/", expected: "Human behavior."},
   {path: "/guides/research-design", expected: "Design your first study"},
-  {path: "/human-baselines", expected: "Human baselines"},
+  {path: "/human-baselines", redirectTo: "https://design.subconscious.ai/preview/replication-timeline.html"},
+  {path: "/human-baselines/hainmueller-immigration-policy", expected: "Hainmueller"},
   {path: "/guides/mcp-server", expected: "Connect through MCP"},
   {path: "/reference/mcp-tools", expected: "Complete input and output contract"},
   {path: "/mcp/tools.json", expected: '"repository": "Subconscious-ai/rehoboam"'},
@@ -32,6 +33,7 @@ async function readRoute({
   fetchImpl,
   baseUrl,
   path,
+  redirectTo,
   expectedRevision,
   timeoutMs = REQUEST_TIMEOUT_MS,
 }) {
@@ -48,6 +50,14 @@ async function readRoute({
       redirect: "manual",
       headers: {"cache-control": "no-cache"},
     });
+    if (redirectTo) {
+      const location = new URL(response.headers.get("location") ?? url, url);
+      location.searchParams.delete("proof");
+      if (response.status !== 307 || location.href !== redirectTo) {
+        throw new Error(`${path}: expected 307 to ${redirectTo}, got ${response.status} ${location.href}`);
+      }
+      return "";
+    }
     if (response.status !== 200) {
       throw new Error(
         `${path}: expected 200 without redirects, got ${response.status}`,
@@ -110,10 +120,10 @@ export async function verifyProduction({
       timeoutMs,
       fetchImpl,
       baseUrl,
-      path: route.path,
+      ...route,
       expectedRevision,
     });
-    if (!body.includes(route.expected)) {
+    if (route.expected && !body.includes(route.expected)) {
       throw new Error(
         `${route.path}: expected content ${JSON.stringify(route.expected)}`,
       );
