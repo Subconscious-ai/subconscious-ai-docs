@@ -1,6 +1,39 @@
-# Documentation is meant to be indexed — by search engines and by answer
+# Documentation is meant to be indexed by search engines and by answer
 # engines. No crawl restrictions beyond the build artifacts.
 User-agent: *
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://docs.subconscious.ai/sitemap.xml

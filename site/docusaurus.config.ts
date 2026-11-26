@@ -164,6 +164,10 @@ const config: Config = {
             from: "/wiki/knowledge-base/getting-started",
             to: "/get-started/quickstart",
           },
+          {
+            from: "/wiki/about-us/our-roadmap",
+            to: "/concepts/how-it-works",
+          },
         ],
       },
     ],
@@ -215,19 +219,31 @@ const config: Config = {
       // statically, so crawlers and assistants see real content.
       tagName: "script",
       attributes: { type: "application/ld+json" },
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "TechArticle",
-        name: "Subconscious.ai API Documentation",
-        description:
-          "Design choice experiments with synthetic respondents: conjoint " +
-          "analysis, synthetic respondent populations, and human baselines.",
-        publisher: {
-          "@type": "Organization",
-          name: "Subconscious.ai",
-          url: "https://subconscious.ai",
+      innerHTML: JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "TechArticle",
+          name: "Subconscious.ai API Documentation",
+          description:
+            "Design choice experiments with synthetic respondents: conjoint " +
+            "analysis, synthetic respondent populations, and human baselines.",
+          publisher: {
+            "@type": "Organization",
+            "@id": "https://subconscious.ai/#organization",
+            name: "Subconscious.ai",
+            url: "https://subconscious.ai",
+          },
         },
-      }),
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Subconscious.ai Docs",
+          url: "https://docs.subconscious.ai",
+          publisher: {
+            "@id": "https://subconscious.ai/#organization",
+          },
+        },
+      ]),
     },
   ],
 
@@ -304,6 +320,25 @@ const config: Config = {
             { label: "FAQ", to: "/support/faq" },
             { label: "Discord", href: "https://discord.gg/3bgj4ZhABz" },
             { label: "Contact", to: "/support/contact" },
+          ],
+        },
+        {
+          title: "Resources",
+          items: [
+            { label: "Subconscious.ai", href: "https://subconscious.ai" },
+            { label: "Research & Blog", href: "https://subconscious.ai/blog" },
+            {
+              label: "Causal Fidelity",
+              href: "https://fidelity.subconscious.ai",
+            },
+            {
+              label: "Decision Models",
+              href: "https://models.subconscious.ai",
+            },
+            {
+              label: "Book a decision review",
+              href: "https://subconscious.ai/meet",
+            },
           ],
         },
         {
