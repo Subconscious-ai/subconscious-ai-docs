@@ -119,3 +119,29 @@ jobs:
           done
           echo "::error::Still not READY after 20 minutes. Check Vercel."
           exit 1
+
+      - name: Verify live revision matches deployed SHA
+        env:
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          live_revision=""
+          for attempt in $(seq 1 12); do
+            live_revision=""
+            if body=$(curl -fsS --max-time 15 -H "Cache-Control: no-cache" \
+              "https://docs.subconscious.ai/revision.json"); then
+              live_revision=$(printf '%s' "$body" | jq -r '.revision // empty' 2>/dev/null || true)
+              if [ "$live_revision" = "$SHA" ]; then
+                echo "Live revision matches $SHA"
+                exit 0
+              fi
+              echo "  attempt $attempt/12: live revision '${live_revision:-<empty>}' != '$SHA'"
+            else
+              echo "  attempt $attempt/12: failed to fetch https://docs.subconscious.ai/revision.json"
+            fi
+            if [ "$attempt" -lt 12 ]; then
+              sleep 10
+            fi
+          done
+          echo "::error::Live https://docs.subconscious.ai/revision.json returned '${live_revision:-<unavailable>}' instead of '$SHA'."
+          exit 1
