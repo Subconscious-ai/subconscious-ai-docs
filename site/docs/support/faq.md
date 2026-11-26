@@ -32,7 +32,8 @@ comparisons to human behavior requires validation.
 
 Because the platform is checked against human studies rather than assumed to
 work. Published human conjoint studies are replicated and compared effect by
-effect. See [Human baselines](/concepts/human-baselines).
+effect. See [Human baselines](/concepts/human-baselines) and the
+[Causal Fidelity validation guide](https://subconscious.ai/blog/methods-and-validation/synthetic-respondent-validation-against-human-studies).
 
 ## How long does an experiment take?
 
@@ -77,4 +78,5 @@ if you want to generate a client.
 
 ## How do I report a problem?
 
-[Contact us](/support/contact) with the run id and the exact request body.
+[Contact us](/support/contact) with the run id and the exact request body, or
+[book a decision review](https://subconscious.ai/meet) to scope a new study.

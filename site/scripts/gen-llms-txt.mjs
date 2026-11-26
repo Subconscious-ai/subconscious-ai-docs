@@ -35,13 +35,21 @@ async function* walk(dir) {
 }
 
 function extract(html, tag) {
-  const patterns = {
-    title: /<title[^>]*>([^<]*)<\/title>/i,
-    // Docusaurus injects react-helmet attributes, so `name` is not first.
-    description: /<meta[^>]*\sname="description"[^>]*\scontent="([^"]*)"/i,
-  };
-  const match = html.match(patterns[tag]);
-  return match ? match[1].replace(/\s+/g, " ").trim() : "";
+  if (tag === "title") {
+    const match = html.match(/<title[^>]*>([^<]*)<\/title>/i);
+    return match ? match[1].replace(/\s+/g, " ").trim() : "";
+  }
+  // Docusaurus minifier drops quotes on single-token attributes (`name=description`).
+  for (const [meta] of html.matchAll(/<meta\b[^>]*>/gi)) {
+    if (!/\sname=(?:"description"|'description'|description(?=\s|>))/i.test(meta)) {
+      continue;
+    }
+    const content = meta.match(/\scontent=(?:"([^"]*)"|'([^']*)'|([^\s>]*))/i);
+    if (content) {
+      return (content[1] ?? content[2] ?? content[3] ?? "").replace(/\s+/g, " ").trim();
+    }
+  }
+  return "";
 }
 
 const pages = [];
@@ -88,6 +96,13 @@ const lines = [
   "  published API surface, machine readable.",
   `- [API reference](${SITE}/api-reference/superego): rendered endpoint`,
   "  documentation with request and response schemas.",
+  "",
+  "## Subconscious.ai Ecosystem",
+  "",
+  "- [Subconscious.ai](https://subconscious.ai/llms.txt): main site overview and article index.",
+  "- [Research & Blog](https://subconscious.ai/blog): pricing, discrete choice, validation, and competitor guides.",
+  "- [Causal Fidelity Registry](https://fidelity.subconscious.ai/llms.txt): public human-baseline replications and working papers.",
+  "- [Book a decision review](https://subconscious.ai/meet): scope a causal simulation with the team.",
   "",
 ];
 
