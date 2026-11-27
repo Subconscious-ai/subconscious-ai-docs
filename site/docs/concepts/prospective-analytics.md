@@ -79,7 +79,7 @@ demographics-only modeled attribute distributions reached 0.79 to 0.88
 Jensen-Shannon similarity against two 1,000-respondent human research waves
 without human choice data as model input. The case file records both the
 demographics-only distribution match and the detailed pricing-curve behavior
-documented in the Mintel evidence pack.
+documented in the Mintel case record across higher tested prices.
 
 In the [Finta case study](https://subconscious.ai/new/case-studies/finta), after
 modeled pricing work, the CEO reported shifting annual list pricing from $348 to
@@ -112,10 +112,10 @@ modeling in [models.subconscious.ai](https://models.subconscious.ai):
 - Three independent estimators (OLS, conditional logit, and Hierarchical Bayes
   mixed logit) run on every conjoint experiment to quantify heterogeneity and
   estimator agreement with confidence intervals.
-- Every study links directly to the public replication record in the
-  [Causal Fidelity Registry](https://fidelity.subconscious.ai/study) and
-  connects programmatically via the
-  [business decision matrix](/guides/study-compatibility),
-  [research guides](/guides/research-design),
-  [REST reference](/api-reference/superego), and
+- Published replication evidence lives openly in the
+  [Causal Fidelity Registry](https://fidelity.subconscious.ai/study); study
+  design guidance is documented in the
+  [business decision matrix](/guides/study-compatibility) and
+  [research guides](/guides/research-design), and programmatic access runs
+  through the [REST reference](/api-reference/superego) and
   [MCP tools](/reference/mcp-tools).

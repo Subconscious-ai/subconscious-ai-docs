@@ -67,8 +67,8 @@ and tested. See [Human baselines](/concepts/human-baselines).
 Traditional surveys recruit human panels and gather stated opinions weeks after
 the question is asked. Persona chatbots generate unrandomized conversational text
 without experimental controls. Subconscious.ai replaces both with randomized
-discrete choice experiments executed on representative simulated buyer
-populations.
+discrete choice experiments executed on demographically specified simulated
+buyer populations.
 
 Conjoint experiments estimate causal parameter effects (AMCEs, attribute importance, and,
 when a price attribute is included, willingness to pay) with confidence intervals
