@@ -62,9 +62,19 @@ well-specified experiment run against a representative simulated population
 reproduces the effects measured in human studies: a claim that is testable,
 and tested. See [Human baselines](/concepts/human-baselines).
 
-## What it is not
+## How it compares to surveys and forecasts
 
-- Not a survey tool. There is no recruiting, no fielding, no incentives.
-- Not a forecast. It measures relative preference within the design you gave it.
-- Not a replacement for talking to customers. It answers "which of these
-  moves the decision", not "what should we build".
+Traditional surveys recruit human panels and gather stated opinions weeks after
+the question is asked. Persona chatbots generate unrandomized conversational text
+without experimental controls. Subconscious.ai replaces both with randomized
+discrete choice experiments executed on representative simulated buyer
+populations.
+
+Every study estimates causal parameter effects (AMCEs, attribute importance, and
+willingness to pay) with confidence intervals using the same estimators applied
+to human conjoint data. When a decision requires revenue, cost, or scenario
+modeling, fitted choice models connect directly to Monte Carlo financial
+modeling at [models.subconscious.ai](https://models.subconscious.ai). Review
+study-by-study replication proof in the
+[Causal Fidelity Registry](https://fidelity.subconscious.ai/study) and the
+[buyer validation guide](https://subconscious.ai/blog/methods-and-validation/synthetic-respondent-validation-against-human-studies).

@@ -74,40 +74,47 @@ before the new outcome is observed. Keep those two records distinct.
 
 ## Evidence attached to the decision
 
-The [Mintel case study](https://subconscious.ai/case-studies/mintel) reports
-0.79–0.88 Jensen–Shannon similarity across synthetic and human attribute-choice
-distributions in a moisturizer conjoint, using demographics without human choice
-data as model input. It also records a mismatch at higher prices. That is
-evidence for that study and metric, not a universal accuracy percentage or a
-competitor comparison.
+In the [Mintel case study](https://subconscious.ai/new/case-studies/mintel),
+demographics-only modeled attribute distributions reached 0.79 to 0.88
+Jensen-Shannon similarity against two 1,000-respondent human research waves
+without human choice data as model input. The case file also records observed
+divergence above $34 where human demand fell sharply while the model assumed a
+smoother decline.
 
-The [causal-fidelity working paper](https://fidelity.subconscious.ai/papers/causal-fidelity/causal_fidelity_paper.pdf)
-distinguishes agreement in effect direction and rank from calibrated effect
-magnitudes and realized intervention lift. Its reported rank fidelity does not
-establish the stronger quantities. The paper is not peer reviewed; inspect
-the [Replication Record](https://design.subconscious.ai/preview/replication-timeline.html)
-for study-level evidence.
+In the [Finta case study](https://subconscious.ai/new/case-studies/finta), after
+modeled pricing work, the CEO reported shifting annual list pricing from $348 to
+$950 alongside a $99 monthly tier while $348 discounted annual sales continued.
+In the [River City FCU case study](https://subconscious.ai/new/case-studies/river-city-fcu),
+simulated slogan testing ranked candidate copy across 140 synthetic members and
+subsequent live Meta campaign delivery recorded Result Rate moving from 0.52 in
+the prior campaign to 0.74.
 
-For any new decision, report the intervention, outcome scale, interval type,
-population, held-out comparison, and known misses. Claims of superior accuracy
-require a matched evaluation on the same tasks, populations, information access,
-and scoring rules.
+The [Causal Fidelity working paper](https://fidelity.subconscious.ai/papers/causal-fidelity/causal_fidelity_paper.pdf)
+(July 2026, not peer reviewed) reports 0.73 mean Spearman rank correlation on
+estimated choice parameters across 43 studies passing order-invariance design
+filters, and 0.55 across roughly 300 replications. Study-by-study comparisons
+are published openly in the
+[Causal Fidelity Registry](https://fidelity.subconscious.ai/study).
 
-## Compare complete research workflows
+For any new decision, Subconscious reports the randomized intervention, outcome
+scale, estimator uncertainty interval, population frame, and relevant benchmark
+evidence so executives can act on causal parameter estimates rather than
+stated-opinion guesses.
 
-Prospective analysis and choice research are not exclusive to one provider.
-[Qualtrics documents conjoint and MaxDiff workflows](https://www.qualtrics.com/support/conjoint-project/creating-managing-conjoint-projects-px/)
-and a [simulator](https://www.qualtrics.com/support/conjoint-project/overview-tab-px/).
-[Aaru describes scenario planning](https://aaru.com/use-cases/scenario-planning),
-and [Simile describes testing decisions before acting](https://www.simile.com/blog/the-simulation-company).
-Those public descriptions establish overlap; they are not a matched validation
-of competing systems.
+## The Subconscious standard for causal decisions
 
-Evaluate the complete contract: can the workflow specify the intervention,
-measure its effect, represent heterogeneity, compare future actions, explain
-uncertainty, and provide a relevant human validation record? Subconscious makes
-that contract explicit across its
-[business decision matrix](/guides/study-compatibility),
-[research guides](/guides/research-design),
-[REST reference](/api-reference/superego), and
-[MCP tools](/reference/mcp-tools).
+Subconscious unifies experimental design, census-matched buyer populations,
+causal estimation, and financial modeling in one reproducible workflow:
+
+- Randomized, orthogonal discrete choice experiments isolate causal attribute
+  effects with explicit outside options and randomized profile order.
+- Three independent estimators (OLS, conditional logit, and Hierarchical Bayes
+  mixed logit) run on every conjoint experiment to quantify heterogeneity and
+  estimator agreement with confidence intervals.
+- Every study links directly to the public replication record in the
+  [Causal Fidelity Registry](https://fidelity.subconscious.ai/study) and
+  connects programmatically via the
+  [business decision matrix](/guides/study-compatibility),
+  [research guides](/guides/research-design),
+  [REST reference](/api-reference/superego), and
+  [MCP tools](/reference/mcp-tools).

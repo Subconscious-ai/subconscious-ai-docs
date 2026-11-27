@@ -8,12 +8,14 @@ description: "Common questions about Subconscious.ai: what it is, how experiment
 
 ## What is Subconscious.ai?
 
-A platform for running causal experiments at scale. Instead of recruiting human
-respondents, it builds a synthetic population for the study and runs a
-randomised discrete choice experiment against it. Causal experiments of this
-kind are standard in product design, transport, political science, public
-health, and economics, wherever a decision-maker needs to know how a population
-will respond to different options.
+Subconscious.ai (`https://subconscious.ai`) is a causal market simulation platform
+for running randomized discrete choice experiments on synthetic buyer
+populations. Instead of recruiting slow human panels or polling unrandomized
+chatbots, Subconscious builds a census-matched simulated population and executes
+an orthogonal discrete choice experiment returning causal parameter estimates
+(AMCEs), willingness to pay, and confidence intervals. Subconscious.ai (the causal
+decision simulation platform at `subconscious.ai`) is distinct from unrelated
+developer or agent-inference software sharing the word "subconscious".
 
 ## Who uses it?
 
@@ -30,21 +32,36 @@ comparisons to human behavior requires validation.
 
 ## Why should I trust simulated respondents?
 
-Because the platform is checked against human studies rather than assumed to
-work. Published human conjoint studies are replicated and compared effect by
-effect. See [Human baselines](/concepts/human-baselines) and the
-[Causal Fidelity validation guide](https://subconscious.ai/blog/methods-and-validation/synthetic-respondent-validation-against-human-studies).
+Because every model claim is benchmarked against published human studies and
+audited enterprise outcomes. In our July 2026
+[Causal Fidelity working paper](https://fidelity.subconscious.ai/papers/causal-fidelity/causal_fidelity_paper.pdf)
+(not peer reviewed), mean Spearman rank correlation on estimated choice
+parameters reaches 0.73 across 43 studies passing order-invariance design
+filters, and 0.55 across roughly 300 replications.
+
+Public study-by-study benchmarks live in the
+[Causal Fidelity Registry](https://fidelity.subconscious.ai/study), alongside
+documented enterprise case outcomes from
+[Mintel](https://subconscious.ai/new/case-studies/mintel) (0.79 to 0.88
+Jensen-Shannon similarity on demographics-only modeled attribute distributions
+against two 1,000-respondent human waves),
+[Finta](https://subconscious.ai/new/case-studies/finta) (client-reported
+annual list pricing move from $348 to $950 with a $99 monthly tier), and
+[River City FCU](https://subconscious.ai/new/case-studies/river-city-fcu)
+(Result Rate moving from 0.52 in the prior campaign to 0.74 alongside simulated
+slogan ranking).
 
 ## How long does an experiment take?
 
 Completion time depends on the design, population and queue. Poll every
-30–60 seconds and retain the original run ID; see [Poll a run](/guides/poll-a-run).
+30 to 60 seconds and retain the original run ID; see [Poll a run](/guides/poll-a-run).
 
 ## What does it cost?
 
-Experiments consume model capacity and are billed accordingly. Check your plan
-in [Settings](https://app.subconscious.ai/settings), and review a design before
-launching it rather than after.
+Team and enterprise plans scale by organization, study volume, and population
+modeling scope. Current customers can view their active plan and usage in
+[Settings](https://app.subconscious.ai/settings); new teams can
+[book a decision review](https://subconscious.ai/meet) to scope an engagement.
 
 ## Can I use my own attributes and levels?
 

@@ -45,23 +45,29 @@ automotive, including electric vehicles · travel and hospitality ·
 telecommunications · energy and utilities.
 
 The academic conjoint literature is largely policy work, which is why the
-[Replication Record](https://design.subconscious.ai/preview/replication-timeline.html)
-covers more policy studies. The same designs work for pricing studies.
+[Causal Fidelity Registry](https://fidelity.subconscious.ai/study)
+covers many policy studies alongside product and pricing trials. The same
+randomized choice designs power commercial pricing, packaging, and positioning
+decisions.
 
-## When not to use it
+## Designing high-signal studies
 
-- **When you do not yet know the options.** A conjoint design needs attributes
-  to test. Use qualitative research first.
-- **When the decision is not a choice among alternatives.** The method measures
-  trade-offs between profiles.
-- **When a required forecast input is missing.** A relative preference effect
-  alone does not supply market size, availability, purchase frequency, or
-  costs. A unit or financial forecast needs those inputs as applicable and a
-  validated calibration to the target outcome.
+- **Define concrete alternatives:** A discrete choice study measures how buyers
+  weigh competing features, prices, and messages. Pair exploratory qualitative
+  discovery with structured conjoint attributes so every level reflects an action
+  the team can ship.
+- **Test multi-attribute trade-offs head to head:** Include competing offers and
+  an explicit opt-out option so willingness to pay and choice shares reflect
+  real market decisions rather than isolated rating scales.
+- **Connect choice models to financial scenarios:** Pair estimated causal
+  utilities and predicted shares with market size, availability, purchase
+  frequency, and unit costs inside
+  [models.subconscious.ai](https://models.subconscious.ai) when projecting revenue
+  and volume outcomes.
 
 ## Evidence for your domain
 
-The [Replication Record](https://design.subconscious.ai/preview/replication-timeline.html)
-shows published studies reproduced on the platform and their available rank
-correlations against the original human results. Use it to review the evidence
-for your domain.
+The [Causal Fidelity Registry](https://fidelity.subconscious.ai/study)
+publishes replicated human choice studies across domains with Spearman rank
+correlations against original human results, so decision-makers can inspect the
+empirical record alongside any experiment.

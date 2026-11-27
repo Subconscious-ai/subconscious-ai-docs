@@ -232,6 +232,18 @@ const config: Config = {
             "@id": "https://subconscious.ai/#organization",
             name: "Subconscious.ai",
             url: "https://subconscious.ai",
+            sameAs: [
+              "https://www.linkedin.com/company/subconscious-ai",
+              "https://github.com/Subconscious-ai",
+              "https://x.com/subconscious_ai",
+              "https://www.youtube.com/@AviSubconscious",
+              "https://www.crunchbase.com/organization/subconscious-ai",
+              "https://fidelity.subconscious.ai",
+              "https://models.subconscious.ai",
+              "https://docs.subconscious.ai",
+              "https://world.subconscious.ai",
+              "https://trust.subconscious.ai",
+            ],
           },
         },
         {
