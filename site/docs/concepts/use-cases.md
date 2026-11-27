@@ -50,7 +50,7 @@ covers many policy studies alongside product and pricing trials. The same
 randomized choice designs power commercial pricing, packaging, and positioning
 decisions.
 
-## Designing high-signal studies
+## Designing decisive studies
 
 - **Define concrete alternatives:** A discrete choice study measures how buyers
   weigh competing features, prices, and messages. Pair exploratory qualitative

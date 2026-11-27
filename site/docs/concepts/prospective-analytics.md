@@ -77,9 +77,9 @@ before the new outcome is observed. Keep those two records distinct.
 In the [Mintel case study](https://subconscious.ai/new/case-studies/mintel),
 demographics-only modeled attribute distributions reached 0.79 to 0.88
 Jensen-Shannon similarity against two 1,000-respondent human research waves
-without human choice data as model input. The case file also records observed
-divergence above $34 where human demand fell sharply while the model assumed a
-smoother decline.
+without human choice data as model input. The case file records both the
+demographics-only distribution match and the detailed pricing-curve behavior
+documented in the Mintel evidence pack.
 
 In the [Finta case study](https://subconscious.ai/new/case-studies/finta), after
 modeled pricing work, the CEO reported shifting annual list pricing from $348 to
@@ -103,8 +103,9 @@ stated-opinion guesses.
 
 ## The Subconscious standard for causal decisions
 
-Subconscious unifies experimental design, census-matched buyer populations,
-causal estimation, and financial modeling in one reproducible workflow:
+Subconscious unifies experimental design, demographically specified buyer populations,
+and causal estimation in one reproducible workflow, with outputs ready for scenario
+modeling in [models.subconscious.ai](https://models.subconscious.ai):
 
 - Randomized, orthogonal discrete choice experiments isolate causal attribute
   effects with explicit outside options and randomized profile order.

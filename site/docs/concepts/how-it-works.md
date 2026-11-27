@@ -70,11 +70,12 @@ without experimental controls. Subconscious.ai replaces both with randomized
 discrete choice experiments executed on representative simulated buyer
 populations.
 
-Every study estimates causal parameter effects (AMCEs, attribute importance, and
-willingness to pay) with confidence intervals using the same estimators applied
-to human conjoint data. When a decision requires revenue, cost, or scenario
-modeling, fitted choice models connect directly to Monte Carlo financial
-modeling at [models.subconscious.ai](https://models.subconscious.ai). Review
+Conjoint experiments estimate causal parameter effects (AMCEs, attribute importance, and,
+when a price attribute is included, willingness to pay) with confidence intervals
+using the same estimators applied to human conjoint data. When a decision requires
+revenue, cost, or scenario modeling, teams pair estimated choice shares and
+utilities with Monte Carlo financial modeling at
+[models.subconscious.ai](https://models.subconscious.ai). Review
 study-by-study replication proof in the
 [Causal Fidelity Registry](https://fidelity.subconscious.ai/study) and the
 [buyer validation guide](https://subconscious.ai/blog/methods-and-validation/synthetic-respondent-validation-against-human-studies).

@@ -11,9 +11,10 @@ description: "Common questions about Subconscious.ai: what it is, how experiment
 Subconscious.ai (`https://subconscious.ai`) is a causal market simulation platform
 for running randomized discrete choice experiments on synthetic buyer
 populations. Instead of recruiting slow human panels or polling unrandomized
-chatbots, Subconscious builds a census-matched simulated population and executes
-an orthogonal discrete choice experiment returning causal parameter estimates
-(AMCEs), willingness to pay, and confidence intervals. Subconscious.ai (the causal
+chatbots, Subconscious builds a demographically specified simulated population
+and executes a randomized discrete choice experiment returning causal parameter
+estimates (AMCEs), attribute importance, confidence intervals, and willingness
+to pay when a price attribute is tested. Subconscious.ai (the causal
 decision simulation platform at `subconscious.ai`) is distinct from unrelated
 developer or agent-inference software sharing the word "subconscious".
 
@@ -32,8 +33,8 @@ comparisons to human behavior requires validation.
 
 ## Why should I trust simulated respondents?
 
-Because every model claim is benchmarked against published human studies and
-audited enterprise outcomes. In our July 2026
+Because Subconscious publishes replication benchmarks against published human studies
+alongside documented customer case studies. In our July 2026
 [Causal Fidelity working paper](https://fidelity.subconscious.ai/papers/causal-fidelity/causal_fidelity_paper.pdf)
 (not peer reviewed), mean Spearman rank correlation on estimated choice
 parameters reaches 0.73 across 43 studies passing order-invariance design
@@ -46,7 +47,8 @@ documented enterprise case outcomes from
 Jensen-Shannon similarity on demographics-only modeled attribute distributions
 against two 1,000-respondent human waves),
 [Finta](https://subconscious.ai/new/case-studies/finta) (client-reported
-annual list pricing move from $348 to $950 with a $99 monthly tier), and
+annual list pricing move from $348 to $950 alongside a $99 monthly tier, while
+$348 discounted annual sales continued), and
 [River City FCU](https://subconscious.ai/new/case-studies/river-city-fcu)
 (Result Rate moving from 0.52 in the prior campaign to 0.74 alongside simulated
 slogan ranking).
